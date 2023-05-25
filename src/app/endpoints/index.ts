@@ -1,4 +1,4 @@
 export default {
-    LOGIN: 'https://dummyjson.com/auth/login',
-    SIGNUP: ''
+    LOGIN: '',
+    SIGNUP: 'localhost:3000/invoice-api/loginx/sign-up'
 }

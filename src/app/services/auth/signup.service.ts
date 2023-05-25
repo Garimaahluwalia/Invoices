@@ -1,6 +1,6 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import endpoints from 'src/app/endpoints';
 
 @Injectable({
@@ -8,10 +8,10 @@ import endpoints from 'src/app/endpoints';
 })
 export class SignupService {
 
+  constructor(public http: HttpClient) { }
 
-  constructor(public http: HttpClientModule) { }
-
-  //  signup(payload:any):Observable<any>{
-  //   return this.http.post<any>(endpoints.SIGNUP, payload)
-  //  }
+  signup(payload: any): Observable<any> {
+    return this.http.post<any>(endpoints.LOGIN, payload);
+  }
 }
+
