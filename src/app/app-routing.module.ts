@@ -24,6 +24,7 @@ const routes: Routes = [
     path: ROUTELINKS.DASHBOARD,
     component: DashboardComponent
   }
+  
 ];
 
 @NgModule({

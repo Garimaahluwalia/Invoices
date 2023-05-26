@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { LoginDirective } from './directives/login.directive';
+import { SignupDirective } from './directives/signup.directive';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -63,15 +65,18 @@ const customNotifierOptions: NotifierOptions = {
     InvoiceComponent,
     DashboardComponent,
     MainComponent,
-    ValidationDirective
+    ValidationDirective,
+    LoginDirective,
+    SignupDirective,
+
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    NotifierModule.withConfig(customNotifierOptions),
     HttpClientModule,
     AppRoutingModule,
-    NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,4 +17,17 @@ export class LoginService {
   login(payload: any):Observable<any>{
     return this.http.post<any>(endpoints.LOGIN, payload);
   }
+
+  set user(user:any | null){
+    this._user = user;
+  }
+
+  get user():any | null {
+    return this._user;
+  }
+
+  removeUserSession(){
+    this.user = null;
+    localStorage.clear();
+  }
 }

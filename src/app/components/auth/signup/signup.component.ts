@@ -16,25 +16,28 @@ export class SignupComponent implements OnInit{
    
   }
 
-  constructor(public signupService: SignupService, public route: Router, public router: ActivatedRoute,public notifierService: NotifierService){}
+  constructor(public signupService: SignupService, public route: Router, public router: ActivatedRoute,public notifierService: NotifierService){
+    this.notifier = notifierService;
+  }
 
 
   submit(f:NgForm){
     const signupData = {
      name :f.value.name,
-     Email : f.value.email,
+     email : f.value.email,
      password : f.value.password
     };
     console.log(signupData, "signupData")
 
     this.signupService.signup(signupData).subscribe((res:any)=> {
       this.signupData = res;
+      this.notifier.notify('success', 'signup successfully ');
       console.log(this.signupData, "signUp")
  
     }, (error:any) => {
       console.error(error);
       if(error.error){
-        
+        this.notifier.notify('error', 'Invalid ');
       }
     })
    

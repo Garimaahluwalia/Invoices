@@ -11,7 +11,7 @@ export class SignupService {
   constructor(public http: HttpClient) { }
 
   signup(payload: any): Observable<any> {
-    return this.http.post<any>(endpoints.LOGIN, payload);
+    return this.http.post<any>(endpoints.SIGNUP, payload);
   }
 }
 
