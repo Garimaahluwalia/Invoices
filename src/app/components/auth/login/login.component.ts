@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
-import { NotificationService } from 'src/app/services/notifications/notification.service';
 import { AppComponent } from 'src/app/app.component';
 import { NotifierService } from 'angular-notifier';
 import { LoginDirective } from 'src/app/directives/login.directive';
@@ -21,10 +20,8 @@ export class LoginComponent {
   @ViewChild(LoginDirective, { static: false }) LoginDirective!: LoginDirective;
   userlogin: any;
   private readonly notifier!: NotifierService;
-  constructor(public route: Router, public loginService: LoginService, public notifyService: NotificationService, public appcomponent: AppComponent, public notifierService: NotifierService) {
+  constructor(public route: Router, public loginService: LoginService, public appcomponent: AppComponent, public notifierService: NotifierService) {
     this.notifier = notifierService;
-
-
   }
   ngOnInit(): void {
 
