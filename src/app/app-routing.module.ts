@@ -5,11 +5,21 @@ import { LoginGuard } from './guards/login.guard';
 import { ROUTELINKS } from './constants/routes';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
+import { MainComponent } from './components/layout/main/main.component';
+import { AuthService } from './services/auth/auth.service';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
-    path : "",
-    component: LoginComponent
+    path: "",
+    component: MainComponent,
+    canActivate: [AuthService],
+    children: [
+      {
+        path: "",
+        component: DashboardComponent
+      }
+    ]
   },
   {
     path : ROUTELINKS.LOGIN,
@@ -21,8 +31,12 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: ROUTELINKS.DASHBOARD,
-    component: DashboardComponent
+    path : ROUTELINKS.RESET_PASSWORD,
+    component : ResetPasswordComponent
+  },
+  {
+    path: ROUTELINKS.MAINLAYOUT,
+    component: MainComponent
   }
   
 ];

@@ -3,7 +3,7 @@ import { environment } from "src/environments/environment.development"
 
 
 const endpoints = {
-    LOGIN: `${environment.BASE_URL}/login`,
+    LOGIN: `https://postman-echo.com/basic-auth`,
     SIGNUP: `${environment.BASE_URL}/signupx`
   };
   

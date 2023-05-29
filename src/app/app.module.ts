@@ -14,6 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { LoginDirective } from './directives/login.directive';
 import { SignupDirective } from './directives/signup.directive';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -68,6 +73,11 @@ const customNotifierOptions: NotifierOptions = {
     ValidationDirective,
     LoginDirective,
     SignupDirective,
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent,
+    ResetPasswordComponent,
+    AddInvoicesComponent,
 
   ],
   imports: [

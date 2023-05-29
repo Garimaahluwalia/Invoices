@@ -1,6 +1,7 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
+import { LoginService } from '../services/auth/login.service';
 
 @Directive({
   selector: '[appLogin][ngModel]',
@@ -12,18 +13,44 @@ import { Observable, of } from 'rxjs';
 })
 export class LoginDirective {
 
-  constructor() { }
+  constructor(public loginService:LoginService) { }
 
-  validate(control:AbstractControl): Observable<ValidationErrors | null> {
+  validateEmail(control: AbstractControl): Observable<ValidationErrors | null> {
     const value = control.value;
     console.log(value, "Validation value");
-    const email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if(!control.value || !email.test(control.value)){
-      return of({invalidEmail:true});
+    if (value && value.trim() !== "") {
+      return this.loginService.sendPostlogin({ login: value }).pipe(
+        map((res: { [key: string]: boolean | string }) => {
+          console.log(res, "VALIDATIONS RESPONSE");
+          if (res["isEmailExists"]) {
+            return { isEmailExists: true };
+          } else {
+            return null;
+          }
+        }),
+        catchError(() => of(null))
+      );
     }
+    return of(null);
+  }
 
-    return of(null)
-    
+  validatePassword(control: AbstractControl): Observable<ValidationErrors | null> {
+    const value = control.value;
+    console.log(value, "Validation value");
+    if (value && value.trim() !== "") {
+      return this.loginService.sendPostlogin({ login: value }).pipe(
+        map((res: { [key: string]: boolean | string }) => {
+          console.log(res, "VALIDATIONS RESPONSE");
+          if (res["ispasswordExists"]) {
+            return { ispasswordExists: true };
+          } else {
+            return null;
+          }
+        }),
+        catchError(() => of(null))
+      );
+    }
+    return of(null);
   }
  
  }

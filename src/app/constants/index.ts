@@ -1,2 +1,3 @@
 export const AUTHORIZATION_TOKEN = 'token';
+export const USER_DATA = 'USER_DATA';
 export const AUTHORIZATION_FAILED = 'AUTHORIZATION_FAILED'
