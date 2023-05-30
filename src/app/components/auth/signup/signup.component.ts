@@ -12,9 +12,13 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
+  // @ViewChild(SignupDirective, { static: false }) SignupDirective!: SignupDirective;
 
   signupData: any;
-
+  email !: string;
+  username !: string;
+  password!: string;
+  showPassword: boolean = false;
   private readonly notifier!: NotifierService;
   ngOnInit(): void {
 
@@ -28,14 +32,13 @@ export class SignupComponent implements OnInit {
 
 
   submit(f: NgForm) {
-    const signupData = {
-      username: f.value.username,
-      email: f.value.email,
-      password: f.value.password
-    };
-    console.log(signupData, "signupData")
 
-    this.signupService.signup(signupData).subscribe((res: any) => {
+    this.username = f.value.username,
+      this.email = f.value.email,
+      this.password = f.value.password
+
+
+    this.signupService.signup({ username: this.username, email: this.email, password: this.password }).subscribe((res: any) => {
       this.signupData = res;
       this.signupForm.reset();
       this.notifier.notify('success', 'signup successfully ');
@@ -49,5 +52,8 @@ export class SignupComponent implements OnInit {
     })
 
 
+  }
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

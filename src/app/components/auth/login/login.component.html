@@ -82,9 +82,10 @@
                                                         <div class="mb-2">
                                                             <label for="inputPassword" class="form-label">Password</label>
                                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                                <input type="password" class="form-control pe-5 password-input" name="password" #password="ngModel" ngModel placeholder="Enter password" id="password-input">
-                                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="las la-eye align-middle fs-18"></i></button>
-                                                           </div>
+                                                                <input type="password" class="form-control pe-5 password-input" [type]="showPassword ? 'text' : 'password'" name="password" #password="ngModel" ngModel placeholder="Enter password" id="password-input">
+                                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" (click)="togglePasswordVisibility()">
+                                                                    <i class="fa" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}"></i>
+                                                                  </button>                                                           </div>
                                                         </div>
 
             

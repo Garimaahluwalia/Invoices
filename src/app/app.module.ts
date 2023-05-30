@@ -7,18 +7,17 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { InvoiceComponent } from './components/invoices/invoice/invoice.component';
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { MainComponent } from './components/layout/main/main.component';
-import { ValidationDirective } from './directives/validation.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
-import { LoginDirective } from './directives/login.directive';
-import { SignupDirective } from './directives/signup.directive';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
+import { EmailDirective } from './directives/email.directive';
+import { UsernameDirective } from './directives/username.directive';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -70,20 +69,21 @@ const customNotifierOptions: NotifierOptions = {
     InvoiceComponent,
     DashboardComponent,
     MainComponent,
-    ValidationDirective,
-    LoginDirective,
-    SignupDirective,
+   
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
     ResetPasswordComponent,
     AddInvoicesComponent,
+    EmailDirective,
+    UsernameDirective,
 
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     NotifierModule.withConfig(customNotifierOptions),
     HttpClientModule,
     AppRoutingModule,

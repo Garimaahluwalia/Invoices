@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { AppComponent } from 'src/app/app.component';
 import { NotifierService } from 'angular-notifier';
-import { LoginDirective } from 'src/app/directives/login.directive';
 import { UserLogin } from 'src/app/types/userLogin';
 
 
@@ -17,8 +16,9 @@ import { UserLogin } from 'src/app/types/userLogin';
 })
 export class LoginComponent {
   @ViewChild('loginForm', { static: false }) loginForm!: NgForm;
-  @ViewChild(LoginDirective, { static: false }) LoginDirective!: LoginDirective;
+
   userlogin: any;
+  showPassword: boolean = false;
   private readonly notifier!: NotifierService;
   constructor(public route: Router, public loginService: LoginService, public appcomponent: AppComponent, public notifierService: NotifierService) {
     this.notifier = notifierService;
@@ -42,6 +42,9 @@ export class LoginComponent {
     }
    })
     
+  }
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
 
