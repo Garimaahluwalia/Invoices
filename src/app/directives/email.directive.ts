@@ -25,7 +25,7 @@ export class EmailDirective {
       return this.signupService.checkEmailExist({ email: value }).pipe(
         map((res: { [key: string]: boolean | string }) => {
           console.log(res, "VALIDATIONS RESPONSE");
-          if (res) {
+          if (res && !res?.['data']) {
             return { isExists: true };
           } else {
             return null;

@@ -7,7 +7,7 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { InvoiceComponent } from './components/invoices/invoice/invoice.component';
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { MainComponent } from './components/layout/main/main.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
@@ -18,6 +18,12 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
 import { EmailDirective } from './directives/email.directive';
 import { UsernameDirective } from './directives/username.directive';
+import { InvoicedataComponent } from './components/invoices/add-invoices/invoicedata/invoicedata.component';
+import { CompanyaddressComponent } from './components/invoices/add-invoices/companyaddress/companyaddress.component';
+import { ShippingaddressComponent } from './components/invoices/add-invoices/shippingaddress/shippingaddress.component';
+import { BillingaddressComponent } from './components/invoices/add-invoices/billingaddress/billingaddress.component';
+import { ProductdetailsComponent } from './components/invoices/add-invoices/productdetails/productdetails.component';
+import { ViewEncapsulation } from '@angular/compiler';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -77,6 +83,11 @@ const customNotifierOptions: NotifierOptions = {
     AddInvoicesComponent,
     EmailDirective,
     UsernameDirective,
+    InvoicedataComponent,
+    CompanyaddressComponent,
+    ShippingaddressComponent,
+    BillingaddressComponent,
+    ProductdetailsComponent,
 
   ],
   imports: [

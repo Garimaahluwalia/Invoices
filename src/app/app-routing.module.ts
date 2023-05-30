@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
 import { InvoiceComponent } from './components/invoices/invoice/invoice.component';
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
 
+
 const routes: Routes = [
   {
     path: "",
@@ -47,9 +48,9 @@ const routes: Routes = [
   },
   {
     path : INVOICES.ADD_INVOICE,
-    component: AddInvoicesComponent
-  }
-  
+    component: AddInvoicesComponent,
+   
+  }, 
 ];
 
 @NgModule({

@@ -1,0 +1,87 @@
+<div class="card-body p-4 border-top border-top-dashed">
+    <div class="row">
+        <div class="col-lg-4 col-sm-6" ngModelGroup="billing">
+            <div>
+                <label for="billingName" class="text-muted text-uppercase fw-semibold">Billing
+                    Address</label>
+            </div>
+            <div class="mb-2" ngModelGroup="billing">
+                <input type="text" class="form-control bg-light border-0" id="billingName"
+                    placeholder="Full Name"  name="FullName" required />
+                <div class="invalid-feedback">
+                    Please enter a full name
+                </div>
+            </div>
+            <div class="mb-2" ngModelGroup="billing">
+                <textarea class="form-control bg-light border-0" id="billingAddress" rows="3"
+                    placeholder="Address" required  name="Address" ></textarea>
+                <div class="invalid-feedback">
+                    Please enter a address
+                </div>
+            </div>
+            <div class="mb-2" ngModelGroup="billing">
+                <input type="text" class="form-control bg-light border-0" data-plugin="cleave-phone"
+                    id="billingPhoneno" placeholder="(123)456-7890" name="PhoneNumber" required />
+                <div class="invalid-feedback">
+                    Please enter a phone number
+                </div>
+            </div>
+            <div class="mb-3" ngModelGroup="billing">
+                <input type="text" class="form-control bg-light border-0" id="billingTaxno"
+                    placeholder="Tax Number" name="TaxNumber" required />
+                <div class="invalid-feedback">
+                    Please enter a tax number
+                </div>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="same" name="same"
+                    onchange="billingFunction()"  />
+                <label class="form-check-label" for="same">
+                    Will your Billing and Shipping address same?
+                </label>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 ms-auto">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div>
+                        <label for="shippingName"
+                            class="text-muted text-uppercase fw-semibold">Shipping Address</label>
+                    </div>
+                    <div class="mb-2" ngModelGroup="shipping">
+                        <input type="text" class="form-control bg-light border-0" id="shippingName"
+                            placeholder="Full Name" name="FullName" />
+                        <div class="invalid-feedback">
+                            Please enter a full name
+                        </div>
+                    </div>
+                    <div class="mb-2" ngModelGroup="shipping">
+                        <textarea class="form-control bg-light border-0" id="shippingAddress"
+                            rows="3" placeholder="Address" name="Address"></textarea>
+                        <div class="invalid-feedback">
+                            Please enter a address
+                        </div>
+                    </div>
+                    <div class="mb-2" ngModelGroup="shipping">
+                        <input type="text" class="form-control bg-light border-0"
+                            data-plugin="cleave-phone" id="shippingPhoneno"
+                            placeholder="(123)456-7890" required  name="PhoneNumber" />
+                        <div class="invalid-feedback">
+                            Please enter a phone number
+                        </div>
+                    </div>
+                    <div ngModelGroup="shipping">
+                        <input type="text" class="form-control bg-light border-0" id="shippingTaxno"
+                            placeholder="Tax Number" required   name="TaxNumber" />
+                        <div class="invalid-feedback">
+                            Please enter a tax number
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+  
+</div>

@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { ControlContainer, NgForm,} from '@angular/forms';
+
+
 @Component({
-  selector: 'app-add-invoices',
-  templateUrl: './add-invoices.component.html',
-  styleUrls: ['./add-invoices.component.css']
+  selector: 'app-companyaddress',
+  templateUrl: './companyaddress.component.html',
+  styleUrls: ['./companyaddress.component.css'],
+  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
-export class AddInvoicesComponent implements OnInit {
+export class CompanyaddressComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
+  ngOnInit(): void {
+   
+  }
   model: any = {
-    invoice: {
-      InvoiceNo: "121111"
-    },
     invoiceNumber: 'sfjhfdjg',
     fkhdkfhsd: "dsh",
     company: {
@@ -55,30 +56,4 @@ export class AddInvoicesComponent implements OnInit {
       accountNumber: ''
     }
   };
-  public invoiceData: any;
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      const form = this.InvoiceForm.value;
-      this.InvoiceForm.control.patchValue(this.model);
-     /*  console.log(form, "hfhsjf"); */
-    }, 200)
-  }
-
-  submit(f: NgForm) {
-    
-    this.invoiceData = f.value;
-    console.log(this.model, "modelData");
-  }
-  
-
-
-
-
-
-
-
 }

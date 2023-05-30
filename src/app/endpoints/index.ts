@@ -1,12 +1,12 @@
-import { environment } from "src/environments/environment.development"
-
-
+import { environment } from "src/environments/environment.development";
 
 const endpoints = {
     LOGIN: `${environment.BASE_URL}/login`,
     SIGNUP: `${environment.BASE_URL}/signupx`,
-    EMAIL: `${environment.BASE_URL}/check-email`,
-    USERNAME: `${environment.BASE_URL}/check-username`,
+    CHECKEMAIL: `${environment.BASE_URL}/check-email`,
+    CHECKUSERNAME: `${environment.BASE_URL}/check-username`,
+    RESET_PASSWORD : `${environment.BASE_URL}/` ,
+    LOGOUT : `${environment.BASE_URL}`,
 
 
     INVOICES : {

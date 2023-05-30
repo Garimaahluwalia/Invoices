@@ -23,7 +23,7 @@ export class UsernameDirective {
       return this.signupService.checkUsernameExist({ username: value }).pipe(
         map((res: { [key: string]: boolean | string }) => {
           console.log(res, "VALIDATIONS RESPONSE");
-          if (res) {
+          if(res && !res?.['data']) {
             return { isExists: true };
           } else {
             return null;

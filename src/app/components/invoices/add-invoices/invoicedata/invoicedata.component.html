@@ -1,0 +1,49 @@
+<div class="card-body border-bottom border-bottom-dashed p-4" ngModelGroup="invoice">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row g-3">
+                <div class="col-lg-8 col-sm-6">
+                    <label for="invoicenoInput">Invoice No</label>
+                    <input name="InvoiceNo" #invoiceNumber="ngModel" ngModel type="text"
+                        class="form-control bg-light border-0" id="invoicenoInput" placeholder="Invoice No"
+                        value="#VL25000355" readonly="readonly">
+                </div>
+                <!--end col-->
+                <div class="col-lg-8 col-sm-6">
+                    <div>
+                        <label for="date-field">Date</label>
+                        <input type="text" class="form-control bg-light border-0 flatpickr-input" id="date-field"
+                            data-provider="flatpickr" data-time="true" placeholder="Select Date-time"
+                            readonly="readonly" name="Date">
+                    </div>
+                </div>
+                <!--end col-->
+                <div class="col-lg-8 col-sm-6">
+                    <label for="choices-payment-status">Payment Status</label>
+                    <div class="input-light">
+                        <select name="sdkhsjk" ngModel class="form-control bg-light border-0" data-choices
+                            data-choices-search-false id="choices-payment-status" required>
+                            <option value="">Select Payment Status</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Unpaid">Unpaid</option>
+                            <option value="Refund">Refund</option>
+                        </select>
+                    </div>
+                </div>
+                <!--end col-->
+                <div class="col-lg-8 col-sm-6">
+                    <div>
+                        <label for="totalamountInput">Total Amount</label>
+                        <input type="text" name="dfdf" class="form-control bg-light border-0" id="totalamountInput"
+                            placeholder="$0.00" readonly="">
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+
+        </div>
+        <!--end col-->
+
+    </div>
+    <!--end row-->
+</div>
