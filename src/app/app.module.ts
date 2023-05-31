@@ -24,6 +24,7 @@ import { ShippingaddressComponent } from './components/invoices/add-invoices/shi
 import { BillingaddressComponent } from './components/invoices/add-invoices/billingaddress/billingaddress.component';
 import { ProductdetailsComponent } from './components/invoices/add-invoices/productdetails/productdetails.component';
 import { ViewEncapsulation } from '@angular/compiler';
+import { PaymentdetailsComponent } from './components/invoices/add-invoices/paymentdetails/paymentdetails.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -88,6 +89,7 @@ const customNotifierOptions: NotifierOptions = {
     ShippingaddressComponent,
     BillingaddressComponent,
     ProductdetailsComponent,
+    PaymentdetailsComponent,
 
   ],
   imports: [

@@ -13,47 +13,5 @@ export class CompanyaddressComponent implements OnInit {
   ngOnInit(): void {
    
   }
-  model: any = {
-    invoiceNumber: 'sfjhfdjg',
-    fkhdkfhsd: "dsh",
-    company: {
-      name: 'sdffdfs',
-      postalCode: 'dsfsds',
-      contact: 'sddff',
-      emailaddress: 'sdfdf',
-      website: 'sdfd',
-      contactNo: 'dsffsd'
-    },
-    billing: {
-      address: {
-        fullName: '',
-        address: '',
-        phoneNo: '',
-        taxnumber: '',
-        postalCode: '',
-        country: ''
-      },
-      name: ''
-    },
-    shipping: {
-      address: {
-        fullName: '',
-        address: '',
-        phoneNo: '',
-        taxnumber: '',
-        postalCode: '',
-        country: ''
-      },
-      name: ''
-    },
-    productDetails: {
-      productName: '',
-      productDescription: ''
-    },
-    paymentDetails: {
-      paymentMethod: '',
-      cardHolderName: '',
-      accountNumber: ''
-    }
-  };
+
 }

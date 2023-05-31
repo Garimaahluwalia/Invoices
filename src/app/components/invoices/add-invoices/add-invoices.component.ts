@@ -69,7 +69,6 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   submit(f: NgForm) {
-    
     this.invoiceData = f.value;
     console.log(this.model, "modelData");
   }
