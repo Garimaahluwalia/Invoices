@@ -7,8 +7,9 @@ import endpoints from 'src/app/endpoints';
   providedIn: 'root'
 })
 export class InvoiceService {
-
+  public Invoices: Invoice | undefined;
   constructor(private http: HttpClient) { }
+
 
   createInvoice(invoice: Invoice): Observable<Invoice> {
     return this.http.post<Invoice>(endpoints.INVOICES.CREATE, invoice);

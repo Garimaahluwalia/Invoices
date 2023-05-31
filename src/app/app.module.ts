@@ -76,7 +76,6 @@ const customNotifierOptions: NotifierOptions = {
     InvoiceComponent,
     DashboardComponent,
     MainComponent,
-   
     HeaderComponent,
     FooterComponent,
     SidebarComponent,

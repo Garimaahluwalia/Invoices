@@ -15,6 +15,9 @@ const endpoints = {
       UPDATE : (InvoiceId: string) => `/${InvoiceId}`,
       GETALL : '',
       DELETE: (InvoiceId: string) => `/${InvoiceId}`,
+    },
+    ADD_INVOICES : {
+      ADD: `${environment.BASE_URL}/invoices`,
     }
   }
   

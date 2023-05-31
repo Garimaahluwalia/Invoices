@@ -14,13 +14,6 @@ export class LoginService {
   private _user: UserLogin | null = null;
 
   constructor(public http: HttpClient) { }
-
-
-
-
-
-
-
   // performBasicAuthRequest(username: string, password: string): Promise<any> {
   //  let basicAuthCreddentials = btoa(`${username}:${password}`);
   //   const headers = new HttpHeaders({
@@ -56,7 +49,6 @@ export class LoginService {
     this.user = user;
     localStorage.setItem(USER_DATA, JSON.stringify(user));
     localStorage.setItem(AUTHORIZATION_TOKEN, user.token);
-
   }
 
   removeUserSession() {

@@ -10,5 +10,4 @@ import { ControlContainer, NgForm } from '@angular/forms';
 })
 export class InvoicedataComponent {
   @Input() invoice!: { [key: string]: string | number }
-
 }

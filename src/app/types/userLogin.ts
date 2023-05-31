@@ -2,8 +2,6 @@ export interface IUserLoginDetails {
     username: string,
     password: string
 }
-
-
 export interface UserLogin{
     name: string;
     email: string;

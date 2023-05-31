@@ -15,11 +15,11 @@ export class SignupService {
     return this.http.post<any>(endpoints.SIGNUP, payload);
   }
 
- checkEmailExist(payload: { [k: string]: string }): Observable<any> {
+  checkEmailExist(payload: { [k: string]: string }): Observable<any> {
     return this.http.post(endpoints.CHECKEMAIL, payload);
   }
- checkUsernameExist(payload: {[k:string]: string}): Observable<any>{
-   return this.http.post(endpoints.CHECKUSERNAME, payload);
+  checkUsernameExist(payload: { [k: string]: string }): Observable<any> {
+    return this.http.post(endpoints.CHECKUSERNAME, payload);
   }
 }
 

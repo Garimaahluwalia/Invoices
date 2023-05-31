@@ -1,6 +1,4 @@
 <div class="container-fluid">
-
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -12,24 +10,23 @@
                         <li class="breadcrumb-item active">New Invoice</li>
                     </ol>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end page title -->
-
+    
     <div class="row justify-content-center">
         <div class="col-xxl-9">
             <div class="card">
                 <form class="needs-validation" novalidate id="invoice_form" #InvoiceForm="ngForm"
                     (ngSubmit)="submit(InvoiceForm)">
-                    <app-invoicedata></app-invoicedata>
-                    <app-companyaddress></app-companyaddress>
-                     <app-shippingaddress></app-shippingaddress>
+                    <div class="row">
+                        <app-invoicedata></app-invoicedata>
+                        <app-companyaddress></app-companyaddress>
+                    </div>
+                    <app-shippingaddress></app-shippingaddress>
                     <div class="card-body p-4">
-                    <app-productdetails></app-productdetails>
-                       
-                        <!--end row-->
+                        <app-productdetails></app-productdetails>
+                        <app-paymentdetails></app-paymentdetails>
                         <div class="mt-4">
                             <label for="exampleFormControlTextarea1"
                                 class="form-label text-muted text-uppercase fw-semibold">NOTES</label>
@@ -38,12 +35,12 @@
                                 required>All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or credit card or direct payment online. If account is not paid within 7 days the credits details supplied as confirmation of work undertaken will be charged the agreed quoted fee noted above.</textarea>
                         </div>
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-                            <button type="submit" class="btn btn-info" ><i
-                                    class="ri-printer-line align-bottom me-1"></i> Save</button>
+                            <button type="submit" class="btn btn-info"><i class="ri-printer-line align-bottom me-1"></i>
+                                Save</button>
                             <a href="javascript:void(0);" class="btn btn-primary"><i
                                     class="ri-download-2-line align-bottom me-1"></i> Download Invoice</a>
                             <a href="javascript:void(0);" class="btn btn-danger"><i
-                                    class="ri-send-plane-fill align-bottom me-1"></i> Send Invoice</a>
+                                    class="ri-send-plane-fill align-bottom me-1" ></i> Send Invoice</a>
                         </div>
                     </div>
                 </form>

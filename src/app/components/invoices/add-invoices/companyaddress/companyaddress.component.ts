@@ -10,8 +10,6 @@ import { ControlContainer, NgForm,} from '@angular/forms';
 })
 export class CompanyaddressComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {}
 
 }

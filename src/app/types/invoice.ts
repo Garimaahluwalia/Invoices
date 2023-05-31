@@ -1,5 +1,9 @@
 export interface Invoice{
-    invoiceNumber : string;
-    date: Date;
-    customerName : string;
+   InvoiceId: string,
+   client: string,
+   email: string,
+   date: string,
+   billed: string,
+   status: string,
+   action: string
 }
