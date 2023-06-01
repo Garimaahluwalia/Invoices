@@ -11,10 +11,7 @@ export class InvoiceComponent implements OnInit {
   constructor(public invoiceService: InvoiceService, public router: Router, public route: ActivatedRoute) { }
   ngOnInit(): void {
     this.invoiceData = this.invoices;
-    console.log(this.invoiceData, "invoiceData")
-
-   
-
+    // console.log(this.invoiceData, "invoiceData");
   }
   public invoices = [
     {
@@ -59,7 +56,7 @@ export class InvoiceComponent implements OnInit {
       "email": "pqr@example.com",
       "date": "2023-05-28",
       "billed": 2000,
-      "status": "Unpaid",
+      "status": "default",
       "action": "Download"
     },
     {
@@ -68,7 +65,7 @@ export class InvoiceComponent implements OnInit {
       "email": "pqr@example.com",
       "date": "2023-05-28",
       "billed": 8000,
-      "status": "paid",
+      "status": "cancel",
       "action": "Download"
     },
     {
@@ -86,7 +83,7 @@ export class InvoiceComponent implements OnInit {
       "email": "pqr@example.com",
       "date": "2023-05-28",
       "billed": 8000,
-      "status": "paid",
+      "status": "cancel",
       "action": "Download"
     },
     {
@@ -112,12 +109,14 @@ export class InvoiceComponent implements OnInit {
   countPaidInvoices(): number {
     return this.invoices.filter(invoice => invoice.status.toLowerCase() === "paid").length;
   }
-
   countUnpaidInvoices(): number {
-    return this.invoices.filter(invoice => invoice.status.toLowerCase() !== "paid").length;
+    return this.invoices.filter(invoice => invoice.status.toLowerCase() === "unpaid").length;
   }
-
+  countCancelInvoices(): number {
+    return this.invoices.filter(invoice => invoice.status.toLowerCase() === "cancel").length
+  }
   countTotalInvoices(): number {
     return this.invoices.length;
   }
 }
+

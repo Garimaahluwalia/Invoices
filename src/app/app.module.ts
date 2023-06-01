@@ -23,8 +23,9 @@ import { CompanyaddressComponent } from './components/invoices/add-invoices/comp
 import { ShippingaddressComponent } from './components/invoices/add-invoices/shippingaddress/shippingaddress.component';
 import { BillingaddressComponent } from './components/invoices/add-invoices/billingaddress/billingaddress.component';
 import { ProductdetailsComponent } from './components/invoices/add-invoices/productdetails/productdetails.component';
-import { ViewEncapsulation } from '@angular/compiler';
 import { PaymentdetailsComponent } from './components/invoices/add-invoices/paymentdetails/paymentdetails.component';
+import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
+import { AddinvoicethemeComponent } from './components/invoices/addinvoicetheme/addinvoicetheme.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -89,7 +90,8 @@ const customNotifierOptions: NotifierOptions = {
     BillingaddressComponent,
     ProductdetailsComponent,
     PaymentdetailsComponent,
-
+    InvoiceListDetailsComponent,
+    AddinvoicethemeComponent,
   ],
   imports: [
     BrowserModule,

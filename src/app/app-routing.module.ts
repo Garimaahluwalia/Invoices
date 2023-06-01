@@ -10,6 +10,7 @@ import { AuthService } from './services/auth/auth.service';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { InvoiceComponent } from './components/invoices/invoice/invoice.component';
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
+import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
 
 
 const routes: Routes = [
@@ -49,8 +50,11 @@ const routes: Routes = [
   {
     path : INVOICES.ADD_INVOICE,
     component: AddInvoicesComponent,
-   
   }, 
+  {
+    path:  INVOICES.VIEW_INVOICE_LIST,
+    component: InvoiceListDetailsComponent
+  }
 ];
 
 @NgModule({

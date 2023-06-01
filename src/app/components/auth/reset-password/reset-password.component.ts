@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginService } from 'src/app/services/auth/login.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-reset-password',
@@ -7,23 +9,24 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
- 
-  constructor(public http: HttpClientModule){}
-  ngOnInit(): void {
-    
-  }
-  reset(){
 
+  resetRes: any;
+  constructor(public http: HttpClientModule, public loginService: LoginService){}
+  ngOnInit(): void {}
+  submit(resetForm: NgForm) {
+    const email = resetForm.value.email;
+  
+    this.loginService.resetPassword({ email }).subscribe(
+      (res: any) => {
+        this.resetRes = res;
+        console.log(this.resetRes, "resetpassword");
+      },
+      (err) => {
+        if (err.error) {
+         
+        }
+      }
+    );
   }
-  // onSubmit(email: string): void {
-  //   const payload = { email: email };
-  //   this.http.post('/api/reset-password', payload).subscribe(
-  //     () => {
-        
-  //     },
-  //     (error) => {
-        
-  //     }
-  //   );
-  // }
-}
+  }
+  

@@ -41,8 +41,9 @@ export class LoginComponent {
       this.notifier.notify('error', 'Invalid email address');
     }
    })
-    
   }
+
+  
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }

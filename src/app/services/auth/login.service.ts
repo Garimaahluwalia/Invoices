@@ -14,24 +14,9 @@ export class LoginService {
   private _user: UserLogin | null = null;
 
   constructor(public http: HttpClient) { }
-  // performBasicAuthRequest(username: string, password: string): Promise<any> {
-  //  let basicAuthCreddentials = btoa(`${username}:${password}`);
-  //   const headers = new HttpHeaders({
-  //     Authorization: `Basic ${basicAuthCreddentials}`
-  //   });
 
-  //   return this.http.get(endpoints.LOGIN, { headers }).toPromise()
-  //     .then(response => response)
-
-  //     .catch(error => {
-  //       console.error('Basic Auth Request Failed:', error);
-  //       throw error;
-  //     });
-  // }
-
-
-  login({username, password}: IUserLoginDetails): Observable<any> {
-    return this.http.post<any>(endpoints.LOGIN, {username, password});
+  login({ username, password }: IUserLoginDetails): Observable<any> {
+    return this.http.post<any>(endpoints.LOGIN, { username, password });
   }
 
   set user(user: UserLogin | null) {
@@ -45,7 +30,10 @@ export class LoginService {
     return this.http.post(endpoints.LOGIN, payload);
   }
 
-  updateLoginUser(user: UserLogin){
+  resetPassword(payload: any): Observable<any> {
+    return this.http.post<any>(endpoints.RESET_PASSWORD, payload);
+  }
+  updateLoginUser(user: UserLogin) {
     this.user = user;
     localStorage.setItem(USER_DATA, JSON.stringify(user));
     localStorage.setItem(AUTHORIZATION_TOKEN, user.token);

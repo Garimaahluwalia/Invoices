@@ -38,6 +38,7 @@ export class SignupComponent implements OnInit {
       this.password = f.value.password
 
 
+
     this.signupService.signUp({ username: this.username, email: this.email, password: this.password }).subscribe((res: any) => {
       this.signupData = res;
       this.signupForm.reset();

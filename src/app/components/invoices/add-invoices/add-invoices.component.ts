@@ -63,21 +63,7 @@ export class AddInvoicesComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
-
-    // this.addInvoiceService.addInvoice(this.invoiceData).subscribe(
-    //   (res: any) => {
-    //     this.Invoices = res;
-    //     console.log(res, "api response");
-    //   },
-    //   (error: any) => {
-    //     console.error(error);
-    //   }
-    // );
-
-
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     setTimeout(() => {

@@ -2,3 +2,6 @@ span.badge.badge-soft-success.p-2 {
     color: #934fb0;
     background-color: rgba(147,79,176,.1);
 }
+button.btn.btn-primary {
+    margin-right: 12px;
+}
