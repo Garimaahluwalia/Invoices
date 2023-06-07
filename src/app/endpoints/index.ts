@@ -9,17 +9,16 @@ const endpoints = {
   LOGOUT: `${environment.BASE_URL}`,
 
 
-  INVOICES: {
-    CREATE: `${environment.BASE_URL}/listx`,
-    GET: (InvoiceId: string) => `${environment.BASE_URL}/${InvoiceId}`,
-    UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/${InvoiceId}`,
-    GETALL: `${environment.BASE_URL}`,
-    DELETE: (InvoiceId: string) => `${environment.BASE_URL}/${InvoiceId}`,
+  INVOICES_LIST: {
+    GETALL: `${environment.BASE_URL}/invoices`,
+    GET: (InvoiceId: string) => `${environment.BASE_URL}/invoices/${InvoiceId}`,
+    UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/listx/${InvoiceId}`,
+    // DELETE: (InvoiceId: string) => `${environment.BASE_URL}/listx/${InvoiceId}`,
   },
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoices`,
-    GET: (InvoiceId: string) => `${environment.BASE_URL}/invoices${InvoiceId}`,
-    UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoices${InvoiceId}`,
+    GET: (InvoiceId: string) => `${environment.BASE_URL}/invoices/${InvoiceId}`,
+    UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoices/${InvoiceId}`,
   }
 }
 

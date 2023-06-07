@@ -16,24 +16,29 @@ import { UserLogin } from 'src/app/types/userLogin';
 })
 export class LoginComponent {
   @ViewChild('loginForm', { static: false }) loginForm!: NgForm;
-
+  show = false;
   userlogin: any;
   showPassword: boolean = false;
   private readonly notifier!: NotifierService;
+
   constructor(public route: Router, public loginService: LoginService, public appcomponent: AppComponent, public notifierService: NotifierService) {
     this.notifier = notifierService;
   }
   ngOnInit(): void {
-
+ 
   }
-
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
 
   submit(f: NgForm) {
     const username = f.value.username;
     const password = f.value.password;
+    console.log(password, "password")
   
    this.loginService.login({username: f.value.username, password: f.value.password}).subscribe((res:UserLogin)=> {
+    console.log(res);
     this.loginService.updateLoginUser(res);
     this.route.navigate(['/dashboard']);
    }, err => {
@@ -42,11 +47,7 @@ export class LoginComponent {
     }
    })
   }
-
   
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-
+ 
+  
 }

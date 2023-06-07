@@ -1,30 +1,30 @@
-<div class="row mt-3" ngModelGroup="productDetails">
+<div class="row mt-3" ngModelGroup="paymentDetails">
     <div class="col-lg-4">
         <div class="mb-2">
             <label for="choices-payment-type"
                 class="form-label text-muted text-uppercase fw-semibold">Payment Details</label>
             <div class="input-light">
                 <select class="form-control bg-light border-0" data-choices
-                    data-choices-search-false data-choices-removeItem id="choices-payment-type">
-                    <option value="">Payment Method</option>
+                    data-choices-search-false data-choices-removeItem id="choices-payment-type" ngModel name="paymentMethod">
+                    <option  value="">Payment Method</option>
                     <option value="Mastercard">Mastercard</option>
-                    <option value="Credit Card">Credit Card</option>
-                    <option value="Visa">Visa</option>
-                    <option value="Paypal">Paypal</option>
+                    <option  value="Credit Card">Credit Card</option>
+                    <option  value="Visa">Visa</option>
+                    <option  value="Paypal">Paypal</option>
                 </select>
             </div>
         </div>
         <div class="mb-2">
             <input class="form-control bg-light border-0" type="text" id="cardholderName"
-                placeholder="Card Holder Name" name="CardHolderName">
+                placeholder="Card Holder Name" ngModel name="cardHolderName">
         </div>
         <div class="mb-2">
             <input class="form-control bg-light border-0" type="text" id="cardNumber"
-                placeholder="xxxx xxxx xxxx xxxx" name="AccountNumber">
+                placeholder="xxxx xxxx xxxx xxxx" ngModel name="accountNumber">
         </div>
         <div>
-            <input class="form-control  bg-light border-0" type="text" id="amountTotalPay"
-                placeholder="$0.00" readonly />
+            <input class="form-control  bg-light border-0" ngModel type="text" id="amountTotalPay"
+                placeholder="$0.00"  />
         </div>
     </div>
     

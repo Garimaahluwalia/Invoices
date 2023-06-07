@@ -23,6 +23,10 @@ const routes: Routes = [
         path: "",
         component: DashboardComponent
       },
+      {
+        path: ROUTELINKS.DASHBOARD,
+        component: DashboardComponent
+      },
      
     ]
   },
@@ -48,13 +52,17 @@ const routes: Routes = [
     component : InvoiceComponent
   },
   {
-    path : INVOICES.ADD_INVOICE,
+    path : INVOICES.ADD_INVOICE,  
     component: AddInvoicesComponent,
   }, 
   {
     path:  INVOICES.VIEW_INVOICE_LIST,
     component: InvoiceListDetailsComponent
-  }
+  },
+{
+  path: INVOICES.UPDATE_INVOICE,
+  component: AddInvoicesComponent
+}
 ];
 
 @NgModule({

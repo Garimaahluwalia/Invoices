@@ -54,7 +54,5 @@ export class SignupComponent implements OnInit {
 
 
   }
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
+  
 }

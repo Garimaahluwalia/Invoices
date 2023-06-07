@@ -8,7 +8,8 @@ export const ROUTELINKS = {
 
 export const INVOICES = {
     INVOICE : "invoice",
-    ADD_INVOICE : "add-invoice",
-    VIEW_INVOICE_LIST : "view-invoice",
+    ADD_INVOICE: "add-invoice",
+    UPDATE_INVOICE: "add-invoice/:id",
+    VIEW_INVOICE_LIST : "view-invoice-list/:id",
     INVOICE_THEME : "invoice-theme"
 }

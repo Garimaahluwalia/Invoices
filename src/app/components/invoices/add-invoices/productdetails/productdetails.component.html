@@ -1,4 +1,4 @@
-<div class="card-body p-4"  ngModelGroup="paymentDetails">
+<div class="card-body p-4"  ngModelGroup="productDetails">
     <div class="table-responsive">
         <table class="invoice-table table table-borderless table-nowrap mb-0">
             <thead class="align-middle">
@@ -29,15 +29,15 @@
                 <tr id="1" class="product">
                     <th scope="row" class="product-id">1</th>
                     <td class="text-start">
-                        <div class="mb-2" ngModelGroup="productDetails">
+                        <div class="mb-2" >
                             <input type="text" class="form-control bg-light border-0"
-                                id="productName-1" placeholder="Product Name" name="ProductName" required />
+                                id="productName-1" placeholder="Product Name" ngModel name="productName" required />
                             <div class="invalid-feedback">
                                 Please enter a product name
                             </div>
                         </div>
                         <textarea class="form-control bg-light border-0" id="productDetails-1"
-                            rows="2" placeholder="Product Details" name="ProductDetails" required></textarea>
+                            rows="2" placeholder="Product Details" ngModel name="productDescription" required></textarea>
                     </td>
                     <td>
                         <input type="number" class="form-control product-price bg-light border-0"
@@ -50,7 +50,7 @@
                         <div class="input-step">
                             <button type="button" class='minus'>–</button>
                             <input type="number" class="product-quantity" id="product-qty-1"
-                                value="0" >
+                                value="0"  ngModel >
                             <button type="button" class='plus'>+</button>
                         </div>
                     </td>

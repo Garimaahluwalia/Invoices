@@ -11,4 +11,5 @@ export interface UserLogin{
     created:string;
     updated:string;
     token:string
+    access_token?:string
 }

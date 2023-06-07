@@ -3,6 +3,9 @@ import { NgForm, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
+import { HttpHeaders } from '@angular/common/http';
+import { AUTHORIZATION_TOKEN } from 'src/app/constants';
+import { Invoice } from 'src/app/types/invoice';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -71,66 +74,25 @@ export class AddInvoicesComponent implements OnInit {
       this.InvoiceForm.control.patchValue(this.model);
     }, 200);
   }
-
-
   submit(f: NgForm) {
-    this.invoiceData = f.value;
-    const payload = {
-      "invoice": {
-        "InvoiceNo": "INV-001"
-      },
-      "invoiceNumber": "123456",
-      "company": {
-        "name": "ABC Company",
-        "postalCode": "12345",
-        "contact": "John Doe",
-        "emailaddress": "mailto:john@example.com",
-        "website": "https://www.example.com",
-        "contactNo": "123-456-7890"
-      },
-      "billing": {
-        "address": {
-          "fullName": "John Doe",
-          "address": "123 Main Street",
-          "phoneNo": "123-456-7890",
-          "taxnumber": "ABCD1234",
-          "postalCode": "12345",
-          "country": "USA"
-        },
-        "name": "John Doe"
-      },
-      "shipping": {
-        "address": {
-          "fullName": "Jane Smith",
-          "address": "456 Elm Street",
-          "phoneNo": "987-654-3210",
-          "taxnumber": "EFGH5678",
-          "postalCode": "54321",
-          "country": "USA"
-        },
-        "name": "Jane Smith"
-      },
-      "productDetails": {
-        "productName": "Product A",
-        "productDescription": "Description of Product A"
-      },
-      "paymentDetails": {
-        "paymentMethod": "Credit Card",
-        "cardHolderName": "John Doe",
-        "accountNumber": "1234-5678-9012-3456"
-      }
-    }
 
+    const invoice = new Invoice()
+    invoice.setData(f.value);
+    console.log(invoice, "cloned");
+
+    const payload = invoice.getPayload();
+    console.log(payload, "Payload Data");
     this.addInvoiceService.addInvoice(payload).subscribe(
       (res: any) => {
         this.Invoices = res;
-        console.log(res, "addApiResponse");
+        console.log(this.Invoices, "addApiResponse");
       },
       (error: any) => {
         console.error(error);
       }
     );
   }
+
 }
 
 

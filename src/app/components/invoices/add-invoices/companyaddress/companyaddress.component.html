@@ -1,60 +1,52 @@
- <div class="col-lg-4 ms-auto" ngModelGroup="company">
-            <div class="profile-user mx-auto  mb-3">
-                <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
-                <label for="profile-img-file-input" class="d-block" tabindex="0">
-                    <span
-                        class="overflow-hidden border border-dashed d-flex align-items-center justify-content-center rounded"
-                        style="height: 60px; width: 256px;">
-                        <img src="assets/images/logo-dark.png"
-                            class="card-logo card-logo-dark user-profile-image img-fluid"
-                            alt="logo dark">
-                        <img src="assets/images/logo-light.png"
-                            class="card-logo card-logo-light user-profile-image img-fluid"
-                            alt="logo light">
-                    </span>
-                </label>
-            </div>
-        
-        
-             <div>
-                <label for="companyAddress">Address</label>
-            </div>
-            <div class="mb-2">
-                <textarea ngModel #companyaddress="ngModel" name="Address" class="form-control bg-light border-0" id="companyAddress" rows="3"
-                    placeholder="Company Address" required="" name="CompanyAddress"></textarea>
-                <div class="invalid-feedback">
-                    Please enter a address
-                </div>
-            </div>
-            <div class="mb-2" ngModelGroup="company">
-                <input type="text" class="form-control bg-light border-0" id="companyaddpostalcode"
-                    minlength="5" maxlength="6" placeholder="Enter Postal Code" required="" name="PostalCode">
-                <div class="invalid-feedback">
-                    The US zip code must contain 5 digits, Ex. 45678
-                </div>
-            </div>
-        
-            <div class="mb-2" ngModelGroup="company">
-                <input type="email" class="form-control bg-light border-0" id="companyEmail"
-                    placeholder="Email Address" required name="emailaddress" />
-                <div class="invalid-feedback">
-                    Please enter a valid email, Ex., example@gamil.com
-                </div>
-            </div>
-            <div class="mb-2" ngModelGroup="company">
-                <input type="text" class="form-control bg-light border-0" id="companyWebsite"
-                    placeholder="Website" required name="website" />
-                <div class="invalid-feedback">
-                    Please enter a website, Ex., www.example.com
-                </div>
-            </div>
-            <div ngModelGroup="company">
-                <input type="text" class="form-control bg-light border-0" data-plugin="cleave-phone"
-                    id="compnayContactno" placeholder="Contact No" required name="contactNo" />
-                <div class="invalid-feedback">
-                    Please enter a contact number
-                </div>
-            </div>
-        </div> 
-   
-    
+<div class="col-lg-4 ms-auto" ngModelGroup="company">
+    <div class="profile-user mx-auto  mb-3">
+        <input id="profile-img-file-input" type="file" class="profile-img-file-input" />
+        <label for="profile-img-file-input" class="d-block" tabindex="0">
+            <span class="overflow-hidden border border-dashed d-flex align-items-center justify-content-center rounded"
+                style="height: 60px; width: 256px;">
+                <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark user-profile-image img-fluid"
+                    alt="logo dark">
+                <img src="assets/images/logo-light.png" class="card-logo card-logo-light user-profile-image img-fluid"
+                    alt="logo light">
+            </span>
+        </label>
+    </div>
+    <div>
+        <label for="companyAddress">Address</label>
+    </div>
+    <div class="mb-2">
+        <textarea ngModel  name="address" class="form-control bg-light border-0"
+            id="companyAddress" rows="3"  placeholder="Company Address" required></textarea>
+        <div class="invalid-feedback">
+            Please enter an address
+        </div>
+    </div>
+    <div class="mb-2" >
+        <input type="text" class="form-control bg-light border-0" id="companyaddpostalcode"
+            minlength="5" maxlength="6" ngModel placeholder="Enter Postal Code" required name="postalCode">
+        <div class="invalid-feedback">
+            The US zip code must contain 5 digits, Ex. 45678
+        </div>
+    </div>
+    <div class="mb-2" >
+        <input type="email" class="form-control bg-light border-0" id="companyEmail"
+            placeholder="Email Address" ngModel required name="emailaddress" />
+        <div class="invalid-feedback">
+            Please enter a valid email, Ex., example@gamil.com
+        </div>
+    </div>
+    <div class="mb-2" >
+        <input type="text" class="form-control bg-light border-0" id="companyWebsite"
+            placeholder="Website" required name="website" ngModel />
+        <div class="invalid-feedback">
+            Please enter a website, Ex., www.example.com
+        </div>
+    </div>
+    <div >
+        <input type="text" class="form-control bg-light border-0" data-plugin="cleave-phone"
+            id="compnayContactno" placeholder="Contact No" ngModel required name="contactNo" />
+        <div class="invalid-feedback">
+            Please enter a contact number
+        </div>
+    </div>
+</div>

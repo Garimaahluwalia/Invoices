@@ -8,7 +8,7 @@ import { InvoiceComponent } from './components/invoices/invoice/invoice.componen
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { MainComponent } from './components/layout/main/main.component';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { HeaderComponent } from './components/layout/header/header.component';
@@ -26,6 +26,8 @@ import { ProductdetailsComponent } from './components/invoices/add-invoices/prod
 import { PaymentdetailsComponent } from './components/invoices/add-invoices/paymentdetails/paymentdetails.component';
 import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
 import { AddinvoicethemeComponent } from './components/invoices/addinvoicetheme/addinvoicetheme.component';
+import { AuthInterceptor } from './interceptors/intercept';
+import { CommonModule } from '@angular/common';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -97,12 +99,19 @@ const customNotifierOptions: NotifierOptions = {
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     NotifierModule.withConfig(customNotifierOptions),
     HttpClientModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

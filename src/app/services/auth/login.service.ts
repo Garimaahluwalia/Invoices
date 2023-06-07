@@ -16,7 +16,13 @@ export class LoginService {
   constructor(public http: HttpClient) { }
 
   login({ username, password }: IUserLoginDetails): Observable<any> {
-    return this.http.post<any>(endpoints.LOGIN, { username, password });
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa(username + ':' + password)
+    });
+
+    return this.http.post<any>(endpoints.LOGIN, {}, {
+      headers
+    });
   }
 
   set user(user: UserLogin | null) {
@@ -36,7 +42,7 @@ export class LoginService {
   updateLoginUser(user: UserLogin) {
     this.user = user;
     localStorage.setItem(USER_DATA, JSON.stringify(user));
-    localStorage.setItem(AUTHORIZATION_TOKEN, user.token);
+    localStorage.setItem(AUTHORIZATION_TOKEN, user?.access_token as string);
   }
 
   removeUserSession() {
