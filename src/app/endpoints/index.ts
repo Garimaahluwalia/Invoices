@@ -10,7 +10,7 @@ const endpoints = {
 
 
   INVOICES: {
-    CREATE: `${environment.BASE_URL}`,
+    CREATE: `${environment.BASE_URL}/listx`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/${InvoiceId}`,
     GETALL: `${environment.BASE_URL}`,
@@ -18,7 +18,7 @@ const endpoints = {
   },
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoices`,
-    GET:  (InvoiceId: string) => `${environment.BASE_URL}/invoices${InvoiceId}`,
+    GET: (InvoiceId: string) => `${environment.BASE_URL}/invoices${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoices${InvoiceId}`,
   }
 }

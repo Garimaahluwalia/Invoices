@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Invoice } from 'src/app/types/invoice';
 import { Observable } from 'rxjs/internal/Observable';
 import endpoints from 'src/app/endpoints';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceService {
-  public Invoices: Invoice | undefined;
+  public Invoices: Invoice[] = [];
+  public InvoiceSubject: BehaviorSubject<Invoice[]> = new BehaviorSubject<Invoice[]>([]);
   constructor(private http: HttpClient) { }
 
 
@@ -29,4 +31,13 @@ export class InvoiceService {
     const url = `${endpoints.INVOICES.DELETE}/${invoiceId}`;
     return this.http.delete<void>(url);
   }
+  sendInvoices() {
+    this.InvoiceSubject.next(this.Invoices);
+  }
+  recieveInvoice(): Observable<Invoice[]> {
+    return this.InvoiceSubject.asObservable();
+  }
+
+
+
 }

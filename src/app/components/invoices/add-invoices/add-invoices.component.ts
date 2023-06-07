@@ -63,7 +63,7 @@ export class AddInvoicesComponent implements OnInit {
 
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -120,11 +120,11 @@ export class AddInvoicesComponent implements OnInit {
         "accountNumber": "1234-5678-9012-3456"
       }
     }
-    
+
     this.addInvoiceService.addInvoice(payload).subscribe(
       (res: any) => {
         this.Invoices = res;
-        console.log(res, "api response");
+        console.log(res, "addApiResponse");
       },
       (error: any) => {
         console.error(error);

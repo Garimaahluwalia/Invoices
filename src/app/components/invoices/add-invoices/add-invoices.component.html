@@ -13,16 +13,14 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row justify-content-center">
         <div class="col-xxl-9">
             <div class="card">
                 <form class="needs-validation" novalidate id="invoice_form" #InvoiceForm="ngForm"
-                    (ngSubmit)="submit(InvoiceForm)" >
-                    <div class="row">
-                        <app-invoicedata></app-invoicedata>
-                        <app-companyaddress></app-companyaddress>
-                    </div>
+                    (ngSubmit)="submit(InvoiceForm)">
+                    <app-invoicedata></app-invoicedata>
+                    <app-companyaddress></app-companyaddress>
                     <app-shippingaddress></app-shippingaddress>
                     <div class="card-body p-4">
                         <app-productdetails></app-productdetails>
@@ -40,7 +38,7 @@
                             <a href="javascript:void(0);" class="btn btn-primary"><i
                                     class="ri-download-2-line align-bottom me-1"></i> Download Invoice</a>
                             <a href="javascript:void(0);" class="btn btn-danger"><i
-                                    class="ri-send-plane-fill align-bottom me-1" ></i> Send Invoice</a>
+                                    class="ri-send-plane-fill align-bottom me-1"></i> Send Invoice</a>
                         </div>
                     </div>
                 </form>

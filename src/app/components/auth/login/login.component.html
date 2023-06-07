@@ -1,50 +1,3 @@
-<!-- <div class="wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4 col-lg-5 col-md-7 mx-auto mt-5">
-                <div class="card radius-10">
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <h4>Login</h4>
-                            <p>login to your account</p>
-                        </div>
-                        <form class="form-body row g-3" #loginForm="ngForm" (ngSubmit)="submit(loginForm)">
-                            <div class="col-12">
-                                <label for="inputEmail" class="form-label">Email</label>
-                                <input type="email" name="email" #email="ngModel" ngModel  appLogin class="form-control"
-                                    id="inputEmail">
-                                    <div *ngIf="email.errors && (email.dirty || email.touched)">
-                                        <div *ngIf="email.errors?.['isEmailExists']">email already exists.</div>
-                                    </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="inputPassword" class="form-label">Password</label>
-                                <input type="password" name="password" #password="ngModel" ngModel class="form-control"
-                                    id="inputPassword">
-
-                            </div>
-                            <div class="col-12 col-md-12 text-end">
-                                <a href="authentication-reset-password-simple.html">Forgot Password?</a>
-                            </div>
-                            <div class="col-12 col-lg-12">
-                                <div class="d-grid">
-                                    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">login
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<notifier-container></notifier-container> -->
-
-
 <div class="bg-overlay bg-light"></div>
     
 <div class="account-pages">
@@ -69,7 +22,7 @@
                                             <div class="p-lg-5 p-4">
                                                 <div class="text-center">
                                                     <h5 class="mb-0">Welcome Back !</h5>
-                                                    <!-- <p class="text-muted mt-2">Sign in to continue to Invoika.</p> -->
+                                                    <p class="text-muted mt-2">Sign in to continue </p>
                                                 </div>
                                             
                                                 <div class="mt-4">

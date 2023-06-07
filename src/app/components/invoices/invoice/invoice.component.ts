@@ -12,6 +12,7 @@ export class InvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.invoiceData = this.invoices;
     // console.log(this.invoiceData, "invoiceData");
+  
   }
   public invoices = [
     {
@@ -102,6 +103,15 @@ export class InvoiceComponent implements OnInit {
       "date": "2023-05-28",
       "billed": 8000,
       "status": "paid",
+      "action": "Download"
+    },
+    {
+      "invoiceId": "INV008",
+      "client": "PQR Ltd",
+      "email": "pqr@example.com",
+      "date": "2023-05-28",
+      "billed": 9000,
+      "status": "cancel",
       "action": "Download"
     }
   ];
