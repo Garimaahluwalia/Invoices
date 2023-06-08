@@ -15,6 +15,17 @@ export interface IInvoice {
    Status?: string;
    __v: number;
 }
+export interface IInvoiceClass {
+   InvoiceNo: string;
+}
+
+export interface ICompany {
+   name: string;
+   postalCode: string;
+   emailaddress: string;
+   website: string;
+   contactNo: string;
+}
 
 export interface IIng {
    address: IAddress;
@@ -30,17 +41,6 @@ export interface IAddress {
    country: string;
 }
 
-export interface ICompany {
-   name: string;
-   postalCode: string;
-   emailaddress: string;
-   website: string;
-   contactNo: string;
-}
-
-export interface IInvoiceClass {
-   InvoiceNo: string;
-}
 
 export interface IPaymentDetails {
    paymentMethod: string;
@@ -71,10 +71,18 @@ export class Invoice implements IInvoice {
    public Status?: string;
    public __v!: number;
 
+   constructor() { }
 
-   constructor() {
+
+   // InvoiceDetails starts 
+   setInvoice({ InvoiceNo }: IInvoiceClass) {
+      this.invoice = {
+         InvoiceNo: InvoiceNo,
+      };
    }
+   // InvoiceDetails ends 
 
+   //  BillingDetails starts 
    setBilling({ address, name }: IIng) {
       this.billing = {
          address: {
@@ -88,16 +96,17 @@ export class Invoice implements IInvoice {
          name: name
       }
    }
-
    set billing(value: IIng) {
       this._billing = value;
-
    }
-
    get billing(): IIng {
       return this._billing;
    }
+   // BillingDetails ends 
 
+
+
+   // shippingDetails starts 
    setShipping({ address, name }: IIng) {
       this.shipping = {
          address: {
@@ -114,19 +123,17 @@ export class Invoice implements IInvoice {
 
    set shipping(value: IIng) {
       this._shipping = value;
-
    }
 
    get shipping(): IIng {
       return this.shipping;
    }
+   // shippingDetails ends 
 
-   setInvoice({ InvoiceNo }: IInvoiceClass) {
-      this.invoice = {
-         InvoiceNo: InvoiceNo,
-      };
-   }
 
+
+
+   //   CompanyDetails starts
    setCompany({ contactNo, emailaddress, name, postalCode, website }: ICompany) {
       this.company = {
          contactNo: contactNo,
@@ -144,6 +151,10 @@ export class Invoice implements IInvoice {
       return this._company;
    }
 
+   // companyDetails ends 
+
+
+   //  ProductDetails starts 
    setProductDetails({ productName, productDescription }: IProductDetails) {
       this.productDetails = {
          productName: productName,
@@ -157,6 +168,11 @@ export class Invoice implements IInvoice {
    get productDetails(): IProductDetails {
       return this._productDetails
    }
+   // ProductDetails ends 
+
+
+
+   // PaymentDetails starts 
 
    setPaymentDetails({ paymentMethod, cardHolderName, accountNumber }: IPaymentDetails) {
       this.paymentDetails = {
@@ -172,6 +188,11 @@ export class Invoice implements IInvoice {
       return this._paymentDetails;
    }
 
+   // PaymentDetails ends 
+
+
+
+
 
    setData(values: { [key: string]: string | number | { [key: string]: string | number } }) {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
@@ -182,13 +203,12 @@ export class Invoice implements IInvoice {
       this.setShipping(values["shipping"] as unknown as IIng);
    }
 
-
    getPayload() {
       return {
          "invoice": this.invoice,
          "company": this.company,
          "billing": this.billing,
-         "shipping": this.shipping,
+         // "shipping": this.shipping,
          "productDetails": this.productDetails,
          "paymentDetails": this.paymentDetails
       }

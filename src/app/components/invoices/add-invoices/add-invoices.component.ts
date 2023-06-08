@@ -21,8 +21,6 @@ export class AddInvoicesComponent implements OnInit {
     invoice: {
       InvoiceNo: ""
     },
-    invoiceNumber: '',
-
     company: {
       name: '',
       postalCode: '',
@@ -61,7 +59,8 @@ export class AddInvoicesComponent implements OnInit {
       paymentMethod: '',
       cardHolderName: '',
       accountNumber: ''
-    }
+    },
+    
   };
 
 
@@ -69,17 +68,15 @@ export class AddInvoicesComponent implements OnInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      const form = this.InvoiceForm.value;
-      this.InvoiceForm.control.patchValue(this.model);
-    }, 200);
+    // setTimeout(() => {
+    //   const form = this.InvoiceForm.value;
+    //   this.InvoiceForm.control.patchValue(this.model);
+    // }, 200);
   }
   submit(f: NgForm) {
-
     const invoice = new Invoice()
     invoice.setData(f.value);
-    console.log(invoice, "cloned");
-
+    // console.log(invoice, "cloned");
     const payload = invoice.getPayload();
     console.log(payload, "Payload Data");
     this.addInvoiceService.addInvoice(payload).subscribe(

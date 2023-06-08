@@ -28,6 +28,7 @@ import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-
 import { AddinvoicethemeComponent } from './components/invoices/addinvoicetheme/addinvoicetheme.component';
 import { AuthInterceptor } from './interceptors/intercept';
 import { CommonModule } from '@angular/common';
+import { ClientComponent } from './components/clients/client/client.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -94,6 +95,8 @@ const customNotifierOptions: NotifierOptions = {
     PaymentdetailsComponent,
     InvoiceListDetailsComponent,
     AddinvoicethemeComponent,
+    ClientComponent,
+   
   ],
   imports: [
     BrowserModule,

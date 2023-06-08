@@ -1,15 +1,19 @@
 export const ROUTELINKS = {
-    LOGIN : "login",
+    LOGIN: "login",
     SIGNUP: "signup",
-    RESET_PASSWORD : "reset-password",
+    RESET_PASSWORD: "reset-password",
     DASHBOARD: "dashboard",
-    MAINLAYOUT : "main-layout",
+    MAINLAYOUT: "main-layout",
 }
 
 export const INVOICES = {
-    INVOICE : "invoice",
+    INVOICE: "invoice",
     ADD_INVOICE: "add-invoice",
     UPDATE_INVOICE: "add-invoice/:id",
-    VIEW_INVOICE_LIST : "view-invoice-list/:id",
-    INVOICE_THEME : "invoice-theme"
+    VIEW_INVOICE_LIST: "view-invoice-list/:id",
+    INVOICE_THEME: "invoice-theme",
+}
+
+export const CLIENTS = {
+    CLIENTS: "clients"
 }
