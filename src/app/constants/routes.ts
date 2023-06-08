@@ -15,5 +15,6 @@ export const INVOICES = {
 }
 
 export const CLIENTS = {
-    CLIENTS: "clients"
+    CLIENTS: "clients",
+    ADD_CLIENTS : "add-client"
 }

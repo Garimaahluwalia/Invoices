@@ -11,33 +11,18 @@ import { AuthInterceptor } from 'src/app/interceptors/intercept';
 })
 export class InvoiceService {
   public Invoices: Invoice[] = [];
-  public InvoiceSubject: BehaviorSubject<Invoice[]> = new BehaviorSubject<Invoice[]>([]);
   constructor(private http: HttpClient) { }
 
 
   getAllInvoice(): Observable<any[]> {
-    // const token = localStorage.getItem(AUTHORIZATION_TOKEN);
-    // console.log(token, "thetokenof localstorage");
-    // const headers = new HttpHeaders({
-    //   'Authorization': `Bearer ${token}`
-    // });
     return this.http.get<any[]>(endpoints.INVOICES_LIST.GETALL);
   }
-
-
-
   getInvoice(invoiceId: string): Observable<any> {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
-
   updateInvoice(invoiceId: string, invoice: Invoice): Observable<Invoice> {
     const url = `${endpoints.INVOICES_LIST.UPDATE}/${invoiceId}`;
     return this.http.put<Invoice>(url, invoice);
   }
-  sendInvoices() {
-    this.InvoiceSubject.next(this.Invoices);
-  }
-  recieveInvoice(): Observable<Invoice[]> {
-    return this.InvoiceSubject.asObservable();
-  }
+  
 }

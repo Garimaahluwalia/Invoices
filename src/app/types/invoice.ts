@@ -83,7 +83,7 @@ export class Invoice implements IInvoice {
    // InvoiceDetails ends 
 
    //  BillingDetails starts 
-   setBilling({ address, name }: IIng) {
+   setBilling({ address }: IIng) {
       this.billing = {
          address: {
             fullName: address.fullName,
@@ -93,7 +93,7 @@ export class Invoice implements IInvoice {
             postalCode: address.postalCode,
             country: address.country,
          },
-         name: name
+         name: address.fullName
       }
    }
    set billing(value: IIng) {
@@ -107,7 +107,7 @@ export class Invoice implements IInvoice {
 
 
    // shippingDetails starts 
-   setShipping({ address, name }: IIng) {
+   setShipping({ address }: IIng) {
       this.shipping = {
          address: {
             fullName: address.fullName,
@@ -117,7 +117,7 @@ export class Invoice implements IInvoice {
             postalCode: address.postalCode,
             country: address.country,
          },
-         name: name
+         name: address.fullName
       }
    }
 
@@ -126,7 +126,7 @@ export class Invoice implements IInvoice {
    }
 
    get shipping(): IIng {
-      return this.shipping;
+      return this._shipping;
    }
    // shippingDetails ends 
 
@@ -138,7 +138,7 @@ export class Invoice implements IInvoice {
       this.company = {
          contactNo: contactNo,
          emailaddress: emailaddress,
-         name: name,
+         name: emailaddress,
          postalCode: postalCode,
          website: website,
       }
@@ -208,7 +208,7 @@ export class Invoice implements IInvoice {
          "invoice": this.invoice,
          "company": this.company,
          "billing": this.billing,
-         // "shipping": this.shipping,
+         "shipping": this.shipping,
          "productDetails": this.productDetails,
          "paymentDetails": this.paymentDetails
       }
