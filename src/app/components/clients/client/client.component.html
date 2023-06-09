@@ -23,8 +23,8 @@
 
             <div class="row pb-4 gy-3">
                 <div class="col-sm-4">
-                    <button class="btn btn-primary addPayment-modal"
-                      (click)="addUser()" ><i class="las la-plus me-1"></i> Add New</button>
+                    <button class="btn btn-primary addPayment-modal" (click)="addUser()"><i
+                            class="las la-plus me-1"></i> Add New</button>
                 </div>
 
                 <div class="col-sm-auto ms-auto">
@@ -75,25 +75,28 @@
                                             </td>
                                             <td>{{details.email}}</td>
                                             <td>{{details.phoneNumber}}</td>
-                                            <td>{{details.createdAt}}</td>
+                                            <td>{{details.registeredNo}}</td>
                                             <td><span class="badge badge-soft-success p-2">Active</span></td>
                                             <td>
                                                 <ul class="list-inline hstack gap-2 mb-0">
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                    <!-- <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="View">
                                                         <a href="#" class="btn btn-soft-info btn-sm d-inline-block">
                                                             <i class="las la-eye fs-17 align-middle"></i>
                                                         </a>
-                                                    </li>
+                                                    </li> -->
+
                                                     <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Edit">
-                                                        <a href="#" class="btn btn-soft-info btn-sm d-inline-block">
+                                                        <a class="btn btn-soft-info btn-sm d-inline-block"
+                                                            (click)="updateClient(details)">
                                                             <i class="las la-pen fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Remove">
-                                                        <a href="#" class="btn btn-soft-danger btn-sm d-inline-block">
+                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
+                                                        (click)="DeleteClient(details)">
                                                             <i class="las la-file-download fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
@@ -132,13 +135,5 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
-
-
-
-
-
 <router-outlet></router-outlet>

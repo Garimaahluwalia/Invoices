@@ -16,5 +16,9 @@ export const INVOICES = {
 
 export const CLIENTS = {
     CLIENTS: "clients",
-    ADD_CLIENTS : "add-client"
+    ADD_CLIENTS: "add-client",
+    UPDATE_CLIENT: "add-client/:id",
+    DELETE_CLIENT: "delete-client",
+    DELETE_CLIENTS: "delete-client/:id",
+    CLIENT_ADDRESS: "client-address/:id"
 }

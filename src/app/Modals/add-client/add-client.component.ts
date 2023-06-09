@@ -14,14 +14,24 @@ export class AddClientComponent implements OnInit {
   @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef;
   name ! : string;
   email!:string;
-  phoneNo! : string;
-  RegisteredOn! : string;
+  phoneNumber! : string;
+  registeredNo! : string;
   data: any;
+  country! : string;
+  state!:string;
+  city!:string;
+  zipcode!:string;
+  street!:string;
+  BusinessAlias!:string;
+  UniqueKey!:number;
+  emailadress!: string
+  phone!:number;
+ 
 
 
 
   ngAfterViewInit(): void {
-    this.modalService.recieveEvent(ModalEvents.AddClient).subscribe(res => {
+    this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).subscribe(res => {
       const { status, data } = res;
       this.data = data;
       console.log(res, "adduser");
@@ -46,11 +56,22 @@ export class AddClientComponent implements OnInit {
 
   openModal() {
     this.openModalButton?.nativeElement.click();
+    this.setData();
+  }
+  setData() {
+    if (this.data?.edit) {
+      this.name = this.data.name;
+      this.email = this.data.email;
+      this.phoneNumber = this.data.phoneNumber;
+      this.registeredNo = this.data.registeredNo;
+    }
   }
   saveChanges(){
-    let newData = {name : this.name, email: this.email, phoneNo : this.phoneNo , RegisteredOn: this.RegisteredOn}
+    let newData = {name : this.name, email: this.email, phoneNumber : this.phoneNumber , registeredNo: this.registeredNo,
+      country : this.country, state : this.state ,city:this.city , zipcode:this.zipcode , street : this.street , BusinessAlias : this.BusinessAlias ,UniqueKey: this.UniqueKey ,emailadress: this.emailadress , phone : this.phone  }
+      console.log(newData, "FormData")
     if(this.data?.edit){
-      this.clientService.updateClientReq(this.data.ClientId, newData).subscribe(() => {
+      this.clientService.updateClientReq(this.data.clientId, newData).subscribe(() => {
         this.clientService.getAll();
         this.closeModal();
       }, err => {

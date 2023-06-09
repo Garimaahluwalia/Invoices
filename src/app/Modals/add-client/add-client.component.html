@@ -1,0 +1,131 @@
+<button type="button" #openModalButton class="btn btn-primary d-none" data-bs-toggle="modal"
+    data-bs-target="#addUpdate">Add</button>
+<div class="modal" id="addUpdate"  aria-labelledby="addUpdateLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addUpdateLabel">Clients</h1>
+                <button type="button" class="close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <button type="button" #closeModalButton class="d-none btn-close" data-bs-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="name" id="name" class="form-control" [(ngModel)]="name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">email</label>
+                    <input type="text" id="email" class="form-control" [(ngModel)]="email">
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">phoneNumber</label>
+                    <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="phoneNumber">
+                </div>
+                <div class="mb-3">
+                    <label for="registeredNo" class="form-label">RegisteredOn</label>
+                    <input type="text" id="registeredNo" class="form-control" [(ngModel)]="registeredNo">
+                </div>
+            </div>
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addUpdateLabel">Address</h1>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Select Country</label>
+                            <select id="country" class="form-control"  [(ngModel)]="country">
+                                <option value="">India</option>
+                                <option value="USA">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="Canada">Canada</option>
+                                <!-- Add more options for countries as needed -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="state" class="form-label">State / province</label>
+                            <select id="state" class="form-control" [(ngModel)]="state">
+                                <option value="">Select a state</option>
+                                <option value="California">California</option>
+                                <option value="New York">New York</option>
+                                <option value="Texas">Texas</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="city" class="form-label">city</label>
+                            <input type="text" id="city" class="form-control" placeholder="City Name" [(ngModel)]="city">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="zipcode" class="form-label">PostalCode/ZipCode</label>
+                            <input type="text" id="zipcode" class="form-control" placeholder="PostalCode/zipcode" [(ngModel)]="zipcode">
+                        </div>
+                    </div>
+                </div>
+               
+                    <div class="mb-3">
+                        <label for="street" class="form-label">Street Address</label>
+                        <input type="text" id="street" class="form-control" [(ngModel)]="street" placeholder="street address">
+                  
+                </div>
+               
+            </div>
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addUpdateLabel">Additional Details</h1>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="BusinessAlias" class="form-label">Business Alias (Nickname)</label>
+                            <input type="text" id="city" class="form-control" placeholder="BusinessAlias" [(ngModel)]="BusinessAlias">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="UniqueKey" class="form-label">Unique Key</label>
+                            <input type="text" id="UniqueKey" class="form-control" placeholder="UniqueKey" [(ngModel)]="UniqueKey">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" id="email" class="form-control" placeholder="Enter email" [(ngModel)]="emailadress">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" id="phone" class="form-control" placeholder="Enter phonenumber" [(ngModel)]="phone">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+                <button type="button" class="btn btn-primary"  (click)="saveChanges()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

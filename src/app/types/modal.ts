@@ -1,9 +1,9 @@
 export enum ModalEvents {
-  AddClient = "AddClient",
-  UpdateClient = "UpdateClient",
+  AddorUpdateClient = "AddorUpdateClient",
+  Delete = "Delete"
 }
 
-export interface ICommonModalEventResponse {
+export interface IEventResponse {
     status: boolean;
     data?: { [key: string]: string | number | boolean }
 }
