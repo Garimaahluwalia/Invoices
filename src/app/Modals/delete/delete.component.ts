@@ -20,7 +20,7 @@ constructor(public modalService: ModalService, public deleteService: DeleteServi
     this.modalService.recieveEvent(ModalEvents.Delete).subscribe((res => {
       const {data, status}= res;
       this.data = data, status;
-      if(status){
+      if(status || data){
         this.openModal();
       }else{
         this.closeModal();

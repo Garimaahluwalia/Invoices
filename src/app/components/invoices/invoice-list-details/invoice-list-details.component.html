@@ -36,7 +36,7 @@
                                     <div class="col-lg-6 col-6">
                                         <p class="text-muted mb-1 text-uppercase fw-medium fs-14">Date</p>
                                         <h5 class="fs-16 mb-0"><span id="invoice-date">{{invoice.Date}}</span> <small
-                                                class="text-muted" id="invoice-time">02:36PM</small></h5>
+                                                class="text-muted" id="invoice-time"></small></h5>
                                     </div>
 
                                     <div class="col-lg-6 col-6">
@@ -184,11 +184,11 @@
                                                     <td class="text-end"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Estimated Tax </td>
+                                                    <td>Tax </td>
                                                     <td class="text-end">{{invoice.estimatedTax}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Discount <small class="text-muted">(Invoika15)</small></td>
+                                                    <td>Discount <small class="text-muted"></small></td>
                                                     <td class="text-end">{{invoice.discount}}</td>
                                                 </tr>
                                                 <tr>
@@ -212,8 +212,12 @@
                                                 id="card-number">{{invoice.cardNumber}}</span></p>
                                         <p class="text-muted">Total Amount: <span class="fw-medium" id="">$ </span><span
                                                 id="card-total-amount">{{invoice.totalamount}}</span></p>
+                                                <p class="text-muted">Bank Accountnumber: <span class="fw-medium" id="">$ </span><span
+                                                    id="card-total-amount">{{invoice.Accountnumber}}</span></p>
+                                                    <p class="text-muted">IFSC Code: <span class="fw-medium" id="">$ </span><span
+                                                        id="card-total-amount">{{invoice.IFSCCode}}</span></p>
                                     </div>
-                                    <div class="mt-4">
+                                    <!-- <div class="mt-4">
                                         <div class="alert alert-info">
                                             <p class="mb-0"><span class="fw-semibold">NOTES:</span>
                                                 <span id="note">All accounts are to be paid within 7 days from receipt
@@ -225,7 +229,7 @@
                                                 </span>
                                             </p>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="hstack gap-2 justify-content-end d-print-none mt-4">
                                         <a href="javascript:window.print()" class="btn btn-info"><i
                                                 class="ri-printer-line align-bottom me-1"></i> Print</a>

@@ -29,7 +29,7 @@ import { AddinvoicethemeComponent } from './components/invoices/addinvoicetheme/
 import { AuthInterceptor } from './interceptors/intercept';
 import { CommonModule } from '@angular/common';
 import { ClientComponent } from './components/clients/client/client.component';
-import { AddClientComponent } from './Modals/add-client/add-client.component';
+import { AddClientComponent } from './components/clients/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
 
 

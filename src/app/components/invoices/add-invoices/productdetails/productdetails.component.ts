@@ -9,5 +9,13 @@ import { ControlContainer, NgForm } from '@angular/forms';
 
 })
 export class ProductdetailsComponent {
+  rowIndexes: number[] = [0];
+  productNames: string[] = [];
+  productDetails: string[] = [];
+  serialNumber: number = 1;
 
+  addProductRow(): void {
+    const newRowId = this.rowIndexes.length;
+    this.rowIndexes.push(newRowId);
+  }
 }

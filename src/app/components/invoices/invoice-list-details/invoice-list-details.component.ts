@@ -12,12 +12,11 @@ import { Invoice } from 'src/app/types/invoice';
 })
 export class InvoiceListDetailsComponent implements OnInit {
   public: any;
-  invoicelist: any[] = [];
+  invoicelist:any[] = [];
   invoices: any;
   _id: any;
   constructor(public invoiceService: InvoiceService, public route: Router, public router: ActivatedRoute) { }
   ngOnInit(): void {
-    
     this.router.params.subscribe(params => {
       this._id = params['id'];
       // console.log(this._id, "Id");

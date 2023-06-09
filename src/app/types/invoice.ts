@@ -1,12 +1,11 @@
 export interface IInvoice {
-   invoice: IInvoiceClass;
+   invoiceNo: IInvoiceClass;
    company: ICompany;
    billing: IIng;
    shipping: IIng;
-   productDetails: IProductDetails;
+   productDetails: IProductDetails[];
    paymentDetails: IPaymentDetails;
    _id?: string;
-   invoiceNumber: string;
    InvoiceId?: string;
    Email?: string;
    Client?: string;
@@ -16,7 +15,7 @@ export interface IInvoice {
    __v: number;
 }
 export interface IInvoiceClass {
-   InvoiceNo: string;
+   invoiceNo: string;
 }
 
 export interface ICompany {
@@ -41,25 +40,39 @@ export interface IAddress {
    country: string;
 }
 
-
+export enum PaymentMethod {
+   Mastercard = 'mastercard',
+   CreditCard = 'creditcard',
+   Visa = 'visa',
+   Paypal = 'paypal',
+   AccountNumber = 'account number',
+}
 export interface IPaymentDetails {
-   paymentMethod: string;
+   paymentMethod: PaymentMethod;
    cardHolderName: string;
    accountNumber: string;
+   subTotal: number;
+   tax: number;
+   discount: number;
+   shippingcharge: number;
+   totalamount: number;
 }
 
 export interface IProductDetails {
    productName: string;
    productDescription: string;
+   Rate : number,
+   Quantity: number,
+   Amount: number
 }
 
 
 export class Invoice implements IInvoice {
-   public invoice!: IInvoiceClass;
+   public invoiceNo!: IInvoiceClass;
    private _company!: ICompany;
    public _billing!: IIng;
    public _shipping!: IIng;
-   public _productDetails!: IProductDetails;
+   public _productDetails!: IProductDetails[];
    public _paymentDetails!: IPaymentDetails;
    public _id?: string;
    public invoiceNumber!: string;
@@ -75,9 +88,9 @@ export class Invoice implements IInvoice {
 
 
    // InvoiceDetails starts 
-   setInvoice({ InvoiceNo }: IInvoiceClass) {
-      this.invoice = {
-         InvoiceNo: InvoiceNo,
+   setInvoice({ invoiceNo }: IInvoiceClass) {
+      this.invoiceNo = {
+         invoiceNo: invoiceNo,
       };
    }
    // InvoiceDetails ends 
@@ -155,18 +168,16 @@ export class Invoice implements IInvoice {
 
 
    //  ProductDetails starts 
-   setProductDetails({ productName, productDescription }: IProductDetails) {
-      this.productDetails = {
-         productName: productName,
-         productDescription: productDescription
-      }
+   setProductDetails(productDetails: IProductDetails[]) {
+      this._productDetails = productDetails;
    }
-   set productDetails(value: IProductDetails) {
+
+   set productDetails(value: IProductDetails[]) {
       this._productDetails = value;
    }
 
-   get productDetails(): IProductDetails {
-      return this._productDetails
+   get productDetails(): IProductDetails[] {
+      return this._productDetails;
    }
    // ProductDetails ends 
 
@@ -174,11 +185,16 @@ export class Invoice implements IInvoice {
 
    // PaymentDetails starts 
 
-   setPaymentDetails({ paymentMethod, cardHolderName, accountNumber }: IPaymentDetails) {
+   setPaymentDetails({ paymentMethod, cardHolderName, accountNumber, subTotal, tax, discount, shippingcharge, totalamount }: IPaymentDetails) {
       this.paymentDetails = {
          paymentMethod: paymentMethod,
          cardHolderName: cardHolderName,
-         accountNumber: accountNumber
+         accountNumber: accountNumber,
+         subTotal: subTotal,
+         tax: tax,
+         discount: discount,
+         shippingcharge: shippingcharge,
+         totalamount: totalamount,
       }
    }
    set paymentDetails(value: IPaymentDetails) {
@@ -197,7 +213,12 @@ export class Invoice implements IInvoice {
    setData(values: { [key: string]: string | number | { [key: string]: string | number } }) {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
       this.setCompany(values["company"] as unknown as ICompany);
-      this.setProductDetails(values["productDetails"] as unknown as IProductDetails);
+      const productDetailsArray: IProductDetails[] = [
+         { productName: 'Product 1', productDescription: 'Description 1', Rate : 78 , Quantity: 3 , Amount: 100 },
+         { productName: 'Product 2', productDescription: 'Description 2', Rate : 78 , Quantity: 3 , Amount: 100 },
+      ];
+
+      this.setProductDetails(productDetailsArray);
       this.setPaymentDetails(values["paymentDetails"] as unknown as IPaymentDetails);
       this.setBilling(values["billing"] as unknown as IIng);
       this.setShipping(values["shipping"] as unknown as IIng);
@@ -205,7 +226,7 @@ export class Invoice implements IInvoice {
 
    getPayload() {
       return {
-         "invoice": this.invoice,
+         "invoice": this.invoiceNo,
          "company": this.company,
          "billing": this.billing,
          "shipping": this.shipping,
