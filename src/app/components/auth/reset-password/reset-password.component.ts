@@ -14,7 +14,16 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {}
   submit(resetForm: NgForm) {
     const email = resetForm.value.email;
-    this.loginService.resetPassword({ email }).subscribe(
+    this.loginService.resetPassword({
+      email,
+      name: '',
+      role: '',
+      timezone: '',
+      image: '',
+      created: '',
+      updated: '',
+      token: ''
+    }).subscribe(
       (res: any) => {
         this.resetResponse = res;
         console.log(this.resetResponse, "resetpassword");

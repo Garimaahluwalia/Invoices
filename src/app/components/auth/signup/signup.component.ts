@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { SignupService } from 'src/app/services/auth/signup.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ISignUp } from 'src/app/types/signup';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
   // @ViewChild(SignupDirective, { static: false }) SignupDirective!: SignupDirective;
 
-  signupData: any;
+  signupData!: ISignUp;
   email !: string;
   username !: string;
   password!: string;

@@ -8,7 +8,8 @@ import { IInvoice, Invoice } from 'src/app/types/invoice';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
-
+  currentPage = 1;
+  itemsPerPage = 10;
   public invoices: IInvoice[] = [];
   constructor(public invoiceService: InvoiceService, public router: Router, public route: ActivatedRoute) { }
   ngOnInit(): void {

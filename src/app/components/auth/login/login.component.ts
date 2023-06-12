@@ -17,7 +17,7 @@ import { UserLogin } from 'src/app/types/userLogin';
 export class LoginComponent {
   @ViewChild('loginForm', { static: false }) loginForm!: NgForm;
   show = false;
-  userlogin: any;
+  userlogin!: UserLogin;
   showPassword: boolean = false;
   private readonly notifier!: NotifierService;
 

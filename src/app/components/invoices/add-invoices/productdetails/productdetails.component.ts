@@ -13,6 +13,8 @@ export class ProductdetailsComponent {
   productNames: string[] = [];
   productDetails: string[] = [];
   serialNumber: number = 1;
+  
+
 
   addProductRow(): void {
     const newRowId = this.rowIndexes.length;

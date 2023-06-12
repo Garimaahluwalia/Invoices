@@ -36,7 +36,7 @@ export class LoginService {
     return this.http.post(endpoints.LOGIN, payload);
   }
 
-  resetPassword(payload: any): Observable<any> {
+  resetPassword(payload: UserLogin): Observable<any> {
     return this.http.post<any>(endpoints.RESET_PASSWORD, payload);
   }
   updateLoginUser(user: UserLogin) {

@@ -1,0 +1,73 @@
+.dropdown .taxes-edit {
+    background-color: #F7FAFE;
+    color: #3E444C;
+    border-color: #D6DEE9;
+    font-size: 18px;
+    padding: 8px 10px;
+}
+
+.selector-currency {
+    height: 45px;
+    padding: 10px 100px 10px 10px;
+    font-size: 16px;
+}
+
+.items-chart {
+    background-color: #e12026;
+}
+
+.items-chart tr th {
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.items-chart tr {
+    border-radius: 10px 10px 0 0;
+}
+
+.width-70 {
+    width: 70%;
+}
+
+.width-30 {
+    width: 30%;
+}
+
+.invoice-table tbody {
+    background-color: #F7FAFE;
+}
+
+.invoice-table tbody tr td input {
+    border-bottom: 1px solid #b6b6b6 !important;
+    border-radius: 0;
+    padding-left: 0;
+}
+
+.invoice-table tbody tr td {
+    padding: 10px 20px;
+}
+
+.br-8 {
+    border-radius: 8px;
+}
+
+.cstn-description {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.cstn-description i {
+    color: #e12026;
+}
+.product-removal  i{
+ font-size: 20px;
+}
+.add-new-line{
+    padding: 14px 50px;
+    font-size: 18px;
+    background-color: #f2f2f2;
+    border: 1px dashed #b1afaf !important;
+    margin-top: 40px;
+}

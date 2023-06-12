@@ -31,7 +31,8 @@ import { CommonModule } from '@angular/common';
 import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './components/clients/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -100,6 +101,7 @@ const customNotifierOptions: NotifierOptions = {
     ClientComponent,
     AddClientComponent,
     DeleteComponent,
+    ClientDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +109,7 @@ const customNotifierOptions: NotifierOptions = {
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     NotifierModule.withConfig(customNotifierOptions),
     HttpClientModule,
     AppRoutingModule,

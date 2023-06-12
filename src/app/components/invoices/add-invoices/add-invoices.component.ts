@@ -13,8 +13,7 @@ import { IInvoice, Invoice } from 'src/app/types/invoice';
 })
 export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
-  Invoices: any;
-  public invoiceData: any;
+  Invoices!: IInvoice;
   constructor(public addInvoiceService: AddInvoicesService, public route: Router) { }
 
   // model: any = {
@@ -65,10 +64,8 @@ export class AddInvoicesComponent implements OnInit {
 
   }
   submit(f: NgForm) {
-  
       const invoice = new Invoice();
       invoice.setData(f.value);
-      // console.log(invoice, "cloned");
       const payload = invoice.getPayload();
       console.log(payload, "Payload Data");
       this.addInvoiceService.addInvoice(payload).subscribe(
@@ -82,8 +79,6 @@ export class AddInvoicesComponent implements OnInit {
         }
       );
     }
-    
-
   }
 
 

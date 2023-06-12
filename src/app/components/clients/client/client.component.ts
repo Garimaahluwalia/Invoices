@@ -12,6 +12,8 @@ import { ModalEvents } from 'src/app/types/modal';
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent implements OnInit {
+  currentPage = 1;
+  itemsPerPage = 5;
   public clients: IClients[]= [];
   constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
 

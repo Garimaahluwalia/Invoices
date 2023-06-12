@@ -1,0 +1,44 @@
+.sub-amount span:first-child{
+    font-size: 18px;
+    font-weight: 400; 
+}
+.sub-amount span:nth-child(2){
+    font-size: 24px;
+    font-weight: 500;
+}
+.sub-amount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+.total-amount {
+    border-top: 1px dashed #c9c6c6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total-amount span:first-child{
+    font-size: 28px;
+    font-weight: 500;
+    color: #969393;
+    margin-top: 15px;
+}
+.total-amount span:nth-child(2){
+    font-size: 43px;
+    font-weight: 700;
+    color: #424141;
+}
+.bank-background-edit{
+    background-color: #f6f6f6;
+    border-radius: 9px;
+    border: 1px dashed #d6cfcf;
+}
+.bank-background-edit select,.bank-background-edit input{
+    background-color: transparent !important;
+    border-bottom: 1px dashed #d6cfcf !important;
+    border-radius: 0 !important;
+    height: 45px;
+    font-size: 17px;
+}

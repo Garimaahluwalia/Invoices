@@ -11,10 +11,8 @@ import { Invoice } from 'src/app/types/invoice';
   styleUrls: ['./invoice-list-details.component.css']
 })
 export class InvoiceListDetailsComponent implements OnInit {
-  public: any;
   invoicelist:any[] = [];
-  invoices: any;
-  _id: any;
+  _id!: string;
   constructor(public invoiceService: InvoiceService, public route: Router, public router: ActivatedRoute) { }
   ngOnInit(): void {
     this.router.params.subscribe(params => {

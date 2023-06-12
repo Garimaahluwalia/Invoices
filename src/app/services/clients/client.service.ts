@@ -34,7 +34,7 @@ export class ClientService {
 
   }
 
-  sendPost(payload: any): Observable<any> {
+  sendPost(payload: IClients): Observable<any> {
     return this.http.post(endpoints.CLIENTS.ADD, payload);
   }
 

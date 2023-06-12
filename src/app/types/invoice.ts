@@ -56,12 +56,14 @@ export interface IPaymentDetails {
    discount: number;
    shippingcharge: number;
    totalamount: number;
+   IFSC_Code: number;
+   Bank_name: string
 }
 
 export interface IProductDetails {
    productName: string;
    productDescription: string;
-   Rate : number,
+   Rate: number,
    Quantity: number,
    Amount: number
 }
@@ -185,7 +187,7 @@ export class Invoice implements IInvoice {
 
    // PaymentDetails starts 
 
-   setPaymentDetails({ paymentMethod, cardHolderName, accountNumber, subTotal, tax, discount, shippingcharge, totalamount }: IPaymentDetails) {
+   setPaymentDetails({ paymentMethod, cardHolderName, accountNumber, subTotal, tax, discount, shippingcharge, totalamount, IFSC_Code, Bank_name }: IPaymentDetails) {
       this.paymentDetails = {
          paymentMethod: paymentMethod,
          cardHolderName: cardHolderName,
@@ -195,6 +197,8 @@ export class Invoice implements IInvoice {
          discount: discount,
          shippingcharge: shippingcharge,
          totalamount: totalamount,
+         IFSC_Code: IFSC_Code,
+         Bank_name: Bank_name
       }
    }
    set paymentDetails(value: IPaymentDetails) {
@@ -214,8 +218,8 @@ export class Invoice implements IInvoice {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
       this.setCompany(values["company"] as unknown as ICompany);
       const productDetailsArray: IProductDetails[] = [
-         { productName: 'Product 1', productDescription: 'Description 1', Rate : 78 , Quantity: 3 , Amount: 100 },
-         { productName: 'Product 2', productDescription: 'Description 2', Rate : 78 , Quantity: 3 , Amount: 100 },
+         { productName: 'Product 1', productDescription: 'Description 1', Rate: 78, Quantity: 3, Amount: 100 },
+         { productName: 'Product 2', productDescription: 'Description 2', Rate: 78, Quantity: 3, Amount: 100 },
       ];
 
       this.setProductDetails(productDetailsArray);

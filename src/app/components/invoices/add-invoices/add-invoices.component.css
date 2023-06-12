@@ -1,0 +1,18 @@
+.outer-layout{
+ background-color: #F7FAFE;
+}
+.save-cstn-btn{
+    background-color: #bb1b1f;
+    border-color: #bb1b1f;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 18px;
+}
+.print-cstn-btn{
+    background-color: #dedede;
+    border-color: #dedede;
+    color: #040404;
+    font-weight: 600;
+    padding: 6px 20px;
+    font-size: 18px;
+}
