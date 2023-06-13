@@ -1,34 +1,33 @@
 <div class="row">
     <div class="col-md-12">
         <div class="d-flex">
-            <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle taxes-edit" role="button" id="dropdownMenuLink"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-percent mr-2"></i> Add Tax
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item">Action</a>
-                    <a class="dropdown-item">Another action</a>
-                    <a class="dropdown-item">Something else here</a>
-                </div>
+            <div class="d-flex align-items-center ml-5">
+                <label class="mb-0 mr-3">Tax</label>
+                <select class="form-control form-control-sm taxes-edit selector-currency">
+                    <option>None</option>
+                    <option>GST(India)</option>
+                    <option>IGST</option>
+                    <option>CGST & SGST</option>
+                    <option>VAT</option>
+                    <option>PPN</option>
+                    <option>SST</option>
+                    <option>HST</option>
+                    <option>TAX</option>
+                </select>
             </div>
             <div class="d-flex align-items-center ml-5">
                 <label class="mb-0 mr-3">Currency</label>
-                <select class="form-control form-control-sm taxes-edit selector-currency">
-                    <option>Small select</option>
-                    <option>Small select</option>
-                    <option>Small select</option>
-                    <option>Small select</option>
-                    <option>Small select</option>
-                    <option>Small select</option>
+                <select class="form-control" name="currency" [(ngModel)]="selectedCurrency">
+                  <option disabled selected>Select a currency</option>
+                  <option *ngFor="let currency of currencies" [value]="currency.code"> {{currency.symbol}} <span> {{ currency.code }}</span></option>
                 </select>
-            </div>
+              </div>
         </div>
     </div>
 </div>
 <div class="card-body p-0 mt-3" ngModelGroup="productDetails">
     <div class="table-responsive br-8">
-        <table class="invoice-table table table-borderless table-nowrap mb-0">
+        <table class="invoice-table table table-borderless table-nowrap mb-0" >
             <thead class="align-middle items-chart">
                 <tr class="table-active ">
                     <th scope="" class="width-70">
@@ -38,116 +37,70 @@
                         Amount
                     </th>
                     <th></th>
-                    <!-- <th scope="col" style="width: 120px;">
-                        <div class="d-flex currency-select input-light align-items-center">
-                            Rate
-                            <select class="form-selectborder-0 bg-light" data-choices data-choices-search-false
-                                id="choices-payment-currency" onchange="otherPayment()">
-                                <option value="$">($)</option>
-                                <option value="£">(£)</option>
-                                <option value="₹">(₹)</option>
-                                <option value="€">(€)</option>
-                            </select>
-                        </div>
-                    </th>
-                    <th scope="col" style="width: 120px;">Quantity</th>
-                    <th scope="col" class="text-end" style="width: 150px;">Amount</th>
-                    <th scope="col" class="text-end" style="width: 105px;"></th> -->
+                  
                 </tr>
             </thead>
             <tbody id="newlink">
-                <tr id="1" class="product">
+                <tr  class="product">
                     <td class="text-start">
-                        <div class="mb-2">
-                            <input type="text" class="form-control bg-light border-0" id="productName-1"
-                                placeholder="Product Name" required />
-                            <div class="invalid-feedback">
-                                Please enter a product name
-                            </div>
+                      <div class="mb-2">
+                        <input type="text" class="form-control bg-light border-0" id="'productName"
+                          placeholder="Product Name" required  name="productName" />
+                        <div class="invalid-feedback">
+                          Please enter a product name
                         </div>
-                        <button class="btn cstn-description"><i class="fa-regular fa-square-plus mr-1"></i> Add
-                            Description</button>
-                        <!-- <textarea class="form-control bg-light border-0" id="productDetails-1" rows="2"
-                            placeholder="Product Details"></textarea> -->
+                      </div>
+                      <button class="btn cstn-description"  (click)="addDescriptionDefault()" >
+                        <i class="fa-regular fa-square-plus mr-1"></i> Add Description
+                      </button >
+                      <div *ngIf="showDescriptionBoxOpen">
+                        <ckeditor [editor]="editor"></ckeditor>
+                      </div>
                     </td>
                     <td class="text-end">
-                        <div>
-                            <input type="text" class="form-control bg-light border-0 product-line-price"
-                                id="productPrice-1" placeholder="$0.00" readonly />
-                        </div>
+                      <div>
+                        <input type="text" class="form-control bg-light border-0 product-line-price"
+                          [id]="'productPrice-'" placeholder="$0.00"  name="productPrice" />
+                      </div>
                     </td>
                     <td class="product-removal">
-                        <a href="javascript:void(0)" class="btn p-0"><i class="fa-solid fa-xmark"></i></a>
+                      <a href="javascript:void(0)" class="btn p-0"><i class="fa-solid fa-xmark"></i></a>
                     </td>
-                </tr>
+                  </tr>
+                <tr *ngFor="let row of productRows; let i = index" class="product">
+                    <td class="text-start">
+                      <div class="mb-2">
+                        <input type="text" class="form-control bg-light border-0" [id]="'productName-' + (i + 1)"
+                          placeholder="Product Name" required [(ngModel)]="row.productName" name="productName{{i + 1}}" />
+                        <div class="invalid-feedback">
+                          Please enter a product name
+                        </div>
+                      </div>
+                      <button class="btn cstn-description" (click)="addDescription(i)">
+                        <i class="fa-regular fa-square-plus mr-1"></i> Add Description
+                      </button>
+                      <div *ngIf="row.showDescriptionBox">
+                        <ckeditor [editor]="editor" [data]="data"></ckeditor>
+                      </div>
+                    </td>
+                    <td class="text-end">
+                      <div>
+                        <input type="text" class="form-control bg-light border-0 product-line-price"
+                          [id]="'productPrice-' + (i + 1)" placeholder="$0.00" [(ngModel)]="row.productPrice" name="productPrice{{i + 1}}" />
+                      </div>
+                    </td>
+                    <td class="product-removal">
+                      <a href="javascript:void(0)" class="btn p-0" (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
+                    </td>
+                  </tr>
             </tbody>
-            <!-- <tbody>
-                <tr id="newForm" style="display: none;">
-                    <td class="d-none" colspan="5">
-                        <p>Add New Form</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5">
-                        <a href="javascript:void(0)" id="add-item" class="btn btn-soft-secondary fw-medium"
-                            (click)="addProductRow()">
-                            <i class="ri-add-fill me-1 align-bottom"></i> Add Item
-                        </a>
-                    </td>
-                </tr>
-                <tr class="border-top border-top-dashed mt-2">
-                    <td colspan="3"></td>
-                    <td colspan="2" class="p-0">
-                        <table class="table table-borderless table-sm table-nowrap align-middle mb-0">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Sub Total</th>
-                                    <td style="width:150px;">
-                                        <input type="text" class="form-control bg-light border-0" id="cart-subtotal"
-                                            placeholder="$0.00" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Tax</th>
-                                    <td>
-                                        <input type="text" class="form-control bg-light border-0" id="cart-tax"
-                                            placeholder="$0.00" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Discount <small class="text-muted"></small></th>
-                                    <td>
-                                        <input type="text" class="form-control bg-light border-0" id="cart-discount"
-                                            placeholder="$0.00" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Shipping Charge</th>
-                                    <td>
-                                        <input type="text" class="form-control bg-light border-0" id="cart-shipping"
-                                            placeholder="$0.00" />
-                                    </td>
-                                </tr>
-                                <tr class="border-top border-top-dashed">
-                                    <th scope="row">Total Amount</th>
-                                    <td>
-                                        <input type="text" class="form-control bg-light border-0" id="cart-total"
-                                            placeholder="$0.00" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </td>
-                </tr>
-            </tbody> -->
         </table>
         <!--end table-->
     </div>
     <div class="row">
         <div clas="col-md-12">
             <div class="text-center">
-                <button class="btn cstn-description add-new-line">
+                <button class="btn cstn-description add-new-line" (click)="addNewLine()">
                     <i class="fa-regular fa-square-plus mr-1"></i> Add New Line
                 </button>
             </div>

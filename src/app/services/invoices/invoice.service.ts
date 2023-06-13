@@ -11,7 +11,10 @@ export class InvoiceService {
   public Invoices: IInvoice[] = [];
   constructor(private http: HttpClient) { }
 
-
+  
+  getInvoiceNumber():Observable<any[]>{
+    return this.http.get<any[]>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
+  }
   getAllInvoice(): Observable<any[]> {
     return this.http.get<any[]>(endpoints.INVOICES_LIST.GETALL);
   }

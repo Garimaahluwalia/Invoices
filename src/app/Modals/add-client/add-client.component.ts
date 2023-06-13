@@ -51,8 +51,13 @@ export class AddClientComponent implements OnInit {
 
   closeModal() {
     this.closeModalButton?.nativeElement.click();
-    this.router.navigate(["clients"]);
+    if (this.router.url.includes("clients")) {
+      this.router.navigate(["clients"]);
+    } else if (this.router.url.includes("add-invoice")) {
+      this.router.navigate(["add-invoice"]);
+    }
   }
+  
 
   openModal() {
     this.openModalButton?.nativeElement.click();

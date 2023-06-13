@@ -29,11 +29,11 @@ import { AddinvoicethemeComponent } from './components/invoices/addinvoicetheme/
 import { AuthInterceptor } from './interceptors/intercept';
 import { CommonModule } from '@angular/common';
 import { ClientComponent } from './components/clients/client/client.component';
-import { AddClientComponent } from './components/clients/add-client/add-client.component';
+import { AddClientComponent } from './Modals/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -102,6 +102,7 @@ const customNotifierOptions: NotifierOptions = {
     AddClientComponent,
     DeleteComponent,
     ClientDetailsComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -112,6 +113,7 @@ const customNotifierOptions: NotifierOptions = {
     NgxPaginationModule,
     NotifierModule.withConfig(customNotifierOptions),
     HttpClientModule,
+    CKEditorModule,
     AppRoutingModule,
   ],
   providers: [

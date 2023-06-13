@@ -60,26 +60,26 @@ export class AddInvoicesComponent implements OnInit {
 
 
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
 
   }
   submit(f: NgForm) {
-      const invoice = new Invoice();
-      invoice.setData(f.value);
-      const payload = invoice.getPayload();
-      console.log(payload, "Payload Data");
-      this.addInvoiceService.addInvoice(payload).subscribe(
-        (res: any) => {
-          this.Invoices = res;
-          this.route.navigateByUrl("/invoice")
-          console.log(this.Invoices, "addApiResponse");
-        },
-        (error: any) => {
-          console.error(error);
-        }
-      );
-    }
+    const invoice = new Invoice();
+    invoice.setData(f.value);
+    const payload = invoice.getPayload();
+    console.log(payload, "Payload Data");
+    this.addInvoiceService.addInvoice(payload).subscribe(
+      (res: any) => {
+        this.Invoices = res;
+        this.route.navigateByUrl("/invoice")
+        // console.log(this.Invoices, "addApiResponse");
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
+}
 
 
 

@@ -12,7 +12,7 @@ import { InvoiceComponent } from './components/invoices/invoice/invoice.componen
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
 import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
 import { ClientComponent } from './components/clients/client/client.component';
-import { AddClientComponent } from './components/clients/add-client/add-client.component';
+import { AddClientComponent } from './Modals/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
 import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
 
@@ -58,6 +58,16 @@ const routes: Routes = [
   {
     path: INVOICES.ADD_INVOICE,
     component: AddInvoicesComponent,
+    children: [
+      {
+        path:  CLIENTS.ADD_CLIENTS,
+        component: AddClientComponent
+      },
+     {
+      path: CLIENTS.UPDATE_CLIENT,
+      component : AddClientComponent
+     }
+    ]
   },
   {
     path: INVOICES.VIEW_INVOICE_LIST,

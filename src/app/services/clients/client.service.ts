@@ -59,15 +59,11 @@ export class ClientService {
     return this.http.delete(endpoints.CLIENTS.DELETE(clientId));
   }
 
-  // delete(pageId: string) {
-  //   return this.http.delete(endpoints.PAGES.DELETE(pageId));
-  // }
-
   getAll() {
     this.getAllClients().subscribe(
       res => {
         this._clients = res;
-        console.log(this._clients, "getallClients");
+        // console.log(this._clients, "getallClients");
         this.sendClients();
       },
       err => {

@@ -7,7 +7,7 @@ const endpoints = {
   CHECKEMAIL: `${environment.BASE_URL}/check-email`,
   CHECKUSERNAME: `${environment.BASE_URL}/check-username`,
   RESET_PASSWORD: `${environment.BASE_URL}/forgot-password`,
-  LOGOUT: `${environment.BASE_URL}`,
+  LOGOUT: `${environment.BASE_URL}/logout`,
 
 
   INVOICES_LIST: {
@@ -15,6 +15,7 @@ const endpoints = {
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/list/${InvoiceId}`,
     // DELETE: (InvoiceId: string) => `${environment.BASE_URL}/listx/${InvoiceId}`,
+    GET_INVOICE_NUMBER: `${environment.BASE_URL}/invoice-number`
   },
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoice`,

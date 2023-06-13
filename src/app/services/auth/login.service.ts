@@ -44,7 +44,11 @@ export class LoginService {
     localStorage.setItem(USER_DATA, JSON.stringify(user));
     localStorage.setItem(AUTHORIZATION_TOKEN, user?.access_token as string);
   }
-
+ 
+   userLogout(token: string): Observable<any>{
+    return this.http.post(endpoints.LOGOUT, token);
+    
+   }
   removeUserSession() {
     this.user = null;
     localStorage.clear();

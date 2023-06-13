@@ -7,23 +7,23 @@
     <div class="row">
         <div class="col-md-6">
             <div class="row g-3">
-                <div class="col-lg-6 col-sm-4">
+                <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="invoicenoInput">Invoice No</label>
                         <input name="InvoiceNo" ngModel type="text" class="form-control bg-light border-0"
-                            id="invoicenoInput" placeholder="Invoice No">
+                            id="invoicenoInput" value="{{InvoiceNumber}}" placeholder="Invoice No" readonly>
                     </div>
                 </div>
             </div>
             <!--end col-->
             <div class="row mt-4">
-                <div class="col-lg-6 col-sm-4">
+                <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="date-field">Date</label>
-                        <input type="text" ngModel
+                        <input type="date" ngModel
                             class="form-control bg-light border-0 flatpickr-input position-relative" id="date-field"
-                            data-provider="flatpickr" data-time="true" placeholder="Select Date-time" name="Date">
-                        <span class="icon-push-right"><i class="fa-regular fa-calendar"></i></span>
+                            data-provider="flatpickr" data-time="true" placeholder="Select Date-time"  name="Date">
+                        <!-- <span class="icon-push-right"><i class="fa-regular fa-calendar"></i></span> -->
                     </div>
                 </div>
                 <!--end col-->
