@@ -15,6 +15,7 @@ export class AddInvoicesService {
  
 
   public addInvoice(payload: any): Observable<any> {
+    console.log(endpoints.ADD_INVOICES.ADD,payload,"url")
     return this.http.post<any>(endpoints.ADD_INVOICES.ADD, payload);
   }
 

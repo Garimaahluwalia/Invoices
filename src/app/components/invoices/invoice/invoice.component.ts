@@ -15,7 +15,7 @@ export class InvoiceComponent implements OnInit {
   constructor(public invoiceService: InvoiceService, public router: Router, public route: ActivatedRoute) { }
   ngOnInit(): void {
     this.loadInvoices();
-    this.getInvoiceNumber();
+    // this.getInvoiceNumber();
   }
   loadInvoices() {
     this.invoiceService.getAllInvoice()
@@ -25,12 +25,12 @@ export class InvoiceComponent implements OnInit {
       });
   }
 
-  getInvoiceNumber() {
-    this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
-      this.InvoiceNumber = res.invoiceNumber; 
-      // console.log(this.InvoiceNumber, "Number of invoice");
-    });
-  }
+  // getInvoiceNumber() {
+  //   this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
+  //     this.InvoiceNumber = res.invoiceNumber; 
+  //     // console.log(this.InvoiceNumber, "Number of invoice");
+  //   });
+  // }
 
   countPaidInvoices(): number {
     return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "paid").length;

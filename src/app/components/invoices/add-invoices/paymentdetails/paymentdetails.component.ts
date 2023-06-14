@@ -9,6 +9,11 @@ import { ControlContainer, NgForm } from '@angular/forms';
 
 })
 export class PaymentdetailsComponent {
-
+  public Bankdetails: { [k: string]: string } = {
+    "BankName": "M CODE INFOSOFT",
+    "cardHolderName": "M CODE INFOSOFT",
+    "accountNumber": "098878776809454",
+    "IFSCCode": "DQCPK3553H",
+  }
 
 }

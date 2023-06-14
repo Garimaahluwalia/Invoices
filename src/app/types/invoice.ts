@@ -1,10 +1,9 @@
+import { TAXES } from "./taxes";
+
 export interface IInvoice {
    invoiceNo: IInvoiceClass;
    company: ICompany;
-   // billing: IIng;
-   // shipping: IIng;
    productDetails: IProductDetails[];
-   BankDetails: IBankDetails;
    _id?: string;
    InvoiceId?: string;
    Email?: string;
@@ -12,6 +11,8 @@ export interface IInvoice {
    Date?: Date;
    Billed?: number;
    Status?: string;
+   tax: TAXES;
+   
    __v: number;
 }
 export interface IInvoiceClass {
@@ -27,52 +28,37 @@ export interface ICompany {
    emailaddress: string;
    website?: string;
    contactNo?: string;
+   // taxType?: string
 }
 
-// export interface IIng {
-//    address: IAddress;
-//    name: string;
+
+// export interface IAddress {
+//    fullName: string;
+//    address: string;
+//    phoneNo: string;
+//    taxnumber: string;
+//    postalCode: string;
+//    country: string;
 // }
 
-export interface IAddress {
-   fullName: string;
-   address: string;
-   phoneNo: string;
-   taxnumber: string;
-   postalCode: string;
-   country: string;
-}
-
-// export enum PaymentMethod {
-//    Mastercard = 'mastercard',
-//    CreditCard = 'creditcard',
-//    Visa = 'visa',
-//    Paypal = 'paypal',
-//    AccountNumber = 'account number',
+// export interface IBankDetails {
+//    Bankname: string
+//    cardHolderName: string;
+//    accountNumber: string;
+//    IFSC_Code: string;
 // }
-export interface IBankDetails {
-  
-   Bankname: string
-   cardHolderName: string;
-   accountNumber: string;
-   IFSC_Code: string;
-}
 
 export interface IProductDetails {
-   tax: number;
-   currency: number;
-   productName: string;
-   productDescription: string;
+   amount: number;
+   name: string;
+   description: string;
 }
 
 
 export class Invoice implements IInvoice {
    public invoiceNo!: IInvoiceClass;
    private _company!: ICompany;
-   // public _billing!: IIng;
-   // public _shipping!: IIng;
    public _productDetails!: IProductDetails[];
-   public _BankDetails!: IBankDetails;
    public _id?: string;
    public invoiceNumber!: string;
    public InvoiceId?: string;
@@ -82,71 +68,18 @@ export class Invoice implements IInvoice {
    public Billed?: number;
    public Status?: string;
    public __v!: number;
+   private _tax: TAXES = TAXES.GST;
+   public _currency!: string;
 
    constructor() { }
 
-
-   // InvoiceDetails starts 
    setInvoice({ invoiceNo }: IInvoiceClass) {
       this.invoiceNo = {
          invoiceNo: invoiceNo,
       };
    }
-   // InvoiceDetails ends 
 
-   //  BillingDetails starts 
-   // setBilling({ address }: IIng) {
-   //    this.billing = {
-   //       address: {
-   //          fullName: address.fullName,
-   //          address: address.address,
-   //          phoneNo: address.phoneNo,
-   //          taxnumber: address.taxnumber,
-   //          postalCode: address.postalCode,
-   //          country: address.country,
-   //       },
-   //       name: address.fullName
-   //    }
-   // }
-   // set billing(value: IIng) {
-   //    this._billing = value;
-   // }
-   // get billing(): IIng {
-   //    return this._billing;
-   // }
-   // BillingDetails ends 
-
-
-
-   // shippingDetails starts 
-   // setShipping({ address }: IIng) {
-   //    this.shipping = {
-   //       address: {
-   //          fullName: address.fullName,
-   //          address: address.address,
-   //          phoneNo: address.phoneNo,
-   //          taxnumber: address.taxnumber,
-   //          postalCode: address.postalCode,
-   //          country: address.country,
-   //       },
-   //       name: address.fullName
-   //    }
-   // }
-
-   // set shipping(value: IIng) {
-   //    this._shipping = value;
-   // }
-
-   // get shipping(): IIng {
-   //    return this._shipping;
-   // }
-   // shippingDetails ends 
-
-
-
-
-   //   CompanyDetails starts
-   setCompany({ Businessname, address, contactNo, emailaddress, postalCode, website, GSTIN, pan }: ICompany) {
+   setCompany({ Businessname, address, contactNo, emailaddress, postalCode, GSTIN, pan,  }: ICompany) {
       this.company = {
          Businessname: Businessname,
          address: address,
@@ -155,7 +88,8 @@ export class Invoice implements IInvoice {
          contactNo: contactNo,
          emailaddress: emailaddress,
          postalCode: postalCode,
-         website: website,
+         // website: website,
+         // taxType: taxType
       }
    }
 
@@ -166,66 +100,42 @@ export class Invoice implements IInvoice {
       return this._company;
    }
 
-   // companyDetails ends 
+   set tax(value: TAXES) {
+      this._tax = value;
+   }
+   get tax(): TAXES {
+      return this._tax;
+   }
 
 
-   //  ProductDetails starts 
+
    setProductDetails(productDetails: IProductDetails[]) {
       this._productDetails = productDetails;
-   }
-
-   set productDetails(value: IProductDetails[]) {
+      
+    }
+    
+    set productDetails(value: IProductDetails[]) {
       this._productDetails = value;
-   }
-
-   get productDetails(): IProductDetails[] {
+    }
+    
+    get productDetails(): IProductDetails[] {
       return this._productDetails;
-   }
-   // ProductDetails ends 
-
-
-
-   // PaymentDetails starts 
-
-   setBankDetails({  Bankname  , cardHolderName, accountNumber, IFSC_Code,}: IBankDetails) {
-      this.BankDetails = {
-         Bankname: Bankname,
-         cardHolderName: cardHolderName,
-         accountNumber: accountNumber,
-         IFSC_Code: IFSC_Code,
-      }
-   }
-   set BankDetails(value: IBankDetails) {
-      this._BankDetails = value;
-   }
-   get BankDetails(): IBankDetails {
-      return this._BankDetails;
-   }
-
-   // PaymentDetails ends 
-
-
-
-
-
+    }
+ 
    setData(values: { [key: string]: string | number | { [key: string]: string | number } }) {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
       this.setCompany(values["company"] as unknown as ICompany);
-      const productDetailsArray: IProductDetails[] = [];
-      this.setProductDetails(productDetailsArray);
-      this.setBankDetails(values["BankDetails"] as unknown as IBankDetails);
-      // this.setBilling(values["billing"] as unknown as IIng);
-      // this.setShipping(values["shipping"] as unknown as IIng);
-   }
-
-   getPayload() {
+      this.setProductDetails(values["productDetails"] as unknown as IProductDetails[]);
+    }
+    
+    
+    getPayload() {
       return {
-         "invoice": this.invoiceNo,
-         "company": this.company,
-         // "billing": this.billing,
-         // "shipping": this.shipping,
-         "productDetails": this.productDetails,
-         "BankDetails": this.BankDetails
-      }
-   }
+        "invoiceNo": this.invoiceNo.invoiceNo,
+        "company": this.company,
+        "tax": this.tax,
+        "productDetails": [this.productDetails],
+      };
+    }
+    
 }

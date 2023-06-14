@@ -22,38 +22,34 @@
             <label for="choices-payment-type" class="form-label text-muted text-uppercase fw-semibold">Bank
                 Details</label>
             <div class="bank-background-edit">
-                <!-- <div class="input-light">
-                    <select class="form-control bg-light border-0" data-choices data-choices-search-false
-                        data-choices-removeItem id="choices-payment-type" ngModel name="paymentMethod">
-                        <option value="">Payment Method</option>
-                        <option value="Mastercard">Mastercard</option>
-                        <option value="Credit Card">Credit Card</option>
-                        <option value="Visa">Visa</option>
-                        <option value="Paypal">Paypal</option>
-                        <option value="Account Number">Account number</option>
-                    </select>
-                </div> -->
                 <div class="">
                     <!-- <input class="form-control bg-light border-0" type="text" id="cardholderName"
                         placeholder="Card Holder Name" ngModel name="cardHolderName"> -->
-                        <label for="Bankname">Bank Name :  ABC </label>
+                    <label for="Bankname">Bank Name : ABC </label>
                 </div>
                 <div class="">
                     <!-- <input class="form-control bg-light border-0" type="text" id="cardholderName"
                         placeholder="Card Holder Name" ngModel name="cardHolderName"> -->
-                        <label for="cardHolderName">cardHolderName :  ABC </label>
+                    <label for="cardHolderName">cardHolderName : ABC </label>
                 </div>
                 <div class="">
                     <!-- <input class="form-control bg-light border-0" type="text" id="cardNumber"
                         placeholder="xxxx xxxx xxxx xxxx" ngModel name="accountNumber"> -->
-                        <label for="accountNumber">accountNumber : ABC</label>
+                    <label for="accountNumber">accountNumber : ABC</label>
                 </div>
                 <div class="">
                     <!-- <input class="form-control bg-light border-0" type="text" id="ifscCode" placeholder="IFSC Code"
                         ngModel name="ifscCode"> -->
-                        <label for="ifscCode">IFSCCode :  ABC</label>
+                    <label for="ifscCode">IFSCCode : ABC</label>
 
                 </div>
+
+
+                <input type="hidden" ngModel name="BankName" [(ngModel)]="Bankdetails['BankName']">
+                <input type="hidden" ngModel name="cardHolderName" [(ngModel)]="Bankdetails['cardHolderName']">
+                <input type="hidden" ngModel name="accountNumber" [(ngModel)]="Bankdetails['accountNumber']">
+                <input type="hidden" ngModel name="IFSCCode" [(ngModel)]="Bankdetails['IFSCCode']">
+               
             </div>
         </div>
     </div>

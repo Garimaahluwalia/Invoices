@@ -27,6 +27,7 @@ export class ClientDetailsComponent implements OnInit {
     const selectedValue = event.target.value;
     this.selectedClient = this.clients_details.find((client) => client.name === selectedValue);
   }
+
   addClients(){
     this.router.navigate(["add-invoice", "add-client"]).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, {status: true});

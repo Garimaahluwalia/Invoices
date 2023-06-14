@@ -16,63 +16,77 @@ export class AddInvoicesComponent implements OnInit {
   Invoices!: IInvoice;
   constructor(public addInvoiceService: AddInvoicesService, public route: Router) { }
 
-  // model: any = {
-  //   invoice: {
-  //     InvoiceNo: ""
-  //   },
-  //   company: {
-  //     name: '',
-  //     postalCode: '',
-  //     contact: '',
-  //     emailaddress: '',
-  //     website: '',
-  //     contactNo: ''
-  //   },
-  //   billing: {
-  //     address: {
-  //       fullName: '',
-  //       address: '',
-  //       phoneNo: '',
-  //       taxnumber: '',
-  //     },
-  //     name: ''
-  //   },
-  //   shipping: {
-  //     address: {
-  //       fullName: '',
-  //       address: '',
-  //       phoneNo: '',
-  //       taxnumber: '',
-  //     },
-  //     name: ''
-  //   },
-  //   productDetails: {
-  //     productName: '',
-  //     productDescription: ''
-  //   },
-  //   paymentDetails: {
-  //     paymentMethod: '',
-  //     cardHolderName: '',
-  //     accountNumber: ''
-  //   },
+  model: any = {
+    "invoice": {
+      "InvoiceNo": "INV-12345"
+    },
+    "company": {
+      "Businessname": "ABC Company",
+      "address": "123 Main St",
+      "GSTIN": "ABCD1234",
+      "pan": "ABCDE12345",
+      "postalCode": "12345",
+      "emailaddress": "mailto:info@company.com",
+      "website": "https://www.company.com",
+      "contactNo": "123-456-7890",
+      "currencyType": "USD",
+      "taxType": "GST"
+    },
+    "billing": {
 
-  // };
+      "city": "City Name",
+      "pincode": "54321",
+      "apartment": "Apt 1",
+      "zipcode": "12345",
+      "country": "Country Name"
+    },
+    "shipping": {
+
+      "city": "City Name",
+      "pincode": "54321",
+      "apartment": "Apt 2",
+      "zipcode": "12345",
+      "country": "Country Name"
+    },
 
 
+    "products": [
+      {
+        "productName": "Product 1",
+        "productDescription": "Description 1",
+        "rate": 10,
+        "quantity": 5
+      },
+      {
+        "productName": "Product 2",
+        "productDescription": "Description 2",
+        "rate": 15,
+        "quantity": 3
+      }
+    ],
+    "InvoiceId": "INV-12345",
+    "Email": "mailto:customer@example.com",
+    "Client": "Client Name",
+    "Date": "2023-06-13",
+    "Status": "Paid"
+  }
 
   ngOnInit(): void {
 
   }
+
   submit(f: NgForm) {
+    // console.log(f.value)
     const invoice = new Invoice();
     invoice.setData(f.value);
     const payload = invoice.getPayload();
-    console.log(payload, "Payload Data");
-    this.addInvoiceService.addInvoice(payload).subscribe(
+    console.log(payload, "from components")
+    this.addInvoiceService.addInvoice((payload
+    )).subscribe(
       (res: any) => {
         this.Invoices = res;
-        this.route.navigateByUrl("/invoice")
-        // console.log(this.Invoices, "addApiResponse");
+        // this.route.navigateByUrl("/invoice")
+        console.log(this.Invoices, "add-form-API-Response");
       },
       (error: any) => {
         console.error(error);

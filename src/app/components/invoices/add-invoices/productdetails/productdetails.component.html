@@ -1,110 +1,112 @@
 <div class="row">
-    <div class="col-md-12">
-        <div class="d-flex">
-            <div class="d-flex align-items-center ml-5">
-                <label class="mb-0 mr-3">Tax</label>
-                <select class="form-control form-control-sm taxes-edit selector-currency">
-                    <option>None</option>
-                    <option>GST(India)</option>
-                    <option>IGST</option>
-                    <option>CGST & SGST</option>
-                    <option>VAT</option>
-                    <option>PPN</option>
-                    <option>SST</option>
-                    <option>HST</option>
-                    <option>TAX</option>
-                </select>
-            </div>
-            <div class="d-flex align-items-center ml-5">
-                <label class="mb-0 mr-3">Currency</label>
-                <select class="form-control" name="currency" [(ngModel)]="selectedCurrency">
-                  <option disabled selected>Select a currency</option>
-                  <option *ngFor="let currency of currencies" [value]="currency.code"> {{currency.symbol}} <span> {{ currency.code }}</span></option>
-                </select>
-              </div>
-        </div>
+  <div class="col-md-12">
+    <div class="d-flex">
+      <div class="d-flex align-items-center ml-5">
+        <label class="mb-0 mr-3">Tax</label>
+        <select class="form-control form-control-sm taxes-edit selector-currency" ngModel name="tax" [(ngModel)]="tax">
+          <option name="tax">None</option>
+          <option name="tax">GST(India)</option>
+          <option name="tax">IGST</option>
+          <option name="tax">CGST & SGST</option>
+          <option name="tax">VAT</option>
+          <option name="tax">PPN</option>
+          <option name="tax">SST</option>
+          <option name="tax">HST</option>
+          <option name="tax">TAX</option>
+        </select>
+      </div>
+      <div class="d-flex align-items-center ml-5">
+        <label class="mb-0 mr-3">Currency</label>
+        <select class="form-control" name="currency" [(ngModel)]="currency">
+          <option disabled selected name="currency">Select a currency</option>
+          <option *ngFor="let currency of currencies" name="currency" [value]="currency.code"> {{currency.symbol}}
+            <span> {{ currency.code }}</span></option>
+        </select>
+      </div>
     </div>
+  </div>
 </div>
 <div class="card-body p-0 mt-3" ngModelGroup="productDetails">
-    <div class="table-responsive br-8">
-        <table class="invoice-table table table-borderless table-nowrap mb-0" >
-            <thead class="align-middle items-chart">
-                <tr class="table-active ">
-                    <th scope="" class="width-70">
-                        Item
-                    </th>
-                    <th scope="" class="width-30">
-                        Amount
-                    </th>
-                    <th></th>
-                  
-                </tr>
-            </thead>
-            <tbody id="newlink">
-                <tr  class="product">
-                    <td class="text-start">
-                      <div class="mb-2">
-                        <input type="text" class="form-control bg-light border-0" id="'productName"
-                          placeholder="Product Name" required  name="productName" />
-                        <div class="invalid-feedback">
-                          Please enter a product name
-                        </div>
-                      </div>
-                      <button class="btn cstn-description"  (click)="addDescriptionDefault()" >
-                        <i class="fa-regular fa-square-plus mr-1"></i> Add Description
-                      </button >
-                      <div *ngIf="showDescriptionBoxOpen">
-                        <ckeditor [editor]="editor"></ckeditor>
-                      </div>
-                    </td>
-                    <td class="text-end">
-                      <div>
-                        <input type="text" class="form-control bg-light border-0 product-line-price"
-                          [id]="'productPrice-'" placeholder="$0.00"  name="productPrice" />
-                      </div>
-                    </td>
-                    <td class="product-removal">
-                      <a href="javascript:void(0)" class="btn p-0"><i class="fa-solid fa-xmark"></i></a>
-                    </td>
-                  </tr>
-                <tr *ngFor="let row of productRows; let i = index" class="product">
-                    <td class="text-start">
-                      <div class="mb-2">
-                        <input type="text" class="form-control bg-light border-0" [id]="'productName-' + (i + 1)"
-                          placeholder="Product Name" required [(ngModel)]="row.productName" name="productName{{i + 1}}" />
-                        <div class="invalid-feedback">
-                          Please enter a product name
-                        </div>
-                      </div>
-                      <button class="btn cstn-description" (click)="addDescription(i)">
-                        <i class="fa-regular fa-square-plus mr-1"></i> Add Description
-                      </button>
-                      <div *ngIf="row.showDescriptionBox">
-                        <ckeditor [editor]="editor" [data]="data"></ckeditor>
-                      </div>
-                    </td>
-                    <td class="text-end">
-                      <div>
-                        <input type="text" class="form-control bg-light border-0 product-line-price"
-                          [id]="'productPrice-' + (i + 1)" placeholder="$0.00" [(ngModel)]="row.productPrice" name="productPrice{{i + 1}}" />
-                      </div>
-                    </td>
-                    <td class="product-removal">
-                      <a href="javascript:void(0)" class="btn p-0" (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
-                    </td>
-                  </tr>
-            </tbody>
-        </table>
-        <!--end table-->
-    </div>
-    <div class="row">
-        <div clas="col-md-12">
-            <div class="text-center">
-                <button class="btn cstn-description add-new-line" (click)="addNewLine()">
-                    <i class="fa-regular fa-square-plus mr-1"></i> Add New Line
-                </button>
+  <div class="table-responsive br-8">
+    <table class="invoice-table table table-borderless table-nowrap mb-0">
+      <thead class="align-middle items-chart">
+        <tr class="table-active ">
+          <th scope="" class="width-70">
+            Item
+          </th>
+          <th scope="" class="width-30">
+            Amount
+          </th>
+          <th></th>
+
+        </tr>
+      </thead>
+      <tbody id="newlink">
+        <tr class="product">
+          <td class="text-start">
+            <div class="mb-2">
+              <input type="text" class="form-control bg-light border-0" id="'productName" placeholder="Product Name"
+                required  name="name" [(ngModel)]="name" />
+              <div class="invalid-feedback">
+                Please enter a product name
+              </div>
             </div>
-        </div>
+            <button class="btn cstn-description" (click)="addDescriptionDefault()">
+              <i class="fa-regular fa-square-plus mr-1"></i> Add Description
+            </button>
+            <div *ngIf="showDescriptionBoxOpen">
+              <ckeditor [editor]="editor" name="description" [(ngModel)]="description"></ckeditor>
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" class="form-control bg-light border-0 product-line-price" [id]="'productPrice-'"
+                placeholder="$0.00" name="amount" [(ngModel)]="amount" />
+            </div>
+          </td>
+          <td class="product-removal">
+            <a href="" class="btn p-0"><i class="fa-solid fa-xmark"></i></a>
+          </td>
+        </tr>
+        <tr *ngFor="let row of productRows; let i = index" class="product">
+          <td class="text-start">
+            <div class="mb-2">
+              <input type="text" class="form-control bg-light border-0" [id]="'productName-' + (i + 1)"
+                placeholder="Product Name" required [(ngModel)]="row.productName" name="productName{{i + 1}}" />
+              <div class="invalid-feedback">
+                Please enter a product name
+              </div>
+            </div>
+            <button class="btn cstn-description" (click)="addDescription(i)">
+              <i class="fa-regular fa-square-plus mr-1"></i> Add Description
+            </button>
+            <div *ngIf="row.showDescriptionBox">
+              <ckeditor [editor]="editor" [data]="data"></ckeditor>
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" class="form-control bg-light border-0 product-line-price"
+                [id]="'productPrice-' + (i + 1)" placeholder="$0.00" [(ngModel)]="row.productPrice"
+                name="productPrice{{i + 1}}" />
+            </div>
+          </td>
+          <td class="product-removal">
+            <a href="javascript:void(0)" class="btn p-0" (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--end table-->
+  </div>
+  <div class="row">
+    <div clas="col-md-12">
+      <div class="text-center">
+        <button class="btn cstn-description add-new-line" (click)="addNewLine()">
+          <i class="fa-regular fa-square-plus mr-1"></i> Add New Line
+        </button>
+      </div>
     </div>
-    
+  </div>
+
 </div>

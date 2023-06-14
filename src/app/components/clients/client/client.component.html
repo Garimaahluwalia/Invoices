@@ -11,7 +11,7 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">User</a></li>
+                                <li class="breadcrumb-item"><a>User</a></li>
                                 <li class="breadcrumb-item active">User</li>
                             </ol>
                         </div>
@@ -39,10 +39,10 @@
                                 class="btn btn-soft-info btn-icon fs-14"><i
                                     class="las la-ellipsis-v fs-18"></i></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                <li><a class="dropdown-item" href="#">All</a></li>
-                                <li><a class="dropdown-item" href="#">Last Week</a></li>
-                                <li><a class="dropdown-item" href="#">Last Month</a></li>
-                                <li><a class="dropdown-item" href="#">Last Year</a></li>
+                                <li><a class="dropdown-item" >All</a></li>
+                                <li><a class="dropdown-item" >Last Week</a></li>
+                                <li><a class="dropdown-item" >Last Month</a></li>
+                                <li><a class="dropdown-item" >Last Year</a></li>
                             </ul>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                         <tr *ngFor="let details of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
                                             <td><img src="assets/images/users/avatar-1.jpg" alt=""
                                                     class="avatar-xs rounded-circle me-2">
-                                                <a href="#javascript: void(0);"
+                                                <a 
                                                     class="text-body align-middle fw-medium">{{details.name}}</a>
                                             </td>
                                             <td>{{details.email}}</td>
@@ -81,7 +81,7 @@
                                                 <ul class="list-inline hstack gap-2 mb-0">
                                                     <!-- <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="View">
-                                                        <a href="#" class="btn btn-soft-info btn-sm d-inline-block">
+                                                        <a  class="btn btn-soft-info btn-sm d-inline-block">
                                                             <i class="las la-eye fs-17 align-middle"></i>
                                                         </a>
                                                     </li> -->
@@ -121,13 +121,13 @@
                             <li class="page-item disabled">
                                 <span class="page-link">Previous</span>
                             </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active"><a class="page-link" >1</a></li>
                             <li class="page-item" aria-current="page">
                                 <span class="page-link">2</span>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" >3</a></li>
                             <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
+                                <a class="page-link" >Next</a>
                             </li>
                         </ul>
                     </nav>

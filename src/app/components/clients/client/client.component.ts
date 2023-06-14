@@ -43,7 +43,7 @@ export class ClientComponent implements OnInit {
   }
 
   DeleteClient(details: any) {
-    this.router.navigate(["/clients", "delete-client", details._id]).then(() => {
+    this.router.navigate(["clients", "delete-client", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.CLIENTS } });
     })
   }

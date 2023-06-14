@@ -10,8 +10,8 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="invoicenoInput">Invoice No</label>
-                        <input name="InvoiceNo" ngModel type="text" class="form-control bg-light border-0"
-                            id="invoicenoInput" value="{{InvoiceNumber}}" placeholder="Invoice No" readonly>
+                        <input name="invoiceNo" ngModel type="text" class="form-control bg-light border-0"
+                            id="invoicenoInput" [(ngModel)]="InvoiceNumber" placeholder="Invoice No" readonly>
                     </div>
                 </div>
             </div>

@@ -19,8 +19,7 @@ export class InvoicedataComponent implements OnInit {
 
   getInvoiceNumber() {
     this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
-      this.InvoiceNumber = res.invoiceNumber; 
-      // console.log(this.InvoiceNumber, "Number of invoice");
+      this.InvoiceNumber = res.invoiceNumber;
     });
   }
 }
