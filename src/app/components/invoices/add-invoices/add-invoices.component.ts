@@ -6,6 +6,7 @@ import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.servi
 import { HttpHeaders } from '@angular/common/http';
 import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { IInvoice, Invoice } from 'src/app/types/invoice';
+import { NotifierService } from 'angular-notifier';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -14,7 +15,10 @@ import { IInvoice, Invoice } from 'src/app/types/invoice';
 export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
   Invoices!: IInvoice;
-  constructor(public addInvoiceService: AddInvoicesService, public route: Router) { }
+  private readonly notifier!: NotifierService;
+  constructor(public addInvoiceService: AddInvoicesService, public route: Router, public notifierService: NotifierService) { 
+    this.notifier = notifierService;
+  }
 
   model: any = {
     "invoice": {
@@ -80,13 +84,12 @@ export class AddInvoicesComponent implements OnInit {
     const invoice = new Invoice();
     invoice.setData(f.value);
     const payload = invoice.getPayload();
-    console.log(payload, "from components")
-    this.addInvoiceService.addInvoice((payload
-    )).subscribe(
-      (res: any) => {
+    console.log(payload, "from components");
+    this.addInvoiceService.addInvoice((payload)).subscribe((res: any) => {
         this.Invoices = res;
         // this.route.navigateByUrl("/invoice")
         console.log(this.Invoices, "add-form-API-Response");
+        this.notifier.notify('Success', 'Invoice Save successfully');
       },
       (error: any) => {
         console.error(error);

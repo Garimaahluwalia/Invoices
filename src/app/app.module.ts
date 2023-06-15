@@ -34,6 +34,7 @@ import { DeleteComponent } from './Modals/delete/delete.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PhonenumberDirective } from './directives/phonenumber.directive';
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -102,7 +103,7 @@ const customNotifierOptions: NotifierOptions = {
     AddClientComponent,
     DeleteComponent,
     ClientDetailsComponent,
-  
+    PhonenumberDirective,
   ],
   imports: [
     BrowserModule,

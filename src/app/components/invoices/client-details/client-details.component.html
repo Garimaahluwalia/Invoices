@@ -6,11 +6,10 @@
         <img src="assets\images\mcode-m.png" class="img-fluid" /><span>mcode infosoft</span>
     </div> -->
     <div class="form-group">
-        <select class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1"
-            (change)="selectClient($event)">
+        <select class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1" (change)="selectClient($event)">
             <option disabled selected>Select a client</option>
             <option>None</option>
-            <option *ngFor="let details of clients_details">{{ details.name }}</option>
+            <option *ngFor="let details of clients_details" [value]="details._id">{{ details.name }}</option>
         </select>
     </div>
 
@@ -29,8 +28,11 @@
                 <span>Registered On</span><span>{{selectedClient.registeredNo}}</span>
             </div>
             <div class="d-flex align-items-center">
-                <span>Status</span><span>{{selectedClient.status}}</span>
+                <span>Address</span><span>{{selectedClient.address}}</span>
             </div>
+            <!-- <div class="d-flex align-items-center">
+                <span>Status</span><span>{{selectedClient.status}}</span>
+            </div> -->
         </div>
     </div>
     <div *ngIf="selectedClient" (click)="updateClient(selectedClient)">

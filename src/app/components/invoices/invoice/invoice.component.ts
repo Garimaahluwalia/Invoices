@@ -11,7 +11,7 @@ export class InvoiceComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 10;
   public invoices: IInvoice[] = [];
- public InvoiceNumber! : number ; 
+  public InvoiceNumber!: number;
   constructor(public invoiceService: InvoiceService, public router: Router, public route: ActivatedRoute) { }
   ngOnInit(): void {
     this.loadInvoices();
@@ -27,7 +27,7 @@ export class InvoiceComponent implements OnInit {
 
   // getInvoiceNumber() {
   //   this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
-  //     this.InvoiceNumber = res.invoiceNumber; 
+  //     this.InvoiceNumber = res.invoiceNumber;
   //     // console.log(this.InvoiceNumber, "Number of invoice");
   //   });
   // }

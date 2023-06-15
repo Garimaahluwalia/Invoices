@@ -9,18 +9,20 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 })
 export class ProductdetailsComponent implements OnInit {
+  public quantity!: number;
+  public rate!: number;
+  public amount!: number;
   public name!: "";
   public description!: "";
-  public amount!: "";
   public tax!: string;
   public selectedCurrency!: string;
   public editor: any = ClassicEditor;
-  public data: any = `<p></p>`;
+  public data: any = `<p> Enter description here </p>`;
   public serialNumber: number = 1;
   public showDescriptionBox: boolean = false;
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
-  public currencies!: any[]; 
+  public currencies!: any[];
   public currency = [
     {
       "code": "USD",
@@ -107,9 +109,12 @@ export class ProductdetailsComponent implements OnInit {
   constructor() { }
   ngOnInit(): void {
     this.loadCurrencies();
+    this.calculateAmount();
   }
 
-
+  calculateAmount() {
+    this.amount = this.quantity * this.rate;
+  }
   loadCurrencies() {
     this.currencies = this.currency;
   }

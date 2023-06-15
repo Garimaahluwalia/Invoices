@@ -12,7 +12,6 @@ export interface IInvoice {
    Billed?: number;
    Status?: string;
    tax: TAXES;
-   
    __v: number;
 }
 export interface IInvoiceClass {
@@ -28,26 +27,7 @@ export interface ICompany {
    emailaddress: string;
    website?: string;
    contactNo?: string;
-   // taxType?: string
 }
-
-
-// export interface IAddress {
-//    fullName: string;
-//    address: string;
-//    phoneNo: string;
-//    taxnumber: string;
-//    postalCode: string;
-//    country: string;
-// }
-
-// export interface IBankDetails {
-//    Bankname: string
-//    cardHolderName: string;
-//    accountNumber: string;
-//    IFSC_Code: string;
-// }
-
 export interface IProductDetails {
    amount: number;
    name: string;
@@ -60,7 +40,7 @@ export class Invoice implements IInvoice {
    private _company!: ICompany;
    public _productDetails!: IProductDetails[];
    public _id?: string;
-   public invoiceNumber!: string;
+   // public invoiceNumber!: string;
    public InvoiceId?: string;
    public Email?: string;
    public Client?: string;
@@ -79,17 +59,15 @@ export class Invoice implements IInvoice {
       };
    }
 
-   setCompany({ Businessname, address, contactNo, emailaddress, postalCode, GSTIN, pan,  }: ICompany) {
+   setCompany({ Businessname, address, contactNo, emailaddress, postalCode, GSTIN, pan }: ICompany) {
       this.company = {
          Businessname: Businessname,
          address: address,
-         GSTIN: GSTIN,
-         pan: pan,
          contactNo: contactNo,
          emailaddress: emailaddress,
          postalCode: postalCode,
-         // website: website,
-         // taxType: taxType
+         GSTIN: GSTIN,
+         pan: pan,
       }
    }
 
@@ -100,6 +78,8 @@ export class Invoice implements IInvoice {
       return this._company;
    }
 
+
+
    set tax(value: TAXES) {
       this._tax = value;
    }
@@ -109,33 +89,38 @@ export class Invoice implements IInvoice {
 
 
 
-   setProductDetails(productDetails: IProductDetails[]) {
-      this._productDetails = productDetails;
-      
-    }
-    
-    set productDetails(value: IProductDetails[]) {
+   setProductDetails(productDetails: any) {
+      const products = [];
+      const keys = Object.keys(productDetails);
+      for (const key of keys) {
+         products.push(productDetails[key]);
+      }
+      this._productDetails = products;
+
+   }
+
+   set productDetails(value: IProductDetails[]) {
       this._productDetails = value;
-    }
-    
-    get productDetails(): IProductDetails[] {
+   }
+
+   get productDetails(): IProductDetails[] {
       return this._productDetails;
-    }
- 
+   }
+
    setData(values: { [key: string]: string | number | { [key: string]: string | number } }) {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
       this.setCompany(values["company"] as unknown as ICompany);
-      this.setProductDetails(values["productDetails"] as unknown as IProductDetails[]);
-    }
-    
-    
-    getPayload() {
+      this.setProductDetails(values["productDetails"] as unknown as { [key: string]: any });
+   }
+
+
+   getPayload() {
       return {
-        "invoiceNo": this.invoiceNo.invoiceNo,
-        "company": this.company,
-        "tax": this.tax,
-        "productDetails": [this.productDetails],
+         "invoiceNo": this.invoiceNo.invoiceNo,
+         "company": this.company,
+         "tax": this.tax,
+         "products": this.productDetails,
       };
-    }
-    
+   }
+
 }

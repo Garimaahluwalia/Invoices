@@ -11,31 +11,36 @@ import { ModalEvents } from 'src/app/types/modal';
   styleUrls: ['./client-details.component.css']
 })
 export class ClientDetailsComponent implements OnInit {
-  public clients_details : any[] = [];
+  public clients_details: any[] = [];
   selectedClient: any;
-  constructor(public router: Router, public modalService: ModalService,public clientService : ClientService ) {}
+  constructor(public router: Router, public modalService: ModalService, public clientService: ClientService) { }
   ngOnInit(): void {
     this.clientService.getAll();
     this.clientService.recieveClients().subscribe((data: any) => {
       this.clients_details = data;
-      // console.log(this.clients_details, "clientsdetailsdata");
+      // console.log(this.clients_details, "jsdj");
+    });
+    this.clientService.recieveClientData().subscribe((clientResponse) => {
+      this.clientService.getAll();
+      this.selectedClient = clientResponse;
     });
 
   }
 
   selectClient(event: any) {
     const selectedValue = event.target.value;
-    this.selectedClient = this.clients_details.find((client) => client.name === selectedValue);
+    this.selectedClient = this.clients_details.find((client) => client._id === selectedValue);
   }
 
-  addClients(){
+  addClients() {
     this.router.navigate(["add-invoice", "add-client"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, {status: true});
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true } });
+
     })
   }
   updateClient(selectedClient: any) {
     this.router.navigate(["add-invoice", "add-client", selectedClient._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: selectedClient._id, ...selectedClient } })
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: {invoice: true, edit: true, clientId: selectedClient._id, ...selectedClient } })
     })
   }
 

@@ -14,7 +14,7 @@ import { ModalEvents } from 'src/app/types/modal';
 export class ClientComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 5;
-  public clients: IClients[]= [];
+  public clients: IClients[] = [];
   constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
 
   ngOnInit(): void {
@@ -58,5 +58,5 @@ export class ClientComponent implements OnInit {
     });
   }
 
- 
+
 }

@@ -23,6 +23,7 @@ const endpoints = {
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
   },
   CLIENTS: {
+    CHECKPHONENUMBER: `${environment.BASE_URL}/check`,
     ADD: `${environment.BASE_URL}/client`,
     GETALL: `${environment.BASE_URL}/client`,
     GET: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
