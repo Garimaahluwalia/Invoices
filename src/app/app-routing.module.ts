@@ -16,6 +16,7 @@ import { AddClientComponent } from './Modals/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
 import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
+import { ProfileComponent } from './components/layout/profile/profile.component';
 
 
 const routes: Routes = [
@@ -112,6 +113,10 @@ const routes: Routes = [
     path: INVOICES.MAIN_INVOICES,
     component: MainInvoiceComponent
   },
+  {
+    path: CLIENTS.PROFILE,
+    component: ProfileComponent
+  }
 
 ];
 

@@ -1,2 +1,76 @@
 @import '~sweetalert2/dist/sweetalert2.min.css';
 @import "node_modules/angular-notifier/styles";
+
+
+:root {
+    --dark-bg: #030306f7;
+    --text-primary: #fff;
+    --text-secondary: #000;
+    --text-light: #979797;
+    --font-family: '';
+
+    --large: 4rem;
+    --middle: 3rem;
+    --normal: 2rem;
+    --small: 1rem;
+    --extrasmall: 0.75rem;
+
+
+    --secondary-color:#030306f7;;
+    --highlight-color:#E31E24;
+
+  }
+
+
+
+.btn-primary-outline {
+    border: 2px solid var(--highlight-color) !important;
+    color: var(--highlight-color) !important;
+    font-weight: 600 !important;
+}
+.btn-primary-outline:hover{
+    background-color: var(--highlight-color) !important;
+    color: #fff !important;
+}
+.btn-primary{
+    background-color: var(--highlight-color) !important;
+    border-color: var(--highlight-color) !important;
+}
+.btn-secondary{
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+.modal-head{
+    background-color: var(--secondary-color) !important;
+  }
+  .modal-head h1{
+ color: #fff;
+  }
+  .modal .close {
+    color: #fff;
+text-shadow: none;
+   opacity: 1;
+}
+.deleteContent .close i{
+    color: #000;
+
+}
+.table-card {
+    margin: 0px;
+}
+/*-----pagination css-*/
+.ngx-pagination{
+    text-align: end;
+    padding-right: 30px;
+}
+.ngx-pagination .current{
+    background: var(--highlight-color) !important;
+
+}
+.pagination-next, .pagination-next:hover{
+    color: var(--highlight-color);
+}
+.form-check-primary .form-check-input:checked {
+    background-color: #e31e24;
+    border-color: #e31e24;
+}

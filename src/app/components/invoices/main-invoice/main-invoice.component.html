@@ -1,168 +1,357 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Invoice</h4>
+<div class="page-content">
+    <div class="container-fluid">
 
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Invoice</a></li>
-                        <li class="breadcrumb-item active">Invoice</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
+
         <div class="row">
-            <div class="col-xl-3 col-md-6">
-                <!-- card -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                                <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Invoice</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Invoice</a></li>
+                            <li class="breadcrumb-item active">Invoice</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 text-right pb-3">
+                <a href="/add-invoice" class="btn btn-primary-outline addMembers-modal"><i class="las la-plus me-1"></i>
+                    Add
+                    Invoices</a>
+            </div>
+            <div class="row pr-0">
+                <div class="col-xl-6 col-md-6">
+                    <!-- card -->
+                    <div class="card invoice-card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-lg flex-shrink-0">
+                                    <span class="avatar-title invoice fs-3">
+                                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                                   <g>
+                                       <g>
+                                           <g>
+                                               <path d="M444.875,109.792L338.208,3.125c-2-2-4.708-3.125-7.542-3.125h-224C83.146,0,64,19.135,64,42.667v426.667
+                                                   C64,492.865,83.146,512,106.667,512h298.667C428.854,512,448,492.865,448,469.333v-352
+                                                   C448,114.5,446.875,111.792,444.875,109.792z M341.333,36.417l70.25,70.25h-48.917c-11.771,0-21.333-9.573-21.333-21.333V36.417z
+                                                    M426.667,469.333c0,11.76-9.563,21.333-21.333,21.333H106.667c-11.771,0-21.333-9.573-21.333-21.333V42.667
+                                                   c0-11.76,9.563-21.333,21.333-21.333H320v64C320,108.865,339.146,128,362.667,128h64V469.333z"/>
+                                               <path d="M373.333,298.667H138.667c-5.896,0-10.667,4.771-10.667,10.667c0,5.896,4.771,10.667,10.667,10.667h234.667
+                                                   c5.896,0,10.667-4.771,10.667-10.667C384,303.438,379.229,298.667,373.333,298.667z"/>
+                                               <path d="M373.333,234.667H138.667c-5.896,0-10.667,4.771-10.667,10.667c0,5.896,4.771,10.667,10.667,10.667h234.667
+                                                   c5.896,0,10.667-4.771,10.667-10.667C384,239.438,379.229,234.667,373.333,234.667z"/>
+                                               <path d="M373.333,362.667H138.667c-5.896,0-10.667,4.771-10.667,10.667c0,5.896,4.771,10.667,10.667,10.667h234.667
+                                                   c5.896,0,10.667-4.771,10.667-10.667C384,367.438,379.229,362.667,373.333,362.667z"/>
+                                               <path d="M266.667,426.667h-128c-5.896,0-10.667,4.771-10.667,10.667c0,5.896,4.771,10.667,10.667,10.667h128
+                                                   c5.896,0,10.667-4.771,10.667-10.667C277.333,431.438,272.563,426.667,266.667,426.667z"/>
+                                               <path d="M234.667,181.333c0,5.896,4.771,10.667,10.667,10.667h128c5.896,0,10.667-4.771,10.667-10.667
+                                                   c0-5.896-4.771-10.667-10.667-10.667h-128C239.438,170.667,234.667,175.438,234.667,181.333z"/>
+                                               <path d="M160,170.667h-21.333c-5.896,0-10.667,4.771-10.667,10.667c0,5.896,4.771,10.667,10.667,10.667h10.667
+                                                   c0,5.896,4.771,10.667,10.667,10.667s10.667-4.771,10.667-10.667v-1.965C183.056,185.617,192,173.888,192,160
+                                                   c0-17.646-14.354-32-32-32c-5.875,0-10.667-4.781-10.667-10.667c0-5.885,4.792-10.667,10.667-10.667h21.333
+                                                   c5.896,0,10.667-4.771,10.667-10.667s-4.771-10.667-10.667-10.667h-10.667c0-5.896-4.771-10.667-10.667-10.667
+                                                   s-10.667,4.771-10.667,10.667v1.965C136.944,91.716,128,103.445,128,117.333c0,17.646,14.354,32,32,32
+                                                   c5.875,0,10.667,4.781,10.667,10.667S165.875,170.667,160,170.667z"/>
+                                           </g>
+                                       </g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   </svg> </span>
+                                </div>
+                                <div>
+                                    <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Invoices Sent
+                                        <span class="text-success fs-14 mb-0 ms-1">
+                                            <i class="ri-arrow-right-up-line fs-13 align-middle"></i> <span
+                                                [textContent]="countTotalInvoices()"></span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="flex-grow-1">
+                                    <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
                                         data-target="559.25">0</span>k</h4> -->
-                                <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Invoices Sent
-                                    <span class="text-success fs-14 mb-0 ms-1">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> <span
-                                            [textContent]="countTotalInvoices()"></span>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="avatar-sm flex-shrink-0">
-                                <span class="avatar-title bg-light rounded-circle fs-3">
-                                    <i class="las la-file-alt fs-24 text-primary"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <span class="badge bg-primary me-1"><span [textContent]="countTotalInvoices()"></span></span>
-                                <span class="text-muted">Invoices
-                                    sent</span>
+
+                                </div>
+                                <div class="d-flex align-items-end justify-content-between">
+                                    <div class="text-center">
+                                        <p class="pl-0 invoice-count" [textContent]="countTotalInvoices()" ></p>
+                                        
+                                        <span class="text-muted">Invoices
+                                            sent</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        
-            <div class="col-xl-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                                <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                        data-target="409.66">0</span>k</h4> -->
-                                <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Paid Invoices
-                                    <span class="text-danger fs-14 mb-0 ms-1">
-                                        <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
+                <div class="col-xl-6 col-md-6">
+                    <!-- card -->
+                    <div class="card invoice-card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-lg flex-shrink-0">
+                                    <span class="avatar-title invoice fs-3">
+                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 491.695 491.695" style="enable-background:new 0 0 491.695 491.695;" xml:space="preserve">
+                                   <g>
+                                       <path d="M436.714,0H149.471c-16.438,0-29.812,13.374-29.812,29.812v66.714c-54.49,15.594-94.489,65.857-94.489,125.288
+                                           c0,59.431,39.998,109.694,94.489,125.288v114.783c0,16.438,13.374,29.812,29.812,29.812h234.733c2.785,0,5.455-1.106,7.425-3.075
+                                           l71.821-71.822c1.969-1.969,3.075-4.64,3.075-7.425V29.812C466.525,13.374,453.152,0,436.714,0z M149.471,21h287.243
+                                           c4.858,0,8.811,3.953,8.811,8.812v31.689H140.659V29.812C140.659,24.953,144.612,21,149.471,21z M46.17,221.813
+                                           c0-60.263,49.027-109.29,109.29-109.29c60.263,0,109.29,49.027,109.29,109.29s-49.027,109.291-109.29,109.291
+                                           C95.197,331.104,46.17,282.076,46.17,221.813z M140.659,461.884V351.258c4.86,0.552,9.797,0.846,14.802,0.846
+                                           c39.135,0,74.292-17.347,98.195-44.752h64.336c5.799,0,10.5-4.701,10.5-10.5s-4.701-10.5-10.5-10.5h-49.381
+                                           c9.133-15.95,14.984-34.005,16.644-53.242h32.736c5.799,0,10.5-4.701,10.5-10.5c0-5.799-4.701-10.5-10.5-10.5h-32.603
+                                           c-1.42-19.194-7.02-37.242-15.886-53.241h48.488c5.799,0,10.5-4.701,10.5-10.5c0-5.799-4.701-10.5-10.5-10.5h-62.974
+                                           c-23.918-28.323-59.67-46.347-99.558-46.347c-5.005,0-9.942,0.294-14.802,0.846v-9.867h304.866v316.372h-42.009
+                                           c-16.439,0-29.811,13.374-29.811,29.811v42.011H149.471C144.612,470.695,140.659,466.743,140.659,461.884z M394.705,455.845v-27.16
+                                           c0-4.859,3.953-8.811,8.811-8.811h27.16L394.705,455.845z"/>
+                                       <path d="M359.246,158.869h34.87c5.799,0,10.5-4.701,10.5-10.5c0-5.799-4.701-10.5-10.5-10.5h-34.87c-5.799,0-10.5,4.701-10.5,10.5
+                                           C348.746,154.168,353.447,158.869,359.246,158.869z"/>
+                                       <path d="M359.246,233.11h34.87c5.799,0,10.5-4.701,10.5-10.5c0-5.799-4.701-10.5-10.5-10.5h-34.87c-5.799,0-10.5,4.701-10.5,10.5
+                                           C348.746,228.409,353.447,233.11,359.246,233.11z"/>
+                                       <path d="M359.246,307.352h34.87c5.799,0,10.5-4.701,10.5-10.5s-4.701-10.5-10.5-10.5h-34.87c-5.799,0-10.5,4.701-10.5,10.5
+                                           S353.447,307.352,359.246,307.352z"/>
+                                       <path d="M394.116,381.593c5.799,0,10.5-4.701,10.5-10.5s-4.701-10.5-10.5-10.5h-98.225c-5.799,0-10.5,4.701-10.5,10.5
+                                           s4.701,10.5,10.5,10.5H394.116z"/>
+                                       <path d="M236.982,168.845l-12.81-12.81c-3.45-3.449-8.036-5.349-12.915-5.349s-9.465,1.9-12.915,5.349l-67.19,67.19l-18.573-18.573
+                                           c-3.449-3.448-8.036-5.348-12.914-5.348c-4.878,0-9.465,1.9-12.914,5.349l-12.813,12.812c-7.12,7.121-7.12,18.708,0.001,25.829
+                                           l44.297,44.296c3.45,3.451,8.037,5.351,12.916,5.351c0,0,0.001,0,0.001,0c4.878,0,9.465-1.9,12.913-5.349l92.917-92.917
+                                           C244.103,187.554,244.103,175.966,236.982,168.845z M131.151,270.807l-40.429-40.428l8.942-8.942l24.062,24.062
+                                           c4.101,4.101,10.749,4.101,14.85,0l72.681-72.681l8.942,8.942L131.151,270.807z"/>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   <g>
+                                   </g>
+                                   </svg></span>
+                                </div>
+                                <div>
+                                    <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Paid Invoices
+                                        <span class="text-danger fs-14 mb-0 ms-1">
+                                            <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
+                                                [textContent]="countPaidInvoices()"></span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="flex-grow-1">
+                                    <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
+                                        data-target="559.25">0</span>k</h4> -->
+
+                                </div>
+                                <div class="d-flex align-items-end justify-content-between">
+                                    <div class="text-center">
+                                        <p class="pl-0 invoice-count"  [textContent]="countPaidInvoices()" ></p>
+                                        
+                                        <span class="text-muted">Paid by
+                                            clients</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <!-- card -->
+                    <div class="card invoice-card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-lg flex-shrink-0">
+                                    <span class="avatar-title invoice fs-3">
+                                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
+                                            xml:space="preserve">
+                                            <g>
+                                                <g>
+                                                    <rect x="86.588" y="472.785" width="331.294" height="37.647" />
+                                                </g>
+                                            </g>
+                                            <g>
+                                                <g>
+                                                    <path d="M311.843,169.726H195.765c-10.397,0-18.824,8.427-18.824,18.824s8.427,18.824,18.824,18.824h116.078
+                                       c10.397,0,18.824-8.427,18.824-18.824S322.24,169.726,311.843,169.726z" />
+                                                </g>
+                                            </g>
+                                            <g>
+                                                <g>
+                                                    <path d="M399.686,257.569H195.765c-10.397,0-18.824,8.427-18.824,18.824s8.427,18.824,18.824,18.824h203.922
+                                       c10.397,0,18.823-8.427,18.823-18.824S410.083,257.569,399.686,257.569z" />
+                                                </g>
+                                            </g>
+                                            <g>
+                                                <g>
+                                                    <path d="M500.907,3.86c-6.758-3.037-14.657-1.838-20.204,3.062l-52.712,46.632L375.216,6.363c-7.147-6.394-17.951-6.394-25.098,0
+                                       l-52.706,47.134L244.7,6.363c-7.147-6.394-17.945-6.394-25.092,0l-52.775,47.191L114.121,6.922
+                                       c-5.54-4.894-13.446-6.093-20.204-3.062c-6.751,3.043-11.093,9.757-11.093,17.161v335.059h-64C8.427,356.079,0,364.506,0,374.903
+                                       v45.804c0,49.474,40.251,89.725,89.725,89.725v-37.647c-28.718,0-52.078-23.366-52.078-52.078v-26.98h294.902v26.98
+                                       c0,49.474,40.251,89.726,89.725,89.726c49.474,0,89.725-40.251,89.725-89.725V21.02C512,13.616,507.658,6.903,500.907,3.86z
+                                        M474.353,420.707c0,28.712-23.366,52.078-52.078,52.078s-52.078-23.366-52.078-52.078v-45.804
+                                       c0-10.397-8.427-18.824-18.824-18.824H120.471V62.802l33.964,30.049c7.153,6.325,17.907,6.293,25.016-0.069l52.706-47.134
+                                       l52.706,47.128c7.147,6.394,17.951,6.394,25.098,0l52.712-47.134l52.706,47.134c7.115,6.362,17.87,6.387,25.016,0.069
+                                       l33.958-30.042V420.707z" />
+                                                </g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                            <g>
+                                            </g>
+                                        </svg> </span>
+                                </div>
+                                <div>
+                                    <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Unpaid Invoices
+                                        <span class="text-danger fs-14 mb-0 ms-1">
+                                            <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
                                             [textContent]="countPaidInvoices()"></span>
-                                    </span>
-                                </p>
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="avatar-sm flex-shrink-0">
-                                <span class="avatar-title bg-light rounded-circle fs-3">
-                                    <i class="las la-check-square fs-24 text-primary"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <span class="badge bg-danger me-1"><span [textContent]="countPaidInvoices()"></span></span>
-                                <span class="text-muted">Paid by
-                                    clients</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                                <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2 text-white">$<span class="counter-value"
-                                        data-target="136.98">0</span>k</h4> -->
-                                <p class="text-uppercase fw-medium fs-14 text-white-50 mb-0"> Unpaid Invoices
-                                    <span class="text-danger fs-14 mb-0 ms-1">
-                                        <i class="ri-arrow-right-down-line fs-13 align-middle"></i> <span
-                                            [textContent]="countUnpaidInvoices()"></span>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="avatar-sm flex-shrink-0">
-                                <span class="avatar-title bg-soft-light rounded-circle fs-3">
-                                    <i class="las la-clock fs-24 text-white"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <span class="badge bg-danger me-1"><span [textContent]="countUnpaidInvoices()"></span></span>
-                                <span class="text-white">Unpaid
-                                    by
-                                    clients</span>
+                            <div class="">
+                                <div class="flex-grow-1">
+                                    <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
+                                        data-target="559.25">0</span>k</h4> -->
+
+                                </div>
+                                <div class="d-flex align-items-end justify-content-between">
+                                    <div class="text-center">
+                                        <p class="pl-0 invoice-count"  [textContent]="countPaidInvoices()" ></p>
+                                        
+                                        <span class="text-muted">Unpaid Paid by
+                                            clients</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        
-            <div class="col-xl-3 col-md-6">
-        
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                                <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                        data-target="84.20">0</span>k</h4> -->
-                                <p class="text-uppercase fw-medium fs-14 text-muted mb-0"> Cancelled Invoices
-                                    <span class="text-success fs-14 mb-0 ms-1">
-                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i> <span
+                <div class="col-xl-6 col-md-6">
+                    <!-- card -->
+                    <div class="card invoice-card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-lg flex-shrink-0">
+                                    <span class="avatar-title invoice fs-3">
+                                        <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m256 207c47.972 0 87-39.028 87-87s-39.028-87-87-87-87 39.028-87 87 39.028 87 87 87zm0-144c31.43 0 57 25.57 57 57s-25.57 57-57 57-57-25.57-57-57 25.57-57 57-57z"/><path d="m432 207c30.327 0 55-24.673 55-55s-24.673-55-55-55-55 24.673-55 55 24.673 55 55 55zm0-80c13.785 0 25 11.215 25 25s-11.215 25-25 25-25-11.215-25-25 11.215-25 25-25z"/><path d="m444.1 241h-23.2c-27.339 0-50.939 16.152-61.693 39.352-22.141-24.17-53.944-39.352-89.228-39.352h-27.957c-35.284 0-67.087 15.182-89.228 39.352-10.755-23.2-34.355-39.352-61.694-39.352h-23.2c-37.44 0-67.9 30.276-67.9 67.49v109.21c0 16.156 13.194 29.3 29.412 29.3h91.727c1.538 17.9 16.59 32 34.883 32h199.957c18.292 0 33.344-14.1 34.883-32h90.679c16.796 0 30.46-13.61 30.46-30.34v-108.17c-.001-37.214-30.461-67.49-67.901-67.49zm-414.1 67.49c0-20.672 17.002-37.49 37.9-37.49h23.2c20.898 0 37.9 16.818 37.9 37.49v10.271c-10.087 26.264-8 42.004-8 98.239h-91zm331 135.489c0 2.769-2.252 5.021-5.021 5.021h-199.958c-2.769 0-5.021-2.253-5.021-5.021v-81.957c0-50.19 40.832-91.022 91.021-91.022h27.957c50.19 0 91.022 40.832 91.022 91.021zm121-27.319c0 .517 5.592.34-91 .34 0-56.651 2.071-72.018-8-98.239v-10.271c0-20.672 17.002-37.49 37.9-37.49h23.2c20.898 0 37.9 16.818 37.9 37.49z"/><path d="m80 207c30.327 0 55-24.673 55-55s-24.673-55-55-55-55 24.673-55 55 24.673 55 55 55zm0-80c13.785 0 25 11.215 25 25s-11.215 25-25 25-25-11.215-25-25 11.215-25 25-25z"/></g></svg> </span>
+                                </div>
+                                <div>
+                                    <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Number of Clients
+                                        <span class="text-success fs-14 mb-0 ms-1">
+                                            <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
                                             [textContent]="countCancelInvoices()"></span>
-                                    </span>
-                                </p>
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="avatar-sm flex-shrink-0">
-                                <span class="avatar-title bg-light rounded-circle fs-3">
-                                    <i class="las la-times-circle fs-24 text-primary"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <span class="badge bg-primary me-1"><span [textContent]="countCancelInvoices()"></span></span>
-                                <span class="text-muted">Cancelled by
-                                    clients</span>
+                            <div class="">
+                                <div class="flex-grow-1">
+                                    <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
+                                        data-target="559.25">0</span>k</h4> -->
+
+                                </div>
+                                <div class="d-flex align-items-end justify-content-between">
+                                    <div class="text-center">
+                                        <p class="pl-0 invoice-count"  [textContent]="countCancelInvoices()" ></p>
+                                        
+                                        <span class="text-muted">Total Clients</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-xl-6 col-md-6 pr-0">
+
+                  
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-auto ms-auto">
-        <div class="d-flex gap-3">
-            <div class="search-box">
-                <input type="text" class="form-control" placeholder="Search for name or designation...">
-                <i class="las la-search search-icon"></i>
-            </div>
-            <div class="">
-                <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false"
-                    class="btn btn-soft-info btn-icon fs-14"><i class="las la-ellipsis-v fs-18"></i></button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                    <li><a class="dropdown-item" href="#">Print</a></li>
-                    <li><a class="dropdown-item" href="#">Export to Excel</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row pb-4 gy-3">
-    <div class="col-sm-4">
-        <a href="/add-invoice" class="btn btn-primary addMembers-modal"><i class="las la-plus me-1"></i> Add
-            Invoices</a>
-    </div>
 </div>

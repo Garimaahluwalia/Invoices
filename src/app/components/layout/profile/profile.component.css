@@ -1,0 +1,49 @@
+
+
+  
+  .location {
+    color: #666;
+  }
+  
+  .profile-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 30px;
+  }
+  
+  .profile-details {
+    flex-grow: 1;
+  }
+  
+  .profile-details h2 {
+    margin-top: 0;
+  }
+  
+  .profile-details p {
+    margin: 5px 0;
+  }
+  
+  .bio {
+    font-style: italic;
+  }
+  
+  .edit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  
+  .edit-button:hover {
+    background-color: #0056b3;
+  }
+  
