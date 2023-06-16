@@ -36,6 +36,7 @@ import { ClientDetailsComponent } from './components/invoices/client-details/cli
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PhonenumberDirective } from './directives/phonenumber.directive';
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
+import { ProfileComponent } from './components/layout/profile/profile.component';
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -105,7 +106,8 @@ const customNotifierOptions: NotifierOptions = {
     DeleteComponent,
     ClientDetailsComponent,
     PhonenumberDirective,
-    MainInvoiceComponent
+    MainInvoiceComponent,
+    ProfileComponent
    
   ],
   imports: [

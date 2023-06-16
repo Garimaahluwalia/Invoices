@@ -1,3 +1,5 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
 <div class="main-content">
 
     <div class="page-content">
@@ -23,7 +25,7 @@
 
             <div class="row pb-4 gy-3">
                 <div class="col-sm-4">
-                    <button class="btn btn-primary addPayment-modal" (click)="addUser()"><i
+                    <button class="btn btn-primary-outline addPayment-modal" (click)="addUser()"><i
                             class="las la-plus me-1"></i> Add New</button>
                 </div>
 
@@ -62,7 +64,7 @@
                                             <th scope="col">Mobile</th>
                                             <th scope="col">Registered On</th>
                                             <th scope="col">Address</th>
-                                            <th scope="col" style="width: 16%;">Status</th>
+                                          
                                             <th scope="col" style="width: 12%;">Action</th>
                                         </tr>
                                     </thead>
@@ -78,8 +80,8 @@
                                             <td>{{details.phoneNumber}}</td>
                                             <td>{{details.registeredNo}}</td>
                                             <td>{{details.address}}</td>
-                                            <td><span class="badge badge-soft-success p-2">Active</span></td>
-                                            <td>
+                                           
+                                            <td class="action-items">
                                                 <ul class="list-inline hstack gap-2 mb-0">
                                                     <!-- <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="View">
@@ -99,7 +101,8 @@
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Remove">
                                                         <a class="btn btn-soft-danger btn-sm d-inline-block"
                                                         (click)="DeleteClient(details)">
-                                                            <i class="las la-file-download fs-17 align-middle"></i>
+                                                         
+                                                            <i class="fas fa-trash fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -137,6 +140,8 @@
             </div> -->
         </div>
     </div>
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </div>
 <router-outlet></router-outlet>
-<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+<app-footer></app-footer>

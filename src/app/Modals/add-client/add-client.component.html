@@ -1,44 +1,54 @@
 <button type="button" #openModalButton class="btn btn-primary d-none" data-bs-toggle="modal"
     data-bs-target="#addUpdate">Add</button>
 <div class="modal" id="addUpdate" aria-labelledby="addUpdateLabel">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header modal-head pb-3">
                 <h1 class="modal-title fs-5" id="addUpdateLabel">Clients</h1>
                 <button type="button" class="close" (click)="closeModal()">
-                    <span aria-hidden="true">&times;</span>
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
+                   
                 </button>
                 <button type="button" #closeModalButton class="d-none btn-close" data-bs-dismiss="modal"
                     aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="name" id="name" class="form-control" [(ngModel)]="name" name="name"
-                        #nameValidation="ngModel" minlength="4" maxlength="20" appUsername required>
-
-                    <div *ngIf="nameValidation.invalid && (nameValidation.dirty || nameValidation.touched)">
-                        <div *ngIf="nameValidation.errors?.['required']" class="text-danger">Name is required.</div>
-                        <div *ngIf="nameValidation.errors?.['minlength']" class="text-danger">Name should be at least 4
-                            characters long.</div>
-                        <div *ngIf="nameValidation.errors?.['maxlength']" class="text-danger">Name cannot exceed 20
-                            characters.</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="name" id="name" class="form-control" [(ngModel)]="name" name="name"
+                                #nameValidation="ngModel" minlength="4" maxlength="20" appUsername required>
+        
+                            <div *ngIf="nameValidation.invalid && (nameValidation.dirty || nameValidation.touched)">
+                                <div *ngIf="nameValidation.errors?.['required']" class="text-danger">Name is required.</div>
+                                <div *ngIf="nameValidation.errors?.['minlength']" class="text-danger">Name should be at least 4
+                                    characters long.</div>
+                                <div *ngIf="nameValidation.errors?.['maxlength']" class="text-danger">Name cannot exceed 20
+                                    characters.</div>
+                            </div>
+        
+                        </div>
                     </div>
-
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">email</label>
-                    <input type="text" id="email" class="form-control" name="email" #emailValidation="ngModel"
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required appEmail [(ngModel)]="email">
-                    <div *ngIf="emailValidation.invalid && (emailValidation.dirty || emailValidation.touched)">
-                        <div *ngIf="emailValidation.errors?.['required']" class="text-danger">Email is required.</div>
-                        <div *ngIf="emailValidation.errors?.['pattern']" class="text-danger">Invalid email format.</div>
-                        <div *ngIf="emailValidation.errors?.['isExists']" class="text-danger">Email already exists.
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">email</label>
+                            <input type="text" id="email" class="form-control" name="email" #emailValidation="ngModel"
+                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required appEmail [(ngModel)]="email">
+                            <div *ngIf="emailValidation.invalid && (emailValidation.dirty || emailValidation.touched)">
+                                <div *ngIf="emailValidation.errors?.['required']" class="text-danger">Email is required.</div>
+                                <div *ngIf="emailValidation.errors?.['pattern']" class="text-danger">Invalid email format.</div>
+                                <div *ngIf="emailValidation.errors?.['isExists']" class="text-danger">Email already exists.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        
                 <div class="mb-3">
                     <label for="phoneNumber" class="form-label">Phone Number</label>
                     <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber"
@@ -50,13 +60,18 @@
                         <div *ngIf="phoneNumberValidation.errors?.['maxlength']" class="text-danger">Phone number should contain 10 digits.</div>
                     </div>
                 </div>
-                
-                <div class="mb-3">
-                    <label for="registeredNo" class="form-label">RegisteredOn</label>
-                    <input type="text" id="registeredNo" class="form-control" [(ngModel)]="registeredNo">
+                    </div>
+                    <div class="col-md-6">  <div class="mb-3">
+                        <label for="registeredNo" class="form-label">Registered On</label>
+                        <input type="text" id="registeredNo" class="form-control" [(ngModel)]="registeredNo">
+                    </div></div>
                 </div>
+               
+                
+                
+              
             </div>
-            <div class="modal-header">
+            <div class="modal-header pt-0">
                 <h1 class="modal-title fs-5" id="addUpdateLabel">Address</h1>
             </div>
 
@@ -111,7 +126,7 @@
 
             </div>
 
-            <div class="modal-header">
+            <div class="modal-header pt-0">
                 <h1 class="modal-title fs-5" id="addUpdateLabel">Additional Details</h1>
             </div>
 

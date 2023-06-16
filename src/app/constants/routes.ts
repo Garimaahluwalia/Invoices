@@ -16,6 +16,7 @@ export const INVOICES = {
 }
 
 export const CLIENTS = {
+    PROFILE: "profile",
     CLIENTS: "clients",
     ADD_CLIENTS: "add-client",
     UPDATE_CLIENT: "add-client/:id",
