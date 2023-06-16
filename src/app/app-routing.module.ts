@@ -15,6 +15,7 @@ import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './Modals/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
 import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
+import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
 
 
 const routes: Routes = [
@@ -25,11 +26,11 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: DashboardComponent
+        component: MainInvoiceComponent
       },
       {
-        path: ROUTELINKS.DASHBOARD,
-        component: DashboardComponent
+        path: INVOICES.MAIN_INVOICES,
+        component: MainInvoiceComponent
       },
 
     ]
@@ -106,7 +107,11 @@ const routes: Routes = [
   {
     path: CLIENTS.CLIENT_DETAILS,
     component: ClientDetailsComponent
-  }
+  },
+  {
+    path: INVOICES.MAIN_INVOICES,
+    component: MainInvoiceComponent
+  },
 
 ];
 
