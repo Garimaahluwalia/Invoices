@@ -20,7 +20,7 @@ export class AddClientComponent implements OnInit {
   public email!: string;
   public phoneNumber!: string;
   public registeredNo!: string;
-  public address! : string;
+  public address!: string;
   public data: any;
   public state!: string;
   public city!: string;
@@ -31,6 +31,7 @@ export class AddClientComponent implements OnInit {
   public emailadress!: string
   public phone!: number;
   private invoice: boolean = false;
+  
 
 
 
@@ -90,9 +91,9 @@ export class AddClientComponent implements OnInit {
   }
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
-    console.log(address, "The Data of address")
+    console.log(address, "The Data of address");
     let newData = {
-      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address : address,
+      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address,
       country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, BusinessAlias: this.BusinessAlias, UniqueKey: this.UniqueKey, emailadress: this.emailadress, phone: this.phone
     }
     console.log(newData, "FormData")
@@ -107,9 +108,9 @@ export class AddClientComponent implements OnInit {
 
   updateClient(newData: any) {
     this.clientService.updateClientReq(this.data.clientId, newData).subscribe(() => {
-      if(this.invoice){
+      if (this.invoice) {
         this.clientService.sendClientDetails(newData);
-      }else{
+      } else {
         this.clientService.getAll();
       }
       this.closeModal();

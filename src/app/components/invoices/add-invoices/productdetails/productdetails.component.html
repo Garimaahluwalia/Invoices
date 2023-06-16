@@ -3,18 +3,12 @@
     <div class="d-flex">
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Tax</label>
-        <select class="form-control form-control-sm taxes-edit selector-currency" ngModel name="tax" [(ngModel)]="tax">
-          <option name="tax">None</option>
-          <option name="tax">GST(India)</option>
-          <option name="tax">IGST</option>
-          <option name="tax">CGST & SGST</option>
-          <option name="tax">VAT</option>
-          <option name="tax">PPN</option>
-          <option name="tax">SST</option>
-          <option name="tax">HST</option>
-          <option name="tax">TAX</option>
+        <select class="form-control form-control-sm taxes-edit selector-currency"  name="tax" (change)="selectedValue($event)">
+          <option value="GST">GST</option>
+          <option *ngFor="let tax of taxes" [value]="tax">{{tax}}</option>
         </select>
       </div>
+
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Currency</label>
         <select class="form-control" name="currency" [(ngModel)]="currency">
@@ -34,6 +28,9 @@
         <tr class="table-active">
           <th scope="" class="width-60">Item</th>
           <th scope="" class="width-10">Amount</th>
+          <th *ngIf="selectedTax !== 'None'" scope="col">{{tax}}</th>
+          <th *ngIf="selectedTax !== 'None'" scope="col">Rate</th>
+          <th *ngIf="selectedTax !== 'None'" scope="col">Total</th>
           <th></th>
         </tr>
 
@@ -57,7 +54,25 @@
           </td>
           <td class="text-end">
             <div>
-              <input type="text" ngModel name="amount" class="form-control bg-light border-0 product-line-price"
+              <input type="number"  [(ngModel)]="amount" (ngModelChange)="onAmountChange($event)" name="amount" class="form-control bg-light border-0 product-line-price"
+                placeholder="$0.00" />
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" ngModel name="taxtype"  class="form-control bg-light border-0 product-line-price"
+                placeholder="$0.00" />
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" ngModel name="rate" class="form-control bg-light border-0 product-line-price"
+                placeholder="$0.00" />
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" ngModel name="total" class="form-control bg-light border-0 product-line-price"
                 placeholder="$0.00" />
             </div>
           </td>

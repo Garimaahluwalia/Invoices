@@ -4,18 +4,19 @@
         <div class="card">
             <div class="card-body p-4">
                 <div class="sub-amount">
-                    <span>Amount</span><span>$1</span>
+                    <span>Amount</span><span>${{amount}}</span>
                 </div>
                 <div class="sub-amount">
-                    <span>Tax (IGST)</span><span>$0.18</span>
+                    <span>Tax ({{tax}})</span><span>$</span>
                 </div>
                 <div class="total-amount">
-                    <span>Total (USD)</span><span>$1</span>
+                    <span>Total (USD)</span><span>${{total}}</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="row mt-3" ngModelGroup="paymentDetails">
     <div class="col-lg-4">
         <div class="">

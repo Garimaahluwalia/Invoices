@@ -7,6 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { IInvoice, Invoice } from 'src/app/types/invoice';
 import { NotifierService } from 'angular-notifier';
+import { ClientService } from 'src/app/services/clients/client.service';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -15,8 +16,10 @@ import { NotifierService } from 'angular-notifier';
 export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
   Invoices!: IInvoice;
+  public taxesType: any
   private readonly notifier!: NotifierService;
-  constructor(public addInvoiceService: AddInvoicesService, public route: Router, public notifierService: NotifierService) { 
+  constructor(public addInvoiceService: AddInvoicesService, public route: Router, public notifierService: NotifierService,
+    private clientService: ClientService) {
     this.notifier = notifierService;
   }
 
@@ -76,21 +79,27 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.clientService.recieveTaxData().subscribe((res) => {
+      this.taxesType = res
+    })
   }
 
   submit(f: NgForm) {
     // console.log(f.value)
+
+    // console.log(this.taxesType, "djaghdfakjdahd")
     const invoice = new Invoice();
+    console.log(f.value)
     invoice.setData(f.value);
+    invoice.tax = this.taxesType;
     const payload = invoice.getPayload();
     console.log(payload, "from components");
     this.addInvoiceService.addInvoice((payload)).subscribe((res: any) => {
-        this.Invoices = res;
-        // this.route.navigateByUrl("/invoice")
-        console.log(this.Invoices, "add-form-API-Response");
-        this.notifier.notify('Success', 'Invoice Save successfully');
-      },
+      this.Invoices = res;
+      // this.route.navigateByUrl("/invoice")
+      console.log(this.Invoices, "add-form-API-Response");
+      this.notifier.notify('success', 'Invoice Save successfully');
+    },
       (error: any) => {
         console.error(error);
       }

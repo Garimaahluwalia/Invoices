@@ -48,7 +48,7 @@ export class Invoice implements IInvoice {
    public Billed?: number;
    public Status?: string;
    public __v!: number;
-   private _tax: TAXES = TAXES.GST;
+   private _tax!: TAXES;
    public _currency!: string;
 
    constructor() { }
@@ -58,7 +58,8 @@ export class Invoice implements IInvoice {
          invoiceNo: invoiceNo,
       };
    }
-
+  
+   
    setCompany({ Businessname, address, contactNo, emailaddress, postalCode, GSTIN, pan }: ICompany) {
       this.company = {
          Businessname: Businessname,
@@ -78,10 +79,9 @@ export class Invoice implements IInvoice {
       return this._company;
    }
 
-
-
    set tax(value: TAXES) {
       this._tax = value;
+      
    }
    get tax(): TAXES {
       return this._tax;
@@ -109,6 +109,7 @@ export class Invoice implements IInvoice {
 
    setData(values: { [key: string]: string | number | { [key: string]: string | number } }) {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
+      this.setCompany(values["company"] as unknown as ICompany);
       this.setCompany(values["company"] as unknown as ICompany);
       this.setProductDetails(values["productDetails"] as unknown as { [key: string]: any });
    }

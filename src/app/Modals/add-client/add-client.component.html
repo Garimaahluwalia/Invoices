@@ -44,13 +44,17 @@
                     <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber"
                         #phoneNumberValidation="ngModel" [(ngModel)]="phoneNumber" maxlength="10" required
                         pattern="^[0-9]{10}$">
-                    <div *ngIf="phoneNumberValidation.invalid && (phoneNumberValidation.dirty || phoneNumberValidation.touched)">
-                        <div *ngIf="phoneNumberValidation.errors?.['required']" class="text-danger">Phone number is required.</div>
-                        <div *ngIf="phoneNumberValidation.errors?.['pattern']" class="text-danger">Invalid phone number format. Use 10 digits.</div>
-                        <div *ngIf="phoneNumberValidation.errors?.['maxlength']" class="text-danger">Phone number should contain 10 digits.</div>
+                    <div
+                        *ngIf="phoneNumberValidation.invalid && (phoneNumberValidation.dirty || phoneNumberValidation.touched)">
+                        <div *ngIf="phoneNumberValidation.errors?.['required']" class="text-danger">Phone number is
+                            required.</div>
+                        <div *ngIf="phoneNumberValidation.errors?.['pattern']" class="text-danger">Invalid phone number
+                            format. Use 10 digits.</div>
+                        <div *ngIf="phoneNumberValidation.errors?.['maxlength']" class="text-danger">Phone number should
+                            contain 10 digits.</div>
                     </div>
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="registeredNo" class="form-label">RegisteredOn</label>
                     <input type="text" id="registeredNo" class="form-control" [(ngModel)]="registeredNo">
@@ -75,8 +79,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="state" class="form-label">State / province</label>
-                            <select id="state" class="form-control" [(ngModel)]="address">
-                                <option value="">Select a state</option>
+                            <select id="state" class="form-control" [(ngModel)]="state">
+                                <!-- <option value="">Select a state</option> -->
                                 <option value="California">California</option>
                                 <option value="New York">New York</option>
                                 <option value="Texas">Texas</option>
@@ -111,7 +115,7 @@
 
             </div>
 
-            <div class="modal-header">
+            <!-- <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addUpdateLabel">Additional Details</h1>
             </div>
 
@@ -133,29 +137,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" id="email" class="form-control" name="email"
-                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                            #emailValidation="ngModel" required appEmail [(ngModel)]="email" placeholder="Enter email">
-                        <div *ngIf="emailValidation.invalid && (emailValidation.dirty || emailValidation.touched)">
-                            <div *ngIf="emailValidation.errors?.['required']" class="text-danger">Email is required.</div>
-                            <div *ngIf="emailValidation.errors?.['pattern']" class="text-danger">Invalid email format.</div>
-                            <div *ngIf="emailValidation.errors?.['isExists']" class="text-danger">Email already exists.</div>
-                        </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="text" id="phone" class="form-control" placeholder="Enter phonenumber"
-                                [(ngModel)]="phone">
-                        </div>
-                    </div>
+                    
                 </div>
-            </div>
+            </div> -->
 
 
 

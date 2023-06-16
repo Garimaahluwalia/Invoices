@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ClientService } from 'src/app/services/clients/client.service';
+import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
+import { TAXES } from 'src/app/types/taxes';
 @Component({
   selector: 'app-productdetails',
   templateUrl: './productdetails.component.html',
@@ -9,12 +12,15 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 })
 export class ProductdetailsComponent implements OnInit {
+
+  //  public tax= TAXES;
+  public taxes: string[] = Object.values(TAXES);
+  public tax: TAXES = TAXES.GST;
   public quantity!: number;
   public rate!: number;
   public amount!: number;
   public name!: "";
   public description!: "";
-  public tax!: string;
   public selectedCurrency!: string;
   public editor: any = ClassicEditor;
   public data: any = `<p> Enter description here </p>`;
@@ -105,11 +111,15 @@ export class ProductdetailsComponent implements OnInit {
       "symbol": "R"
     }
   ]
-
-  constructor() { }
+  public selectedTax: string = this.tax;
+  constructor(public clientService: ClientService
+  ) { }
   ngOnInit(): void {
+
+    this.addDescriptionDefault;
     this.loadCurrencies();
     this.calculateAmount();
+
   }
 
   calculateAmount() {
@@ -122,7 +132,6 @@ export class ProductdetailsComponent implements OnInit {
   addDescriptionDefault() {
     this.showDescriptionBoxOpen = !this.showDescriptionBoxOpen;
   }
-
 
   addNewLine() {
     const newRow = {
@@ -140,5 +149,14 @@ export class ProductdetailsComponent implements OnInit {
     this.productRows.splice(rowIndex, 1);
   }
 
+  selectedValue(event: any) {
+    this.tax = event.target.value
+    console.log(this.tax)
+    this.clientService.sendTaxData(this.tax);
+  }
 
+  onAmountChange(value: number) {
+    this.amount = value;
+    this.clientService.sendAmountData(this.amount);
+  }
 }

@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import endpoints from 'src/app/endpoints';
 import { HttpClient } from '@angular/common/http';
 import { IClients } from 'src/app/types/clients';
+import { TAXES } from 'src/app/types/taxes';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ export class ClientService {
   private _clients: IClients[] = [];
   private clientsSubject: BehaviorSubject<IClients[]> = new BehaviorSubject<IClients[]>([]);
   private _addClientFromInvoice: EventEmitter<IClients> = new EventEmitter<IClients>();
+  private _taxFromInvoice: EventEmitter<TAXES> = new EventEmitter<TAXES>();
+  private _amountData: EventEmitter<number> = new EventEmitter<number>();
+  private _taxamount: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(public http: HttpClient) { }
 
@@ -80,5 +84,30 @@ export class ClientService {
 
   checkPhonenumberExist(payload: { [k: string]: string }): Observable<any> {
     return this.http.post(endpoints.CLIENTS.CHECKPHONENUMBER, payload);
+  }
+  sendTaxData(data: TAXES): void {
+    console.log(data, 'data')
+    this._taxFromInvoice.emit(data);
+  }
+  recieveTaxData(): Observable<TAXES> {
+    return this._taxFromInvoice.asObservable()
+  }
+
+
+  sendAmountData(data: number): void {
+    this._amountData.emit(data);
+  }
+
+  recieveAmountData(): Observable<any> {
+    return this._amountData.asObservable();
+  }
+
+
+  sendTaxamount(data: number): void {
+    this._taxamount.emit(data);
+  }
+
+  recieveTaxamount(): Observable<any> {
+    return this._taxamount.asObservable();
   }
 }

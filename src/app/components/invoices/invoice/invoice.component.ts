@@ -21,16 +21,10 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.getAllInvoice()
       .subscribe((invoice: IInvoice[]) => {
         this.invoices = invoice;
-        // console.log(this.invoices, "invoicelistdata")
       });
   }
 
-  // getInvoiceNumber() {
-  //   this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
-  //     this.InvoiceNumber = res.invoiceNumber;
-  //     // console.log(this.InvoiceNumber, "Number of invoice");
-  //   });
-  // }
+
 
   countPaidInvoices(): number {
     return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "paid").length;
