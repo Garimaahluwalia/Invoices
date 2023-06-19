@@ -11,16 +11,32 @@ import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.servi
 
 })
 export class PaymentdetailsComponent implements OnInit {
+  amount: any;
+  tax: any;
+  rate: any;
+  total: any;
+  currency: any;
+  taxAmountData:any;
   constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService) { }
   ngOnInit(): void {
-    this.addinvoiceService.recieveProductRows().subscribe((res: any) => {
-      console.log(res, "amountData")
-    })
+    this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
+      if (res.length > 0) {
+        const firstElement = res[0];
+        this.amount = firstElement.amount;
+        this.tax = firstElement.tax;
+        this.rate = firstElement.rate;
+        this.total = firstElement.total;
+        // console.log(this.amount, this.tax, this.total);
+      }
+    });
 
+    this.addinvoiceService.receiveCurrency().subscribe((res:any)=> {
+      this.currency = res;
+      console.log(res, 'rescurrency')
+    });
   }
-  amount = '';
-  tax = '';
-  total = '';
+
+
   public Bankdetails: { [k: string]: string } = {
     "BankName": "M CODE INFOSOFT",
     "cardHolderName": "M CODE INFOSOFT",

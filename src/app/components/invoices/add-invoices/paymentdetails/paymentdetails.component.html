@@ -4,13 +4,13 @@
         <div class="card">
             <div class="card-body p-4">
                 <div class="sub-amount">
-                    <span>Amount</span><span>${{amount}}</span>
+                    <span>Amount</span><span>{{currency}}{{amount}}</span>
                 </div>
                 <div class="sub-amount">
-                    <span>Tax ({{tax}})</span><span>${{tax}}</span>
+                    <span>Tax : ({{tax}})</span><span>{{currency}}{{rate}}</span>
                 </div>
                 <div class="total-amount">
-                    <span>Total (USD)</span><span>${{total}}</span>
+                    <span>Total ({{currency}})</span><span>{{currency}}{{total}}</span>
                 </div>
             </div>
         </div>
@@ -24,25 +24,16 @@
                 Details</label>
             <div class="bank-background-edit">
                 <div class="">
-                    <!-- <input class="form-control bg-light border-0" type="text" id="cardholderName"
-                        placeholder="Card Holder Name" ngModel name="cardHolderName"> -->
                     <label for="Bankname">Bank Name : ABC </label>
                 </div>
                 <div class="">
-                    <!-- <input class="form-control bg-light border-0" type="text" id="cardholderName"
-                        placeholder="Card Holder Name" ngModel name="cardHolderName"> -->
                     <label for="cardHolderName">cardHolderName : ABC </label>
                 </div>
                 <div class="">
-                    <!-- <input class="form-control bg-light border-0" type="text" id="cardNumber"
-                        placeholder="xxxx xxxx xxxx xxxx" ngModel name="accountNumber"> -->
                     <label for="accountNumber">accountNumber : ABC</label>
                 </div>
                 <div class="">
-                    <!-- <input class="form-control bg-light border-0" type="text" id="ifscCode" placeholder="IFSC Code"
-                        ngModel name="ifscCode"> -->
                     <label for="ifscCode">IFSCCode : ABC</label>
-
                 </div>
 
 

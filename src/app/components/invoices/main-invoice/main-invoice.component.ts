@@ -19,7 +19,7 @@ export class MainInvoiceComponent {
     return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "unpaid").length;
   }
   countCancelInvoices(): number {
-    return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "cancel").length
+    return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "cancel").length;
   }
   countTotalInvoices(): number {
     return this.invoices.length;

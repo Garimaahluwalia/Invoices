@@ -14,6 +14,7 @@ import { TAXES } from 'src/app/types/taxes';
 export class ProductdetailsComponent implements OnInit {
 
   //  public tax= TAXES;
+  public taxRate: any;
   public taxes: string[] = Object.values(TAXES);
   public tax: TAXES = TAXES.GST;
   public quantity!: number;
@@ -29,6 +30,10 @@ export class ProductdetailsComponent implements OnInit {
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
   public currencies!: any[];
+  public currencyData: any;
+  public taxAmountData: any;
+  public inputamountData: any;
+  public eventamount!: any;
   public currency = [
     {
       "code": "USD",
@@ -111,20 +116,27 @@ export class ProductdetailsComponent implements OnInit {
       "symbol": "R"
     }
   ]
-  public selectedTax: string = this.tax;
+
+  showTaxHeaders: boolean = true;
+
   constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService
   ) { }
   ngOnInit(): void {
     this.addNewLine();
     this.addDescriptionDefault;
     this.loadCurrencies();
-    this.calculateAmount();
+    this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
+      this.currencyData = res;
+    });
+    
+    this.addinvoiceService.getTaxAmount().subscribe((res: any) => {
+      this.taxAmountData = res;
+      this.onProductValueChange(0);
+      console.log(this.taxAmountData, "amountoftax");
+    });
 
   }
 
-  calculateAmount() {
-    this.amount = this.quantity * this.rate;
-  }
   loadCurrencies() {
     this.currencies = this.currency;
   }
@@ -152,12 +164,37 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   selectedValue(event: any) {
-    this.tax = event.target.value
-    console.log(this.tax)
-    this.clientService.sendTaxData(this.tax);
+    /* this.clientService.sendTaxData(this.tax); */
+    /* this.addinvoiceService.recieveProductRows().subscribe((res: any) => {
+      this.inputamountData = res;
+      console.log(this.inputamountData, "hiiiiiiiiiiiiiiiiii")
+    }); */
   }
 
-  onProductValueChange() {
-    this.addinvoiceService.sendProductChanges(this.productRows);
+
+  Currency(event: any) {
+    this.currency = event.target.value;
+    console.log(this.currency, "currency data")
+    this.addinvoiceService.sendCurrency(this.currency)
   }
+
+  amountSend(event: any) {
+    this.eventamount = event.target.value;
+    console.log(this.eventamount, " this.eventamount")
+  }
+
+  onProductValueChange(i: number) {
+    const rows = [...this.productRows];
+    // console.log(this.taxAmountData);
+    const selectedAmount = Number(rows?.[i]?.amount || 0);
+    const selectedTaxAmount = parseFloat(this.taxAmountData[this.tax]);
+    const rate = (selectedTaxAmount * 100) / selectedAmount;
+    rows[i].rate  = rate;
+    console.log(rows);
+    //const selectedAmount = this.eventamount;
+    // console.log(selectedAmount, "amountselected");
+    //console.log(selectedTaxAmount, "selectedTaxAmount", this.eventamount, "eventAmountNumeric");
+    this.addinvoiceService.sendProductChanges(rows);
+  }
+
 }

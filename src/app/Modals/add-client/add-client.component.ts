@@ -31,7 +31,7 @@ export class AddClientComponent implements OnInit {
   public emailadress!: string
   public phone!: number;
   private invoice: boolean = false;
-  
+
 
 
 
