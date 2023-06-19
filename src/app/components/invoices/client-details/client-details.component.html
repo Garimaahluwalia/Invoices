@@ -1,20 +1,10 @@
-<div id="layout-wrapper"> 
-    <app-header></app-header>
-    <app-sidebar></app-sidebar>
-    <div class="main-content">
-       <app-invoice></app-invoice>
-        <app-footer></app-footer>
-        </div>
-</div>
 <div class="p-4">
     <div class="mb-3">
         <span class="main-head">Billed To </span><span>(client Details)</span>
     </div>
-    <!-- <div class="company-name-bill">
-        <img src="assets\images\mcode-m.png" class="img-fluid" /><span>mcode infosoft</span>
-    </div> -->
     <div class="form-group">
-        <select class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1" (change)="selectClient($event)">
+        <select class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1"
+            (change)="selectClient($event)">
             <option disabled selected>Select a client</option>
             <option>None</option>
             <option *ngFor="let details of clients_details" [value]="details._id">{{ details.name }}</option>

@@ -32,8 +32,7 @@ const routes: Routes = [
       {
         path: INVOICES.MAIN_INVOICES,
         component: MainInvoiceComponent
-      },
-
+      }
     ]
   },
   {

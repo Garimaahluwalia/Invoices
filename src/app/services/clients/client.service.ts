@@ -13,7 +13,6 @@ export class ClientService {
   private clientsSubject: BehaviorSubject<IClients[]> = new BehaviorSubject<IClients[]>([]);
   private _addClientFromInvoice: EventEmitter<IClients> = new EventEmitter<IClients>();
   private _taxFromInvoice: EventEmitter<TAXES> = new EventEmitter<TAXES>();
-  private _amountData: EventEmitter<number> = new EventEmitter<number>();
   private _taxamount: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(public http: HttpClient) { }
@@ -91,15 +90,6 @@ export class ClientService {
   }
   recieveTaxData(): Observable<TAXES> {
     return this._taxFromInvoice.asObservable()
-  }
-
-
-  sendAmountData(data: number): void {
-    this._amountData.emit(data);
-  }
-
-  recieveAmountData(): Observable<any> {
-    return this._amountData.asObservable();
   }
 
 

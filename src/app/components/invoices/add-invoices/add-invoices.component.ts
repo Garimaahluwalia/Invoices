@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
-import { HttpHeaders } from '@angular/common/http';
-import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { IInvoice, Invoice } from 'src/app/types/invoice';
 import { NotifierService } from 'angular-notifier';
 import { ClientService } from 'src/app/services/clients/client.service';
@@ -81,23 +78,18 @@ export class AddInvoicesComponent implements OnInit {
   ngOnInit(): void {
     this.clientService.recieveTaxData().subscribe((res) => {
       this.taxesType = res
-    })
+    });
+
+    this.clientService
   }
 
   submit(f: NgForm) {
-    // console.log(f.value)
-
-    // console.log(this.taxesType, "djaghdfakjdahd")
     const invoice = new Invoice();
-    console.log(f.value)
     invoice.setData(f.value);
     invoice.tax = this.taxesType;
     const payload = invoice.getPayload();
-    console.log(payload, "from components");
     this.addInvoiceService.addInvoice((payload)).subscribe((res: any) => {
       this.Invoices = res;
-      // this.route.navigateByUrl("/invoice")
-      console.log(this.Invoices, "add-form-API-Response");
       this.notifier.notify('success', 'Invoice Save successfully');
     },
       (error: any) => {

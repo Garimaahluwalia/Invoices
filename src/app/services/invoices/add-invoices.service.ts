@@ -12,6 +12,7 @@ import { TAXES } from 'src/app/types/taxes';
 export class AddInvoicesService {
   public invoiceData: any;
   private _selectedTax: TAXES = TAXES.GST;
+  private _productRowsChanges: EventEmitter<any[]> = new EventEmitter<any[]>();
   constructor(public http: HttpClient) { }
   public invoiceListData = []
 
@@ -33,6 +34,15 @@ export class AddInvoicesService {
 
   public sendUpdateInvoice(InvoiceId: string, data: any) {
     return this.http.put(endpoints.ADD_INVOICES.UPDATE(InvoiceId), data);
+  }
+
+
+  sendProductChanges(data: any[]): void {
+    this._productRowsChanges.emit(data);
+  }
+
+  recieveProductRows(): Observable<any> {
+    return this._productRowsChanges.asObservable();
   }
 
 }

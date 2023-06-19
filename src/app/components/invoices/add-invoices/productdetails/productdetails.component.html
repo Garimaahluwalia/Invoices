@@ -3,7 +3,8 @@
     <div class="d-flex">
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Tax</label>
-        <select class="form-control form-control-sm taxes-edit selector-currency"  name="tax" (change)="selectedValue($event)">
+        <select class="form-control form-control-sm taxes-edit selector-currency" name="tax"
+          (change)="selectedValue($event)">
           <option value="GST">GST</option>
           <option *ngFor="let tax of taxes" [value]="tax">{{tax}}</option>
         </select>
@@ -54,25 +55,25 @@
           </td>
           <td class="text-end">
             <div>
-              <input type="number"  [(ngModel)]="amount" (ngModelChange)="onAmountChange($event)" name="amount" class="form-control bg-light border-0 product-line-price"
+              <input type="number" [(ngModel)]="row.amount" (ngModelChange)="onProductValueChange()" name="amount"
+                class="form-control bg-light border-0 product-line-price" placeholder="$0.00" />
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" ngModel name="taxtype" [(ngModel)]="row.tax" (ngModelChange)="onProductValueChange()"
+                class="form-control bg-light border-0 product-line-price" placeholder="$0.00" />
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" ngModel [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange()" name="rate" class="form-control bg-light border-0 product-line-price"
                 placeholder="$0.00" />
             </div>
           </td>
           <td class="text-end">
             <div>
-              <input type="text" ngModel name="taxtype"  class="form-control bg-light border-0 product-line-price"
-                placeholder="$0.00" />
-            </div>
-          </td>
-          <td class="text-end">
-            <div>
-              <input type="text" ngModel name="rate" class="form-control bg-light border-0 product-line-price"
-                placeholder="$0.00" />
-            </div>
-          </td>
-          <td class="text-end">
-            <div>
-              <input type="text" ngModel name="total" class="form-control bg-light border-0 product-line-price"
+              <input type="text" ngModel name="total"  [(ngModel)]="row.total" (ngModelChange)="onProductValueChange()" class="form-control bg-light border-0 product-line-price"
                 placeholder="$0.00" />
             </div>
           </td>

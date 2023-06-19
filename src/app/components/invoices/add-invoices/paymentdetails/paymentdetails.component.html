@@ -7,7 +7,7 @@
                     <span>Amount</span><span>${{amount}}</span>
                 </div>
                 <div class="sub-amount">
-                    <span>Tax ({{tax}})</span><span>$</span>
+                    <span>Tax ({{tax}})</span><span>${{tax}}</span>
                 </div>
                 <div class="total-amount">
                     <span>Total (USD)</span><span>${{total}}</span>
@@ -50,7 +50,7 @@
                 <input type="hidden" ngModel name="cardHolderName" [(ngModel)]="Bankdetails['cardHolderName']">
                 <input type="hidden" ngModel name="accountNumber" [(ngModel)]="Bankdetails['accountNumber']">
                 <input type="hidden" ngModel name="IFSCCode" [(ngModel)]="Bankdetails['IFSCCode']">
-               
+
             </div>
         </div>
     </div>

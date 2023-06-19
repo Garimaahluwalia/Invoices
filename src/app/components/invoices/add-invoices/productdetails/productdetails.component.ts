@@ -112,10 +112,10 @@ export class ProductdetailsComponent implements OnInit {
     }
   ]
   public selectedTax: string = this.tax;
-  constructor(public clientService: ClientService
+  constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService
   ) { }
   ngOnInit(): void {
-
+    this.addNewLine();
     this.addDescriptionDefault;
     this.loadCurrencies();
     this.calculateAmount();
@@ -135,8 +135,10 @@ export class ProductdetailsComponent implements OnInit {
 
   addNewLine() {
     const newRow = {
-      productName: '',
-      productPrice: ''
+      amount: '',
+      tax: '',
+      rate: '',
+      total: '',
     };
     this.productRows.push(newRow);
   }
@@ -155,8 +157,7 @@ export class ProductdetailsComponent implements OnInit {
     this.clientService.sendTaxData(this.tax);
   }
 
-  onAmountChange(value: number) {
-    this.amount = value;
-    this.clientService.sendAmountData(this.amount);
+  onProductValueChange() {
+    this.addinvoiceService.sendProductChanges(this.productRows);
   }
 }

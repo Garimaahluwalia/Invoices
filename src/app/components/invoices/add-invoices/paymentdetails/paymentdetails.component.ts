@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ClientService } from 'src/app/services/clients/client.service';
+import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 
 @Component({
   selector: 'app-paymentdetails',
@@ -9,22 +10,17 @@ import { ClientService } from 'src/app/services/clients/client.service';
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 
 })
-export class PaymentdetailsComponent implements OnInit{
-  constructor(public clientService: ClientService){}
+export class PaymentdetailsComponent implements OnInit {
+  constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService) { }
   ngOnInit(): void {
-   this.clientService.recieveAmountData().subscribe((res:any)=>{
-    this.amount = res;
-    // console.log(this.amount, "amountData")
-   })
+    this.addinvoiceService.recieveProductRows().subscribe((res: any) => {
+      console.log(res, "amountData")
+    })
 
-   
-   this.clientService.recieveTaxData().subscribe((res:any)=> {
-    this.tax = res; 
-  })
   }
-  amount=''; 
-  tax=''; 
-  total='';
+  amount = '';
+  tax = '';
+  total = '';
   public Bankdetails: { [k: string]: string } = {
     "BankName": "M CODE INFOSOFT",
     "cardHolderName": "M CODE INFOSOFT",
