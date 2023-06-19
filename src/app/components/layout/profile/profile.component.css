@@ -1,49 +1,31 @@
+.profile-inputs label{
+  width: 150px;
 
-
-  
-  .location {
-    color: #666;
   }
-  
-  .profile-info {
-    display: flex;
-    align-items: center;
+  .profile-inputs .form-input{
+    padding: 10px 0px;
+   
   }
-  
-  .profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-right: 30px;
+  .profile-inputs .form-input:not(:last-child){
+    border-bottom: 1px solid #d2d2d2;
   }
-  
-  .profile-details {
-    flex-grow: 1;
+  .profile-inputs input{
+    width: 50%;
   }
-  
-  .profile-details h2 {
-    margin-top: 0;
+  .profile-inputs input:disabled{
+border: 0px;
+background-color: transparent;
   }
-  
-  .profile-details p {
-    margin: 5px 0;
-  }
-  
-  .bio {
-    font-style: italic;
-  }
-  
-  .edit-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
+  .p-upload{
+    padding: 10px 15px;
+    border: 1px solid gray;
     border-radius: 4px;
+    position: absolute;
+    right: 20px;
   }
-  
-  .edit-button:hover {
-    background-color: #0056b3;
+  .p-upload input{
+    opacity: 0;
+  width: 20px;
+  display: inline-block;
+  position: absolute;
   }
-  
