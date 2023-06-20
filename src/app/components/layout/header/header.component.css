@@ -1,1 +1,8 @@
-
+.mob-logo, .mob-menus button, .bar-icon{
+    display: none;
+}
+.mob-menus a{
+padding: 15px;
+font-weight: 500;
+    color: #000;
+}

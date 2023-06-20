@@ -14,7 +14,7 @@ border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px;
+    padding: 20px;
 }
 .invoice-card .card-body .avatar-title i{
     color: #fff !important;
@@ -28,7 +28,7 @@ border-radius: 5px;
     fill: #e31e24;
 }
 .invoice-card p{
-    font-size: 26px !important;
+    font-size: 26px ;
     padding-left: 21px;
     color: #000 !important;
     font-weight: 700 !important;

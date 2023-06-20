@@ -24,13 +24,13 @@
             <!-- end page title -->
 
             <div class="row pb-4 gy-3">
-                <div class="col-sm-4">
+                <div class="col-md-4 text-md-left text-right">
                     <button class="btn btn-primary-outline addPayment-modal" (click)="addUser()"><i
                             class="las la-plus me-1"></i> Add New</button>
                 </div>
 
                 <div class="col-sm-auto ms-auto">
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 table-search">
                         <div class="search-box">
                             <input type="text" class="form-control" id="searchMemberList"
                                 placeholder="Search for Result">
@@ -71,17 +71,17 @@
 
                                     <tbody>
                                         <tr *ngFor="let details of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-                                            <td><img src="assets/images/users/avatar-1.jpg" alt=""
+                                            <td data-label="Name"><img src="assets/images/users/avatar-1.jpg" alt=""
                                                     class="avatar-xs rounded-circle me-2">
                                                 <a 
                                                     class="text-body align-middle fw-medium">{{details.name}}</a>
                                             </td>
-                                            <td>{{details.email}}</td>
-                                            <td>{{details.phoneNumber}}</td>
-                                            <td>{{details.registeredNo}}</td>
-                                            <td>{{details.address}}</td>
+                                            <td data-label="Email">{{details.email}}</td>
+                                            <td data-label="Mobile">{{details.phoneNumber}}</td>
+                                            <td data-label="Registered On">{{details.registeredNo}}</td>
+                                            <td data-label="Address">{{details.address}}</td>
                                            
-                                            <td class="action-items">
+                                            <td data-label="Action" class="action-items">
                                                 <ul class="list-inline hstack gap-2 mb-0">
                                                     <!-- <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="View">
@@ -144,4 +144,4 @@
 </div>
 <router-outlet></router-outlet>
 
-<app-footer></app-footer>
+

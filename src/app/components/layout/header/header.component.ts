@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef  } from '@angular/core';
 import { Router } from '@angular/router';
 import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { LoginService } from 'src/app/services/auth/login.service';
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +12,11 @@ import { LoginService } from 'src/app/services/auth/login.service';
 export class HeaderComponent implements OnInit {
 
 
-  constructor(public loginService: LoginService, public router: Router) { }
+  constructor(public loginService: LoginService, public router: Router,public sidebaeService:SidebarService) { }
+  public isActiveSideBar:Boolean=false;
+  @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   ngOnInit(): void {
-
+   
   }
   logout() {
     const token = AUTHORIZATION_TOKEN;
@@ -29,4 +32,13 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+  toggleBodyClass() {
+    this.sidebaeService.isMobile.emit(!this.isActiveSideBar);
+    this.isActiveSideBar=!this.isActiveSideBar
+  }
+
+  triggerButtonClick() {
+    this.mobileNav.nativeElement.click();
+  }
+// }
 }

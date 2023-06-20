@@ -114,7 +114,12 @@ const routes: Routes = [
   },
   {
     path: CLIENTS.PROFILE,
-    component: ProfileComponent
+    component: MainComponent,
+    children:[{
+      path:"",
+      component: ProfileComponent
+    }]
+    
   }
 
 ];

@@ -1,8 +1,9 @@
-<div id="layout-wrapper">
+<div id="layout-wrapper" [ngClass]="isActiveSideBar ? 'side-menu main':''">
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <div class="main-content">
-        <app-main-invoice></app-main-invoice>
-        <app-footer></app-footer>
+        <!--app-main-invoice></app-main-invoice-->
+        <router-outlet></router-outlet>
+     
     </div>
 </div>
