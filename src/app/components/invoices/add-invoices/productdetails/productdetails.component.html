@@ -66,14 +66,31 @@
           </td>
           <td class="text-end">
             <div>
+<<<<<<< Updated upstream
               <input type="text" ngModel name="rate" class="form-control bg-light border-0 product-line-price"
                 placeholder="$0.00" />
+=======
+              <input type="text" ngModel name="taxtype" [(ngModel)]="row.tax" (ngModelChange)="onProductValueChange(i)"
+                class="form-control bg-light border-0 product-line-price" placeholder="{{currencyData}}0.00" readonly />
+>>>>>>> Stashed changes
             </div>
           </td> -->
           <td class="text-end">
             <div>
+<<<<<<< Updated upstream
               <input type="text" ngModel name="amount" class="form-control bg-light border-0 product-line-price"
                 placeholder="$0.00" />
+=======
+              <input type="text" ngModel [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"
+                class="form-control bg-light border-0 product-line-price" value="{{rate}}"
+                placeholder="{{currencyData}}0.00" readonly />
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
+              <input type="text" ngModel name="total" [(ngModel)]="row.total" (ngModelChange)="onProductValueChange(i)"
+                class="form-control bg-light border-0 product-line-price" placeholder="{{currencyData}}0.00" />
+>>>>>>> Stashed changes
             </div>
           </td>
           <td class="product-removal">
