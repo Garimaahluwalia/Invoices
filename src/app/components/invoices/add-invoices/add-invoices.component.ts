@@ -76,7 +76,7 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clientService.recieveTaxData().subscribe((res) => {
+    this.clientService.recieveTaxName().subscribe((res) => {
       this.taxesType = res
     });
 

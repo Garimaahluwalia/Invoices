@@ -40,7 +40,7 @@ export class LoginComponent {
    this.loginService.login({username: f.value.username, password: f.value.password}).subscribe((res:UserLogin)=> {
     console.log(res);
     this.loginService.updateLoginUser(res);
-    this.route.navigate(['/dashboard']);
+    this.route.navigate(['/main-invoice']);
    }, err => {
     if(err.error){
       this.notifier.notify('error', 'Invalid email address');

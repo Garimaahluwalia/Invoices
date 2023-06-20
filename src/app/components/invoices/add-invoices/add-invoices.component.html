@@ -44,7 +44,7 @@
                         <app-paymentdetails></app-paymentdetails>
                         
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-                            <button type="submit" class="btn btn-info save-cstn-btn"><i
+                            <button type="submit" class="btn btn-info save-cstn-btn" [disabled]="InvoiceForm.invalid"><i
                                     class="ri-printer-line align-bottom me-1"></i>
                                 Save</button>
                             <a href="javascript:void(0);" class="btn btn-primary print-cstn-btn"><i

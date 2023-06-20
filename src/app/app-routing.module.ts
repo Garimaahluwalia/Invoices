@@ -61,13 +61,13 @@ const routes: Routes = [
     component: AddInvoicesComponent,
     children: [
       {
-        path:  CLIENTS.ADD_CLIENTS,
+        path: CLIENTS.ADD_CLIENTS,
         component: AddClientComponent
       },
-     {
-      path: CLIENTS.UPDATE_CLIENT,
-      component : AddClientComponent
-     }
+      {
+        path: CLIENTS.UPDATE_CLIENT,
+        component: AddClientComponent
+      }
     ]
   },
   {
@@ -83,21 +83,21 @@ const routes: Routes = [
     component: ClientComponent,
     children: [
       {
-        path:  CLIENTS.ADD_CLIENTS,
+        path: CLIENTS.ADD_CLIENTS,
         component: AddClientComponent
       },
       {
-        path : CLIENTS.UPDATE_CLIENT,
-        component : AddClientComponent
+        path: CLIENTS.UPDATE_CLIENT,
+        component: AddClientComponent
       },
       {
-        path : CLIENTS.DELETE_CLIENTS,
+        path: CLIENTS.DELETE_CLIENTS,
         component: DeleteComponent
       },
     ]
   },
   {
-    path : CLIENTS.ADD_CLIENTS,
+    path: CLIENTS.ADD_CLIENTS,
     component: AddClientComponent
   },
   {
@@ -115,11 +115,11 @@ const routes: Routes = [
   {
     path: CLIENTS.PROFILE,
     component: MainComponent,
-    children:[{
-      path:"",
+    children: [{
+      path: "",
       component: ProfileComponent
     }]
-    
+
   }
 
 ];

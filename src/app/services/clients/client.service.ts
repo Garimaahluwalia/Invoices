@@ -12,8 +12,7 @@ export class ClientService {
   private _clients: IClients[] = [];
   private clientsSubject: BehaviorSubject<IClients[]> = new BehaviorSubject<IClients[]>([]);
   private _addClientFromInvoice: EventEmitter<IClients> = new EventEmitter<IClients>();
-  private _taxFromInvoice: EventEmitter<TAXES> = new EventEmitter<TAXES>();
-  private _taxamount: EventEmitter<number> = new EventEmitter<number>();
+  private _taxName: EventEmitter<TAXES> = new EventEmitter<TAXES>();
 
   constructor(public http: HttpClient) { }
 
@@ -84,20 +83,16 @@ export class ClientService {
   checkPhonenumberExist(payload: { [k: string]: string }): Observable<any> {
     return this.http.post(endpoints.CLIENTS.CHECKPHONENUMBER, payload);
   }
-  sendTaxData(data: TAXES): void {
-    console.log(data, 'data')
-    this._taxFromInvoice.emit(data);
-  }
-  recieveTaxData(): Observable<TAXES> {
-    return this._taxFromInvoice.asObservable()
-  }
 
 
-  sendTaxamount(data: number): void {
-    this._taxamount.emit(data);
+
+
+  
+  sendTaxName(data: TAXES): void {
+   this._taxName.emit(data);
+  }
+  recieveTaxName(): Observable<TAXES> {
+    return this._taxName.asObservable()
   }
 
-  recieveTaxamount(): Observable<any> {
-    return this._taxamount.asObservable();
-  }
 }

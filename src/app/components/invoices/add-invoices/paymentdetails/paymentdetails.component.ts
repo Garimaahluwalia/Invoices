@@ -34,6 +34,19 @@ export class PaymentdetailsComponent implements OnInit {
       this.currency = res;
       console.log(res, 'rescurrency')
     });
+
+
+
+    this.clientService.recieveTaxName().subscribe((res:any)=>{
+      this.tax = res;
+      console.log(this.tax, "Name of TAx")
+    });
+
+
+    this.addinvoiceService.receiveCurrency().subscribe((res:any)=> {
+      this.currency = res ; 
+      
+    })
   }
 
 
