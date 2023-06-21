@@ -20,10 +20,9 @@ export const CLIENTS = {
     CLIENTS: "clients",
     ADD_CLIENTS: "add-client",
     UPDATE_CLIENT: "add-client/:id",
-    DELETE: "delete-client",
-    DELETE_CLIENTS: "delete-client/:id",
+    DELETE: "delete",
+    DELETE_CLIENTS: "delete/:id",
     CLIENT_ADDRESS: "client-address/:id",
     CLIENT_DETAILS : "client-details",
-   
     // UPDATE_CLIENT_DETAILS : "client-details/:id"
 }

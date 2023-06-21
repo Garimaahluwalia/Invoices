@@ -1,11 +1,9 @@
-<!--app-header></app-header>
-<app-sidebar></app-sidebar-->
 
 
     <div class="page-content">
   <div class="container-fluid">
 <div class="col-sm-12 text-end pb-4 pr-0">
-    <button class="btn btn-primary-outline">Edit Profile</button>
+    <button class="btn btn-primary-outline" (click)="toggleEditMode()">Edit Profile</button>
 </div>
     <div class="row profile-data">
         <div class="col-lg-4">
@@ -15,41 +13,39 @@
              <span class="p-upload"> <i class="fa fa-upload"></i> <input id="file-input" type="file"/></span>
               <h5 class="my-3">John Smith</h5>
               <p class="text-muted mb-1">Full Stack Developer</p>
-           
             </div>
           </div>
-        
         </div>
         <div class="col-lg-8">
           <div class="card mb-4">
             <div class="card-body profile-inputs">
               <div class="form-input">
                <label>Name</label>
-               <input type="text" placeholder="John Smith" disabled/>
+               <input type="text" placeholder="John Smith" [disabled]="!isEditMode"/>
               </div>
               <div class="form-input">
                 <label>Email</label>
-                <input type="text" placeholder="example@example.com" disabled/>
+                <input type="text" placeholder="example@example.com" [disabled]="!isEditMode"/>
                </div>
                <div class="form-input">
                 <label>Mobile</label> 
-                <input type="text" placeholder="(097) 234-5678" disabled/>
+                <input type="text" placeholder="(097) 234-5678" [disabled]="!isEditMode"/>
                </div>
                <div class="form-input">
                 <label>Registerd On</label>
-                <input type="text" placeholder="2/12/2012" disabled/>
+                <input type="text" placeholder="2/12/2012" [disabled]="!isEditMode"/>
                </div>
                <div class="form-input">
                 <label>GSTIN</label>
-                <input type="text" placeholder="03DQCPK3553H1Z3" disabled/>
+                <input type="text" placeholder="03DQCPK3553H1Z3" [disabled]="!isEditMode"/>
                </div>
                <div class="form-input">
                 <label>Pan</label>
-                <input type="text" placeholder="DQCPK3553H" disabled/>
+                <input type="text" placeholder="DQCPK3553H" [disabled]="!isEditMode"/>
                </div>
                <div class="form-input">
                 <label>Address</label>
-                <input type="text" placeholder="Bay Area, San Francisco, CA" disabled/>
+                <input type="text" placeholder="Bay Area, San Francisco, CA" [disabled]="!isEditMode"/>
                </div>
     
           
@@ -61,31 +57,30 @@
               <div class=""><h3 class="border-bottom">Account Detail</h3></div>
               <div class="form-input">
                <label>Acc Holder Name</label>
-               <input type="text" placeholder="John Smith" disabled/>
+               <input type="text" placeholder="John Smith" [disabled]="!isEditMode"/>
               </div>
               <div class="form-input">
                 <label>Bank Name</label> 
-                <input type="text" placeholder="Francisco" disabled/>
+                <input type="text" placeholder="Francisco" [disabled]="!isEditMode"/>
                </div>
                <div class="form-input">
                 <label>Branch Name</label> 
-                <input type="text" placeholder="San" disabled/>
+                <input type="text" placeholder="San" [disabled]="!isEditMode"/>
                </div>
               <div class="form-input">
                 <label>Account Number</label>
-                <input type="text" placeholder="32455234122" disabled/>
+                <input type="text" placeholder="32455234122" [disabled]="!isEditMode"/>
                </div>
                <div class="form-input">
                 <label>IFSC code</label> 
-                <input type="text" placeholder="sdk2322" disabled/>
+                <input type="text" placeholder="sdk2322" [disabled]="!isEditMode"/>
                </div>
-             
-            
-    
-          
             </div>
+
           </div>
-        
+  
+    <button class="btn btn-primary-outline" (click)="submitProfile()">Save</button>
+
         </div>
       </div>
   </div>

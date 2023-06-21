@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -10,16 +11,27 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class InvoicedataComponent implements OnInit {
+  public defaultDate: any;
   @Input() invoice!: { [key: string]: string | number }
-  public InvoiceNumber! : number ;
-  constructor(public invoiceService : InvoiceService){}
+  public InvoiceNumber!: any;
+  constructor(public invoiceService: InvoiceService, private datePipe: DatePipe) { }
   ngOnInit(): void {
-   this.getInvoiceNumber();
+    const currentDate = new Date();
+    this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+    this.getInvoiceNumber();
   }
 
   getInvoiceNumber() {
-    this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
-      this.InvoiceNumber = res.invoiceNumber;
-    });
+    const savedInvoiceNumber = localStorage.getItem('invoiceNumber');
+    if (savedInvoiceNumber) {
+      this.InvoiceNumber = savedInvoiceNumber;
+    } else {
+      this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
+        this.InvoiceNumber = res.invoiceNumber;
+        localStorage.setItem('invoiceNumber', this.InvoiceNumber);
+      });
+    }
   }
+
+
 }

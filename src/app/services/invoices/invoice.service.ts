@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IInvoice, Invoice } from 'src/app/types/invoice';
 import { Observable } from 'rxjs/internal/Observable';
 import endpoints from 'src/app/endpoints';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,28 @@ import endpoints from 'src/app/endpoints';
 export class InvoiceService {
   public Invoices: IInvoice[] = [];
   constructor(private http: HttpClient) { }
+  private invoicesSubject: BehaviorSubject<IInvoice[]> = new BehaviorSubject<IInvoice[]>([]);
 
-  
-  getInvoiceNumber():Observable<any[]>{
+  set invoice(value: IInvoice[]) {
+    this.Invoices = value;
+  }
+  get invoice(): IInvoice[] {
+    return this.Invoices;
+  }
+
+
+  addInvoice(data: IInvoice) {
+    this.Invoices.push(data);
+    this.sendInvoices();
+  }
+  updateClient(data: IInvoice, invoiceId: number) {
+    const invoiceData = [...this.Invoices];
+    invoiceData.splice(invoiceId, 1, data);
+    this.Invoices = invoiceData;
+    this.sendInvoices();
+
+  }
+  getInvoiceNumber(): Observable<any[]> {
     return this.http.get<any[]>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
   }
 
@@ -23,10 +43,36 @@ export class InvoiceService {
   getInvoice(invoiceId: string): Observable<any> {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
-  
+  deleteInvoices(invoiceId: string) {
+    return this.http.delete(endpoints.INVOICES_LIST.DELETE(invoiceId));
+  }
   updateInvoice(invoiceId: string, invoice: IInvoice): Observable<IInvoice> {
     const url = `${endpoints.INVOICES_LIST.UPDATE}/${invoiceId}`;
     return this.http.put<Invoice>(url, invoice);
   }
 
+  // setStatus(invoiceId: string) {
+  //   const url = endpoints.INVOICES_LIST.STATUS(invoiceId);
+  //   return this.http.put(url, {});
+  // }
+  
+  sendInvoices() {
+    this.invoicesSubject.next(this.Invoices);
+  }
+
+  recieveInvoices(): Observable<IInvoice[]> {
+    return this.invoicesSubject.asObservable();
+  }
+
+  getAll(){
+    this.getAllInvoice().subscribe(
+      res => {
+        this.Invoices = res;
+        this.sendInvoices();
+      },
+      err => {
+        console.error('Error while fetching pages:' , err)
+      }
+    )
+  }
 }

@@ -25,8 +25,11 @@
     "bootstrap": "^5.2.3",
     "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^17.0.2",
+    "num-words": "^1.2.3",
+    "number-to-words": "^1.2.4",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.4.8",
+    "to-words": "^3.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

@@ -13,19 +13,20 @@ import { ModalEvents } from 'src/app/types/modal';
 })
 export class ClientComponent implements OnInit {
   currentPage = 1;
-  itemsPerPage = 5;
+  itemsPerPage = 12;
+  public showModal = false;
   public clients: IClients[] = [];
+  public inputsDisabled = false;
   constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
 
   ngOnInit(): void {
     this.clientService.getAll();
     this.clientService.recieveClients().subscribe((data: any) => {
       this.clients = data;
-      console.log(this.clients, "clientsdata")
     });
 
     this.deleteService.recieveDeleteEvent(DeleteEvents.CLIENTS)?.subscribe(res => {
-      console.log(res, this.deleteService.selectedId, "delete");
+      // console.log(res, this.deleteService.selectedId, "delete");
       if (res) {
         this.DeleteClients(this.deleteService.selectedId as string);
       }
@@ -38,19 +39,28 @@ export class ClientComponent implements OnInit {
   }
   updateClient(details: any) {
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details } })
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details} })
     })
   }
 
+  openModal() {
+    this.showModal = true;
+  }
+
+
+  ViewClient(details:any){
+    this.router.navigate(["clients", "add-client", details._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit : false , disabled : true , ...details } })
+    })
+  }
   DeleteClient(details: any) {
-    this.router.navigate(["clients", "delete-client", details._id]).then(() => {
+    this.router.navigate(["clients", "delete", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.CLIENTS } });
     })
   }
 
   DeleteClients(_id: string) {
     this.clientService.deleteClients(_id).subscribe((res) => {
-      console.log(res, "delete");
       this.deleteService.selectedId = null;
       this.clientService.getAll();
     }, err => {

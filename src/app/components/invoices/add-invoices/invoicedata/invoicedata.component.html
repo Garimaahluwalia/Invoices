@@ -15,39 +15,18 @@
                     </div>
                 </div>
             </div>
-            <!--end col-->
+
             <div class="row mt-4">
                 <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="date-field">Date</label>
-                        <input type="date" ngModel
+                        <input type="date" [(ngModel)]="defaultDate"
                             class="form-control bg-light border-0 flatpickr-input position-relative" id="date-field"
-                            data-provider="flatpickr" data-time="true" placeholder="Select Date-time"  name="Date">
-                        <!-- <span class="icon-push-right"><i class="fa-regular fa-calendar"></i></span> -->
+                            data-provider="flatpickr" data-time="true" placeholder="Select Date-time" name="Date">
                     </div>
+
                 </div>
-                <!--end col-->
-                <!-- <div class="col-lg-8 col-sm-6">
-                <label for="choices-payment-status">Payment Status</label>
-                <div class="input-light">
-                    <select name="Status" ngModel class="form-control bg-light border-0" data-choices
-                        data-choices-search-false id="choices-payment-status" required>
-                        <option value="">Select Payment Status</option>
-                        <option value="Paid">Paid</option>
-                        <option value="Unpaid">Unpaid</option>
-                        <option value="Refund">Refund</option>
-                    </select>
-                </div>
-            </div> -->
-                <!--end col-->
-                <!-- <div class="col-lg-8 col-sm-6">
-                <div>
-                    <label for="totalamountInput">Total Amount</label>
-                    <input type="text" name="Totalamount" ngModel class="form-control bg-light border-0"
-                        id="totalamountInput" placeholder="$0.00">
-                </div>
-            </div> -->
-                <!--end col-->
+
             </div>
 
         </div>
@@ -57,7 +36,5 @@
             </div>
         </div>
     </div>
-    <!--end col-->
 
 </div>
-<!--end row-->

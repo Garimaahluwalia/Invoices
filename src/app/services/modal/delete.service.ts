@@ -25,15 +25,18 @@ export class DeleteService {
       case DeleteEvents.CLIENTS:
         this.deletePage.emit(value);
         break;
+      case DeleteEvents.INVOICES:
+        this.deletePage.emit(value);
     }
   }
-  
+
   recieveDeleteEvent(type: DeleteEvents): Observable<boolean> | undefined {
     switch (type) {
       case DeleteEvents.CLIENTS:
         return this.deletePage.asObservable();
       default:
-        return undefined;
+      case DeleteEvents.INVOICES:
+        return this.deletePage.asObservable();
     }
   }
 

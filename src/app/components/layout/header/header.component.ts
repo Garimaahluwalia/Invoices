@@ -18,20 +18,22 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
    
   }
+
   logout() {
     const token = AUTHORIZATION_TOKEN;
-     this.loginService.userLogout(token).subscribe(
+    this.loginService.userLogout(token).subscribe(
       () => {
         console.log('Logout successful');
+        localStorage.removeItem('token');
         this.router.navigate(['/login']);
       },
       (error) => {
-        
         console.error('Logout failed:', error);
-        
       }
     );
   }
+  
+
   toggleBodyClass() {
     this.sidebaeService.isMobile.emit(!this.isActiveSideBar);
     this.isActiveSideBar=!this.isActiveSideBar

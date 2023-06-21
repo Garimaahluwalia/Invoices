@@ -1,247 +1,225 @@
-<div class="page-content">
-    <div class="container-fluid">
 
-
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Invoices Details</h4>
-
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Invoice</a></li>
-                            <li class="breadcrumb-item active">Invoices Details</li>
-                        </ol>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row justify-content-center">
-            <div class="col-xxl-9" *ngFor="let invoice of invoicelist">
-                <div class="card" id="demo">
-                    <div class="card-body">
-                        <div class="row p-4">
-                            <div class="col-lg-9">
-                                <h3 class="fw-bold mb-4">Invoice: {{invoice.invoiceNo}}</h3>
-                                <div class="row g-4">
-                                    <div class="col-lg-6 col-6">
-                                        <p class="text-muted mb-1 text-uppercase fw-medium fs-14">Invoice No</p>
-                                        <h5 class="fs-16 mb-0">#VL<span id="invoice-no">{{invoice.invoiceNo}}</span>
-                                        </h5>
-                                    </div>
-
-                                    <div class="col-lg-6 col-6">
-                                        <p class="text-muted mb-1 text-uppercase fw-medium fs-14">Date</p>
-                                        <h5 class="fs-16 mb-0"><span id="invoice-date">{{invoice.Date}}</span> <small
-                                                class="text-muted" id="invoice-time"></small></h5>
-                                    </div>
-
-                                    <div class="col-lg-6 col-6">
-                                        <p class="text-muted mb-1 text-uppercase fw-medium fs-14">Payment Status</p>
-                                        <span class="badge badge-soft-success fs-11"
-                                            id="payment-status">{{invoice.Status}}</span>
-                                    </div>
-
-                                    <div class="col-lg-6 col-6">
-                                        <p class="text-muted mb-1 text-uppercase fw-medium fs-14">Total Amount</p>
-                                        <h5 class="fs-16 mb-0">$<span id="total-amount">{{invoice.totalamount}}</span>
-                                        </h5>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mt-sm-0 mt-3">
-                                    <div class="mb-4">
-                                        <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark"
-                                            alt="logo dark" height="17">
-                                        <img src="assets/images/logo-light.png" class="card-logo card-logo-light"
-                                            alt="logo light" height="17">
-                                    </div>
-                                    <h6 class="text-muted text-uppercase fw-semibold">Address</h6>
-                                    <p class="text-muted mb-1" id="address-details">{{invoice.state}}</p>
-                                    <p class="text-muted mb-1" id="zip-code"><span>Zip-code:</span>
-                                        {{invoice.zipcode}}</p>
-                                    <h6><span class="text-muted fw-normal">Email:</span><span
-                                            id="email">{{invoice.email}}</span></h6>
-                                    <h6><span class="text-muted fw-normal">Website:</span> <a
-                                            href="https://themesbrand.com/" class="link-primary" target="_blank"
-                                            id="website">{{invoice.website}}</a></h6>
-                                    <h6 class="mb-0"><span class="text-muted fw-normal">Contact No: </span><span
-                                            id="contact-no">{{invoice.contactno}}</span></h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row p-4 border-top border-top-dashed">
-                            <div class="col-lg-9">
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <h6 class="text-muted text-uppercase fw-semibold mb-3">Billing Address</h6>
-                                        <p class="fw-medium mb-2" id="billing-name">{{invoice.fullName}}</p>
-                                        <p class="text-muted mb-1" id="billing-address-line-1">
-                                            {{invoice.address}}</p>
-                                        <p class="text-muted mb-1"><span>Phone: +</span><span
-                                                id="billing-phone-no">{{invoice.phoneNo}}</span></p>
-                                        <p class="text-muted mb-0"><span>Tax: </span><span
-                                                id="billing-tax-no">{{invoice.taxnumber}}</span> </p>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <h6 class="text-muted text-uppercase fw-semibold mb-3">Shipping Address</h6>
-                                        <p class="fw-medium mb-2" id="shipping-name">{{invoice.fullName}}</p>
-                                        <p class="text-muted mb-1" id="shipping-address-line-1">
-                                            {{invoice.address}}</p>
-                                        <p class="text-muted mb-1"><span>Phone: +</span><span
-                                                id="shipping-phone-no">{{invoice.phoneNo}}</span></p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-3">
-                                <h6 class="text-muted text-uppercase fw-semibold mb-3">Total Amount</h6>
-                                <h3 class="fw-bold mb-2">{{invoice.totalamount}}</h3>
-                                <span class="badge badge-soft-success fs-12">{{invoice.Date}}</span>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card-body p-4">
-                                    <div class="table-responsive">
-                                        <table
-                                            class="table table-borderless text-center table-nowrap align-middle mb-0">
-                                            <thead>
-                                                <tr class="table-active">
-                                                    <th scope="col" style="width: 50px;">#</th>
-                                                    <th scope="col">Product Details</th>
-                                                    <th scope="col">Rate</th>
-                                                    <th scope="col">Quantity</th>
-                                                    <th scope="col" class="text-end">Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="products-list">
-                                                <tr>
-                                                    <th scope="row">01</th>
-                                                    <td class="text-start">
-                                                        <span class="fw-medium">{{invoice.productName}}</span>
-                                                        <p class="text-muted mb-0">
-                                                            {{invoice.productDescription}}
-                                                        </p>
-                                                    </td>
-                                                    <td>{{invoice.Rate}}</td>
-                                                    <td>02</td>
-                                                    <td class="text-end">{{invoice.Amount}}</td>
-                                                </tr>
-                                                <!-- <tr>
-                                                    <th scope="row">02</th>
-                                                    <td class="text-start">
-                                                        <span class="fw-medium">Noise NoiseFit Endure Smart Watch</span>
-                                                        <p class="text-muted mb-0">32.5mm (1.28 Inch) TFT Color Touch
-                                                            Display</p>
-                                                    </td>
-                                                    <td>$94.99</td>
-                                                    <td>01</td>
-                                                    <td class="text-end">$94.99</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">03</th>
-                                                    <td class="text-start">
-                                                        <span class="fw-medium">350 ml Glass Grocery Container</span>
-                                                        <p class="text-muted mb-0">Glass Grocery Container (Pack of 3,
-                                                            White)</p>
-                                                    </td>
-                                                    <td>$24.99</td>
-                                                    <td>01</td>
-                                                    <td class="text-end">$24.99</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">04</th>
-                                                    <td class="text-start">
-                                                        <span class="fw-medium">Fabric Dual Tone Living Room
-                                                            Chair</span>
-                                                        <p class="text-muted mb-0">Chair (White)</p>
-                                                    </td>
-                                                    <td>$340.00</td>
-                                                    <td>01</td>
-                                                    <td class="text-end">$340.00</td>
-                                                </tr> -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="border-top border-top-dashed mt-2">
-                                        <table class="table table-borderless table-nowrap align-middle mb-0 ms-auto"
-                                            style="width:250px">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Sub Total</td>
-                                                    <td class="text-end"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Tax </td>
-                                                    <td class="text-end">{{invoice.tax}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Discount <small class="text-muted"></small></td>
-                                                    <td class="text-end">{{invoice.discount}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shipping Charge</td>
-                                                    <td class="text-end">{{invoice.shippingcharge}}</td>
-                                                </tr>
-                                                <tr class="border-top border-top-dashed fs-15">
-                                                    <th scope="row">Total Amount</th>
-                                                    <th class="text-end">{{invoice.totalamount}}</th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="mt-3">
-                                        <h6 class="text-muted text-uppercase fw-semibold mb-3">Payment Details:</h6>
-                                        <p class="text-muted mb-1">Payment Method: <span class="fw-medium"
-                                                id="payment-method">{{invoice.paymentMethod}}</span></p>
-                                        <p class="text-muted mb-1">Card Holder: <span class="fw-medium"
-                                                id="card-holder-name">{{invoice.cardHolderName}}</span></p>
-                                        <p class="text-muted mb-1">Card Number: <span class="fw-medium"
-                                                id="card-number">{{invoice.cardNumber}}</span></p>
-                                        <p class="text-muted">Total Amount: <span class="fw-medium" id="">$ </span><span
-                                                id="card-total-amount">{{invoice.totalamount}}</span></p>
-                                                <p class="text-muted">Bank Accountnumber: <span class="fw-medium" id="">$ </span><span
-                                                    id="card-total-amount">{{invoice.accountNumber}}</span></p>
-                                                    <p class="text-muted">IFSC Code: <span class="fw-medium" id="">$ </span><span
-                                                        id="card-total-amount">{{invoice.IFSC_Code}}</span></p>
-                                    </div>
-                                    <!-- <div class="mt-4">
-                                        <div class="alert alert-info">
-                                            <p class="mb-0"><span class="fw-semibold">NOTES:</span>
-                                                <span id="note">All accounts are to be paid within 7 days from receipt
-                                                    of invoice. To be paid by cheque or
-                                                    credit card or direct payment online. If account is not paid within
-                                                    7
-                                                    days the credits details supplied as confirmation of work undertaken
-                                                    will be charged the agreed quoted fee noted above.
-                                                </span>
-                                            </p>
+<div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
+    <table style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px;" align="center">
+        <thead>
+            <tr>
+                <td>
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: left;"><img src="assets\m-logo.png" width="130px" height="auto" />
+                                </td>
+                                <td>
+                                </td>
+                                <td style="text-align: right; vertical-align: middle;">
+                                    <h2 style="font-size: 34px; font-weight: 400;">Invoice</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <table style="width: 100%; padding-top: 10px;" *ngFor="let details of  invoicelist">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: left; width:30%; vertical-align: top;">
+                                    <div>
+                                        <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Billed By</h4>
+                                        <div>
+                                            <h2 style="font-size: 18px; color: #2B2B2B;">M CODE INFOSOFT</h2>
+                                            <p style="font-size: 16px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
+                                                #60, 1st Floor, Zirakpur,<br> Punjab, India - 140603</p>
+                                            <div>
+                                                <div style="padding-bottom: 8px;">
+                                                    <span style="font-size: 16px; font-weight: 500; color: #979393;">GSTIN:</span><span
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">03DQCPK3553H1Z3</span>
+                                                </div>
+                                                <div style="padding-bottom: 8px;">
+                                                    <span style="font-size: 16px; font-weight: 500; color: #979393;">PAN:</span><span
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">DQCPK3553H</span>
+                                                </div>
+                                                <div style="padding-bottom: 8px;">
+                                                    <span style="font-size: 16px; font-weight: 500; color: #979393;">Email:</span><span
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">Info@mcodeinfosoft.com</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div> -->
-                                    <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-                                        <a href="javascript:window.print()" class="btn btn-info"><i
-                                                class="ri-printer-line align-bottom me-1"></i> Print</a>
-                                        <a href="javascript:void(0);" class="btn btn-primary"><i
-                                                class="ri-download-2-line align-bottom me-1"></i> Download</a>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                </td>
+                                <td style="text-align: left; width:30%; vertical-align: top;" >
+                                    <div>
+                                        <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Billed To</h4>
+                                        <div>
+                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{details.Client}}
+                                               </h2>
+                                            <p
+                                                style="font-size: 16px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
+                                                Plot No.10, Dhangarpura, Khamla Sq., Nagpur,<br> Maharashtra, India</p>
+                                            <div>
+                                                <div style="padding-bottom: 8px;">
+                                                    <span style="font-size: 16px; font-weight: 500; color: #979393;">GSTIN:</span><span
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">27AACCO3566E1ZH</span>
+                                                </div>
+                                                <div style="padding-bottom: 8px;">
+                                                    <span style="font-size: 16px; font-weight: 500; color: #979393;">PAN:</span><span
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">AACCO3566E</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="text-align: left; width:30%; vertical-align: top;">
+                                    <div>
+                                        <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Invoice Details</h4>
+                                            <div>
+                                                <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                                    <span
+                                                        style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
+                                                        No #</span><span
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">00094</span>
+                                                </div>
+                                                <div style="float: left; width: 100%;">
+                                                    <span
+                                                        style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
+                                                        Date </span><span
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">May
+                                                        31, 2023</span>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="width: 100%; padding-top: 50px; padding-bottom: 50px; border-spacing: 0px;">
+                        <thead>
+                            <tr style="text-align: center; background-color: #F8D1D1;vertical-align: top;font-size: 14px;">
+                                <th style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none;font-weight: 400; padding: 5px 10px 10px 10px;"> </th>
+                                <th style="width: 35%; text-align: left; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;"> Item </th>
+                                <th style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;"> HSN/SAC </th>
+                                <th style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none;  font-weight: 400; padding: 5px 10px 10px 10px;"> Amount </th>
+                                <th style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;"> GST Rate </th>
+                                <th style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;"> IGST </th>
+                                <th style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;"> Total </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="text-align: center; font-size: 14px;">
+                                <td style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">1.</td>
+                                <td style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">SOFTWARE CONSULTING SERVICE (May 2023) </td>
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;"> 998314 </td>
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;"> ₹75,000 </td>
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;"> 18% </td>
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;"> ₹13,500 </td>
+                                <td style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;"> ₹88,500 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="width: 100%; padding-bottom: 50px; border-spacing: 0px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 55%; vertical-align: top;">
+                                <h4 style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">Declaration</h4>
+                                <p style="font-size: 16px; color: #282828; font-weight: 400; line-height: 29px; margin: 10px 0; word-spacing: 2px;">
+                                    We declare that this invoice shows the actual price of the goods
+                                    described and that all particulars are true and correct.
+                                </p>
+                                </td>
+                                <td style="width: 40%; vertical-align: top;">
+                                    <div style="padding-bottom: 15px; float: left; width: 100%;">
+                                        <span style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">Amount</span>
+                                        <span style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">₹75,000</span>
+                                    </div>
+                                    <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                        <span style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">IGST</span>
+                                        <span style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">₹13,500</span>
+                                    </div>
+                                    <div style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
+                                        <span style="font-size: 16px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total (INR)</span>
+                                        <span style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">₹88,500</span>
+                                    </div>
+                                    <div style="padding-top: 30px; float: left; width: 100%;">
+                                        <p style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
+                                            Total (in words) :
+                                        </p>
+                                        <p style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
+                                            Eighty Eight Thousand Five Hundred Rupees Only
+                                        </p>
+                                    </div>
+                                </td>
+                                <td style="width: 5%; vertical-align: top;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="width: 100%; padding-bottom: 250px; padding-top: 20px; border-spacing: 0px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 40%; vertical-align: top;">
+                                    <div style="float: left; width: 100%;">
+                                        <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Bank Details</h4>
+                                        <div style="float: left; width: 100%;">
+                                            <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                            <span
+                                                    style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Account Holder Name</span><span
+                                                    style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">M CODE INFOSOFT</span>
+                                            </div>
+                                            <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                <span style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Account Number</span>
+                                                <span style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">004305006771</span>
+                                            </div>
+                                            <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                <span style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">IFSC</span>
+                                                <span style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">ICIC0000043</span>
+                                            </div>
+                                            <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                <span style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">SWIFT Code</span>
+                                                <span style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">ICICINBBCTS</span>
+                                            </div>
+                                            <div style="float: left; width: 100%;">
+                                                <span style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Bank</span>
+                                                <span style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">ICICI Bank Ltd.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width: 60%;">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="width: 100%; border-spacing: 0px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 100%; text-align: center;">
+                                    <p style="font-size: 12px; color: #282828; font-weight: 500; line-height: 29px; margin: 0; word-spacing: 2px;">
+                                        This is an electronically generated document, no signature is required.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

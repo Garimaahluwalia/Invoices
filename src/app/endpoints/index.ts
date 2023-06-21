@@ -14,9 +14,10 @@ const endpoints = {
     GETALL: `${environment.BASE_URL}/invoice`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/list/${InvoiceId}`,
-    // DELETE: (InvoiceId: string) => `${environment.BASE_URL}/listx/${InvoiceId}`,
+    DELETE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     GET_INVOICE_NUMBER: `${environment.BASE_URL}/invoice-number`,
-    GET_TAX_AMOUNT : `${environment.BASE_URL}/invoice/getTaxes`
+    GET_TAX_AMOUNT : `${environment.BASE_URL}/invoice/getTaxes`,
+    STATUS : (InvoiceId: string) => `${environment.BASE_URL}/status/${InvoiceId}`
   },
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoice`,

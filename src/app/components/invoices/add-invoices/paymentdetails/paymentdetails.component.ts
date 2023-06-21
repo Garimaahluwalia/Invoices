@@ -3,6 +3,8 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 
+
+
 @Component({
   selector: 'app-paymentdetails',
   templateUrl: './paymentdetails.component.html',
@@ -11,42 +13,69 @@ import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.servi
 
 })
 export class PaymentdetailsComponent implements OnInit {
-  amount: any;
-  tax: any;
-  rate: any;
-  total: any;
-  currency: any;
-  taxAmountData:any;
+  public amount: any;
+  public tax: any;
+  public rate: any;
+  public total: any;
+  public currency: any;
+  public taxAmountData: any;
+  public totalAmount: any;
+  public totalrate: any;
+  public productRows: any[] = [];
+  public totalTotalAmount: any;
+  public totalAmountInWords! : string;
+
   constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService) { }
   ngOnInit(): void {
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
+      this.productRows = res;
       if (res.length > 0) {
         const firstElement = res[0];
         this.amount = firstElement.amount;
         this.tax = firstElement.tax;
         this.rate = firstElement.rate;
         this.total = firstElement.total;
-        // console.log(this.amount, this.tax, this.total);
+        if (this.productRows.length > 0) {
+          this.totalAmount = parseFloat(this.productRows.reduce((total: any, row: { amount: any; }) => total + row.amount, 0)).toFixed(2);
+          this.totalrate = parseFloat(this.productRows.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
+          this.totalTotalAmount = parseFloat(this.productRows.reduce((total: number, row: { total: string; }) => total + parseFloat(row.total), 0)).toFixed(2);
+        
+
+          if (isNaN(this.totalAmount)) {
+            this.totalAmount = "0.00";
+          }
+          if (isNaN(this.totalrate)) {
+            this.totalrate = "0.00";
+          }
+          if (isNaN(this.totalTotalAmount)) {
+            this.totalTotalAmount = "0.00";
+          }
+        } else {
+          this.totalAmount = 0;
+          this.totalTotalAmount = 0;
+        }
       }
     });
 
-    this.addinvoiceService.receiveCurrency().subscribe((res:any)=> {
+    this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
       this.currency = res;
       console.log(res, 'rescurrency')
     });
 
 
 
-    this.clientService.recieveTaxName().subscribe((res:any)=>{
+    this.clientService.recieveTaxName().subscribe((res: any) => {
       this.tax = res;
-      console.log(this.tax, "Name of TAx")
+      // console.log(this.tax, "Name of TAx")
     });
 
 
-    this.addinvoiceService.receiveCurrency().subscribe((res:any)=> {
-      this.currency = res ; 
-      
-    })
+    this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
+      this.currency = res;
+
+    });
+
+
   }
 
 
@@ -56,5 +85,7 @@ export class PaymentdetailsComponent implements OnInit {
     "accountNumber": "098878776809454",
     "IFSCCode": "DQCPK3553H",
   }
+
+
 
 }

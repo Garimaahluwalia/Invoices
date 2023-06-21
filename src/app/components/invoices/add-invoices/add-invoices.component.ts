@@ -20,67 +20,13 @@ export class AddInvoicesComponent implements OnInit {
     this.notifier = notifierService;
   }
 
-  model: any = {
-    "invoice": {
-      "InvoiceNo": "INV-12345"
-    },
-    "company": {
-      "Businessname": "ABC Company",
-      "address": "123 Main St",
-      "GSTIN": "ABCD1234",
-      "pan": "ABCDE12345",
-      "postalCode": "12345",
-      "emailaddress": "mailto:info@company.com",
-      "website": "https://www.company.com",
-      "contactNo": "123-456-7890",
-      "currencyType": "USD",
-      "taxType": "GST"
-    },
-    "billing": {
-
-      "city": "City Name",
-      "pincode": "54321",
-      "apartment": "Apt 1",
-      "zipcode": "12345",
-      "country": "Country Name"
-    },
-    "shipping": {
-
-      "city": "City Name",
-      "pincode": "54321",
-      "apartment": "Apt 2",
-      "zipcode": "12345",
-      "country": "Country Name"
-    },
-
-
-    "products": [
-      {
-        "productName": "Product 1",
-        "productDescription": "Description 1",
-        "rate": 10,
-        "quantity": 5
-      },
-      {
-        "productName": "Product 2",
-        "productDescription": "Description 2",
-        "rate": 15,
-        "quantity": 3
-      }
-    ],
-    "InvoiceId": "INV-12345",
-    "Email": "mailto:customer@example.com",
-    "Client": "Client Name",
-    "Date": "2023-06-13",
-    "Status": "Paid"
-  }
-
   ngOnInit(): void {
+    this.InvoiceForm.form.patchValue({
+      
+    })
     this.clientService.recieveTaxName().subscribe((res) => {
       this.taxesType = res
     });
-
-    this.clientService
   }
 
   submit(f: NgForm) {
@@ -90,7 +36,9 @@ export class AddInvoicesComponent implements OnInit {
     const payload = invoice.getPayload();
     this.addInvoiceService.addInvoice((payload)).subscribe((res: any) => {
       this.Invoices = res;
+      console.log(this.Invoices, "Add-Invoices")
       this.notifier.notify('success', 'Invoice Save successfully');
+      this.route.navigateByUrl("/invoice")
     },
       (error: any) => {
         console.error(error);

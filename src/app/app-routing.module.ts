@@ -4,7 +4,6 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { CLIENTS, INVOICES, ROUTELINKS } from './constants/routes';
 import { SignupComponent } from './components/auth/signup/signup.component';
-import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { MainComponent } from './components/layout/main/main.component';
 import { AuthService } from './services/auth/auth.service';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
@@ -54,7 +53,13 @@ const routes: Routes = [
   },
   {
     path: INVOICES.INVOICE,
-    component: InvoiceComponent
+    component: InvoiceComponent,
+    children : [
+      {
+        path: CLIENTS.DELETE_CLIENTS,
+        component: DeleteComponent
+      },
+    ]
   },
   {
     path: INVOICES.ADD_INVOICE,
@@ -67,7 +72,8 @@ const routes: Routes = [
       {
         path: CLIENTS.UPDATE_CLIENT,
         component: AddClientComponent
-      }
+      },
+      
     ]
   },
   {

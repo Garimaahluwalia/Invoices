@@ -12,8 +12,7 @@ import { TAXES } from 'src/app/types/taxes';
 
 })
 export class ProductdetailsComponent implements OnInit {
-
-  //  public tax= TAXES;
+  showTaxHeaders: boolean = true;
   public taxRate: any;
   public taxes: string[] = Object.values(TAXES);
   public tax: TAXES = TAXES.GST;
@@ -37,97 +36,15 @@ export class ProductdetailsComponent implements OnInit {
   public selectedTaxRate: TAXES = TAXES.NONE;
   public TotalAmount: any;
   public selectedTaxRateValue: number = 0;
-  public currency = [
-    {
-      "code": "USD",
-      "name": "United States Dollar",
-      "symbol": "$"
-    },
-    {
-      "code": "EUR",
-      "name": "Euro",
-      "symbol": "€"
-    },
-    {
-      "code": "JPY",
-      "name": "Japanese Yen",
-      "symbol": "¥"
-    },
-    {
-      "code": "GBP",
-      "name": "British Pound Sterling",
-      "symbol": "£"
-    },
-    {
-      "code": "AUD",
-      "name": "Australian Dollar",
-      "symbol": "A$"
-    },
-    {
-      "code": "CAD",
-      "name": "Canadian Dollar",
-      "symbol": "CA$"
-    },
-    {
-      "code": "CHF",
-      "name": "Swiss Franc",
-      "symbol": "CHF"
-    },
-    {
-      "code": "CNY",
-      "name": "Chinese Yuan",
-      "symbol": "¥"
-    },
-    {
-      "code": "INR",
-      "name": "Indian Rupee",
-      "symbol": "₹"
-    },
-    {
-      "code": "BRL",
-      "name": "Brazilian Real",
-      "symbol": "R$"
-    },
-    {
-      "code": "MXN",
-      "name": "Mexican Peso",
-      "symbol": "MX$"
-    },
-    {
-      "code": "SGD",
-      "name": "Singapore Dollar",
-      "symbol": "S$"
-    },
-    {
-      "code": "NZD",
-      "name": "New Zealand Dollar",
-      "symbol": "NZ$"
-    },
-    {
-      "code": "SEK",
-      "name": "Swedish Krona",
-      "symbol": "kr"
-    },
-    {
-      "code": "NOK",
-      "name": "Norwegian Krone",
-      "symbol": "kr"
-    },
-    {
-      "code": "ZAR",
-      "name": "South African Rand",
-      "symbol": "R"
-    }
-  ]
 
-  showTaxHeaders: boolean = true;
 
+  
   constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService
   ) { }
   ngOnInit(): void {
     this.addDescriptionDefault;
     this.addNewLine();
-    this.loadCurrencies();
+    // this.loadCurrencies();
     this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
       this.currencyData = res;
     });
@@ -142,9 +59,9 @@ export class ProductdetailsComponent implements OnInit {
 
   }
 
-  loadCurrencies() {
-    this.currencies = this.currency;
-  }
+  // loadCurrencies() {
+  //   this.currencies = this.currency;
+  // }
 
   addDescriptionDefault() {
     this.showDescriptionBoxOpen = !this.showDescriptionBoxOpen;
@@ -165,44 +82,58 @@ export class ProductdetailsComponent implements OnInit {
     this.productRows[index].showDescriptionBox = !this.productRows[index].showDescriptionBox;
   }
   removeRow(rowIndex: number) {
-    this.productRows.splice(rowIndex, 1);
+    if (this.productRows.length > 1) {
+      this.productRows.splice(rowIndex, 1);
+    }
   }
+  
 
   onTaxRateChange() {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0); // This line assigns a value to the this.selectedTaxRateValue variable.. this.taxAmountData?.[this.selectedTaxRate] attempts to access the value from the this.taxAmountData object using this.selectedTaxRate as the key. The optional chaining operator (?.) checks if this.taxAmountData is not null or undefined. If it is, it returns undefined without attempting to access the property [this.selectedTaxRate] . If this.taxAmountData is not null or undefined, it proceeds to access the value using [this.selectedTaxRate]. parseFloat is used to parse the retrieved value as a floating-point number. If the value cannot be parsed, it returns NaN (Not-a-Number). || 0 provides a default value of 0 if the result of the previous expression is undefined or NaN.
+
+
     this.clientService.sendTaxName(this.selectedTaxRate);
+    this.productRows.forEach((row, index) => {
+      this.onProductValueChange(index);
+    });
   }
 
 
-  Currency(event: any) {
-    this.currency = event.target.value;
-    console.log(this.currency, "currency data");
-    this.addinvoiceService.sendCurrency(this.currency)
-  }
+  // Currency(event: any) {
+  //   this.currency = event.target.value;
+  //   console.log(this.currency, "currency data");
+  //   this.addinvoiceService.sendCurrency(this.currency)
+  // }
 
 
 
 
   onProductValueChange(i: number) {
     const rows = [...this.productRows];
-    if (this.selectedTaxRate !== TAXES.NONE) // This condition checks if the this.selectedTaxRate is not equal to TAXES.NONE. It verifies if a tax rate other than "none" is selected.
-    {
-      const selectedAmount = Number(rows?.[i]?.amount || 0); //retrieves the Amount value of the product at index i from the rows array. The optional chaining operator (?.) is used to handle cases where rows or rows[i] might be undefined or null and The value is then converted to a number using the Number function. If the conversion fails, it defaults to 0
-
-      if (selectedAmount > 0)  // This condition checks if the selectedAmount is greater than 0. It ensures that calculations are performed only when a positive amount is present.
+    if (this.selectedTaxRate !== TAXES.NONE) {
+      const selectedAmount = Number(rows?.[i]?.amount || 0); 
+      if (selectedAmount > 0)  
       {
-        const selectedTaxAmount = this.selectedTaxRateValue; // This line retrieves the selected tax amount from the this.selectedTaxRateValue variable. It assumes that this.selectedTaxRateValue holds the tax amount related to the selected tax rate
-        const rate = (selectedTaxAmount * 100) / selectedAmount;
-        const roundedRate = rate.toFixed(2)
-        // This line calculates the rate by dividing the selectedTaxAmount by selectedAmount and then multiplying the result by 100. It determines the tax rate as a percentage based on the selected tax amount and the product amount.
-        rows[i].rate = roundedRate; // This line updates the rate property of the product at index i in the rows array with the calculated tax rate.
-
-        const taxAmount = (selectedAmount * selectedTaxAmount) / 100;  // This line calculates the tax amount. It multiplies the selected amount by the selected tax rate (which is divided by 100 to convert it from a percentage to a decimal).
+        const selectedTaxAmount = this.selectedTaxRateValue; 
+        const rate = (selectedTaxAmount * selectedAmount) / 100;
+        // console.log(rate, "the rate will be 0.0018")
+        console.log((selectedTaxAmount / selectedAmount) * 100)
+        rows[i].rate = rate ; 
+        const taxAmount = (selectedAmount * selectedTaxAmount) / 100; 
         const roundedTaxAmount = taxAmount.toFixed(2);
-        rows[i].total = (selectedAmount + taxAmount).toFixed(2); // This line calculates the total amount after tax. It adds the selected amount to the tax amount and assigns the result to the total property of the i-th element in the rows array.
+        rows[i].total = (selectedAmount + taxAmount).toFixed(2); 
+       
       }
     }
+    else {
+      rows[i].rate = '0';
+      rows[i].total = '0';
+    }
+
+
     this.addinvoiceService.sendProductChanges(rows);
   }
+
+
 
 }

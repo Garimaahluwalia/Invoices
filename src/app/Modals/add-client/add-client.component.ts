@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { IClients } from 'src/app/types/clients';
 import { ModalEvents } from 'src/app/types/modal';
 import axios from 'axios';
+import { ReplaySubject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-client',
@@ -16,6 +17,7 @@ export class AddClientComponent implements OnInit {
   @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef;
   countries: { name: string, code: string }[] = [];
   public country!: string;
+  public invoiceView: any;
   public name !: string;
   public email!: string;
   public phoneNumber!: string;
@@ -26,28 +28,39 @@ export class AddClientComponent implements OnInit {
   public city!: string;
   public zipcode!: string;
   public street!: string;
-  public BusinessAlias!: string;
-  public UniqueKey!: number;
   public emailadress!: string
   public phone!: number;
   private invoice: boolean = false;
-
+  public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
+  public disabledInput: boolean = false;
 
 
 
   ngAfterViewInit(): void {
-    this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).subscribe(res => {
-      const { status, data, invoice } = res;
+    this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
+      const { status, data, invoice, disabled } = res;
       this.data = data;
       console.log(res, "adduser");
       this.invoice = data?.invoice || false;
+      this.disabledInput = data?.disabled || false;
+
       if (status) {
         this.openModal();
       } else {
         this.closeModal();
       }
+      this.name = data?.name || '';
+      this.email = data?.email || '';
+      this.phoneNumber = data?.phoneNumber || '';
+      this.registeredNo = data?.registeredNo || '';
+      this.country = data?.country || '';
+      this.state = data?.state || '';
+      this.city = data?.city || '';
+      this.zipcode = data?.zipcode || '';
+      this.street = data?.street || '';
     });
   }
+
 
   ngOnInit(): void {
     this.fetchCountries();
@@ -67,11 +80,15 @@ export class AddClientComponent implements OnInit {
   }
 
   closeModal() {
+    this.destroyed.next(true);
+    this.destroyed.complete();
     this.closeModalButton?.nativeElement.click();
     if (this.router.url.includes("clients")) {
       this.router.navigate(["clients"]);
     } else if (this.router.url.includes("add-invoice")) {
-      this.router.navigate(["add-invoice"]);
+      this.router.navigate(["add-invoice"]).then(() => {
+        this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: false });
+      });
     }
   }
 
@@ -94,7 +111,7 @@ export class AddClientComponent implements OnInit {
     console.log(address, "The Data of address");
     let newData = {
       name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address,
-      country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, BusinessAlias: this.BusinessAlias, UniqueKey: this.UniqueKey, emailadress: this.emailadress, phone: this.phone
+      country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone
     }
     console.log(newData, "FormData")
 
@@ -128,6 +145,7 @@ export class AddClientComponent implements OnInit {
         this.clientService.getAll();
       }
       this.closeModal();
+
     }, (err: any) => {
       console.error(err);
       this.closeModal();
