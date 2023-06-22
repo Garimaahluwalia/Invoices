@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
-
+import { numberToWords } from "src/app/types/number-to-words";
 
 
 @Component({
@@ -23,7 +23,8 @@ export class PaymentdetailsComponent implements OnInit {
   public totalrate: any;
   public productRows: any[] = [];
   public totalTotalAmount: any;
-  public totalAmountInWords! : string;
+  public AmountInWords: any;
+  public totalAmountInWords!: string;
 
   constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService) { }
   ngOnInit(): void {
@@ -39,7 +40,8 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalAmount = parseFloat(this.productRows.reduce((total: any, row: { amount: any; }) => total + row.amount, 0)).toFixed(2);
           this.totalrate = parseFloat(this.productRows.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
           this.totalTotalAmount = parseFloat(this.productRows.reduce((total: number, row: { total: string; }) => total + parseFloat(row.total), 0)).toFixed(2);
-        
+          this.AmountInWords = numberToWords(this.totalTotalAmount);
+          // console.log( this.AmountInWords, "fjew"); 
 
           if (isNaN(this.totalAmount)) {
             this.totalAmount = "0.00";
@@ -55,29 +57,29 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalTotalAmount = 0;
         }
       }
+
+
+
     });
 
     this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
       this.currency = res;
-      console.log(res, 'rescurrency')
     });
 
-
+    if (!this.currency || this.currency === '') {
+      this.currency = '$';
+    }
 
     this.clientService.recieveTaxName().subscribe((res: any) => {
       this.tax = res;
-      // console.log(this.tax, "Name of TAx")
-    });
 
+    });
 
     this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
       this.currency = res;
 
     });
-
-
   }
-
 
   public Bankdetails: { [k: string]: string } = {
     "BankName": "M CODE INFOSOFT",

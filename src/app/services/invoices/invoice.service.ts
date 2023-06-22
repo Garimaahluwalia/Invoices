@@ -51,10 +51,12 @@ export class InvoiceService {
     return this.http.put<Invoice>(url, invoice);
   }
 
-  // setStatus(invoiceId: string) {
-  //   const url = endpoints.INVOICES_LIST.STATUS(invoiceId);
-  //   return this.http.put(url, {});
-  // }
+  updateInvoiceStatus(invoiceId: string): Observable<any> {
+    const url = `${endpoints.INVOICES_LIST.UPDATE_STATUS}/${invoiceId}`;
+    return this.http.put(url, null);
+  }
+  
+  
   
   sendInvoices() {
     this.invoicesSubject.next(this.Invoices);

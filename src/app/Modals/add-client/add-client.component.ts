@@ -6,6 +6,7 @@ import { IClients } from 'src/app/types/clients';
 import { ModalEvents } from 'src/app/types/modal';
 import axios from 'axios';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-add-client',
@@ -33,6 +34,8 @@ export class AddClientComponent implements OnInit {
   private invoice: boolean = false;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public disabledInput: boolean = false;
+    private readonly notifier!: NotifierService;
+
 
 
 
@@ -65,7 +68,9 @@ export class AddClientComponent implements OnInit {
   ngOnInit(): void {
     this.fetchCountries();
   }
-  constructor(public router: Router, public modalService: ModalService, public clientService: ClientService) { }
+  constructor(public router: Router, public modalService: ModalService, public clientService: ClientService, public notifierService: NotifierService) {
+    this.notifier = notifierService;
+   }
   fetchCountries() {
     axios.get('https://restcountries.com/v2/all')
       .then(response => {
@@ -117,9 +122,11 @@ export class AddClientComponent implements OnInit {
 
     if (this.data?.edit) {
       this.updateClient(newData);
+      this.notifier.notify('success', 'Client updated successfully');
     }
     else {
       this.addClient(newData);
+      this.notifier.notify('success', 'Client added successfully');
     }
   }
 
@@ -141,6 +148,7 @@ export class AddClientComponent implements OnInit {
     this.clientService.sendPost(newData).subscribe((res: IClients) => {
       if (this.invoice) {
         this.clientService.sendClientDetails(res);
+
       } else {
         this.clientService.getAll();
       }

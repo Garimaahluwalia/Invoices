@@ -17,7 +17,8 @@ const endpoints = {
     DELETE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     GET_INVOICE_NUMBER: `${environment.BASE_URL}/invoice-number`,
     GET_TAX_AMOUNT : `${environment.BASE_URL}/invoice/getTaxes`,
-    STATUS : (InvoiceId: string) => `${environment.BASE_URL}/status/${InvoiceId}`
+    UPDATE_STATUS : (InvoiceId: string) => `${environment.BASE_URL}/status/${InvoiceId}`,
+    
   },
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoice`,
@@ -31,6 +32,14 @@ const endpoints = {
     GET: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
     UPDATE: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
     DELETE: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
+  },
+
+  PROFILE : {
+    ADD : `${environment.BASE_URL}/profile`,
+    GETALL : `${environment.BASE_URL}/profile`,
+    GET: (profileId: string) => `${environment.BASE_URL}/profile/${profileId}`,
+    ADD_PROFILE : `${environment.BASE_URL}/profile`
+
   }
 }
 

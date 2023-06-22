@@ -16,11 +16,13 @@ export class InvoiceComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 15;
   public invoices: IInvoice[] = [];
+  public invoiceId:string | undefined
   public InvoiceNumber!: number;
+  public InvoiceStatus : any;
   constructor(public invoiceService: InvoiceService, public router: Router, public route: ActivatedRoute, public deleteService: DeleteService, public modalService: ModalService, public clientService: ClientService) { }
   ngOnInit(): void {
     this.loadInvoices();
-  
+
 
     this.deleteService.recieveDeleteEvent(DeleteEvents.INVOICES)?.subscribe(res => {
       console.log(res, "invoice deleted succeessfully")
@@ -28,30 +30,33 @@ export class InvoiceComponent implements OnInit {
         this.DeleteInvoices(this.deleteService.selectedId as string);
       }
     });
+  
   }
 
 
 
   loadInvoices() {
-    this.invoiceService.getAllInvoice()
-      .subscribe((invoice: IInvoice[]) => {
-        this.invoices = invoice;
-        console.log(this.invoices, "LoadInvoices");
+    this.invoiceService.getAllInvoice().subscribe((invoices: IInvoice[]) => {
+      this.invoices = invoices;
+      console.log(this.invoices, "LoadInvoices");
+      this.invoices.forEach((invoice: IInvoice) => {
+        if (invoice._id) {
+          const invoiceId: string = invoice._id; 
+          console.log(invoiceId, "id of Invoice");
+          this.invoiceService.updateInvoiceStatus(invoiceId).subscribe(
+            (res) => {
+              this.InvoiceStatus = res;
+              console.log(res, `Invoice status updated for invoice ID: ${invoiceId}`);
+            },
+            (error: any) => {
+              console.error(`Failed to update invoice status for invoice ID: ${invoiceId}`, error);
+            }
+          );
+        }
       });
+    });
   }
-
-  // getStatus(invoiceId: string) {
-  //   this.invoiceService.setStatus(invoiceId).subscribe(
-  //     () => {
-  //       console.log('Status set successfully.');
-  //     },
-  //     (error) => {
-  //       console.error('Failed to set status:', error);
-  //     }
-  //   );
-  // }
-  
-
+ 
   DeleteInvoice(details: any) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.INVOICES } });

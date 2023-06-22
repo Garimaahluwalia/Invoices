@@ -105,7 +105,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="state" class="form-label">State / province</label>
+                                    <label for="state" class="form-label">State</label>
                                     <select id="state" class="form-control" [(ngModel)]="state" [disabled]="disabledInput">
                                         <option value="California">California</option>
                                         <option value="New York">New York</option>
@@ -140,9 +140,10 @@
                         </div>
                     </div>
                     <div class="modal-footer pt-2 pb-0">
-                        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-                        <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+                        <button type="button" class="btn btn-secondary" [disabled]="disabledInput" (click)="closeModal()">Close</button>
+                        <button type="button" class="btn btn-primary" [disabled]="disabledInput" (click)="saveChanges()">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
+        <notifier-container></notifier-container>

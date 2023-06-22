@@ -7,14 +7,15 @@
                     <span>Amount</span><span>{{currency}}{{totalAmount}}</span>
                 </div>
                 <div class="sub-amount">
-                    <span>Tax Rate</span><span>{{currency}}{{totalrate}}</span>
+                    <span>Tax Rate : </span><span>{{currency}}{{totalrate}}</span>
                 </div>
                 <div class="total-amount">
-                    <span>Total({{currency}})</span><span>{{currency}}{{totalTotalAmount}}</span>
+                    <span>Total({{ currency }})</span>
+                    <span>{{ currency }}{{ totalrate !== '0.00' ? totalTotalAmount : totalAmount }}</span>
                 </div>
-                <div class="amount-words">
-                    <h4>Total(in-words)</h4>
-                </div>
+                <!-- <div class="amount-words">
+                    <h4>Total(in-words) : {{AmountInWords}} <span></span></h4>
+                </div> -->
             </div>
         </div>
     </div>
@@ -27,16 +28,21 @@
                 Details</label>
             <div class="bank-background-edit">
                 <div class="">
-                    <label for="Bankname">Bank Name : ABC </label>
+                    <label for="Bankname">ACCOUNT HOLDER NAME: M CODE INFOSOFT </label>
                 </div>
                 <div class="">
-                    <label for="cardHolderName">cardHolderName : ABC </label>
+                    <label for="cardHolderName">ACCOUNTNUMBER : 004305006771 </label>
                 </div>
                 <div class="">
-                    <label for="accountNumber">accountNumber : ABC</label>
+                    <label for="accountNumber">IFSC : ICIC0000043</label>
                 </div>
                 <div class="">
-                    <label for="ifscCode">IFSCCode : ABC</label>
+                    <label for="ifscCode">SWIFT CODE : ICICINBBCTS</label>
+                </div>
+                <div class="">
+                    <label for="ifscCode">BANK : ICICI Bank Ltd.</label>
+
+
                 </div>
 
 

@@ -40,7 +40,6 @@ export class Invoice implements IInvoice {
    private _company!: ICompany;
    public _productDetails!: IProductDetails[];
    public _id?: string;
-   // public invoiceNumber!: string;
    public InvoiceId?: string;
    public Email?: string;
    public Client?: string;
@@ -58,8 +57,8 @@ export class Invoice implements IInvoice {
          invoiceNo: invoiceNo,
       };
    }
-  
-   
+
+
    setCompany({ Businessname, address, contactNo, emailaddress, postalCode, GSTIN, pan }: ICompany) {
       this.company = {
          Businessname: Businessname,
@@ -81,7 +80,7 @@ export class Invoice implements IInvoice {
 
    set tax(value: TAXES) {
       this._tax = value;
-      
+
    }
    get tax(): TAXES {
       return this._tax;

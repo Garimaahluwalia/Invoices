@@ -34,6 +34,7 @@ export class AddInvoicesComponent implements OnInit {
     invoice.setData(f.value);
     invoice.tax = this.taxesType;
     const payload = invoice.getPayload();
+    console.log(payload,"payload")
     this.addInvoiceService.addInvoice((payload)).subscribe((res: any) => {
       this.Invoices = res;
       console.log(this.Invoices, "Add-Invoices")
