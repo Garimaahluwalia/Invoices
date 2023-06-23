@@ -30,6 +30,7 @@
       <thead class="align-middle items-chart">
         <tr class="table-active">
           <th scope="" class="width-60">Item</th>
+          <th scope="" class="width-10">HSN/SAC</th>
           <th scope="" class="width-10">Amount</th>
           <ng-container *ngIf="selectedTaxRate !== 'None'">
             <th scope="col">Rate</th>
@@ -58,10 +59,17 @@
           </td>
           <td class="text-end">
             <div>
+              <input type="number" [(ngModel)]="HSN_SAC" (ngModelChange)="onProductValueChange(i)" name="HSN_SAC"
+                class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+            </div>
+          </td>
+          <td class="text-end">
+            <div>
               <input type="number" [(ngModel)]="row.amount" (ngModelChange)="onProductValueChange(i)" name="amount"
                 class="form-control bg-light border-0 product-line-price" placeholder="{{inputcurrency}}0.00" />
             </div>
           </td>
+
           <ng-container *ngIf="selectedTaxRate !== 'None'">
             <td class="text-end">
               <div>
@@ -73,8 +81,7 @@
             <td class="text-end">
               <div>
                 <input type="text" ngModel name="taxtype" [(ngModel)]="selectedTaxRateValue"
-                  class="form-control bg-light border-0 product-line-price" placeholder="{{inputcurrency}}00.00"
-                  readonly />
+                  class="form-control bg-light border-0 product-line-price" [placeholder]="inputcurrency + '00.00'" />
               </div>
             </td>
             <td class="text-end">

@@ -39,8 +39,8 @@ export class ClientService {
     return this.http.post(endpoints.CLIENTS.ADD, payload);
   }
 
-  getAllClients(): Observable<any[]> {
-    return this.http.get<any[]>(endpoints.CLIENTS.GETALL);
+  getAllClients(): Observable<any> {
+    return this.http.get<any>(endpoints.CLIENTS.GETALL);
   }
   getClient(ClientId: string): Observable<any> {
     return this.http.get<string>(endpoints.CLIENTS.GET(ClientId));
@@ -63,7 +63,8 @@ export class ClientService {
   getAll() {
     this.getAllClients().subscribe(
       res => {
-        this._clients = res;
+        this._clients = res.clients;
+        console.log(res.clients,res, "werewrew")
         this.sendClients();
       },
       err => {
@@ -84,10 +85,6 @@ export class ClientService {
     return this.http.post(endpoints.CLIENTS.CHECKPHONENUMBER, payload);
   }
 
-
-
-
-  
   sendTaxName(data: TAXES): void {
    this._taxName.emit(data);
   }

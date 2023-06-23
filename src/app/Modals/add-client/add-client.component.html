@@ -106,11 +106,13 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="state" class="form-label">State</label>
-                                    <select id="state" class="form-control" [(ngModel)]="state" [disabled]="disabledInput">
+                                    <input type="text" id="state" class="form-control" [(ngModel)]="state"
+                            [readonly]="disabledInput">
+                                    <!-- <select id="state" class="form-control" [(ngModel)]="state" [disabled]="disabledInput">
                                         <option value="California">California</option>
                                         <option value="New York">New York</option>
                                         <option value="Texas">Texas</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
 
@@ -136,9 +138,33 @@
                             <label for="street" class="form-label">Street Address</label>
                             <input type="text" id="street" class="form-control" [(ngModel)]="street"
                             [readonly]="disabledInput"   placeholder="street address">
-
                         </div>
                     </div>
+
+                    <div class="modal-header pt-0">
+                        <h1 class="modal-title fs-5" id="addUpdateLabel">Tax Information</h1>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="GSTIN" class="form-label">GSTIN</label>
+                                    <input type="text" id="GSTIN" class="form-control" placeholder="Enter GSTIN"
+                                    [readonly]="disabledInput"   [(ngModel)]="GSTIN">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="PAN" class="form-label">PAN</label>
+                                    <input type="text" id="zipcode" class="form-control"
+                                    [readonly]="disabledInput"  placeholder="Enter PAN" [(ngModel)]="PAN">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="modal-footer pt-2 pb-0">
                         <button type="button" class="btn btn-secondary" [disabled]="disabledInput" (click)="closeModal()">Close</button>
                         <button type="button" class="btn btn-primary" [disabled]="disabledInput" (click)="saveChanges()">Save changes</button>

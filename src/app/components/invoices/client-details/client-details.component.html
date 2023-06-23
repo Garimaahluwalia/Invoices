@@ -3,10 +3,10 @@
         <span class="main-head">Billed To </span><span>(client Details)</span>
     </div>
     <div class="form-group">
-        <select class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1"
-            (change)="selectClient($event)">
+        <select name="client_id" ngModel [(ngModel)]="clientId" class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1"
+            (change)="onClientChange()">
             <option disabled selected>Select a client</option>
-            <option>None</option>
+            <option value="" selected disabled>None</option>
             <option *ngFor="let details of clients_details" [value]="details._id">{{ details.name }}</option>
         </select>
     </div>

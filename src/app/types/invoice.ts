@@ -1,5 +1,8 @@
 import { TAXES } from "./taxes";
-
+export interface IInvoiceResponse {
+   invoices: IInvoice[];
+   totalPages: number;
+}
 export interface IInvoice {
    invoiceNo: IInvoiceClass;
    company: ICompany;
@@ -11,11 +14,13 @@ export interface IInvoice {
    Date?: Date;
    Billed?: number;
    Status?: string;
+   client_id?: string;
    tax: TAXES;
    __v: number;
 }
 export interface IInvoiceClass {
    invoiceNo: string;
+   date: string
 }
 
 export interface ICompany {
@@ -49,12 +54,14 @@ export class Invoice implements IInvoice {
    public __v!: number;
    private _tax!: TAXES;
    public _currency!: string;
+   public _client_id!: string;
 
    constructor() { }
 
-   setInvoice({ invoiceNo }: IInvoiceClass) {
+   setInvoice({ invoiceNo, date }: IInvoiceClass) {
       this.invoiceNo = {
          invoiceNo: invoiceNo,
+         date: date
       };
    }
 
@@ -80,13 +87,20 @@ export class Invoice implements IInvoice {
 
    set tax(value: TAXES) {
       this._tax = value;
+      console.log(value,);
 
    }
    get tax(): TAXES {
       return this._tax;
    }
 
+   set client_id(value: string) {
+      this._client_id = value;
 
+   }
+   get client_id(): string {
+      return this._client_id;
+   }
 
    setProductDetails(productDetails: any) {
       const products = [];
@@ -95,7 +109,6 @@ export class Invoice implements IInvoice {
          products.push(productDetails[key]);
       }
       this._productDetails = products;
-
    }
 
    set productDetails(value: IProductDetails[]) {
@@ -110,6 +123,8 @@ export class Invoice implements IInvoice {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
       this.setCompany(values["company"] as unknown as ICompany);
       this.setCompany(values["company"] as unknown as ICompany);
+      this.tax = values['tax'] as TAXES;
+      this.client_id = values['client_id'] as string;
       this.setProductDetails(values["productDetails"] as unknown as { [key: string]: any });
    }
 
@@ -119,6 +134,8 @@ export class Invoice implements IInvoice {
          "invoiceNo": this.invoiceNo.invoiceNo,
          "company": this.company,
          "tax": this.tax,
+         "date": this.invoiceNo.date,
+         "client_id": this.client_id,
          "products": this.productDetails,
       };
    }

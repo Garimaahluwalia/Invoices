@@ -24,6 +24,8 @@ export class AddClientComponent implements OnInit {
   public phoneNumber!: string;
   public registeredNo!: string;
   public address!: string;
+  public GSTIN!: string;
+  public PAN!: string;
   public data: any;
   public state!: string;
   public city!: string;
@@ -31,10 +33,11 @@ export class AddClientComponent implements OnInit {
   public street!: string;
   public emailadress!: string
   public phone!: number;
+  public tax! : number;
   private invoice: boolean = false;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public disabledInput: boolean = false;
-    private readonly notifier!: NotifierService;
+  private readonly notifier!: NotifierService;
 
 
 
@@ -61,6 +64,8 @@ export class AddClientComponent implements OnInit {
       this.city = data?.city || '';
       this.zipcode = data?.zipcode || '';
       this.street = data?.street || '';
+      this.GSTIN = data?.GSTIN || '';
+      this.PAN = data?.PAN || '';
     });
   }
 
@@ -70,7 +75,7 @@ export class AddClientComponent implements OnInit {
   }
   constructor(public router: Router, public modalService: ModalService, public clientService: ClientService, public notifierService: NotifierService) {
     this.notifier = notifierService;
-   }
+  }
   fetchCountries() {
     axios.get('https://restcountries.com/v2/all')
       .then(response => {
@@ -108,18 +113,19 @@ export class AddClientComponent implements OnInit {
       this.email = this.data.email;
       this.phoneNumber = this.data.phoneNumber;
       this.registeredNo = this.data.registeredNo;
-      this.address = this.data.address
+      this.address = this.data.address,
+      this.tax = this.data.tax
     }
   }
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
+    let tax = `${this.GSTIN} , ${this.PAN}`
     console.log(address, "The Data of address");
     let newData = {
-      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address,
-      country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone
+      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, tax : tax ,
+      country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone ,
     }
-    console.log(newData, "FormData")
-
+    console.log(newData, "FormData");
     if (this.data?.edit) {
       this.updateClient(newData);
       this.notifier.notify('success', 'Client updated successfully');

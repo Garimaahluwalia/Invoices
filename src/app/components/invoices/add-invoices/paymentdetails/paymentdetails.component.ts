@@ -41,8 +41,8 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalrate = parseFloat(this.productRows.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
           this.totalTotalAmount = parseFloat(this.productRows.reduce((total: number, row: { total: string; }) => total + parseFloat(row.total), 0)).toFixed(2);
           this.AmountInWords = numberToWords(this.totalTotalAmount);
-          // console.log( this.AmountInWords, "fjew"); 
-
+         
+          
           if (isNaN(this.totalAmount)) {
             this.totalAmount = "0.00";
           }

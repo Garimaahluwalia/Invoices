@@ -38,6 +38,7 @@ export class ProductdetailsComponent implements OnInit {
   public quantity!: number;
   public rate!: number;
   public amount!: number;
+  public HSN_SAC: any;
   public name!: "";
   public description!: "";
   public editor: any = ClassicEditor;
@@ -84,6 +85,7 @@ export class ProductdetailsComponent implements OnInit {
 
   addNewLine() {
     const newRow = {
+      HSN_SAC: '',
       amount: '',
       tax: '',
       rate: '',
@@ -116,9 +118,7 @@ export class ProductdetailsComponent implements OnInit {
     this.selectedCurrency = event.target.value;
     const selectedCurrency = this.currencies.find(currency => currency.code === this.selectedCurrency);
     const symbol = selectedCurrency ? selectedCurrency.symbol : '$';
-
     this.addinvoiceService.sendCurrency(symbol);
-    // console.log(symbol, 'SelectedCurrencySymbol');
   }
 
 

@@ -20,9 +20,10 @@ export class ClientComponent implements OnInit {
   constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
 
   ngOnInit(): void {
-    this.clientService.getAll();
+     this.clientService.getAll();
     this.clientService.recieveClients().subscribe((data: any) => {
-      this.clients = data;
+      this.clients = data.clients;
+      console.log(this.clients, "clientsdata")
     });
 
     this.deleteService.recieveDeleteEvent(DeleteEvents.CLIENTS)?.subscribe(res => {

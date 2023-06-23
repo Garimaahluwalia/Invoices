@@ -19,6 +19,14 @@ export class ProfileService {
     return this._userProfile;
   }
 
+
+
+  uploadProfilePhoto(file: FormData): Observable<any> {
+    // const formData: FormData = new FormData();
+    // formData.append('photo', file);
+    console.log(endpoints.PROFILE.UPLOAD_PROFILE, file)
+    return this.http.post<any>(endpoints.PROFILE.UPLOAD_PROFILE, file);
+  }
   addProfile(): Observable<any> {
     return this.http.get<IUserProfile>(endpoints.PROFILE.ADD);
   }

@@ -15,15 +15,17 @@ export class AddInvoicesComponent implements OnInit {
   Invoices!: IInvoice;
   public taxesType: any
   private readonly notifier!: NotifierService;
-  constructor(public addInvoiceService: AddInvoicesService, public route: Router, public notifierService: NotifierService,
-    private clientService: ClientService) {
+
+  constructor(
+    public addInvoiceService: AddInvoicesService,
+    public route: Router,
+    public notifierService: NotifierService,
+    private clientService: ClientService
+  ) {
     this.notifier = notifierService;
   }
 
   ngOnInit(): void {
-    this.InvoiceForm.form.patchValue({
-      
-    })
     this.clientService.recieveTaxName().subscribe((res) => {
       this.taxesType = res
     });
@@ -32,19 +34,17 @@ export class AddInvoicesComponent implements OnInit {
   submit(f: NgForm) {
     const invoice = new Invoice();
     invoice.setData(f.value);
-    invoice.tax = this.taxesType;
+    console.log(f.value);
     const payload = invoice.getPayload();
-    console.log(payload,"payload")
+    console.log(payload, "payload");
     this.addInvoiceService.addInvoice((payload)).subscribe((res: any) => {
       this.Invoices = res;
-      console.log(this.Invoices, "Add-Invoices")
+      console.log(this.Invoices, "Add-Invoices");
       this.notifier.notify('success', 'Invoice Save successfully');
-      this.route.navigateByUrl("/invoice")
-    },
-      (error: any) => {
-        console.error(error);
-      }
-    );
+      this.route.navigateByUrl("/invoice");
+    }, (error: any) => {
+      console.error(error);
+    });
   }
 }
 
