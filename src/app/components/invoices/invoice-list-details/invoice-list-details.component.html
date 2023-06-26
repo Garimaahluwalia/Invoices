@@ -24,7 +24,7 @@
         <tbody>
             <tr>
                 <td>
-                    <table style="width: 100%; padding-top: 10px;" *ngFor="let details of  invoicelist">
+                    <table style="width: 100%; padding-top: 10px;" *ngFor="let details of  matchedInvoice">
                         <tbody>
                             <tr>
                                 <td style="text-align: left; width:30%; vertical-align: top;">
@@ -59,21 +59,21 @@
                                     <div>
                                         <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Billed To</h4>
                                         <div>
-                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{details.Client}}
+                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{details.client.name}}
                                             </h2>
                                             <p
                                                 style="font-size: 16px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
-                                                Plot No.10, Dhangarpura, Khamla Sq., Nagpur,<br> Maharashtra, India</p>
+                                               {{details.client.address}}</p>
                                             <div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">GSTIN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">27AACCO3566E1ZH</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client.gstin}}</span>
                                                 </div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">PAN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">AACCO3566E</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client.gstin}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,7 +95,7 @@
                                                     style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                     Date </span><span
                                                     style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">
-                                                    {{details.Date}}</span>
+                                                    {{details.date}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
             <tr>
                 <td>
                     <table style="width: 100%; padding-top: 50px; padding-bottom: 50px; border-spacing: 0px;"
-                        *ngFor="let details of  invoicelist">
+                        *ngFor="let details of  matchedInvoice">
                         <thead>
                             <tr
                                 style="text-align: center; background-color: #F8D1D1;vertical-align: top;font-size: 14px;">
@@ -166,7 +166,7 @@
             <tr>
                 <td>
                     <table style="width: 100%; padding-bottom: 50px; border-spacing: 0px;"
-                        *ngFor="let details of  invoicelist">
+                        *ngFor="let details of  matchedInvoice">
                         <tbody>
                             <tr>
                                 <td style="width: 55%; vertical-align: top;">

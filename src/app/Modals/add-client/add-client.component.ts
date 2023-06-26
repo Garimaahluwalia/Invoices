@@ -24,8 +24,8 @@ export class AddClientComponent implements OnInit {
   public phoneNumber!: string;
   public registeredNo!: string;
   public address!: string;
-  public GSTIN!: string;
-  public PAN!: string;
+  public gstin!: string;
+  public pan!: string;
   public data: any;
   public state!: string;
   public city!: string;
@@ -64,8 +64,8 @@ export class AddClientComponent implements OnInit {
       this.city = data?.city || '';
       this.zipcode = data?.zipcode || '';
       this.street = data?.street || '';
-      this.GSTIN = data?.GSTIN || '';
-      this.PAN = data?.PAN || '';
+      this.gstin = data?.gstin || '';
+      this.pan = data?.pan || '';
     });
   }
 
@@ -114,15 +114,15 @@ export class AddClientComponent implements OnInit {
       this.phoneNumber = this.data.phoneNumber;
       this.registeredNo = this.data.registeredNo;
       this.address = this.data.address,
-      this.tax = this.data.tax
+      this.gstin = this.gstin,
+      this.pan = this.pan
     }
   }
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
-    let tax = `${this.GSTIN} , ${this.PAN}`
     console.log(address, "The Data of address");
     let newData = {
-      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, tax : tax ,
+      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, gstin : this.gstin , pan : this.pan ,
       country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone ,
     }
     console.log(newData, "FormData");

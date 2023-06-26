@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { IUserProfile } from 'src/app/types/profile';
 
@@ -9,48 +9,62 @@ import { IUserProfile } from 'src/app/types/profile';
 })
 export class ProfileComponent implements OnInit {
   public isEditMode = false;
-  public userProfile: IUserProfile[] = [];
-  public profilePhoto! : any;
- public  selectedFile!: File ;
+  public userProfile: any;
+  public profilePhoto!: any;
+  public selectedFile!: File;
+  public profileImage : any
 
-  constructor(public profileService : ProfileService){}
+
+  constructor(public profileService: ProfileService) { }
   ngOnInit(): void {
-    this.profileService.addProfile().subscribe((res:any) => {
+    this.profileService.addProfile().subscribe((res: any) => {
       this.userProfile = res;
+      // console.log(this.userProfile, "UserProfileData");
     });
   }
 
-
-  onFileSelected(event: any) {
-    const fileInput = event.target;
-    if (fileInput.files && fileInput.files.length) {
-      this.selectedFile = fileInput.files[0];
-      console.log(this.selectedFile.name);
-    }
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('filename', this.selectedFile);
-  
-      this.profileService.uploadProfilePhoto(formData).subscribe((res: any) => {
-        this.profilePhoto = res;
-        console.log(this.profilePhoto);
-      });
-    } else {
-  
-      console.log('No file selected');
-    }
-  }
-
-
-
-
-  
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
   }
 
+  saveProfile() {
+    this.profileService.updateProfile(this.userProfile).subscribe(
+      (response) => {
+        this.isEditMode = false;
+      },
+      (error) => {
+        console.error('Profile update failed:', error);
+      }
+    );
+  }
 
 
+  onFileSelected(event: any) {
+    const file: FileList = event.target.files;
+    console.log(event.target.files,"images uploaded")
+    if (file && file.length > 0) {
+      const fileToUpload: File = file[0];
+      this.profileImage = URL.createObjectURL(fileToUpload)
+      const formData: FormData = new FormData();
+      formData.append('file', fileToUpload, fileToUpload.name);
+      this.uploadProfilePhoto(formData);
+    }
+  }
 
- 
+
+  uploadProfilePhoto(file: FormData) {
+    this.profileService.uploadProfilePhoto(file).subscribe(
+      (response: any) => {
+        console.log(response , "UploadProfilePhotoREsponse"); 
+       
+        console.log(this.profileImage, "profileImage")
+      },
+      (error) => {
+        console.error('Upload error:', error);
+      }
+    );
+  }
+  
+
+
 }

@@ -9,25 +9,25 @@ import { TAXES } from 'src/app/types/taxes';
   providedIn: 'root'
 })
 export class ClientService {
-  private _clients: IClients[] = [];
-  private clientsSubject: BehaviorSubject<IClients[]> = new BehaviorSubject<IClients[]>([]);
-  private _addClientFromInvoice: EventEmitter<IClients> = new EventEmitter<IClients>();
+  private _clients: any[] = [];
+  private clientsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private _addClientFromInvoice: EventEmitter<any> = new EventEmitter<any>();
   private _taxName: EventEmitter<TAXES> = new EventEmitter<TAXES>();
 
   constructor(public http: HttpClient) { }
 
-  set clients(value: IClients[]) {
+  set clients(value: any[]) {
     this._clients = value;
   }
-  get clients(): IClients[] {
+  get clients(): any[] {
     return this._clients;
   }
 
-  addClient(data: IClients) {
+  addClient(data: any) {
     this._clients.push(data);
     this.sendClients();
   }
-  updateClient(data: IClients, ClientId: number) {
+  updateClient(data: any, ClientId: number) {
     const clientData = [...this._clients];
     clientData.splice(ClientId, 1, data);
     this._clients = clientData;
@@ -35,7 +35,7 @@ export class ClientService {
 
   }
 
-  sendPost(payload: IClients): Observable<any> {
+  sendPost(payload: any): Observable<any> {
     return this.http.post(endpoints.CLIENTS.ADD, payload);
   }
 
@@ -45,14 +45,14 @@ export class ClientService {
   getClient(ClientId: string): Observable<any> {
     return this.http.get<string>(endpoints.CLIENTS.GET(ClientId));
   }
-  updateClientReq(ClientId: string, data: IClients) {
+  updateClientReq(ClientId: string, data: any) {
     return this.http.put(endpoints.CLIENTS.UPDATE(ClientId), data);
   }
   sendClients() {
     this.clientsSubject.next(this._clients);
   }
 
-  recieveClients(): Observable<IClients[]> {
+  recieveClients(): Observable<any[]> {
     return this.clientsSubject.asObservable();
   }
 
@@ -64,7 +64,7 @@ export class ClientService {
     this.getAllClients().subscribe(
       res => {
         this._clients = res.clients;
-        console.log(res.clients,res, "werewrew")
+        // console.log(res.clients,res, "werewrew")
         this.sendClients();
       },
       err => {
@@ -73,11 +73,11 @@ export class ClientService {
     );
   }
 
-  recieveClientData(): Observable<IClients> {
+  recieveClientData(): Observable<any> {
     return this._addClientFromInvoice.asObservable()
   }
 
-  sendClientDetails(data: IClients): void {
+  sendClientDetails(data: any): void {
     this._addClientFromInvoice.emit(data);
   }
 

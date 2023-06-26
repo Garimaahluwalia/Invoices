@@ -26,8 +26,10 @@ export class PaymentdetailsComponent implements OnInit {
   public AmountInWords: any;
   public totalAmountInWords!: string;
 
+
   constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService) { }
   ngOnInit(): void {
+
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
       this.productRows = res;
       if (res.length > 0) {
@@ -40,9 +42,10 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalAmount = parseFloat(this.productRows.reduce((total: any, row: { amount: any; }) => total + row.amount, 0)).toFixed(2);
           this.totalrate = parseFloat(this.productRows.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
           this.totalTotalAmount = parseFloat(this.productRows.reduce((total: number, row: { total: string; }) => total + parseFloat(row.total), 0)).toFixed(2);
-          this.AmountInWords = numberToWords(this.totalTotalAmount);
-         
-          
+          this.totalAmountInWords = numberToWords(parseFloat(this.totalTotalAmount));
+          // console.log(this.totalAmountInWords, "Amountinwords")
+
+
           if (isNaN(this.totalAmount)) {
             this.totalAmount = "0.00";
           }
@@ -57,9 +60,6 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalTotalAmount = 0;
         }
       }
-
-
-
     });
 
     this.addinvoiceService.receiveCurrency().subscribe((res: any) => {

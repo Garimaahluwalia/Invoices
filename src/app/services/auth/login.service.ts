@@ -53,4 +53,7 @@ export class LoginService {
     this.user = null;
     localStorage.clear();
   }
+  getDashboardCounts(): Observable<any> {
+    return this.http.get<any>(endpoints.DASHBOARD);
+  }
 }

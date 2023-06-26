@@ -66,6 +66,7 @@ export class ProductdetailsComponent implements OnInit {
 
     this.addinvoiceService.getTaxAmount().subscribe((res: any) => {
       this.taxAmountData = res;
+      console.log(this.taxAmountData, "taxAmountData")
       this.onProductValueChange(0);
     });
 
@@ -106,7 +107,8 @@ export class ProductdetailsComponent implements OnInit {
 
 
   onTaxRateChange() {
-    this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0)
+    this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
+    console.log(this.selectedTaxRateValue, "Selected Rate Value");
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {
       this.onProductValueChange(index);
@@ -130,7 +132,7 @@ export class ProductdetailsComponent implements OnInit {
       if (selectedAmount > 0) {
         const selectedTaxAmount = this.selectedTaxRateValue;
         const rate = (selectedTaxAmount * selectedAmount) / 100;
-        console.log((selectedTaxAmount / selectedAmount) * 100);
+        // console.log((selectedTaxAmount / selectedAmount) * 100);
         rows[i].rate = rate;
         const taxAmount = (selectedAmount * selectedTaxAmount) / 100;
         const roundedTaxAmount = taxAmount.toFixed(2);

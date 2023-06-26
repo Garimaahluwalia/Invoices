@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/auth/login.service';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { IInvoice } from 'src/app/types/invoice';
@@ -9,47 +10,18 @@ import { IInvoice } from 'src/app/types/invoice';
   styleUrls: ['./main-invoice.component.css']
 })
 export class MainInvoiceComponent implements OnInit {
-  constructor(public invoiceService : InvoiceService, public clientService: ClientService){}
-  ngOnInit(): void {
-   this.loadInvoices(); 
-   this.getClients();
+  DashboardCount: any;
+  constructor(public invoiceService : InvoiceService, public clientService: ClientService, public loginService: LoginService){}
+  ngOnInit() {
+
+    this.loginService.getDashboardCounts().subscribe((res) => {
+      this.DashboardCount  = res;
+      // console.log( this.DashboardCount, "DashboardCount")
+    })
+
   }
   currentPage = 1;
-  itemsPerPage = 10;
-  public invoices: IInvoice[] = [];
-  public InvoiceNumber!: number;
-  public clients : any[] = [];
-  public totalClients! : number ;
+  itemsPerPage = 12;
+ 
 
-
-  loadInvoices() {
-    this.invoiceService.getAllInvoice()
-      .subscribe((invoice: IInvoice[]) => {
-        this.invoices = invoice;
-        // console.log(this.invoices, "invocieslistdata")
-      });
-  }
-
-  getClients() {
-    this.clientService.getAllClients().subscribe((res: any) => {
-      this.clients = res.clients;
-      this.totalClients = this.clients.length;
-      console.log(this.totalClients, "total");
-      console.log(this.clients, "the clients");
-    });
-  }
-  
-
-  countPaidInvoices(): number {
-    return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "paid").length;
-  }
-  countUnpaidInvoices(): number {
-    return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "unpaid").length;
-  }
-  countCancelInvoices(): number {
-    return this.invoices.filter(invoice => invoice.Status?.toLowerCase() === "cancel").length;
-  }
-  countTotalInvoices(): number {
-    return this.invoices.length;
-  }
 }

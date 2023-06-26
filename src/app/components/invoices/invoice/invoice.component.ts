@@ -46,6 +46,7 @@ export class InvoiceComponent implements OnInit {
   }
 
 
+
   DeleteInvoices(_id: string) {
     this.invoiceService.deleteInvoices(_id).subscribe((res) => {
       console.log(res, "deleteresponse")

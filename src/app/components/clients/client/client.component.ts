@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { IClients } from 'src/app/types/clients';
+import { IClients, IClientsResponse } from 'src/app/types/clients';
 import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
 @Component({
@@ -15,30 +15,30 @@ export class ClientComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 12;
   public showModal = false;
-  public clients: IClients[] = [];
+  public clients: any[] = [];
   public inputsDisabled = false;
   constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
 
   ngOnInit(): void {
      this.clientService.getAll();
     this.clientService.recieveClients().subscribe((data: any) => {
-      this.clients = data.clients;
+      this.clients = data;
       console.log(this.clients, "clientsdata")
     });
 
     this.deleteService.recieveDeleteEvent(DeleteEvents.CLIENTS)?.subscribe(res => {
-      // console.log(res, this.deleteService.selectedId, "delete");
       if (res) {
         this.DeleteClients(this.deleteService.selectedId as string);
       }
     });
   }
-  addUser() {
+  addClient() {
     this.router.navigate(["clients", "add-client"]).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true });
     });
   }
   updateClient(details: any) {
+    console.log(details ," updatedData")
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details} })
     })

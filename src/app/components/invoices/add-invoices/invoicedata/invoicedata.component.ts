@@ -21,17 +21,25 @@ export class InvoicedataComponent implements OnInit {
     this.getInvoiceNumber();
   }
 
-  getInvoiceNumber() {
-    const savedInvoiceNumber = localStorage.getItem('invoiceNumber');
-    if (savedInvoiceNumber) {
-      this.InvoiceNumber = savedInvoiceNumber;
-    } else {
-      this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
-        this.InvoiceNumber = res.invoiceNumber;
-        localStorage.setItem('invoiceNumber', this.InvoiceNumber);
-      });
-    }
+
+  getInvoiceNumber(){
+    this.invoiceService.getInvoiceNumber().subscribe((res:any) => {
+      this.InvoiceNumber = res.invoiceNumber;
+      console.log(this.InvoiceNumber, "invoicenofromapi")
+    })
   }
+  // getInvoiceNumber() {
+  //   const savedInvoiceNumber = localStorage.getItem('invoiceNumber');
+  //   if (savedInvoiceNumber) {
+  //     this.InvoiceNumber = savedInvoiceNumber;
+  //   } else {
+  //     this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
+  //       this.InvoiceNumber = res;
+  //       console.log(res, "invoicenumberfromapi")
+  //       localStorage.setItem('invoiceNumber', this.InvoiceNumber);
+  //     });
+  //   }
+  // }
 
 
 }

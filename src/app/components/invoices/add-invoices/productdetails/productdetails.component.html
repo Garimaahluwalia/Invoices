@@ -33,8 +33,8 @@
           <th scope="" class="width-10">HSN/SAC</th>
           <th scope="" class="width-10">Amount</th>
           <ng-container *ngIf="selectedTaxRate !== 'None'">
-            <th scope="col">Rate</th>
             <th scope="col">{{ selectedTaxRate }}</th>
+            <th scope="col">Rate</th>
             <th scope="col">Total</th>
           </ng-container>
           <th></th>
@@ -75,12 +75,12 @@
               <div>
                 <input type="text" ngModel [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"
                   class="form-control bg-light border-0 product-line-price" value="{{ this.taxRate }}"
-                  placeholder="{{inputcurrency}}0.00" readonly />
+                  placeholder="{{inputcurrency}}0.00" />
               </div>
             </td>
             <td class="text-end">
-              <div>
-                <input type="text" ngModel name="taxtype" [(ngModel)]="selectedTaxRateValue"
+              <div> 
+                <input type="text" ngModel name="taxtype" [(ngModel)]="selectedTaxRateValue" (ngModelChange)="onProductValueChange(i)"
                   class="form-control bg-light border-0 product-line-price" [placeholder]="inputcurrency + '00.00'" />
               </div>
             </td>

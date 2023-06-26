@@ -22,7 +22,6 @@
             </div>
             <div class="row pr-0">
                 <div class="col-xl-6 col-lg-6 pr-lg-2 pr-0">
-                    <!-- card -->
                     <div class="card invoice-card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -91,22 +90,20 @@
                                 </div>
                                 <div>
                                     <p class="text-uppercase fw-medium text-muted mb-0">Invoices Sent
-                                        <span class="text-success fs-14 mb-0 ms-1">
+                                        <!-- <span class="text-success fs-14 mb-0 ms-1">
                                             <i class="ri-arrow-right-up-line fs-13 align-middle"></i> <span
-                                                [textContent]="countTotalInvoices()"></span>
-                                        </span>
+                                            [textContent]="DashboardCount.invoiceCount"></span>
+                                        </span> -->
                                     </p>
                                 </div>
                             </div>
                             <div class="">
                                 <div class="flex-grow-1">
-                                    <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                        data-target="559.25">0</span>k</h4> -->
-
+                                 
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count" [textContent]="countTotalInvoices()" ></p>
+                                        <p class="pl-0 invoice-count" [textContent]="DashboardCount.invoiceCount" ></p>
                                         
                                         <span class="text-muted">Invoices
                                             sent</span>
@@ -117,7 +114,7 @@
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 pr-0">
-                    <!-- card -->
+                  
                     <div class="card invoice-card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -186,10 +183,10 @@
                                 </div>
                                 <div>
                                     <p class="text-uppercase fw-medium  text-muted mb-0">Paid Invoices
-                                        <span class="text-danger fs-14 mb-0 ms-1">
+                                        <!-- <span class="text-danger fs-14 mb-0 ms-1">
                                             <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
-                                                [textContent]="countPaidInvoices()"></span>
-                                        </span>
+                                            [textContent]="DashboardCount.paidInvoiceCount"></span>
+                                        </span> -->
                                     </p>
                                 </div>
                             </div>
@@ -198,7 +195,7 @@
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count"  [textContent]="countPaidInvoices()" ></p>
+                                        <p class="pl-0 invoice-count" [textContent]="DashboardCount.paidInvoiceCount" ></p>
                                         
                                         <span class="text-muted">Paid by
                                             clients</span>
@@ -209,7 +206,7 @@
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 pr-lg-2 pr-0">
-                    <!-- card -->
+                
                     <div class="card invoice-card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -283,22 +280,20 @@
                                 </div>
                                 <div>
                                     <p class="text-uppercase fw-medium text-muted mb-0">Unpaid Invoices
-                                        <span class="text-danger fs-14 mb-0 ms-1">
+                                        <!-- <span class="text-danger fs-14 mb-0 ms-1">
                                             <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
-                                            [textContent]="countPaidInvoices()"></span>
-                                        </span>
+                                            [textContent]="DashboardCount.unpaidInvoiceCount"></span>
+                                        </span> -->
                                     </p>
                                 </div>
                             </div>
                             <div class="">
                                 <div class="flex-grow-1">
-                                    <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                        data-target="559.25">0</span>k</h4> -->
-
+                            
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count"  [textContent]="countPaidInvoices()" ></p>
+                                        <p class="pl-0 invoice-count"   [textContent]="DashboardCount.unpaidInvoiceCount"></p>
                                         
                                         <span class="text-muted">Unpaid Paid by
                                             clients</span>
@@ -309,7 +304,7 @@
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 pr-0">
-                    <!-- card -->
+                  
                     <div class="card invoice-card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -319,23 +314,22 @@
                                 </div>
                                 <div>
                                     <p class="text-uppercase fw-medium text-muted mb-0">Number of Clients
-                                        <span class="text-success fs-14 mb-0 ms-1">
-                                           
+                                        <!-- <span class="text-success fs-14 mb-0 ms-1">
+                                         
                                             <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
                                              ></span>
-                                        </span>
+                                          
+                                        </span> -->
                                     </p>
                                 </div>
                             </div>
                             <div class="">
                                 <div class="flex-grow-1">
-                                    <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                        data-target="559.25">0</span>k</h4> -->
-
+                                   
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count">{{this.totalClients}}</p>
+                                        <p class="pl-0 invoice-count"    [textContent]="DashboardCount.clientCount"></p>
                                         
                                         <span class="text-muted">Total Clients</span>
                                     </div>

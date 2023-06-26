@@ -8,33 +8,33 @@ import { IUserProfile } from '../types/profile';
   providedIn: 'root'
 })
 export class ProfileService {
-  public _userProfile: IUserProfile[] = [];
+  public _userProfile: any[] = [];
   constructor(private http: HttpClient) { }
-  private userProfileSubject: BehaviorSubject<IUserProfile[]> = new BehaviorSubject<IUserProfile[]>([]);
+  private userProfileSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-  set userProfile(value: IUserProfile[]) {
+
+
+  set userProfile(value: any[]) {
     this._userProfile = value;
   }
-  get userProfile(): IUserProfile[] {
+  get userProfile(): any[] {
     return this._userProfile;
   }
 
 
 
   uploadProfilePhoto(file: FormData): Observable<any> {
-    // const formData: FormData = new FormData();
-    // formData.append('photo', file);
     console.log(endpoints.PROFILE.UPLOAD_PROFILE, file)
     return this.http.post<any>(endpoints.PROFILE.UPLOAD_PROFILE, file);
   }
+
+
   addProfile(): Observable<any> {
-    return this.http.get<IUserProfile>(endpoints.PROFILE.ADD);
+    return this.http.get<any>(endpoints.PROFILE.ADD);
   }
 
-  get(): Observable<any[]> {
-    return this.http.get<any[]>(endpoints.PROFILE.GETALL);
-  }
-  updateProfile(profileId: string, data: any) {
-    return this.http.put(endpoints.PROFILE.GET(profileId), data);
+  
+  updateProfile(updatedProfile: any) {
+    return this.http.put(endpoints.PROFILE.UPDATE, updatedProfile);
   }
 }

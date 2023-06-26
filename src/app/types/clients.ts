@@ -1,7 +1,15 @@
-export interface IClients{
-    name : string,
-    email : string,
-    phoneNumber : string,
-    address: string,
-    registeredNo : string
-}
+export interface IClientsResponse {
+    clients: IClients[];
+    totalPages: number;
+  }
+  
+  export interface IClients {
+    _id: string;
+    name: string;
+    email: string;
+    user_id: string;
+    phoneNumber: string;
+    address : string;
+   
+  }
+  

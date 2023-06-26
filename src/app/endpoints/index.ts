@@ -8,6 +8,7 @@ const endpoints = {
   CHECKUSERNAME: `${environment.BASE_URL}/check-username`,
   RESET_PASSWORD: `${environment.BASE_URL}/forgot-password`,
   LOGOUT: `${environment.BASE_URL}/logout`,
+  DASHBOARD: `${environment.BASE_URL}/dashboard`,
 
 
   INVOICES_LIST: {
@@ -36,8 +37,7 @@ const endpoints = {
 
   PROFILE: {
     ADD: `${environment.BASE_URL}/profile`,
-    GETALL: `${environment.BASE_URL}/profile`,
-    GET: (profileId: string) => `${environment.BASE_URL}/profile/${profileId}`,
+    UPDATE: `${environment.BASE_URL}/profile`,
     UPLOAD_PROFILE: `${environment.BASE_URL}/profile/upload-photo`
   }
 }
