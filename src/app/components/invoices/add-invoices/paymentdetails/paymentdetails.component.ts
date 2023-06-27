@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
-import { numberToWords } from "src/app/types/number-to-words";
-
+import { IbankDetails } from 'src/app/types/invoice';
+import { numberToWords } from "src/app/common/numberToWords";
 
 @Component({
   selector: 'app-paymentdetails',
@@ -42,8 +42,8 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalAmount = parseFloat(this.productRows.reduce((total: any, row: { amount: any; }) => total + row.amount, 0)).toFixed(2);
           this.totalrate = parseFloat(this.productRows.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
           this.totalTotalAmount = parseFloat(this.productRows.reduce((total: number, row: { total: string; }) => total + parseFloat(row.total), 0)).toFixed(2);
-          this.totalAmountInWords = numberToWords(parseFloat(this.totalTotalAmount));
-          // console.log(this.totalAmountInWords, "Amountinwords")
+          this.totalAmountInWords =  parseFloat(this.totalTotalAmount) ? numberToWords(this.totalTotalAmount): "";
+          // console.log(this.totalAmountInWords, this.totalAmount, "Amountinwords")
 
 
           if (isNaN(this.totalAmount)) {
@@ -80,14 +80,12 @@ export class PaymentdetailsComponent implements OnInit {
 
     });
   }
-
-  public Bankdetails: { [k: string]: string } = {
-    "BankName": "M CODE INFOSOFT",
-    "cardHolderName": "M CODE INFOSOFT",
+  public Bankdetails: IbankDetails= {
+    "accountHolderName": "M CODE INFOSOFT",
     "accountNumber": "098878776809454",
-    "IFSCCode": "DQCPK3553H",
-  }
-
-
-
+    "ifscCode": "ICICINBBCTS",
+    "swiftCode": "9898BHBZA23",
+    "bank": "ICICI Bank Ltd.",
+  };
+  
 }

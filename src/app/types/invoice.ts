@@ -6,21 +6,30 @@ export interface IInvoiceResponse {
 export interface IInvoice {
    invoiceNo: IInvoiceClass;
    company: ICompany;
-   productDetails: IProductDetails[];
-   _id?: string;
+   products: IProducts[];
+   _currency: string;
+   tax: TAXES;
+   Client?: string;
+   client_id?: string;
    InvoiceId?: string;
    Email?: string;
-   Client?: string;
    Date?: Date;
    Billed?: number;
    Status?: string;
-   client_id?: string;
-   tax: TAXES;
+   bankDetails: IbankDetails;
+   _id?: string;
    __v: number;
 }
 export interface IInvoiceClass {
    invoiceNo: string;
    date: string
+}
+export interface IbankDetails {
+   accountHolderName: string,
+   accountNumber: string,
+   ifscCode: string,
+   swiftCode: string,
+   bank: string
 }
 
 export interface ICompany {
@@ -33,23 +42,28 @@ export interface ICompany {
    website?: string;
    contactNo?: string;
 }
-export interface IProductDetails {
-   amount: number;
+export interface IProducts {
    name: string;
    description: string;
+   amount: number;
+   rate: string;
+   total: string
+   HSN_SAC: string;
+   taxamount: number
 }
 
 
 export class Invoice implements IInvoice {
    public invoiceNo!: IInvoiceClass;
    private _company!: ICompany;
-   public _productDetails!: IProductDetails[];
+   public _products!: IProducts[];
    public _id?: string;
    public InvoiceId?: string;
    public Email?: string;
    public Client?: string;
    public Date?: Date;
    public Billed?: number;
+   public _bankDetails!: IbankDetails;
    public Status?: string;
    public __v!: number;
    private _tax!: TAXES;
@@ -64,7 +78,21 @@ export class Invoice implements IInvoice {
          date: date
       };
    }
-
+   setbankDetails({accountHolderName  , accountNumber , ifscCode , swiftCode , bank} : IbankDetails){
+      this.bankDetails = {
+         accountHolderName : accountHolderName,
+         accountNumber : accountNumber,
+         ifscCode : ifscCode,
+         swiftCode : swiftCode ,
+         bank : bank
+      }
+   }
+   set bankDetails(value: IbankDetails) {
+      this._bankDetails = value;
+   }
+   get bankDetails(): IbankDetails {
+      return this._bankDetails;
+   }
 
    setCompany({ Businessname, address, contactNo, emailaddress, postalCode, GSTIN, pan }: ICompany) {
       this.company = {
@@ -96,48 +124,54 @@ export class Invoice implements IInvoice {
 
    set client_id(value: string) {
       this._client_id = value;
+      console.log(this._client_id, "Clientid")
 
    }
    get client_id(): string {
       return this._client_id;
    }
 
-   setProductDetails(productDetails: any) {
-      const products = [];
-      const keys = Object.keys(productDetails);
-      for (const key of keys) {
-         products.push(productDetails[key]);
+   setProducts(products: any) {
+      const product = [];
+      if (products && typeof products === 'object') {
+        const keys = Object.keys(products);
+        for (const key of keys) {
+          product.push(products[key]);
+        }
       }
-      this._productDetails = products;
+      this._products = product;
+    }
+    
+
+   set products(value: IProducts[]) {
+      this._products = value;
    }
 
-   set productDetails(value: IProductDetails[]) {
-      this._productDetails = value;
-   }
-
-   get productDetails(): IProductDetails[] {
-      return this._productDetails;
+   get products(): IProducts[] {
+      return this._products;
    }
 
    setData(values: { [key: string]: string | number | { [key: string]: string | number } }) {
       this.setInvoice(values["invoice"] as unknown as IInvoiceClass);
       this.setCompany(values["company"] as unknown as ICompany);
-      this.setCompany(values["company"] as unknown as ICompany);
+      this.setbankDetails(values["bankDetails"] as unknown as IbankDetails);
       this.tax = values['tax'] as TAXES;
       this.client_id = values['client_id'] as string;
-      this.setProductDetails(values["productDetails"] as unknown as { [key: string]: any });
+      this.setProducts(values["products"] as unknown as { [key: string]: any });
    }
 
 
    getPayload() {
       return {
          "invoiceNo": this.invoiceNo.invoiceNo,
-         "company": this.company,
-         "tax": this.tax,
+         "company": this._company,
+         "tax": this._tax,
          "date": this.invoiceNo.date,
          "client_id": this.client_id,
-         "products": this.productDetails,
+         "products": this._products,
+         "bankDetails": this._bankDetails
       };
    }
+   
 
 }

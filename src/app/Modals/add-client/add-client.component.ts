@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -13,7 +13,7 @@ import { NotifierService } from 'angular-notifier';
   templateUrl: './add-client.component.html',
   styleUrls: ['./add-client.component.css']
 })
-export class AddClientComponent implements OnInit {
+export class AddClientComponent implements OnInit, OnDestroy {
   @ViewChild('openModalButton', { static: false }) private openModalButton!: ElementRef;
   @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef;
   countries: { name: string, code: string }[] = [];
@@ -33,7 +33,9 @@ export class AddClientComponent implements OnInit {
   public street!: string;
   public emailadress!: string
   public phone!: number;
-  public tax! : number;
+  public tax!: number;
+  public _id!: string;
+  public user_id!: string;
   private invoice: boolean = false;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public disabledInput: boolean = false;
@@ -42,8 +44,17 @@ export class AddClientComponent implements OnInit {
 
 
 
+  constructor(public router: Router, private cdr: ChangeDetectorRef, public modalService: ModalService, public clientService: ClientService, public notifierService: NotifierService) {
+    this.notifier = notifierService;
+  }
+  ngOnInit(): void {
+    this.fetchCountries();
+
+  }
+
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
+      console.log(res, "recived event modal")
       const { status, data, invoice, disabled } = res;
       this.data = data;
       console.log(res, "adduser");
@@ -66,16 +77,17 @@ export class AddClientComponent implements OnInit {
       this.street = data?.street || '';
       this.gstin = data?.gstin || '';
       this.pan = data?.pan || '';
+      this._id = data?._id || '';
+      this.user_id = data?.user_id || ''
+
     });
+    this.cdr.detectChanges();
+  }
+  ngOnDestroy() {
+    this.destroyed.next(true);
+    this.destroyed.complete();
   }
 
-
-  ngOnInit(): void {
-    this.fetchCountries();
-  }
-  constructor(public router: Router, public modalService: ModalService, public clientService: ClientService, public notifierService: NotifierService) {
-    this.notifier = notifierService;
-  }
   fetchCountries() {
     axios.get('https://restcountries.com/v2/all')
       .then(response => {
@@ -90,8 +102,6 @@ export class AddClientComponent implements OnInit {
   }
 
   closeModal() {
-    this.destroyed.next(true);
-    this.destroyed.complete();
     this.closeModalButton?.nativeElement.click();
     if (this.router.url.includes("clients")) {
       this.router.navigate(["clients"]);
@@ -114,21 +124,25 @@ export class AddClientComponent implements OnInit {
       this.phoneNumber = this.data.phoneNumber;
       this.registeredNo = this.data.registeredNo;
       this.address = this.data.address,
-      this.gstin = this.gstin,
-      this.pan = this.pan
+        this.gstin = this.gstin,
+        this.pan = this.pan,
+        this._id = this._id,
+        this.user_id = this.user_id
     }
   }
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
     console.log(address, "The Data of address");
     let newData = {
-      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, gstin : this.gstin , pan : this.pan ,
-      country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone ,
+      _id: this._id, user_id: this.user_id,
+      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, gstin: this.gstin, pan: this.pan,
+      country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone,
     }
     console.log(newData, "FormData");
     if (this.data?.edit) {
       this.updateClient(newData);
       this.notifier.notify('success', 'Client updated successfully');
+
     }
     else {
       this.addClient(newData);
@@ -152,12 +166,7 @@ export class AddClientComponent implements OnInit {
 
   addClient(newData: any) {
     this.clientService.sendPost(newData).subscribe((res: IClients) => {
-      if (this.invoice) {
-        this.clientService.sendClientDetails(res);
-
-      } else {
-        this.clientService.getAll();
-      }
+      this.clientService.sendClientDetails(res);
       this.closeModal();
 
     }, (err: any) => {

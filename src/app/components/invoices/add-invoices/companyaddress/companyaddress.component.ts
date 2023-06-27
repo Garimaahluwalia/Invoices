@@ -18,11 +18,10 @@ export class CompanyaddressComponent implements OnInit {
     "pan": "DQCPK3553H",
     "postalCode": "12345",
     "emailaddress": "info@mcodeinfosoft.com",
-    // "website": "https://www.company.com",
     "contactNo": "123-456-7890",
-    // "currencyType": "USD",
-    // "taxType": "GST"
   }
+
+  
   ngOnInit(): void { }
 
 }

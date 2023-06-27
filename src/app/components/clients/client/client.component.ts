@@ -20,7 +20,7 @@ export class ClientComponent implements OnInit {
   constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
 
   ngOnInit(): void {
-     this.clientService.getAll();
+    this.clientService.getAll();
     this.clientService.recieveClients().subscribe((data: any) => {
       this.clients = data;
       console.log(this.clients, "clientsdata")
@@ -32,15 +32,16 @@ export class ClientComponent implements OnInit {
       }
     });
   }
+  
   addClient() {
     this.router.navigate(["clients", "add-client"]).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true });
     });
   }
   updateClient(details: any) {
-    console.log(details ," updatedData")
+    console.log(details, " updatedData")
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details} })
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details } })
     })
   }
 
@@ -49,9 +50,9 @@ export class ClientComponent implements OnInit {
   }
 
 
-  ViewClient(details:any){
+  ViewClient(details: any) {
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit : false , disabled : true , ...details } })
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: false, disabled: true, ...details } })
     })
   }
   DeleteClient(details: any) {

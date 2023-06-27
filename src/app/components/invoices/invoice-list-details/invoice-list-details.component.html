@@ -126,40 +126,41 @@
                                     Amount </th>
                                 <th
                                     style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                    GST Rate </th>
+                                    {{details.tax}} </th>
                                 <th
                                     style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                    {{details.tax}} </th>
+                                    Rate </th>
                                 <th
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Total </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="text-align: center; font-size: 14px;">
-                                <td
-                                    style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    1.</td>
-                                <td
-                                    style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
-                                    {{details.products[0].name}}</td>
-                                <td
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
-                                    998314 </td>
-                                <td
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{details.products[0].amount}}</td>
-                                <td
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{details.products[0].rate}}</td>
-                                <td
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{details.tax}}</td>
-                                <td
-                                    style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{details.totalAmount}}</td>
+                            <tr style="text-align: center; font-size: 14px;" *ngFor="let details of matchedInvoice[0]?.products; let i = index">
+                              <td style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                {{ i + 1 }}.
+                              </td>
+                              <td style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
+                                {{ details.name }}
+                              </td>
+                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
+                                {{ details.HSN_SAC }}
+                              </td>
+                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                {{ details.amount }}
+                              </td>
+                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                {{ details.rate }}
+                              </td>
+                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                {{ details.taxamount }}
+                              </td>
+                              <td style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                {{details.total}}
+                              </td>
                             </tr>
-                        </tbody>
+                          </tbody>
+                          
                     </table>
                 </td>
             </tr>
@@ -187,7 +188,7 @@
                                     </div>
                                     <div style="padding-bottom: 10px; float: left; width: 100%;">
                                         <span
-                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">IGST</span>
+                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">{{details.tax}}</span>
                                         <span
                                             style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{details.products[0].rate}}</span>
                                     </div>

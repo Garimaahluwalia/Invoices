@@ -66,7 +66,7 @@ export class ProductdetailsComponent implements OnInit {
 
     this.addinvoiceService.getTaxAmount().subscribe((res: any) => {
       this.taxAmountData = res;
-      console.log(this.taxAmountData, "taxAmountData")
+      // console.log(this.taxAmountData, "taxAmountData")
       this.onProductValueChange(0);
     });
 
@@ -96,7 +96,7 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   addDescription(index: number) {
-    console.log(index)
+    console.log(index, "adddescription")
     this.productRows[index].showDescriptionBox = !this.productRows[index].showDescriptionBox;
   }
   removeRow(rowIndex: number) {
@@ -108,7 +108,7 @@ export class ProductdetailsComponent implements OnInit {
 
   onTaxRateChange() {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
-    console.log(this.selectedTaxRateValue, "Selected Rate Value");
+    // console.log(this.selectedTaxRateValue, "Selected Rate Value");
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {
       this.onProductValueChange(index);

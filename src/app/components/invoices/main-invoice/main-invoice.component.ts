@@ -16,7 +16,7 @@ export class MainInvoiceComponent implements OnInit {
 
     this.loginService.getDashboardCounts().subscribe((res) => {
       this.DashboardCount  = res;
-      // console.log( this.DashboardCount, "DashboardCount")
+      console.log( this.DashboardCount, "DashboardCount")
     })
 
   }

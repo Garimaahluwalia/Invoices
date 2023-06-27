@@ -39,13 +39,17 @@ export class InvoiceComponent implements OnInit {
       });
   }
 
+
+
   DeleteInvoice(details: any) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.INVOICES } });
     })
   }
 
-
+  updateInvoice(details:any){
+    this.router.navigate(["add-invoice" , details._id]);
+  }
 
   DeleteInvoices(_id: string) {
     this.invoiceService.deleteInvoices(_id).subscribe((res) => {

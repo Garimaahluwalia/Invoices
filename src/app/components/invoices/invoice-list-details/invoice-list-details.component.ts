@@ -5,6 +5,8 @@ import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { Invoice } from 'src/app/types/invoice';
+import { numberToWords } from "src/app/common/numberToWords";
+
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -12,15 +14,29 @@ import { Invoice } from 'src/app/types/invoice';
   styleUrls: ['./invoice-list-details.component.css']
 })
 export class InvoiceListDetailsComponent implements OnInit {
-  invoicelist: any[] = [];
-  _id!: string;
-  invoicesFilter: any[] = [];
-  public matchedInvoice: any
+  public invoicelist: any[] = [];
+  public _id!: string;
+  public taxName: any
+  public invoicesFilter: any[] = [];
+  public matchedInvoice: any;
+  public amount: any;
+  public tax: any;
+  public rate: any;
+  public total: any;
+  public currency: any;
+  public taxAmountData: any;
+  public totalAmount: any;
+  public totalrate: any;
+  public productRows: any[] = [];
+  public totalTotalAmount: any;
+  public AmountInWords: any;
+  public totalAmountInWords!: string;
   constructor(
     public invoiceService: InvoiceService,
     public route: Router,
     public router: ActivatedRoute,
-    public clientService: ClientService
+    public clientService: ClientService,
+    public addinvoiceService : AddInvoicesService
   ) { }
 
 
@@ -31,12 +47,21 @@ export class InvoiceListDetailsComponent implements OnInit {
       this.ViewInvoices();
     });
 
+
+
+
+
+    this.clientService.recieveTaxName().subscribe((res: any) => {
+      this.taxName = res;
+      console.log(this.taxName , "TaxNAme")
+    })
+
   }
   ViewInvoices() {
     this.invoiceService.getAllInvoice().subscribe((res: any) => {
       this.invoicelist = res.invoices;
       this.matchedInvoice = this.invoicelist.filter((invoice: any) => invoice._id === this._id);
-      console.log(this.matchedInvoice , "filteredData of  viewInvoice")
+      console.log(this.matchedInvoice, "filteredData of  viewInvoice")
     });
   }
 
