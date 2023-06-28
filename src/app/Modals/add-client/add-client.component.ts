@@ -167,8 +167,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
   addClient(newData: any) {
     this.clientService.sendPost(newData).subscribe((res: IClients) => {
       this.clientService.sendClientDetails(res);
+      console.log(res, "add-client responses")
       this.closeModal();
-
     }, (err: any) => {
       console.error(err);
       this.closeModal();

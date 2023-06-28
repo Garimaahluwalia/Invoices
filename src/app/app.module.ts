@@ -29,7 +29,7 @@ import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './Modals/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
+import { ClientDetailsComponent } from './components/clients/client/client-details/client-details.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PhonenumberDirective } from './directives/phonenumber.directive';
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';

@@ -12,15 +12,17 @@ export class ProfileComponent implements OnInit {
   public userProfile: any;
   public profilePhoto!: any;
   public selectedFile!: File;
-  public profileImage : any
+  public profileImage : any;
+  public Image : any;
 
 
   constructor(public profileService: ProfileService) { }
   ngOnInit(): void {
     this.profileService.addProfile().subscribe((res: any) => {
       this.userProfile = res;
-      // console.log(this.userProfile, "UserProfileData");
+      console.log(this.userProfile, "UserProfile");
     });
+     
   }
 
   toggleEditMode() {
@@ -30,6 +32,7 @@ export class ProfileComponent implements OnInit {
   saveProfile() {
     this.profileService.updateProfile(this.userProfile).subscribe(
       (response) => {
+        console.log(response, "saveProfileResponse");
         this.isEditMode = false;
       },
       (error) => {

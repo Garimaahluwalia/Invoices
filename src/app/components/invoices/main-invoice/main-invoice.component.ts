@@ -10,18 +10,20 @@ import { IInvoice } from 'src/app/types/invoice';
   styleUrls: ['./main-invoice.component.css']
 })
 export class MainInvoiceComponent implements OnInit {
-  DashboardCount: any;
-  constructor(public invoiceService : InvoiceService, public clientService: ClientService, public loginService: LoginService){}
+  public DashboardCount: any;
+  public currentPage = 1;
+  public itemsPerPage = 12;
+
+  constructor(public invoiceService: InvoiceService,
+    public clientService: ClientService,
+    public loginService: LoginService) { }
+
+
   ngOnInit() {
-
     this.loginService.getDashboardCounts().subscribe((res) => {
-      this.DashboardCount  = res;
-      console.log( this.DashboardCount, "DashboardCount")
+      this.DashboardCount = res;
+      // console.log(this.DashboardCount, "DashBoardCountData")
     })
-
   }
-  currentPage = 1;
-  itemsPerPage = 12;
- 
-
+  
 }

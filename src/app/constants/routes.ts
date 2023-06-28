@@ -24,5 +24,4 @@ export const CLIENTS = {
     DELETE_CLIENTS: "delete/:id",
     CLIENT_ADDRESS: "client-address/:id",
     CLIENT_DETAILS : "client-details",
-    // UPDATE_CLIENT_DETAILS : "client-details/:id"
 }

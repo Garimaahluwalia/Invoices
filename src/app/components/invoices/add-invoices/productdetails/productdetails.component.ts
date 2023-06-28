@@ -58,15 +58,17 @@ export class ProductdetailsComponent implements OnInit {
   public inputcurrency: any;
 
 
-  constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService
+  constructor(public clientService: ClientService,
+    public addinvoiceService: AddInvoicesService
   ) { }
+
+
   ngOnInit(): void {
     this.addDescriptionDefault;
     this.addNewLine();
 
     this.addinvoiceService.getTaxAmount().subscribe((res: any) => {
       this.taxAmountData = res;
-      // console.log(this.taxAmountData, "taxAmountData")
       this.onProductValueChange(0);
     });
 
@@ -96,9 +98,10 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   addDescription(index: number) {
-    console.log(index, "adddescription")
+    console.log(index, "adddescription");
     this.productRows[index].showDescriptionBox = !this.productRows[index].showDescriptionBox;
   }
+
   removeRow(rowIndex: number) {
     if (this.productRows.length > 1) {
       this.productRows.splice(rowIndex, 1);
@@ -108,7 +111,7 @@ export class ProductdetailsComponent implements OnInit {
 
   onTaxRateChange() {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
-    // console.log(this.selectedTaxRateValue, "Selected Rate Value");
+    console.log(this.selectedTaxRate, "Tax Rate value")
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {
       this.onProductValueChange(index);
@@ -132,7 +135,6 @@ export class ProductdetailsComponent implements OnInit {
       if (selectedAmount > 0) {
         const selectedTaxAmount = this.selectedTaxRateValue;
         const rate = (selectedTaxAmount * selectedAmount) / 100;
-        // console.log((selectedTaxAmount / selectedAmount) * 100);
         rows[i].rate = rate;
         const taxAmount = (selectedAmount * selectedTaxAmount) / 100;
         const roundedTaxAmount = taxAmount.toFixed(2);

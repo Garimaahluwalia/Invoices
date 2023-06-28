@@ -14,69 +14,79 @@ import { numberToWords } from "src/app/common/numberToWords";
   styleUrls: ['./invoice-list-details.component.css']
 })
 export class InvoiceListDetailsComponent implements OnInit {
+  public filteredProducts: any[] = [];
   public invoicelist: any[] = [];
   public _id!: string;
   public taxName: any
   public invoicesFilter: any[] = [];
   public matchedInvoice: any;
-  public amount: any;
-  public tax: any;
-  public rate: any;
-  public total: any;
-  public currency: any;
   public taxAmountData: any;
   public totalAmount: any;
   public totalrate: any;
-  public productRows: any[] = [];
-  public totalTotalAmount: any;
-  public AmountInWords: any;
   public totalAmountInWords!: string;
+  public totalofAmount = 0;
+  public totalTaxAmount = 0;
+
+
+
+
   constructor(
     public invoiceService: InvoiceService,
     public route: Router,
     public router: ActivatedRoute,
     public clientService: ClientService,
-    public addinvoiceService : AddInvoicesService
+    public addinvoiceService: AddInvoicesService
   ) { }
 
 
   ngOnInit(): void {
+    this.clientService.recieveTaxName().subscribe((res: any) => {
+      this.taxName = res;
+      console.log(this.taxName, "taxname from viewinvoices")
+    })
     this.router.params.subscribe(params => {
       this._id = params['id'];
       console.log(this._id, "invoiceid")
       this.ViewInvoices();
     });
 
-
-
-
-
-    this.clientService.recieveTaxName().subscribe((res: any) => {
-      this.taxName = res;
-      console.log(this.taxName , "TaxNAme")
-    })
-
   }
+
+
   ViewInvoices() {
     this.invoiceService.getAllInvoice().subscribe((res: any) => {
       this.invoicelist = res.invoices;
       this.matchedInvoice = this.invoicelist.filter((invoice: any) => invoice._id === this._id);
-      console.log(this.matchedInvoice, "filteredData of  viewInvoice")
+
+      if (this.matchedInvoice.length > 0) {
+        this.filteredProducts = this.matchedInvoice[0].products;
+      } else {
+        this.filteredProducts = [];
+      }
+
+      let totalofAmount = 0;
+      let totalTaxAmount = 0;
+
+
+      for (const product of this.filteredProducts) {
+        totalofAmount += product.amount;
+        totalTaxAmount += parseFloat(product.rate);
+      }
+
+
+      this.totalofAmount = Number(totalofAmount.toFixed(2));
+      this.totalTaxAmount = Number(totalTaxAmount.toFixed(2));
+      this.totalAmountInWords = this.totalofAmount ? numberToWords(this.totalofAmount.toString()) : "";
+      console.log(this.totalAmountInWords, "Amount In Words");
+      console.log(this.totalofAmount, "Total of Amount");
+      console.log(this.totalTaxAmount, "Total Tax Amount");
+      console.log(this.filteredProducts, "Filtered Products Array");
+
     });
   }
 
 
-  // viewInvoice() {
-  //   this.invoiceService.getInvoice(this._id).subscribe(
-  //     (res: any) => {
-  //       this.invoicelist = [res];
-  //       console.log(this.invoicelist, "view invoice list");
-  //     },
-  //     (error: any) => {
-  //       console.error('Failed to fetch invoice data:', error);
-  //     }
-  //   );
-  // }
+
 
 
 }

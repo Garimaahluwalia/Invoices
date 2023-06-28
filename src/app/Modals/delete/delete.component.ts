@@ -14,10 +14,12 @@ import { ModalEvents } from 'src/app/types/modal';
 export class DeleteComponent {
   @ViewChild("closeDeleteModalButton", { static: false }) private closeDeleteModalButton!: ElementRef;
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
-  data: any;
+  public data: any;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
 
-  constructor(public modalService: ModalService, public deleteService: DeleteService, public router: Router) { }
+  constructor(public modalService: ModalService,
+    public deleteService: DeleteService,
+    public router: Router) { }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.Delete).pipe(takeUntil(this.destroyed)).subscribe((res => {
@@ -28,27 +30,27 @@ export class DeleteComponent {
       } else {
         this.closeModal();
       }
-    }))
+    }));
   }
-
-
+  
+  openModal() {
+    this.openDeleteModal.nativeElement.click();
+  }
 
   closeModal() {
     this.destroyed.next(true);
     this.destroyed.complete();
     this.closeDeleteModalButton.nativeElement.click();
-    if(this.router.url.includes("clients")){
+    if (this.router.url.includes("clients")) {
       this.router.navigate(["/clients"]);
-    }else if(this.router.url.includes("invoice")){
+    } else if (this.router.url.includes("invoice")) {
       this.router.navigate(["invoice"]).then(() => {
-        this.modalService.sendEvent(ModalEvents.Delete, {status : false})
+        this.modalService.sendEvent(ModalEvents.Delete, { status: false })
       });
     }
   }
 
-  openModal() {
-    this.openDeleteModal.nativeElement.click();
-  }
+
 
   yes() {
     this.deleteService.selectedId = this.data.id;
@@ -56,11 +58,12 @@ export class DeleteComponent {
     this.closeModal();
     this.deleteService.sendEvent(event, true)
   }
+
+
   no() {
     this.deleteService.selectedId = this.data.id;
     const event = this.data.event as DeleteEvents;
     this.closeModal();
     this.deleteService.sendEvent(event, false);
-
   }
 }

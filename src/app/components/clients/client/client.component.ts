@@ -32,7 +32,12 @@ export class ClientComponent implements OnInit {
       }
     });
   }
-  
+
+
+  openModal() {
+    this.showModal = true;
+  }
+
   addClient() {
     this.router.navigate(["clients", "add-client"]).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true });
@@ -45,9 +50,6 @@ export class ClientComponent implements OnInit {
     })
   }
 
-  openModal() {
-    this.showModal = true;
-  }
 
 
   ViewClient(details: any) {
@@ -55,11 +57,15 @@ export class ClientComponent implements OnInit {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: false, disabled: true, ...details } })
     })
   }
+
+
+
   DeleteClient(details: any) {
     this.router.navigate(["clients", "delete", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.CLIENTS } });
     })
   }
+
 
   DeleteClients(_id: string) {
     this.clientService.deleteClients(_id).subscribe((res) => {

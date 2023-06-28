@@ -5,6 +5,7 @@ import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.servi
 import { IInvoice, Invoice } from 'src/app/types/invoice';
 import { NotifierService } from 'angular-notifier';
 import { ClientService } from 'src/app/services/clients/client.service';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -72,12 +73,14 @@ export class AddInvoicesComponent implements OnInit {
     public addInvoiceService: AddInvoicesService,
     public route: Router,
     public notifierService: NotifierService,
-    private clientService: ClientService
+    public clientService: ClientService,
+    public invoiceService : InvoiceService
   ) {
     this.notifier = notifierService;
   }
 
   ngOnInit(): void {
+    
     this.clientService.recieveTaxName().subscribe((res) => {
       this.taxesType = res;
     });
@@ -89,15 +92,42 @@ export class AddInvoicesComponent implements OnInit {
     invoice.setData(f.value);
     const payload = invoice.getPayload();
     console.log(payload, "payload");
-    this.addInvoiceService.addInvoice((payload)).subscribe((res: any) => {
-      this.Invoices = res;
-      console.log(this.Invoices, "Add-Invoices , API response");
-      this.notifier.notify('success', 'Invoice Save successfully');
-      this.route.navigateByUrl("/invoice");
-    }, (error: any) => {
-      console.error(error);
-    });
+    if (invoice._id) {
+      this.updateInvoice(payload);
+    } else {
+      this.addInvoice(payload);
+    }
   }
+  
+  addInvoice(payload: any) {
+    this.addInvoiceService.addInvoice(payload).subscribe(
+      (res: any) => {
+        this.Invoices = res;
+        console.log(this.Invoices, "Add-Invoices, API response");
+        this.notifier.notify('success', 'Invoice saved successfully');
+        this.route.navigateByUrl("/invoice");
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+  
+  updateInvoice(payload: any) {
+    const invoiceId = payload._id; 
+    this.invoiceService.updateInvoice(invoiceId, payload).subscribe(
+      (res: any) => {
+        this.Invoices = res;
+        console.log(this.Invoices, "Updated Invoice, API response");
+        this.notifier.notify('success', 'Invoice updated successfully');
+        this.route.navigateByUrl("/invoice");
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+  
 }
 
 

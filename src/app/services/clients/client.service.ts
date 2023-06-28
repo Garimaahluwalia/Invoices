@@ -64,7 +64,6 @@ export class ClientService {
     this.getAllClients().subscribe(
       res => {
         this._clients = res.clients;
-        // console.log(res.clients,res, "werewrew")
         this.sendClients();
       },
       err => {

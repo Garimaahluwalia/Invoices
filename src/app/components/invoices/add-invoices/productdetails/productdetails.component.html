@@ -32,7 +32,7 @@
           <th scope="" class="width-60">Item</th>
           <th scope="" class="width-10">HSN/SAC</th>
           <th scope="" class="width-10">Amount</th>
-          <ng-container *ngIf="selectedTaxRate !== 'None'">
+          <ng-container *ngIf="selectedTaxRate !== 'NONE'">
             <th scope="col">{{ selectedTaxRate }}</th>
             <th scope="col">Rate</th>
             <th scope="col">Total</th>
@@ -70,7 +70,7 @@
             </div>
           </td>
 
-          <ng-container *ngIf="selectedTaxRate !== 'None'">
+          <ng-container *ngIf="selectedTaxRate !== 'NONE'">
             <td class="text-end">
               <div>
                 <input type="text" ngModel [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"

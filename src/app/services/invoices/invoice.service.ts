@@ -31,7 +31,7 @@ export class InvoiceService {
     this.Invoices = invoiceData;
     this.sendInvoices();
   }
-  
+
   getInvoiceNumber(): Observable<any[]> {
     return this.http.get<any[]>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
   }
@@ -46,9 +46,9 @@ export class InvoiceService {
   deleteInvoices(invoiceId: string) {
     return this.http.delete(endpoints.INVOICES_LIST.DELETE(invoiceId));
   }
-  updateInvoice(invoiceId: string, invoice: IInvoice): Observable<IInvoice> {
+  updateInvoice(invoiceId: string, invoice: any): Observable<any> {
     const url = `${endpoints.INVOICES_LIST.UPDATE}/${invoiceId}`;
-    return this.http.put<Invoice>(url, invoice);
+    return this.http.put<any>(url, invoice);
   }
 
   updateInvoiceStatus(invoiceId: string): Observable<any> {

@@ -25,8 +25,8 @@ export class InvoicedataComponent implements OnInit {
   getInvoiceNumber(){
     this.invoiceService.getInvoiceNumber().subscribe((res:any) => {
       this.InvoiceNumber = res.invoiceNumber;
-      console.log(this.InvoiceNumber, "invoicenofromapi")
-    })
+      console.log(this.InvoiceNumber, "invoicenofromapi");
+    });
   }
   // getInvoiceNumber() {
   //   const savedInvoiceNumber = localStorage.getItem('invoiceNumber');

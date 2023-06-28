@@ -1,10 +1,13 @@
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
+    <button type="button" routerLink="/main-invoice" class="btn btn-info save-cstn-btn"><i class="fa-solid fa-house"></i>
+        Home</button>
     <table style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px;"
         align="center">
         <thead>
             <tr>
                 <td>
                     <table style="width: 100%;">
+                       
                         <tbody>
                             <tr>
                                 <td style="text-align: left;"><img src="assets\m-logo.png" width="130px"
@@ -63,7 +66,7 @@
                                             </h2>
                                             <p
                                                 style="font-size: 16px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
-                                               {{details.client.address}}</p>
+                                                {{details.client.address}}</p>
                                             <div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
@@ -125,42 +128,50 @@
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none;  font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Amount </th>
                                 <th
-                                    style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                *ngIf="totalofAmount && totalTaxAmount"  style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     {{details.tax}} </th>
                                 <th
-                                    style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                *ngIf="totalofAmount && totalTaxAmount"   style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Rate </th>
                                 <th
-                                    style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                *ngIf="totalofAmount && totalTaxAmount"  style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Total </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="text-align: center; font-size: 14px;" *ngFor="let details of matchedInvoice[0]?.products; let i = index">
-                              <td style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                {{ i + 1 }}.
-                              </td>
-                              <td style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
-                                {{ details.name }}
-                              </td>
-                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
-                                {{ details.HSN_SAC }}
-                              </td>
-                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                {{ details.amount }}
-                              </td>
-                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                {{ details.rate }}
-                              </td>
-                              <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                {{ details.taxamount }}
-                              </td>
-                              <td style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                {{details.total}}
-                              </td>
+                            <tr style="text-align: center; font-size: 14px;"
+                                *ngFor="let details of matchedInvoice[0]?.products; let i = index">
+                                <td
+                                    style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ i + 1 }}.
+                                </td>
+                                <td
+                                    style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
+                                    {{ details.name }}
+                                </td>
+                                <td
+                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
+                                    {{ details.HSN_SAC }}
+                                </td>
+                                <td
+                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ details.amount }}
+                                </td>
+                                <td
+                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ details.rate }}
+                                </td>
+                                <td
+                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ details.taxamount }}
+                                </td>
+                                <td
+                                    style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{details.total}}
+                                </td>
                             </tr>
-                          </tbody>
-                          
+                        </tbody>
+
                     </table>
                 </td>
             </tr>
@@ -184,13 +195,13 @@
                                         <span
                                             style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">Amount</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{details.products[0].amount}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{this.totalofAmount}}</span>
                                     </div>
                                     <div style="padding-bottom: 10px; float: left; width: 100%;">
                                         <span
-                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">{{details.tax}}</span>
+                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;" *ngIf="totalofAmount && totalTaxAmount">{{details.tax}}</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{details.products[0].rate}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;" *ngIf="totalofAmount && totalTaxAmount">{{totalTaxAmount}}</span>
                                     </div>
                                     <div
                                         style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
@@ -203,11 +214,11 @@
                                     <div style="padding-top: 30px; float: left; width: 100%;">
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
-                                            Total (in words) :
+                                            Total (in words) : {{totalAmountInWords}}
                                         </p>
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
-                                           
+
                                         </p>
                                     </div>
                                 </td>

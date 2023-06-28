@@ -19,11 +19,9 @@ export class PhonenumberDirective {
   constructor(public clientService: ClientService) { }
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     const value = control.value;
-    // console.log(value, "Validation value");
     if (value && value.trim() !== "") {
       return this.clientService.checkPhonenumberExist({ phonenumber: value }).pipe(
         map((res: { [key: string]: boolean | string }) => {
-          // console.log(res, "VALIDATIONS RESPONSE");
           if (res && !res?.['data']) {
             return { isExists: true };
           } else {

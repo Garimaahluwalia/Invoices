@@ -1,5 +1,5 @@
 export enum TAXES {
-    NONE = "None",
+    NONE = "NONE",
     GST = "GST",
     IGST = "IGST",
     CGST_OR_SGST = "CGST_SGST",
