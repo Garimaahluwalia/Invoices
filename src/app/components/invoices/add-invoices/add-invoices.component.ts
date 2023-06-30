@@ -92,12 +92,14 @@ export class AddInvoicesComponent implements OnInit {
 
 
     this.invoiceService.invoiceEmitter.subscribe((res) => {
-      console.log(res, "Responseofemitter00000000000000000000000  ")
+      console.log(res, "Responseofemitter0000000000 ")
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
       
-      this.addInvoiceService.sendProductChanges(res.products)
+      this.addInvoiceService.sendProductChanges(res.products);
       console.log(this.ProductData, "productData event emitter");
+      
+      this.clientService.sendTaxName(res.taxesType);
       this.clientService.sendClientDetails(res.client);
 
       this.updateInvoiceData = res;

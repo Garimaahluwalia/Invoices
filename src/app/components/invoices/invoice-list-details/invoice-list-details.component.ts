@@ -40,10 +40,8 @@ export class InvoiceListDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.clientService.recieveTaxName().subscribe((res: any) => {
-      this.taxName = res;
-      console.log(this.taxName, "taxname from viewinvoices")
-    })
+    // this.addinvoiceService.rec
+
     this.router.params.subscribe(params => {
       this._id = params['id'];
       console.log(this._id, "invoiceid")

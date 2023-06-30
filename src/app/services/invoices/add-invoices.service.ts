@@ -16,7 +16,8 @@ export class AddInvoicesService {
   private _currency: EventEmitter<any[]> = new EventEmitter<any[]>();
   private _calculateTaxRate: EventEmitter<any[]> = new EventEmitter<any[]>();
   constructor(public http: HttpClient) { }
-  public invoiceListData = []
+  public invoiceListData = [];
+  
 
   get selectedTax(): TAXES {
     return this._selectedTax;

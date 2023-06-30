@@ -145,6 +145,5 @@ export class InvoiceService {
       this._invoices = [];
       this.sendInvoices();
     }
-
   }
 }

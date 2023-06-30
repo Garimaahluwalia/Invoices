@@ -5,6 +5,7 @@ import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { TAXES } from 'src/app/types/taxes';
 import { CURRENCY } from 'src/app/types/currency';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
 @Component({
   selector: 'app-other-component',
@@ -59,24 +60,25 @@ export class ProductdetailsComponent implements OnInit {
 
 
   constructor(public clientService: ClientService,
-    public addinvoiceService: AddInvoicesService
+    public addinvoiceService: AddInvoicesService, 
+    public invoiceService : InvoiceService
   ) { }
 
 
   ngOnInit(): void {
-   this.addinvoiceService.recieveProductRows().subscribe((res:any) => {
-    this.productRows = res;
-    console.log(this.productRows, "productdetails///////////////////////////")
-   })
-   if (this.productRows.length > 0) {
-    const firstProduct = this.productRows[0];
-    this.name = firstProduct.name;
-    this.HSN_SAC = firstProduct.HSN_SAC;
-    this.amount = firstProduct.amount;
-    this.rate = firstProduct.rate;
-    this.selectedTaxRateValue = firstProduct.selectedTaxRateValue;
-    // this.total = firstProduct.total;
-  }
+    this.addinvoiceService.recieveProductRows().subscribe((res: any) => {
+      this.productRows = res;
+      console.log(this.productRows, "productdetails//////")
+    })
+    if (this.productRows.length > 0) {
+      const firstProduct = this.productRows[0];
+      this.name = firstProduct.name;
+      this.HSN_SAC = firstProduct.HSN_SAC;
+      this.amount = firstProduct.amount;
+      this.rate = firstProduct.rate;
+      this.selectedTaxRateValue = firstProduct.selectedTaxRateValue;
+      // this.total = firstProduct.total;
+    }
 
     this.addDescriptionDefault;
     this.addNewLine();
@@ -123,9 +125,11 @@ export class ProductdetailsComponent implements OnInit {
   }
 
 
+
   onTaxRateChange() {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
-    console.log(this.selectedTaxRate, "Tax Rate value")
+    console.log(this.selectedTaxRate, "Tax Rate value");
+    
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {
       this.onProductValueChange(index);
