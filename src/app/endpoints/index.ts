@@ -12,7 +12,7 @@ const endpoints = {
 
 
   INVOICES_LIST: {
-    GETALL: `${environment.BASE_URL}/invoice`,
+    GETALL: (page: number, limit: number) => `${environment.BASE_URL}/invoice?page=${page}&limit=${limit}`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     DELETE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
@@ -29,7 +29,7 @@ const endpoints = {
   CLIENTS: {
     CHECKPHONENUMBER: `${environment.BASE_URL}/check`,
     ADD: `${environment.BASE_URL}/client`,
-    GETALL: `${environment.BASE_URL}/client`,
+    GETALL: (page: number, limit: number) => `${environment.BASE_URL}/client?page=${page}&limit=${limit}`,
     GET: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
     UPDATE: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
     DELETE: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,

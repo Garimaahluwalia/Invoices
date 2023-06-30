@@ -42,7 +42,7 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalAmount = parseFloat(this.productRows.reduce((total: any, row: { amount: any; }) => total + row.amount, 0)).toFixed(2);
           this.totalrate = parseFloat(this.productRows.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
           this.totalTotalAmount = parseFloat(this.productRows.reduce((total: number, row: { total: string; }) => total + parseFloat(row.total), 0)).toFixed(2);
-          this.totalAmountInWords = parseFloat(this.totalTotalAmount) ? numberToWords(this.totalTotalAmount) : (parseFloat(this.totalAmount) ? numberToWords(this.totalAmount) : "");        
+          this.totalAmountInWords = parseFloat(this.totalTotalAmount) ? numberToWords(this.totalTotalAmount) : (parseFloat(this.totalAmount) ? numberToWords(this.totalAmount) : "");
           console.log(this.totalAmountInWords, "AmountInWords")
           if (isNaN(this.totalAmount)) {
             this.totalAmount = "0.00";
@@ -78,12 +78,14 @@ export class PaymentdetailsComponent implements OnInit {
 
     });
   }
-  public Bankdetails: IbankDetails= {
+
+
+  public Bankdetails: IbankDetails = {
     "accountHolderName": "M CODE INFOSOFT",
     "accountNumber": "098878776809454",
     "ifscCode": "ICICINBBCTS",
     "swiftCode": "9898BHBZA23",
     "bank": "ICICI Bank Ltd.",
   };
-  
+
 }

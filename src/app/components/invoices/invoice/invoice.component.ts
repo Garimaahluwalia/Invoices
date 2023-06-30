@@ -15,8 +15,11 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
-  public currentPage = 1;
-  public itemsPerPage = 15;
+  public currentPage = 1;  //pagination
+  public itemsPerPage = 2; //pagination
+  public totalItems = 15;   //pagination
+
+
   public invoices: any[] = []
   public invoiceId: string | undefined
   public InvoiceNumber!: number;
@@ -32,6 +35,7 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.itemsPerPage = this.invoiceService.limit;  //pagination
     this.loadInvoices();
     this.deleteService.recieveDeleteEvent(DeleteEvents.INVOICES)?.subscribe(res => {
       console.log(res, "invoice deleted succeessfully");
@@ -40,6 +44,19 @@ export class InvoiceComponent implements OnInit {
       }
     });
 
+
+
+    // <-- pagination 
+    this.invoiceService.totalNumberOfInvoices.subscribe((data: number) => {
+      this.totalItems = data;
+      // console.log(this.totalItems, "TotalItemsnumberfromInvoice")
+    });
+    
+    this.invoiceService.recieveInvoices().subscribe((data: any) => {
+      this.invoices = data;
+      // console.log(this.totalItems, "TotalItemsnumberfromInvoice")
+    });
+    // pagination --> 
   }
 
   toggleDropdown() {
@@ -47,22 +64,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   loadInvoices() {
-    this.invoiceService.getAllInvoice().subscribe(
-      (res: any) => {
-        if (res.invoices) {
-          this.invoices = res.invoices.map((invoice: any) => {
-            invoice.date = this.formatDate(invoice.date);
-            return invoice;
-          });
-          console.log(res, "LoadInvoices");
-        } else {
-          console.log("No invoices found in the response.");
-        }
-      },
-      (error: any) => {
-        console.error("Error occurred while loading invoices:", error);
-      }
-    );
+    this.invoiceService.getAll();
   }
 
 
@@ -80,10 +82,9 @@ export class InvoiceComponent implements OnInit {
   }
 
   updateInvoice(details: any) {
-    this.router.navigate(["/add-invoice" , details._id])
-   
+    this.router.navigate(["/add-invoice", details._id]);
   }
-  
+
 
 
   DeleteInvoices(_id: string) {
@@ -108,7 +109,12 @@ export class InvoiceComponent implements OnInit {
     );
   }
 
-
+  //pagination
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.invoiceService.page = page;
+    this.invoiceService.getAll();
+  }
 
 }
 

@@ -14,32 +14,26 @@ export class InvoicedataComponent implements OnInit {
   public defaultDate: any;
   @Input() invoice!: { [key: string]: string | number }
   public InvoiceNumber!: any;
-  constructor(public invoiceService: InvoiceService, private datePipe: DatePipe) { }
+  constructor(
+    public invoiceService: InvoiceService,
+    private datePipe: DatePipe
+  ) { }
+
   ngOnInit(): void {
     const currentDate = new Date();
     this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
-    this.getInvoiceNumber();
+
+    if (!this.invoiceService.invoiceNumber) {
+      this.getInvoiceNumber();
+    }
   }
 
-
-  getInvoiceNumber(){
-    this.invoiceService.getInvoiceNumber().subscribe((res:any) => {
+  getInvoiceNumber() {
+    this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
       this.InvoiceNumber = res.invoiceNumber;
-      console.log(this.InvoiceNumber, "invoicenofromapi");
+      // console.log(this.InvoiceNumber, "Invoice Number from API");
     });
   }
-  // getInvoiceNumber() {
-  //   const savedInvoiceNumber = localStorage.getItem('invoiceNumber');
-  //   if (savedInvoiceNumber) {
-  //     this.InvoiceNumber = savedInvoiceNumber;
-  //   } else {
-  //     this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
-  //       this.InvoiceNumber = res;
-  //       console.log(res, "invoicenumberfromapi")
-  //       localStorage.setItem('invoiceNumber', this.InvoiceNumber);
-  //     });
-  //   }
-  // }
 
 
 }

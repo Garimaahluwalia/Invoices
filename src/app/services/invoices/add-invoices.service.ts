@@ -13,8 +13,8 @@ export class AddInvoicesService {
   public invoiceData: any;
   private _selectedTax: TAXES = TAXES.GST;
   private _productRowsChanges: EventEmitter<any[]> = new EventEmitter<any[]>();
-  private _currency : EventEmitter<any[]> = new EventEmitter<any[]>();
-  private _calculateTaxRate : EventEmitter<any[]> = new EventEmitter<any[]>();
+  private _currency: EventEmitter<any[]> = new EventEmitter<any[]>();
+  private _calculateTaxRate: EventEmitter<any[]> = new EventEmitter<any[]>();
   constructor(public http: HttpClient) { }
   public invoiceListData = []
 
@@ -40,9 +40,9 @@ export class AddInvoicesService {
 
 
   public getTaxAmount(): Observable<any> {
-    return this.http.get<{success: boolean, message: string, result: any }>(endpoints.INVOICES_LIST.GET_TAX_AMOUNT);
+    return this.http.get<{ success: boolean, message: string, result: any }>(endpoints.INVOICES_LIST.GET_TAX_AMOUNT);
   }
-  
+
   sendProductChanges(data: any[]): void {
     this._productRowsChanges.emit(data);
   }
@@ -52,23 +52,22 @@ export class AddInvoicesService {
   }
 
 
-  sendCurrency(data:any){
+  sendCurrency(data: any) {
     this._currency.emit(data);
   }
 
-  receiveCurrency():Observable<any> {
+  receiveCurrency(): Observable<any> {
     return this._currency.asObservable();
   }
 
-
-  sendTaxRate(data:any){
-       this._calculateTaxRate.emit(data);
+  sendTaxRate(data: any) {
+    this._calculateTaxRate.emit(data);
   }
 
-  receiveTaxRate():Observable<any> {
+  receiveTaxRate(): Observable<any> {
     return this._calculateTaxRate.asObservable();
   }
 
-  
+
 }
 

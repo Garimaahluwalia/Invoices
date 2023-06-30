@@ -64,6 +64,20 @@ export class ProductdetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
+   this.addinvoiceService.recieveProductRows().subscribe((res:any) => {
+    this.productRows = res;
+    console.log(this.productRows, "productdetails///////////////////////////")
+   })
+   if (this.productRows.length > 0) {
+    const firstProduct = this.productRows[0];
+    this.name = firstProduct.name;
+    this.HSN_SAC = firstProduct.HSN_SAC;
+    this.amount = firstProduct.amount;
+    this.rate = firstProduct.rate;
+    this.selectedTaxRateValue = firstProduct.selectedTaxRateValue;
+    // this.total = firstProduct.total;
+  }
+
     this.addDescriptionDefault;
     this.addNewLine();
 

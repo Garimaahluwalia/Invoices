@@ -12,20 +12,32 @@ import { ModalEvents } from 'src/app/types/modal';
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent implements OnInit {
-  currentPage = 1;
-  itemsPerPage = 12;
+  public currentPage = 1;  //pagination
+  public itemsPerPage = 12; //pagination
+  public totalItems = 12;   //pagination
   public showModal = false;
   public clients: any[] = [];
   public inputsDisabled = false;
   constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
 
   ngOnInit(): void {
+    this.itemsPerPage = this.clientService.limit;  //pagination
     this.clientService.getAll();
+
     this.clientService.recieveClients().subscribe((data: any) => {
       this.clients = data;
-      console.log(this.clients, "clientsdata")
+      // console.log(this.clients, "clientsdata")
     });
 
+
+    // <-- pagination 
+    this.clientService.totalNumberOfClient.subscribe((data: number) => {
+      this.totalItems = data;
+    });
+    // pagination --> 
+
+
+    
     this.deleteService.recieveDeleteEvent(DeleteEvents.CLIENTS)?.subscribe(res => {
       if (res) {
         this.DeleteClients(this.deleteService.selectedId as string);
@@ -76,5 +88,12 @@ export class ClientComponent implements OnInit {
     });
   }
 
+
+  //pagination
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.clientService.page = page;
+    this.clientService.getAll();
+  }
 
 }

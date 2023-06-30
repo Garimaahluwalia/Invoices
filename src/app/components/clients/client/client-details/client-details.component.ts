@@ -14,7 +14,7 @@ import { ModalEvents } from 'src/app/types/modal';
 })
 export class ClientDetailsComponent implements OnInit {
   public clients_details: any[] = [];
-  selectedClient: any;
+  public selectedClient: any;
   public clientId: string = '';
   constructor(
     public router: Router,
@@ -26,7 +26,7 @@ export class ClientDetailsComponent implements OnInit {
     this.clientService.getAll();
     this.clientService.recieveClients().subscribe((data: any) => {
       this.clients_details = data;
-      console.log(this.clients_details, "The Details of clients");
+    
     });
 
     this.clientService.recieveClientData().subscribe((clientResponse) => {
@@ -34,7 +34,7 @@ export class ClientDetailsComponent implements OnInit {
       this.selectedClient = clientResponse;
       this.clientId = clientResponse._id;
     });
-    
+
   }
 
   onClientChange() {
@@ -49,7 +49,6 @@ export class ClientDetailsComponent implements OnInit {
   }
 
   updateClient(selectedClient: any) {
-    console.log(selectedClient, "selected data............................");
     if (selectedClient && selectedClient._id) {
       this.router?.navigate(["add-invoice", "add-client", selectedClient._id]).then(() => {
         console.log("calling");

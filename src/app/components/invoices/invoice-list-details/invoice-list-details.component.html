@@ -1,8 +1,8 @@
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
-    <button type="button" routerLink="/main-invoice" class="btn btn-info save-cstn-btn"><i class="fa-solid fa-house"></i>
+    <button type="button" routerLink="/invoice" class="btn btn-info save-cstn-btn"><i class="fa-solid fa-house"></i>
         Home</button>
     <table style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px;"
-        align="center">
+                align="center">
         <thead>
             <tr>
                 <td>
@@ -201,7 +201,7 @@
                                         <span
                                             style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;" *ngIf="totalofAmount && totalTaxAmount">{{details.tax}}</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;" *ngIf="totalofAmount && totalTaxAmount">{{totalTaxAmount}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;"*ngIf="totalofAmount && totalTaxAmount" >{{totalTaxAmount}}</span>
                                     </div>
                                     <div
                                         style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">

@@ -2,22 +2,19 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between p-0 m-0">
-                <button type="button" routerLink="/main-invoice" class="btn btn-info save-cstn-btn"><i class="fa-solid fa-house"></i>
-                Home</button>
+                <button type="button" routerLink="/main-invoice" class="btn btn-info save-cstn-btn"><i
+                        class="fa-solid fa-house"></i>
+                    Home</button>
                 <h4 class="mb-sm-0">New Invoice</h4>
-                
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/invoice">Invoice</a></li>
                         <li class="breadcrumb-item active">New Invoice</li>
                     </ol>
-
-
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row justify-content-center">
         <div class="col-xxl-9">
             <div class="card">
@@ -27,7 +24,6 @@
                         <div class="col-md-12">
                             <app-invoicedata></app-invoicedata>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-6 pl-5 pr-2">
@@ -40,20 +36,16 @@
                                 <app-client-details></app-client-details>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="card-body pl-5">
                         <app-productdetails></app-productdetails>
                         <app-paymentdetails></app-paymentdetails>
-
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
                             <button type="submit" class="btn btn-info save-cstn-btn" [disabled]="InvoiceForm.invalid"><i
                                     class="ri-printer-line align-bottom me-1"></i>
                                 Save</button>
                             <a href="javascript:void(0);" class="btn btn-primary print-cstn-btn"><i
                                     class="ri-download-2-line align-bottom me-1"></i> Download Invoice</a>
-
                         </div>
                     </div>
                 </form>

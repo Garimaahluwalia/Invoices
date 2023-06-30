@@ -36,7 +36,7 @@ export class InvoiceListDetailsComponent implements OnInit {
     public router: ActivatedRoute,
     public clientService: ClientService,
     public addinvoiceService: AddInvoicesService
-  ) { }
+  ) {}
 
 
   ngOnInit(): void {
@@ -81,6 +81,7 @@ export class InvoiceListDetailsComponent implements OnInit {
       console.log(this.totalofAmount, "Total of Amount");
       console.log(this.totalTaxAmount, "Total Tax Amount");
       console.log(this.filteredProducts, "Filtered Products Array");
+
 
     });
   }

@@ -28,10 +28,10 @@
                                 class="btn btn-soft-info btn-icon fs-14"><i
                                     class="las la-ellipsis-v fs-18"></i></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                <li><a class="dropdown-item" >All</a></li>
-                                <li><a class="dropdown-item" >Last Week</a></li>
-                                <li><a class="dropdown-item" >Last Month</a></li>
-                                <li><a class="dropdown-item" >Last Year</a></li>
+                                <li><a class="dropdown-item">All</a></li>
+                                <li><a class="dropdown-item">Last Week</a></li>
+                                <li><a class="dropdown-item">Last Month</a></li>
+                                <li><a class="dropdown-item">Last Year</a></li>
                             </ul>
                         </div>
                     </div>
@@ -54,20 +54,21 @@
                                     </thead>
 
                                     <tbody>
-                                        <tr *ngFor="let details of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+                                        <tr
+                                            *ngFor="let details of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'client', totalItems: totalItems  }">
                                             <td data-label="Name">
-                                                <a 
-                                                    class="text-body align-middle fw-medium">{{details.name}}</a>
+                                                <a class="text-body align-middle fw-medium">{{details.name}}</a>
                                             </td>
                                             <td data-label="Email">{{details.email}}</td>
                                             <td data-label="Address">{{details.address}}</td>
-                                          
+
                                             <td data-label="Action" class="action-items">
                                                 <ul class="list-inline hstack gap-2 mb-0">
                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="View">
-                                                        <a  class="btn btn-soft-info btn-sm d-inline-block">
-                                                            <i class="las la-eye fs-17 align-middle" (click)="ViewClient(details)"></i>
+                                                        <a class="btn btn-soft-info btn-sm d-inline-block">
+                                                            <i class="las la-eye fs-17 align-middle"
+                                                                (click)="ViewClient(details)"></i>
                                                         </a>
                                                     </li>
 
@@ -81,8 +82,8 @@
                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Remove">
                                                         <a class="btn btn-soft-danger btn-sm d-inline-block"
-                                                        (click)="DeleteClient(details)">
-                                                         
+                                                            (click)="DeleteClient(details)">
+
                                                             <i class="fas fa-trash fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
@@ -98,8 +99,6 @@
             </div>
         </div>
     </div>
-    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    <pagination-controls (pageChange)="onPageChange($event)" id="client"> </pagination-controls>
 </div>
 <router-outlet></router-outlet>
-
-

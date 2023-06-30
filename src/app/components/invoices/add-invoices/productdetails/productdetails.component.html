@@ -44,7 +44,7 @@
         <tr *ngFor="let row of productRows; let i = index" class="product" [ngModelGroup]="'item' + i.toString()">
           <td class="text-start">
             <div class="mb-2">
-              <input type="text" ngModel name="name" class="form-control bg-light border-0" placeholder="Item Name"
+              <input type="text" ngModel name="name" [(ngModel)]="row.name" (ngModelChange)="onProductValueChange(i)" class="form-control bg-light border-0" placeholder="Item Name"
                 required />
               <div class="invalid-feedback">
                 Please enter a product name
@@ -59,7 +59,7 @@
           </td>
           <td class="text-end">
             <div>
-              <input type="number" [(ngModel)]="row.HSN_SAC" (ngModelChange)="onProductValueChange(i)" name="HSN_SAC"
+              <input type="number" [(ngModel)]="row.HSN_SAC" name="HSN_SAC"
                 class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
             </div>
           </td>
@@ -94,7 +94,7 @@
             </td>
           </ng-container>
           <td class="product-removal">
-            <a href="javascript:void(0)" class="btn p-0" (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
+            <a href="javascript:void(0)" class="btn p-0"  (ngModelChange)="onProductValueChange(i)" (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
           </td>
         </tr>
       </tbody>

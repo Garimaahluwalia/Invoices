@@ -54,10 +54,10 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
-      console.log(res, "recived event modal")
+      // console.log(res, "recived event modal")
       const { status, data, invoice, disabled } = res;
       this.data = data;
-      console.log(res, "adduser");
+      // console.log(res, "adduser");
       this.invoice = data?.invoice || false;
       this.disabledInput = data?.disabled || false;
 
@@ -83,6 +83,9 @@ export class AddClientComponent implements OnInit, OnDestroy {
     });
     this.cdr.detectChanges();
   }
+
+
+  
   ngOnDestroy() {
     this.destroyed.next(true);
     this.destroyed.complete();
@@ -132,13 +135,13 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
-    console.log(address, "The Data of address");
+    // console.log(address, "The Data of address");
     let newData = {
       _id: this._id, user_id: this.user_id,
       name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, gstin: this.gstin, pan: this.pan,
       country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone,
     }
-    console.log(newData, "FormData");
+    // console.log(newData, "FormData");
     if (this.data?.edit) {
       this.updateClient(newData);
       this.notifier.notify('success', 'Client updated successfully');

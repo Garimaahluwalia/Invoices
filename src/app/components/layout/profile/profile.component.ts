@@ -12,17 +12,19 @@ export class ProfileComponent implements OnInit {
   public userProfile: any;
   public profilePhoto!: any;
   public selectedFile!: File;
-  public profileImage : any;
-  public Image : any;
+  public profileImage: any;
+  public Image: any;
 
 
   constructor(public profileService: ProfileService) { }
   ngOnInit(): void {
     this.profileService.addProfile().subscribe((res: any) => {
       this.userProfile = res;
+      this.profileImage = res.photoUrl
+      console.log(this.profileImage, "URLofImage");
       console.log(this.userProfile, "UserProfile");
     });
-     
+
   }
 
   toggleEditMode() {
@@ -44,7 +46,7 @@ export class ProfileComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file: FileList = event.target.files;
-    console.log(event.target.files,"images uploaded")
+    console.log(event.target.files, "images uploaded")
     if (file && file.length > 0) {
       const fileToUpload: File = file[0];
       this.profileImage = URL.createObjectURL(fileToUpload)
@@ -58,8 +60,8 @@ export class ProfileComponent implements OnInit {
   uploadProfilePhoto(file: FormData) {
     this.profileService.uploadProfilePhoto(file).subscribe(
       (response: any) => {
-        console.log(response , "UploadProfilePhotoREsponse"); 
-       
+        console.log(response, "UploadProfilePhotoREsponse");
+
         console.log(this.profileImage, "profileImage")
       },
       (error) => {
@@ -67,7 +69,7 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-  
+
 
 
 }
