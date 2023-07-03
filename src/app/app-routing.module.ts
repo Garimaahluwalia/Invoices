@@ -76,14 +76,7 @@ const routes: Routes = [
 
     ]
   },
-  {
-    path: INVOICES.VIEW_INVOICE_LIST,
-    component: InvoiceListDetailsComponent
-  },
-  {
-    path: INVOICES.UPDATE_INVOICE,
-    component: AddInvoicesComponent
-  },
+  
   {
     path: CLIENTS.CLIENTS,
     component: ClientComponent,
@@ -103,6 +96,14 @@ const routes: Routes = [
     ]
   },
   {
+    path: CLIENTS.PROFILE,
+    component: MainComponent,
+    children: [{
+      path: "",
+      component: ProfileComponent
+    }]
+  },
+  {
     path: CLIENTS.ADD_CLIENTS,
     component: AddClientComponent
   },
@@ -119,13 +120,13 @@ const routes: Routes = [
     component: MainInvoiceComponent
   },
   {
-    path: CLIENTS.PROFILE,
-    component: MainComponent,
-    children: [{
-      path: "",
-      component: ProfileComponent
-    }]
-  }
+    path: INVOICES.VIEW_INVOICE_LIST,
+    component: InvoiceListDetailsComponent
+  },
+  {
+    path: INVOICES.UPDATE_INVOICE,
+    component: AddInvoicesComponent
+  },
 
 ];
 

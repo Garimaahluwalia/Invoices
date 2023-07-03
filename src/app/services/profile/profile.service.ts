@@ -17,6 +17,7 @@ export class ProfileService {
   set userProfile(value: any[]) {
     this._userProfile = value;
   }
+
   get userProfile(): any[] {
     return this._userProfile;
   }
@@ -29,7 +30,7 @@ export class ProfileService {
   }
 
 
-  addProfile(file:FormData): Observable<any> {
+  addProfile(file: FormData): Observable<any> {
     return this.http.post<any>(endpoints.PROFILE.ADD, file);
   }
 

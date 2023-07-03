@@ -14,6 +14,7 @@ import { ModalEvents } from 'src/app/types/modal';
 export class DeleteComponent {
   @ViewChild("closeDeleteModalButton", { static: false }) private closeDeleteModalButton!: ElementRef;
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
+  
   public data: any;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
 

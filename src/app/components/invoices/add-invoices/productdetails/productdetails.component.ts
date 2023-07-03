@@ -7,22 +7,6 @@ import { TAXES } from 'src/app/types/taxes';
 import { CURRENCY } from 'src/app/types/currency';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
-@Component({
-  selector: 'app-other-component',
-  template: `
-    <div>
-      <h1>Currency Data</h1>
-      <ul>
-        <li *ngFor="let currency of currencies">
-          {{ currency.name }} ({{ currency.code }}) - {{ currency.symbol }}
-        </li>
-      </ul>
-    </div>
-  `
-})
-export class OtherComponent {
-  currencies = CURRENCY;
-}
 
 @Component({
   selector: 'app-productdetails',
@@ -33,10 +17,8 @@ export class OtherComponent {
 })
 export class ProductdetailsComponent implements OnInit {
   showTaxHeaders: boolean = true;
-  public taxRate: any;
   public taxes: string[] = Object.values(TAXES);
   public tax: TAXES = TAXES.GST;
-  public quantity!: number;
   public rate!: number;
   public amount!: number;
   public HSN_SAC: any;
@@ -44,40 +26,35 @@ export class ProductdetailsComponent implements OnInit {
   public description!: "";
   public editor: any = ClassicEditor;
   public data: any = `<p> Enter description here </p>`;
-  public serialNumber: number = 1;
-  public showDescriptionBox: boolean = false;
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
   public taxAmountData: any;
-  public inputamountData: any;
-  public eventamount!: any;
   public selectedTaxRate: TAXES = TAXES.NONE;
   public selectedCurrency: any;
-  public TotalAmount: any;
   public selectedTaxRateValue: number = 0;
   public currencies = CURRENCY;
   public inputcurrency: any;
-
+  public taxamount: any;
 
   constructor(public clientService: ClientService,
-    public addinvoiceService: AddInvoicesService, 
-    public invoiceService : InvoiceService
+    public addinvoiceService: AddInvoicesService,
+    public invoiceService: InvoiceService
   ) { }
 
 
   ngOnInit(): void {
     this.addinvoiceService.recieveProductRows().subscribe((res: any) => {
       this.productRows = res;
-      console.log(this.productRows, "productdetails//////")
-    })
+    });
+
     if (this.productRows.length > 0) {
       const firstProduct = this.productRows[0];
       this.name = firstProduct.name;
       this.HSN_SAC = firstProduct.HSN_SAC;
       this.amount = firstProduct.amount;
       this.rate = firstProduct.rate;
-      this.selectedTaxRateValue = firstProduct.selectedTaxRateValue;
-      // this.total = firstProduct.total;
+      this.taxamount = firstProduct.taxamount;
+      this.description = firstProduct.description;
     }
 
     this.addDescriptionDefault;
@@ -106,30 +83,35 @@ export class ProductdetailsComponent implements OnInit {
     const newRow = {
       HSN_SAC: '',
       amount: '',
-      tax: '',
       rate: '',
+      taxamount: '',
       total: '',
+      description: ''
     };
     this.productRows.push(newRow);
+    const newIndex = this.productRows.length - 1;
+    this.onProductValueChange(newIndex);
   }
 
+
   addDescription(index: number) {
-    console.log(index, "adddescription");
     this.productRows[index].showDescriptionBox = !this.productRows[index].showDescriptionBox;
   }
 
-  removeRow(rowIndex: number) {
-    if (this.productRows.length > 1) {
-      this.productRows.splice(rowIndex, 1);
+  removeRow(rowIndex: any) {
+    const rows = [...this.productRows];
+    if (rows.length > 1) {
+      rows.splice(rowIndex, 1);
+      this.productRows = rows;
     }
+    this.addinvoiceService.sendProductChanges(rows);
   }
+
 
 
 
   onTaxRateChange() {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
-    console.log(this.selectedTaxRate, "Tax Rate value");
-    
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {
       this.onProductValueChange(index);
@@ -153,7 +135,7 @@ export class ProductdetailsComponent implements OnInit {
       if (selectedAmount > 0) {
         const selectedTaxAmount = this.selectedTaxRateValue;
         const rate = (selectedTaxAmount * selectedAmount) / 100;
-        rows[i].rate = rate;
+        rows[i].rate = parseFloat(rate.toFixed(2));
         const taxAmount = (selectedAmount * selectedTaxAmount) / 100;
         const roundedTaxAmount = taxAmount.toFixed(2);
         rows[i].total = (selectedAmount + taxAmount).toFixed(2);

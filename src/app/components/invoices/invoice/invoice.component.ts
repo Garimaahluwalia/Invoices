@@ -49,12 +49,12 @@ export class InvoiceComponent implements OnInit {
     // <-- pagination 
     this.invoiceService.totalNumberOfInvoices.subscribe((data: number) => {
       this.totalItems = data;
-      // console.log(this.totalItems, "TotalItemsnumberfromInvoice")
+      
     });
     
     this.invoiceService.recieveInvoices().subscribe((data: any) => {
       this.invoices = data;
-      // console.log(this.totalItems, "TotalItemsnumberfromInvoice")
+     
     });
     // pagination --> 
   }

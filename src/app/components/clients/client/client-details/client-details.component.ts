@@ -16,6 +16,7 @@ export class ClientDetailsComponent implements OnInit {
   public clients_details: any[] = [];
   public selectedClient: any;
   public clientId: string = '';
+
   constructor(
     public router: Router,
     public modalService: ModalService,
@@ -39,7 +40,6 @@ export class ClientDetailsComponent implements OnInit {
 
   onClientChange() {
     this.selectedClient = this.clients_details.find((client) => client._id === this.clientId);
-    console.log("Changed", this.clientId, this.selectedClient);
   }
 
   addClients() {

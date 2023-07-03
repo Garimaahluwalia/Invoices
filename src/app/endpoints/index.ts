@@ -1,5 +1,4 @@
 import { environment } from "src/environments/environment.development";
-import { CLIENTS } from "../constants/routes";
 
 const endpoints = {
   LOGIN: `${environment.BASE_URL}/login`,

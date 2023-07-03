@@ -22,7 +22,6 @@ import { CompanyaddressComponent } from './components/invoices/add-invoices/comp
 import { ProductdetailsComponent } from './components/invoices/add-invoices/productdetails/productdetails.component';
 import { PaymentdetailsComponent } from './components/invoices/add-invoices/paymentdetails/paymentdetails.component';
 import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
-import { AddinvoicethemeComponent } from './components/invoices/addinvoicetheme/addinvoicetheme.component';
 import { AuthInterceptor } from './interceptors/intercept';
 import { CommonModule } from '@angular/common';
 import { ClientComponent } from './components/clients/client/client.component';
@@ -96,7 +95,6 @@ const customNotifierOptions: NotifierOptions = {
     ProductdetailsComponent,
     PaymentdetailsComponent,
     InvoiceListDetailsComponent,
-    AddinvoicethemeComponent,
     ClientComponent,
     AddClientComponent,
     DeleteComponent,

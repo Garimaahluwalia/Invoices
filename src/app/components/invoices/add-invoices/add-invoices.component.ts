@@ -17,55 +17,6 @@ export class AddInvoicesComponent implements OnInit {
   public taxesType: any
   public ProductData: any
   private readonly notifier!: NotifierService;
-  public APIpayload: any = {
-    "invoiceNo": "6",
-    "company": {
-      "Businessname": "ABC Company",
-      "address": "123 Main St",
-      "GSTIN": "ABC123",
-      "pan": "XYZ456",
-      "postalCode": "12345",
-      "emailaddress": "mailto:info@abccompany.com",
-      "website": "https://www.abccompany.com",
-      "contactNo": "1234567890"
-    },
-    "products": [
-      {
-        "name": "Product 1",
-        "description": "Description of Product 1",
-        "amount": 10,
-        "rate": 5,
-        "total": 50,
-        "HSN_SAC": "123456",
-        "taxamount": "13%"
-      },
-      {
-        "name": "Product 2",
-        "description": "Description of Product 2",
-        "amount": 5,
-        "rate": 10,
-        "total": 50,
-        "HSN_SAC": "789012",
-        "taxamount": "18%"
-      }
-    ],
-    "currency": ["USD"],
-    "tax": "IGST",
-    "client": "64953f8346ca26451aa6629b",
-    "InvoiceId": "123456",
-    "Email": "mailto:john.doe@example.com",
-    "Date": "2023-06-23",
-    "Billed": 1,
-    "Status": "paid",
-    "bankDetails": {
-      "accountHolderName": "John Doe",
-      "bankName": "ABC Bank",
-      "accountNumber": "1234567890",
-      "ifscCode": "ABC123",
-      "swiftCode": "SWIFT123",
-      "bank": "ABC Bank Ltd."
-    }
-  }
   private invoiceId: string | null = null;
   public updatedInvoiceNumber: any;
   public updateInvoiceData: any;
@@ -92,18 +43,16 @@ export class AddInvoicesComponent implements OnInit {
 
 
     this.invoiceService.invoiceEmitter.subscribe((res) => {
-      console.log(res, "Responseofemitter0000000000 ")
+      console.log(res, "Responseofemitter")
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
-      
+
       this.addInvoiceService.sendProductChanges(res.products);
       console.log(this.ProductData, "productData event emitter");
-      
-      this.clientService.sendTaxName(res.taxesType);
       this.clientService.sendClientDetails(res.client);
 
       this.updateInvoiceData = res;
-      console.log(this.updateInvoiceData, "UPDATEINVOICEDATA")
+   
 
 
       this.InvoiceForm.form?.patchValue({
@@ -111,34 +60,36 @@ export class AddInvoicesComponent implements OnInit {
           "invoiceNo": res.invoiceNo,
           "date": "2023-06-28"
         },
-        // "company": {
-        //   "Businessname": "M CODE INFOSOFT",
-        //   "address": "#60., 1st Floor, Zirakpur, Punjab, india 140603",
-        //   "GSTIN": "03DQCPK3553H1Z3",
-        //   "pan": "DQCPK3553H",
-        //   "postalCode": "12345",
-        //   "emailaddress": "info@mcodeinfosoft.com",
-        //   "contactNo": "123-456-7890"
-        // },
-        // "client_id": "64991808f711f7bc26179a6f",
-        // "tax": "GST",
+        /* "company": {
+          "Businessname": "M CODE INFOSOFT",
+          "address": "#60., 1st Floor, Zirakpur, Punjab, india 140603",
+          "GSTIN": "03DQCPK3553H1Z3",
+          "pan": "DQCPK3553H",
+          "postalCode": "12345",
+          "emailaddress": "info@mcodeinfosoft.com",
+          "contactNo": "123-456-7890"
+        },
+        
+        "client_id": "64991808f711f7bc26179a6f", */
+        "currency": res.currency,
+        "tax": res.tax,
         // "products": {
-        //   "item0": {
-        //     "name": "djs",
+        //    "item0": {
+        //      "name": "res",
         //     "HSN_SAC": "",
-        //     "amount": 11,
-        //     "rate": 0.019799999999999998,
+        //      "amount": 11,
+        //      "rate": 0.019799999999999998,
         //     "taxamount": 0.18,
         //     "total": "11.02"
         //   }
         // },
         // "bankDetails": {
         //   "accountHolderName": "M CODE INFOSOFT",
-        //   "accountNumber": "098878776809454",
-        //   "ifscCode": "ICICINBBCTS",
+        //    "accountNumber": "098878776809454",
+        //    "ifscCode": "ICICINBBCTS",
         //   "swiftCode": "9898BHBZA23",
-        //   "bank": "ICICI Bank Ltd."
-        // }
+        //    "bank": "ICICI Bank Ltd."
+        //  } 
       });
     });
   }
@@ -158,7 +109,6 @@ export class AddInvoicesComponent implements OnInit {
     this.addInvoiceService.addInvoice(payload).subscribe(
       (res: any) => {
         this.Invoices = res;
-        console.log(this.Invoices, "Add-Invoices, API response");
         this.notifier.notify('success', 'Invoice saved successfully');
         this.router.navigateByUrl("/invoice");
       },
@@ -170,11 +120,10 @@ export class AddInvoicesComponent implements OnInit {
 
   updateInvoice(payload: any) {
     const invoiceId = payload._id;
-    this.invoiceService.updateInvoice(invoiceId, payload).subscribe(
+    this.invoiceService.updateInvoice( payload).subscribe(
       (res: any) => {
-        console.log(res, "updateInvoice")
         this.Invoices = res;
-        console.log(this.Invoices, "Updated Invoice, API response");
+        console.log(this.Invoices, "update response")
         this.notifier.notify('success', 'Invoice updated successfully');
         this.router.navigateByUrl("/invoice");
       },

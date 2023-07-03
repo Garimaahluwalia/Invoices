@@ -22,8 +22,7 @@ export class MainInvoiceComponent implements OnInit {
   ngOnInit() {
     this.loginService.getDashboardCounts().subscribe((res) => {
       this.DashboardCount = res;
-      // console.log(this.DashboardCount, "DashBoardCountData")
     })
   }
-  
+
 }

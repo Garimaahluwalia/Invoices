@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import endpoints from 'src/app/endpoints';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
-import { Invoice } from 'src/app/types/invoice';
-import { numberToWords } from "src/app/common/numberToWords";
-
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -17,16 +13,12 @@ export class InvoiceListDetailsComponent implements OnInit {
   public filteredProducts: any[] = [];
   public invoicelist: any[] = [];
   public _id!: string;
-  public taxName: any
-  public invoicesFilter: any[] = [];
   public matchedInvoice: any;
-  public taxAmountData: any;
-  public totalAmount: any;
-  public totalrate: any;
+  public totalOfrateFromProduct: any;
   public totalAmountInWords!: string;
-  public totalofAmount = 0;
-  public totalTaxAmount = 0;
-
+  public totalOfAllItemsFromProduct: any;
+  public totalOfAmountFromProduct: any;
+  public data: any;
 
 
 
@@ -36,20 +28,23 @@ export class InvoiceListDetailsComponent implements OnInit {
     public router: ActivatedRoute,
     public clientService: ClientService,
     public addinvoiceService: AddInvoicesService
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
-    // this.addinvoiceService.rec
-
+    this.getInvoiceById();
     this.router.params.subscribe(params => {
       this._id = params['id'];
-      console.log(this._id, "invoiceid")
       this.ViewInvoices();
     });
-
   }
 
+
+  getInvoiceById() {
+    this.invoiceService.getInvoice(this._id).subscribe((res) => {
+      this.data = res;
+    })
+  }
 
   ViewInvoices() {
     this.invoiceService.getAllInvoice().subscribe((res: any) => {
@@ -61,31 +56,9 @@ export class InvoiceListDetailsComponent implements OnInit {
       } else {
         this.filteredProducts = [];
       }
-
-      let totalofAmount = 0;
-      let totalTaxAmount = 0;
-
-
-      for (const product of this.filteredProducts) {
-        totalofAmount += product.amount;
-        totalTaxAmount += parseFloat(product.rate);
-      }
-
-
-      this.totalofAmount = Number(totalofAmount.toFixed(2));
-      this.totalTaxAmount = Number(totalTaxAmount.toFixed(2));
-      this.totalAmountInWords = this.totalofAmount ? numberToWords(this.totalofAmount.toString()) : "";
-      console.log(this.totalAmountInWords, "Amount In Words");
-      console.log(this.totalofAmount, "Total of Amount");
-      console.log(this.totalTaxAmount, "Total Tax Amount");
-      console.log(this.filteredProducts, "Filtered Products Array");
-
-
+      this.totalOfAllItemsFromProduct = parseFloat(this.filteredProducts.reduce((acc, row) => acc + parseFloat(row.total), 0)).toFixed(2);
+      this.totalOfAmountFromProduct = this.filteredProducts.reduce((acc, row) => acc + parseInt(row.amount), 0);
+      this.totalOfrateFromProduct = parseFloat(this.filteredProducts.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
     });
   }
-
-
-
-
-
 }

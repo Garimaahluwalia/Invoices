@@ -4,6 +4,7 @@ import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { IbankDetails } from 'src/app/types/invoice';
 import { numberToWords } from "src/app/common/numberToWords";
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
 @Component({
   selector: 'app-paymentdetails',
@@ -25,25 +26,40 @@ export class PaymentdetailsComponent implements OnInit {
   public totalTotalAmount: any;
   public AmountInWords: any;
   public totalAmountInWords!: string;
+  public totalOfAllItemsFromProduct: any;
+  public totalOfAmountFromProduct: any;
+  public taxamount: any;
+  public GetInvoiceAndEmit: any;
 
-
-  constructor(public clientService: ClientService, public addinvoiceService: AddInvoicesService) { }
+  constructor(public clientService: ClientService,
+    public addinvoiceService: AddInvoicesService,
+    public invoiceService: InvoiceService) { }
   ngOnInit(): void {
+
+    // this.invoiceService.invoiceEmitter.subscribe((res:any) => {
+    //   this.GetInvoiceAndEmit = res;
+    //   console.log(this.GetInvoiceAndEmit, "GetInvoiceandemit");
+    // })
+
+
 
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
       this.productRows = res;
+
       if (res.length > 0) {
         const firstElement = res[0];
         this.amount = firstElement.amount;
         this.tax = firstElement.tax;
         this.rate = firstElement.rate;
+        this.taxamount = firstElement.taxamount;
         this.total = firstElement.total;
         if (this.productRows.length > 0) {
-          this.totalAmount = parseFloat(this.productRows.reduce((total: any, row: { amount: any; }) => total + row.amount, 0)).toFixed(2);
-          this.totalrate = parseFloat(this.productRows.reduce((total: any, row: { rate: any }) => total + parseFloat(row.rate), 0)).toFixed(2);
-          this.totalTotalAmount = parseFloat(this.productRows.reduce((total: number, row: { total: string; }) => total + parseFloat(row.total), 0)).toFixed(2);
-          this.totalAmountInWords = parseFloat(this.totalTotalAmount) ? numberToWords(this.totalTotalAmount) : (parseFloat(this.totalAmount) ? numberToWords(this.totalAmount) : "");
-          console.log(this.totalAmountInWords, "AmountInWords")
+          this.totalOfAllItemsFromProduct = this.productRows.reduce((acc, row) => acc + parseFloat(row.total), 0).toFixed(2);
+          this.totalOfAmountFromProduct = this.productRows.reduce((acc, row) => acc + row.amount, 0);
+          this.totalrate = this.productRows.reduce((total, row) => total + parseFloat(row.rate), 0);
+          this.totalAmountInWords = !isNaN(parseFloat(this.totalOfAllItemsFromProduct)) ? numberToWords(this.totalOfAllItemsFromProduct) : (parseFloat(this.totalOfAmountFromProduct) ? numberToWords(this.totalOfAmountFromProduct) : "");
+
+
           if (isNaN(this.totalAmount)) {
             this.totalAmount = "0.00";
           }
@@ -53,7 +69,8 @@ export class PaymentdetailsComponent implements OnInit {
           if (isNaN(this.totalTotalAmount)) {
             this.totalTotalAmount = "0.00";
           }
-        } else {
+        }
+        else {
           this.totalAmount = 0;
           this.totalTotalAmount = 0;
         }

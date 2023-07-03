@@ -18,7 +18,11 @@ export class ClientComponent implements OnInit {
   public showModal = false;
   public clients: any[] = [];
   public inputsDisabled = false;
-  constructor(public clientService: ClientService, public router: Router, public modalService: ModalService, public deleteService: DeleteService) { }
+
+  constructor(public clientService: ClientService,
+    public router: Router,
+    public modalService: ModalService,
+    public deleteService: DeleteService) { }
 
   ngOnInit(): void {
     this.itemsPerPage = this.clientService.limit;  //pagination
@@ -26,9 +30,7 @@ export class ClientComponent implements OnInit {
 
     this.clientService.recieveClients().subscribe((data: any) => {
       this.clients = data;
-      // console.log(this.clients, "clientsdata")
     });
-
 
     // <-- pagination 
     this.clientService.totalNumberOfClient.subscribe((data: number) => {
@@ -36,8 +38,6 @@ export class ClientComponent implements OnInit {
     });
     // pagination --> 
 
-
-    
     this.deleteService.recieveDeleteEvent(DeleteEvents.CLIENTS)?.subscribe(res => {
       if (res) {
         this.DeleteClients(this.deleteService.selectedId as string);

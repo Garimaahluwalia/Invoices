@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
 
   constructor(public profileService: ProfileService) { }
+  
   ngOnInit(): void {
     this.profileService.addProfile().subscribe((res: any) => {
       this.userProfile = res;
@@ -34,7 +35,6 @@ export class ProfileComponent implements OnInit {
   saveProfile() {
     this.profileService.updateProfile(this.userProfile).subscribe(
       (response) => {
-        console.log(response, "saveProfileResponse");
         this.isEditMode = false;
       },
       (error) => {
@@ -60,9 +60,6 @@ export class ProfileComponent implements OnInit {
   uploadProfilePhoto(file: FormData) {
     this.profileService.uploadProfilePhoto(file).subscribe(
       (response: any) => {
-        console.log(response, "UploadProfilePhotoREsponse");
-
-        console.log(this.profileImage, "profileImage")
       },
       (error) => {
         console.error('Upload error:', error);

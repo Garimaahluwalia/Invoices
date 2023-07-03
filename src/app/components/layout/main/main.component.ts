@@ -8,11 +8,14 @@ import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 })
 export class MainComponent  implements OnInit  {
   public isActiveSideBar:Boolean=false;
+  
   constructor(private sidebaeService:SidebarService) { }
+
+
   ngOnInit(): void {
     this.sidebaeService.isMobile.subscribe((rs)=>{
       this.isActiveSideBar=rs;
-  })
+  });
   }
   
 }

@@ -35,20 +35,20 @@
                                                             #username="ngModel" ngModel id="username"
                                                             placeholder="Enter username">
                                                     </div>
-
                                                     <div class="mb-2">
                                                         <label for="password" class="form-label">Password</label>
                                                         <div class="position-relative auth-pass-inputgroup mb-3">
-                                                            <input type="{{showPassword ? 'text' : 'password' }}" class="form-control form-control-sm" name="password" #password="ngModel" ngModel>
-                                                           
+                                                            <input type="{{showPassword ? 'text' : 'password' }}"
+                                                                class="form-control form-control-sm" name="password"
+                                                                #password="ngModel" ngModel>
+
                                                             <a (click)="togglePassword()" class="eye-b">
-                                                             <i class="{{showPassword ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+                                                                <i
+                                                                    class="{{showPassword ? 'fas fa-eye'  : 'fas fa-eye-slash' }}"></i>
                                                             </a>
-                                                        
+
                                                         </div>
                                                     </div>
-
-
                                                     <div class="form-check form-check-primary fs-16 py-2">
                                                         <input class="form-check-input" type="checkbox"
                                                             id="remember-check">
@@ -61,38 +61,21 @@
                                                             Remember me
                                                         </label>
                                                     </div>
-
                                                     <div class="mt-2">
                                                         <button class="btn btn-primary w-100" type="submit"
                                                             [disabled]="loginForm.invalid">Log In</button>
                                                     </div>
-
-                                              
-
-                                                    <!-- <div class="mt-4 text-center">
-                                                        <p class="mb-0">Don't have an account ? <a href="/signup"
-                                                                class="fw-medium text-primary text-decoration-underline">
-                                                                Signup now </a> </p>
-                                                    </div> -->
                                                 </form>
                                             </div>
-
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
-                            <!-- end card -->
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end col -->
         </div>
-        <!-- end row -->
     </div>
-    <!-- end container -->
 </div>
 <notifier-container></notifier-container>

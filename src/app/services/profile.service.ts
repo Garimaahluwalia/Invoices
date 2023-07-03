@@ -21,19 +21,15 @@ export class ProfileService {
     return this._userProfile;
   }
 
-
-
   uploadProfilePhoto(file: FormData): Observable<any> {
     console.log(endpoints.PROFILE.UPLOAD_PROFILE, file)
     return this.http.post<any>(endpoints.PROFILE.UPLOAD_PROFILE, file);
   }
 
-
   addProfile(): Observable<any> {
     return this.http.get<any>(endpoints.PROFILE.ADD);
   }
 
-  
   updateProfile(updatedProfile: any) {
     return this.http.put(endpoints.PROFILE.UPDATE, updatedProfile);
   }

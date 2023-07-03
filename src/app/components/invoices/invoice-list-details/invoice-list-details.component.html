@@ -128,13 +128,13 @@
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none;  font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Amount </th>
                                 <th
-                                *ngIf="totalofAmount && totalTaxAmount"  style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     {{details.tax}} </th>
                                 <th
-                                *ngIf="totalofAmount && totalTaxAmount"   style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                  style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Rate </th>
                                 <th
-                                *ngIf="totalofAmount && totalTaxAmount"  style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Total </th>
                             </tr>
                         </thead>
@@ -159,7 +159,7 @@
                                 </td>
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{ details.rate }}
+                                    {{ details.rate.toFixed(2) }}
                                 </td>
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
@@ -195,13 +195,13 @@
                                         <span
                                             style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">Amount</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{this.totalofAmount}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{totalOfAmountFromProduct}}</span>
                                     </div>
                                     <div style="padding-bottom: 10px; float: left; width: 100%;">
                                         <span
-                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;" *ngIf="totalofAmount && totalTaxAmount">{{details.tax}}</span>
+                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;" >{{details.tax}}</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;"*ngIf="totalofAmount && totalTaxAmount" >{{totalTaxAmount}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;" >{{totalOfrateFromProduct}}</span>
                                     </div>
                                     <div
                                         style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
@@ -209,7 +209,7 @@
                                             style="font-size: 16px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total
                                             ({{details.currency}})</span>
                                         <span
-                                            style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{details.totalAmount}}</span>
+                                            style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{totalOfAllItemsFromProduct}}</span>
                                     </div>
                                     <div style="padding-top: 30px; float: left; width: 100%;">
                                         <p

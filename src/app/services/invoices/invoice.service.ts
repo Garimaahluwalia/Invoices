@@ -70,7 +70,7 @@ export class InvoiceService {
     try {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
       this.forupdateinvoicedata = rs;
-      console.log(this.forupdateinvoicedata, "forupdatedinvoiceData");
+      // console.log(this.forupdateinvoicedata, "forupdatedinvoiceData");
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
       console.error(e);
@@ -89,6 +89,8 @@ export class InvoiceService {
     this._invoices.push(data);
     this.sendInvoices();
   }
+
+
   updateClient(data: IInvoiceResponse, invoiceId: number) {
     const invoiceData = [...this._invoices];
     invoiceData.splice(invoiceId, 1, data);
@@ -110,10 +112,16 @@ export class InvoiceService {
   deleteInvoices(invoiceId: string) {
     return this.http.delete(endpoints.INVOICES_LIST.DELETE(invoiceId));
   }
-  updateInvoice(invoiceId: string, payload: any): Observable<any> {
-    const url = `${endpoints.INVOICES_LIST.UPDATE}/${invoiceId}`;
-    return this.http.put<any>(url, payload);
+
+  updateInvoice(invoiceId: string) {
+    const url = endpoints.INVOICES_LIST.UPDATE(invoiceId);
+    return this.http.put(url, { invoiceId });
   }
+  // updateInvoice( payload: any): Observable<any> {
+  //   const url = `${endpoints.INVOICES_LIST.UPDATE}`;
+  //   console.log(url, "UpdateURl")
+  //   return this.http.put<any>(url, payload);
+  // }
 
   updateInvoiceStatus(invoiceId: string): Observable<any> {
     const url = `${endpoints.INVOICES_LIST.UPDATE_STATUS}/${invoiceId}`;

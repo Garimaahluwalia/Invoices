@@ -18,7 +18,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef;
   countries: { name: string, code: string }[] = [];
   public country!: string;
-  public invoiceView: any;
   public name !: string;
   public email!: string;
   public phoneNumber!: string;
@@ -33,7 +32,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   public street!: string;
   public emailadress!: string
   public phone!: number;
-  public tax!: number;
   public _id!: string;
   public user_id!: string;
   private invoice: boolean = false;
@@ -44,9 +42,15 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(public router: Router, private cdr: ChangeDetectorRef, public modalService: ModalService, public clientService: ClientService, public notifierService: NotifierService) {
+  constructor(public router: Router,
+    private cdr: ChangeDetectorRef,
+    public modalService: ModalService,
+    public clientService: ClientService,
+    public notifierService: NotifierService) {
     this.notifier = notifierService;
   }
+
+
   ngOnInit(): void {
     this.fetchCountries();
 
@@ -54,10 +58,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
-      // console.log(res, "recived event modal")
       const { status, data, invoice, disabled } = res;
       this.data = data;
-      // console.log(res, "adduser");
       this.invoice = data?.invoice || false;
       this.disabledInput = data?.disabled || false;
 
@@ -77,8 +79,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.street = data?.street || '';
       this.gstin = data?.gstin || '';
       this.pan = data?.pan || '';
-      // this._id = data?._id || '';
-      // this.user_id = data?.user_id || ''
+      this._id = data?._id || '';
+      this.user_id = data?.user_id || ''
 
     });
     this.cdr.detectChanges();
@@ -104,6 +106,11 @@ export class AddClientComponent implements OnInit, OnDestroy {
       });
   }
 
+  openModal() {
+    this.openModalButton?.nativeElement.click();
+    this.setData();
+  }
+
   closeModal() {
     this.closeModalButton?.nativeElement.click();
     if (this.router.url.includes("clients")) {
@@ -116,10 +123,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
 
-  openModal() {
-    this.openModalButton?.nativeElement.click();
-    this.setData();
-  }
   setData() {
     if (this.data?.edit) {
       this.name = this.data.name;
@@ -129,19 +132,17 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.address = this.data.address,
         this.gstin = this.gstin,
         this.pan = this.pan
-      // this._id = this._id,
-      // this.user_id = this.user_id
+      this._id = this._id,
+        this.user_id = this.user_id
     }
   }
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
-    // console.log(address, "The Data of address");
     let newData = {
-      _id: this._id, user_id: this.user_id,
-      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, gstin: this.gstin, pan: this.pan,
+      _id: this._id, user_id: this.user_id, name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, gstin: this.gstin, pan: this.pan,
       country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone,
     }
-    // console.log(newData, "FormData");
+
     if (this.data?.edit) {
       this.updateClient(newData);
       this.notifier.notify('success', 'Client updated successfully');
@@ -170,7 +171,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   addClient(newData: any) {
     this.clientService.sendPost(newData).subscribe((res: IClients) => {
       this.clientService.sendClientDetails(res);
-      console.log(res, "add-client responses")
       this.closeModal();
     }, (err: any) => {
       console.error(err);

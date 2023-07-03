@@ -11,9 +11,10 @@ import { DatePipe } from '@angular/common';
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class InvoicedataComponent implements OnInit {
-  public defaultDate: any;
   @Input() invoice!: { [key: string]: string | number }
+  public defaultDate: any;
   public InvoiceNumber!: any;
+  
   constructor(
     public invoiceService: InvoiceService,
     private datePipe: DatePipe
@@ -31,7 +32,6 @@ export class InvoicedataComponent implements OnInit {
   getInvoiceNumber() {
     this.invoiceService.getInvoiceNumber().subscribe((res: any) => {
       this.InvoiceNumber = res.invoiceNumber;
-      // console.log(this.InvoiceNumber, "Invoice Number from API");
     });
   }
 

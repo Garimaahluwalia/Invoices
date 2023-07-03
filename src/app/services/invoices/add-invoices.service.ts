@@ -52,7 +52,6 @@ export class AddInvoicesService {
     return this._productRowsChanges.asObservable();
   }
 
-
   sendCurrency(data: any) {
     this._currency.emit(data);
   }

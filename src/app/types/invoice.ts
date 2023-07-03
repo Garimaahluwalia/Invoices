@@ -113,6 +113,13 @@ export class Invoice implements IInvoice {
       return this._company;
    }
 
+   set currency(value: any) {
+      this._currency = value;
+   }
+   get currency(): any {
+      return this._currency;
+   }
+
    set tax(value: TAXES) {
       this._tax = value;
       console.log(value,);
@@ -156,6 +163,7 @@ export class Invoice implements IInvoice {
       this.setCompany(values["company"] as unknown as ICompany);
       this.setbankDetails(values["bankDetails"] as unknown as IbankDetails);
       this.tax = values['tax'] as TAXES;
+      this.currency = values['currency'] as string;
       this.client_id = values['client_id'] as string;
       this.setProducts(values["products"] as unknown as { [key: string]: any });
    }
@@ -166,6 +174,7 @@ export class Invoice implements IInvoice {
          "invoiceNo": this.invoiceNo.invoiceNo,
          "company": this._company,
          "tax": this._tax,
+         "currency" : this._currency,
          "date": this.invoiceNo.date,
          "client_id": this.client_id,
          "products": this._products,

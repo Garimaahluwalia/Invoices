@@ -22,7 +22,7 @@
                                         <div class="p-lg-5 p-4">
                                             <div class="text-center">
                                                 <h5 class="mb-0">Create New Account</h5>
-                                                <!-- <p class="text-muted mt-2">Get your free Invoika account now</p> -->
+                                               
                                             </div>
 
                                             <form class="mb-3" #signupForm="ngForm" (ngSubmit)="submit(signupForm)">
@@ -78,7 +78,7 @@
                                                             placeholder="Enter password"
                                                             pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$" required>
 
-                                                        <!-- Error message for pattern mismatch -->
+                                                    
                                                         <div
                                                             *ngIf="passwordValidation.invalid && (passwordValidation.dirty || passwordValidation.touched)">
                                                             <div *ngIf="passwordValidation.errors?.['pattern']">
@@ -120,15 +120,10 @@
 
                                 </div>
                             </div>
-                            <!-- end card -->
-
                         </div>
                     </div>
                 </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
         </div>
-        <!-- end container -->
     </div>
     <notifier-container></notifier-container>

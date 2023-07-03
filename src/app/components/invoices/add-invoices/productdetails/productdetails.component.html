@@ -12,7 +12,7 @@
 
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Currency</label>
-        <select class="form-control" name="currency" (change)="currencyChange($event)">
+        <select class="form-control" name="currency" [(ngModel)]="selectedCurrency" (change)="currencyChange($event)">
           <option disabled selected>Select a currency</option>
           <option *ngFor="let currency of currencies" [value]="currency.code" [selected]="currency.code === 'USD'">
             {{ currency.name }} ({{ currency.code }}) - {{ currency.symbol }}
@@ -33,7 +33,7 @@
           <th scope="" class="width-10">HSN/SAC</th>
           <th scope="" class="width-10">Amount</th>
           <ng-container *ngIf="selectedTaxRate !== 'NONE'">
-            <th scope="col">{{ selectedTaxRate }}</th>
+            <th scope="col">{{selectedTaxRate}}</th>
             <th scope="col">Rate</th>
             <th scope="col">Total</th>
           </ng-container>
@@ -44,8 +44,8 @@
         <tr *ngFor="let row of productRows; let i = index" class="product" [ngModelGroup]="'item' + i.toString()">
           <td class="text-start">
             <div class="mb-2">
-              <input type="text" ngModel name="name" [(ngModel)]="row.name" (ngModelChange)="onProductValueChange(i)" class="form-control bg-light border-0" placeholder="Item Name"
-                required />
+              <input type="text" ngModel name="name" [(ngModel)]="row.name" (ngModelChange)="onProductValueChange(i)"
+                class="form-control bg-light border-0" placeholder="Item Name" required />
               <div class="invalid-feedback">
                 Please enter a product name
               </div>
@@ -73,16 +73,16 @@
           <ng-container *ngIf="selectedTaxRate !== 'NONE'">
             <td class="text-end">
               <div>
-                <input type="text" ngModel [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"
-                  class="form-control bg-light border-0 product-line-price" value="{{ this.taxRate }}"
+                <input type="number" [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"
+                  class="form-control bg-light border-0 product-line-price" step="0.01"
                   placeholder="{{inputcurrency}}0.00" />
               </div>
             </td>
             <td class="text-end">
               <div>
-                <input type="text" ngModel name="taxamount" [(ngModel)]="selectedTaxRateValue"
+                <input type="number" ngModel name="taxamount" [(ngModel)]="row.taxamount" [(ngModel)]="selectedTaxRateValue"
                   (ngModelChange)="onProductValueChange(i)" class="form-control bg-light border-0 product-line-price"
-                  [placeholder]="inputcurrency + '00.00'" />
+                  step="0.01" [placeholder]="inputcurrency + '00.00'" />
               </div>
             </td>
             <td class="text-end">
@@ -94,7 +94,8 @@
             </td>
           </ng-container>
           <td class="product-removal">
-            <a href="javascript:void(0)" class="btn p-0"  (ngModelChange)="onProductValueChange(i)" (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
+            <a href="javascript:void(0)" class="btn p-0" (ngModelChange)="onProductValueChange(i)"
+              (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
           </td>
         </tr>
       </tbody>

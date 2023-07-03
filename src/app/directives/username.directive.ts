@@ -21,7 +21,7 @@ export class UsernameDirective {
     if (value && value.trim() !== "") {
       return this.signupService.checkUsernameExist({ username: value }).pipe(
         map((res: { [key: string]: boolean | string }) => {
-          if(res && !res?.['data']) {
+          if (res && !res?.['data']) {
             return { isExists: true };
           } else {
             return null;
