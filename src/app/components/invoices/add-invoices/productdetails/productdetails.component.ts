@@ -30,9 +30,9 @@ export class ProductdetailsComponent implements OnInit {
   public productRows: any[] = [];
   public taxAmountData: any;
   public selectedTaxRate: TAXES = TAXES.NONE;
-  public selectedCurrency: any;
+  public selectedCurrency: any; // Currency
   public selectedTaxRateValue: number = 0;
-  public currencies = CURRENCY;
+  public currencies = CURRENCY; // Currency
   public inputcurrency: any;
   public taxamount: any;
 
@@ -45,6 +45,7 @@ export class ProductdetailsComponent implements OnInit {
   ngOnInit(): void {
     this.addinvoiceService.recieveProductRows().subscribe((res: any) => {
       this.productRows = res;
+      console.log(this.productRows, "PRODUCTROWS ///////////")
     });
 
     if (this.productRows.length > 0) {
@@ -66,12 +67,27 @@ export class ProductdetailsComponent implements OnInit {
     });
 
 
+
+    // currency
     this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
       this.inputcurrency = res;
     });
+    
+    // Set the default currency value if it is not already set
     if (!this.inputcurrency || this.inputcurrency === '') {
       this.inputcurrency = '$';
     }
+    
+    //currency
+  }
+
+
+  
+  currencyChange(event: any) {  // Currency
+    this.selectedCurrency = event.target.value;
+    const selectedCurrency = this.currencies.find(currency => currency.code === this.selectedCurrency);
+    const symbol = selectedCurrency ? selectedCurrency.symbol : '$';
+    this.addinvoiceService.sendCurrency(symbol);
   }
 
 
@@ -107,44 +123,46 @@ export class ProductdetailsComponent implements OnInit {
     this.addinvoiceService.sendProductChanges(rows);
   }
 
-
-
-
   onTaxRateChange() {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
+    console.log(this.taxAmountData, "TaxAmountData");
+    console.log("Tax Changed", this.selectedTaxRateValue);
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {
-      this.onProductValueChange(index);
+      this.onProductValueChange(index, this.selectedTaxRateValue);
     });
   }
 
 
-  currencyChange(event: any) {
-    this.selectedCurrency = event.target.value;
-    const selectedCurrency = this.currencies.find(currency => currency.code === this.selectedCurrency);
-    const symbol = selectedCurrency ? selectedCurrency.symbol : '$';
-    this.addinvoiceService.sendCurrency(symbol);
-  }
 
-
-
-  onProductValueChange(i: number) {
-    const rows = [...this.productRows];
+  onProductValueChange(i: number, taxRateChange?: number) {
+    const row = this.productRows[i];
+    console.log(row, "OnProductValueChangeRow");
+  
     if (this.selectedTaxRate !== TAXES.NONE) {
-      const selectedAmount = Number(rows?.[i]?.amount || 0);
+      row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
+      console.log(row.taxamount, "TaxAmount (%)");
+  
+      const selectedAmount = Number(row.amount || 0);
       if (selectedAmount > 0) {
-        const selectedTaxAmount = this.selectedTaxRateValue;
+        const selectedTaxAmount = row.taxamount; // Use the changed tax amount
         const rate = (selectedTaxAmount * selectedAmount) / 100;
-        rows[i].rate = parseFloat(rate.toFixed(2));
+        row.rate = parseFloat(rate.toFixed(2));
         const taxAmount = (selectedAmount * selectedTaxAmount) / 100;
         const roundedTaxAmount = taxAmount.toFixed(2);
-        rows[i].total = (selectedAmount + taxAmount).toFixed(2);
+        row.total = (selectedAmount + taxAmount).toFixed(2);
+      } else {
+        row.rate = '0';
+        row.total = '0';
       }
+    } else {
+      row.rate = '0';
+      row.total = '0';
     }
-    else {
-      rows[i].rate = '0';
-      rows[i].total = '0';
-    }
-    this.addinvoiceService.sendProductChanges(rows);
+  
+    this.addinvoiceService.sendProductChanges(this.productRows);
   }
+  
+
+
 }

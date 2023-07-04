@@ -10,14 +10,24 @@ import { TAXES } from 'src/app/types/taxes';
 })
 
 export class AddInvoicesService {
+  private _productRowsChanges: EventEmitter<any[]> = new EventEmitter<any[]>();
+
   public invoiceData: any;
   private _selectedTax: TAXES = TAXES.GST;
-  private _productRowsChanges: EventEmitter<any[]> = new EventEmitter<any[]>();
   private _currency: EventEmitter<any[]> = new EventEmitter<any[]>();
   private _calculateTaxRate: EventEmitter<any[]> = new EventEmitter<any[]>();
   constructor(public http: HttpClient) { }
   public invoiceListData = [];
-  
+
+
+  sendProductChanges(data: any[]): void {
+    this._productRowsChanges.emit(data);
+  }
+
+  recieveProductRows(): Observable<any> {
+    return this._productRowsChanges.asObservable();
+  }
+
 
   get selectedTax(): TAXES {
     return this._selectedTax;
@@ -44,13 +54,6 @@ export class AddInvoicesService {
     return this.http.get<{ success: boolean, message: string, result: any }>(endpoints.INVOICES_LIST.GET_TAX_AMOUNT);
   }
 
-  sendProductChanges(data: any[]): void {
-    this._productRowsChanges.emit(data);
-  }
-
-  recieveProductRows(): Observable<any> {
-    return this._productRowsChanges.asObservable();
-  }
 
   sendCurrency(data: any) {
     this._currency.emit(data);

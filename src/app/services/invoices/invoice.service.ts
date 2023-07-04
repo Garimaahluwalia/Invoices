@@ -4,6 +4,7 @@ import { IInvoice, IInvoiceResponse, Invoice } from 'src/app/types/invoice';
 import { Observable } from 'rxjs/internal/Observable';
 import endpoints from 'src/app/endpoints';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +71,6 @@ export class InvoiceService {
     try {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
       this.forupdateinvoicedata = rs;
-      // console.log(this.forupdateinvoicedata, "forupdatedinvoiceData");
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
       console.error(e);
@@ -109,19 +109,15 @@ export class InvoiceService {
   getInvoice(invoiceId: string): Observable<any> {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
+
   deleteInvoices(invoiceId: string) {
     return this.http.delete(endpoints.INVOICES_LIST.DELETE(invoiceId));
   }
 
-  updateInvoice(invoiceId: string) {
-    const url = endpoints.INVOICES_LIST.UPDATE(invoiceId);
-    return this.http.put(url, { invoiceId });
+  updateInvoice(invoiceId: string, data:{[key: string]: any}) {
+    console.log(invoiceId);
+    return this.http.put(endpoints.INVOICES_LIST.UPDATE(invoiceId), data);
   }
-  // updateInvoice( payload: any): Observable<any> {
-  //   const url = `${endpoints.INVOICES_LIST.UPDATE}`;
-  //   console.log(url, "UpdateURl")
-  //   return this.http.put<any>(url, payload);
-  // }
 
   updateInvoiceStatus(invoiceId: string): Observable<any> {
     const url = `${endpoints.INVOICES_LIST.UPDATE_STATUS}/${invoiceId}`;

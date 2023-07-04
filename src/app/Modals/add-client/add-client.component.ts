@@ -79,8 +79,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.street = data?.street || '';
       this.gstin = data?.gstin || '';
       this.pan = data?.pan || '';
-      this._id = data?._id || '';
-      this.user_id = data?.user_id || ''
+      // this._id = data?._id || '';
+      // this.user_id = data?.user_id || ''
 
     });
     this.cdr.detectChanges();
@@ -132,8 +132,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.address = this.data.address,
         this.gstin = this.gstin,
         this.pan = this.pan
-      this._id = this._id,
-        this.user_id = this.user_id
+      // this._id = this._id,
+      //   this.user_id = this.user_id
     }
   }
   saveChanges() {

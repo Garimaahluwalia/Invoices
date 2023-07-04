@@ -58,7 +58,7 @@ export class Invoice implements IInvoice {
    private _company!: ICompany;
    public _products!: IProducts[];
    public _id?: string;
-   public InvoiceId?: string;
+   public _invoiceId?: string;
    public Email?: string;
    public Client?: string;
    public Date?: Date;
@@ -78,13 +78,13 @@ export class Invoice implements IInvoice {
          date: date
       };
    }
-   setbankDetails({accountHolderName  , accountNumber , ifscCode , swiftCode , bank} : IbankDetails){
+   setbankDetails({ accountHolderName, accountNumber, ifscCode, swiftCode, bank }: IbankDetails) {
       this.bankDetails = {
-         accountHolderName : accountHolderName,
-         accountNumber : accountNumber,
-         ifscCode : ifscCode,
-         swiftCode : swiftCode ,
-         bank : bank
+         accountHolderName: accountHolderName,
+         accountNumber: accountNumber,
+         ifscCode: ifscCode,
+         swiftCode: swiftCode,
+         bank: bank
       }
    }
    set bankDetails(value: IbankDetails) {
@@ -138,17 +138,25 @@ export class Invoice implements IInvoice {
       return this._client_id;
    }
 
+   set invoiceId(value: string | undefined) {
+      this._invoiceId = value;
+
+   }
+   get invoiceId(): string | undefined {
+      return this._invoiceId;
+   }
+
    setProducts(products: any) {
       const product = [];
       if (products && typeof products === 'object') {
-        const keys = Object.keys(products);
-        for (const key of keys) {
-          product.push(products[key]);
-        }
+         const keys = Object.keys(products);
+         for (const key of keys) {
+            product.push(products[key]);
+         }
       }
       this._products = product;
-    }
-    
+   }
+
 
    set products(value: IProducts[]) {
       this._products = value;
@@ -170,17 +178,18 @@ export class Invoice implements IInvoice {
 
 
    getPayload() {
+      console.log(this);
       return {
          "invoiceNo": this.invoiceNo.invoiceNo,
          "company": this._company,
          "tax": this._tax,
-         "currency" : this._currency,
+         "currency": this._currency,
          "date": this.invoiceNo.date,
          "client_id": this.client_id,
          "products": this._products,
          "bankDetails": this._bankDetails
       };
    }
-   
+
 
 }

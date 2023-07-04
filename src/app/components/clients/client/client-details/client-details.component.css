@@ -52,3 +52,18 @@
     height: 53px;
     background-color: transparent;
 }
+
+.clients-details[_ngcontent-kac-c17] button[_ngcontent-kac-c17] {
+    padding: 8px 35px;
+    background-color: #bb1b1f !important;
+    background-color: #e12026;
+    border-color: #e12026;
+}
+
+button.btn.btn-primary.newclients {
+    background-color: #bb1b1f !important;
+    border-color: #bb1b1f !important;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 18px;
+}

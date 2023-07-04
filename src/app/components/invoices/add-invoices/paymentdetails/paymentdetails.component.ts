@@ -58,21 +58,6 @@ export class PaymentdetailsComponent implements OnInit {
           this.totalOfAmountFromProduct = this.productRows.reduce((acc, row) => acc + row.amount, 0);
           this.totalrate = this.productRows.reduce((total, row) => total + parseFloat(row.rate), 0);
           this.totalAmountInWords = !isNaN(parseFloat(this.totalOfAllItemsFromProduct)) ? numberToWords(this.totalOfAllItemsFromProduct) : (parseFloat(this.totalOfAmountFromProduct) ? numberToWords(this.totalOfAmountFromProduct) : "");
-
-
-          if (isNaN(this.totalAmount)) {
-            this.totalAmount = "0.00";
-          }
-          if (isNaN(this.totalrate)) {
-            this.totalrate = "0.00";
-          }
-          if (isNaN(this.totalTotalAmount)) {
-            this.totalTotalAmount = "0.00";
-          }
-        }
-        else {
-          this.totalAmount = 0;
-          this.totalTotalAmount = 0;
         }
       }
     });
@@ -84,16 +69,9 @@ export class PaymentdetailsComponent implements OnInit {
     if (!this.currency || this.currency === '') {
       this.currency = '$';
     }
-
-    this.clientService.recieveTaxName().subscribe((res: any) => {
-      this.tax = res;
-
-    });
-
-    this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
-      this.currency = res;
-
-    });
+      this.invoiceService.invoiceEmitter.subscribe((res:any) => {
+        this.currency = res.currency;
+      })
   }
 
 

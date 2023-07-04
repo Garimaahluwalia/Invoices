@@ -5,13 +5,13 @@
                 <button type="button" routerLink="/main-invoice" class="btn btn-info save-cstn-btn"><i
                         class="fa-solid fa-house"></i>
                     Home</button>
-                <h4 class="mb-sm-0">New Invoice</h4>
+                <!-- <h4 class="mb-sm-0">New Invoice</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/invoice">Invoice</a></li>
                         <li class="breadcrumb-item active">New Invoice</li>
                     </ol>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -41,10 +41,10 @@
                         <app-productdetails></app-productdetails>
                         <app-paymentdetails></app-paymentdetails>
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-                            <button type="submit" class="btn btn-info save-cstn-btn" [disabled]="InvoiceForm.invalid"><i
+                            <button type="submit" class="btn btn-info save-cstn-btn save-button" [disabled]="InvoiceForm.invalid"><i
                                     class="ri-printer-line align-bottom me-1"></i>
                                 Save</button>
-                            <a href="javascript:void(0);" class="btn btn-primary print-cstn-btn"><i
+                            <a href="javascript:void(0);" class="btn btn-primary print-cstn-btn downloadInvoice"><i
                                     class="ri-download-2-line align-bottom me-1"></i> Download Invoice</a>
                         </div>
                     </div>

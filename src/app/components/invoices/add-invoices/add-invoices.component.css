@@ -16,3 +16,39 @@
     padding: 6px 20px;
     font-size: 18px;
 }
+
+button.btn.btn-info.save-cstn-btn {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 45px;
+}
+
+button.btn.btn-info.save-cstn-btn.save-button {
+    margin: 0px;
+}
+
+a.btn.btn-primary.print-cstn-btn {
+    background-color: #bb1b1f;
+    border-color: #bb1b1f;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 18px;
+}
+
+button.btn.btn-info.save-cstn-btn.save-button {
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 18px !important;
+    background-color: #bb1b1f !important;
+    border-color: #bb1b1f !important;
+    font-weight: 500;
+}
+
+a.btn.btn-primary.print-cstn-btn.downloadInvoice {
+    background-color: #bb1b1f !important;
+    border-color: #bb1b1f !important;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 18px;
+}

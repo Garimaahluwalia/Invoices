@@ -43,7 +43,7 @@ export class AddInvoicesComponent implements OnInit {
 
 
     this.invoiceService.invoiceEmitter.subscribe((res) => {
-      console.log(res, "Responseofemitter")
+      console.log(res, "Responseofemitter");
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
 
@@ -52,7 +52,7 @@ export class AddInvoicesComponent implements OnInit {
       this.clientService.sendClientDetails(res.client);
 
       this.updateInvoiceData = res;
-   
+
 
 
       this.InvoiceForm.form?.patchValue({
@@ -73,23 +73,23 @@ export class AddInvoicesComponent implements OnInit {
         "client_id": "64991808f711f7bc26179a6f", */
         "currency": res.currency,
         "tax": res.tax,
-        // "products": {
-        //    "item0": {
-        //      "name": "res",
-        //     "HSN_SAC": "",
-        //      "amount": 11,
-        //      "rate": 0.019799999999999998,
-        //     "taxamount": 0.18,
-        //     "total": "11.02"
-        //   }
-        // },
-        // "bankDetails": {
-        //   "accountHolderName": "M CODE INFOSOFT",
-        //    "accountNumber": "098878776809454",
-        //    "ifscCode": "ICICINBBCTS",
-        //   "swiftCode": "9898BHBZA23",
-        //    "bank": "ICICI Bank Ltd."
-        //  } 
+        /* "products": {
+           "item0": {
+             "name": "res",
+            "HSN_SAC": "",
+             "amount": 11,
+             "rate": 0.019799999999999998,
+            "taxamount": 0.18,
+            "total": "11.02"
+          }
+        },
+        "bankDetails": {
+          "accountHolderName": "M CODE INFOSOFT",
+           "accountNumber": "098878776809454",
+           "ifscCode": "ICICINBBCTS",
+          "swiftCode": "9898BHBZA23",
+           "bank": "ICICI Bank Ltd."
+         } */ 
       });
     });
   }
@@ -97,9 +97,10 @@ export class AddInvoicesComponent implements OnInit {
   submit(f: NgForm) {
     const invoice = new Invoice();
     invoice.setData(f.value);
+    invoice.invoiceId = this.invoiceId as string;
     const payload = invoice.getPayload();
     if (this.invoiceId) {
-      this.updateInvoice(payload);
+      this.updateInvoice(this.invoiceId, payload);
     } else {
       this.addInvoice(payload);
     }
@@ -118,12 +119,11 @@ export class AddInvoicesComponent implements OnInit {
     );
   }
 
-  updateInvoice(payload: any) {
-    const invoiceId = payload._id;
-    this.invoiceService.updateInvoice( payload).subscribe(
+  updateInvoice(invoiceId: string, payload: { [key: string]: any }) {
+    this.invoiceService.updateInvoice(invoiceId, payload).subscribe(
       (res: any) => {
         this.Invoices = res;
-        console.log(this.Invoices, "update response")
+        console.log(this.Invoices, "update response");
         this.notifier.notify('success', 'Invoice updated successfully');
         this.router.navigateByUrl("/invoice");
       },
@@ -132,6 +132,7 @@ export class AddInvoicesComponent implements OnInit {
       }
     );
   }
+
 
 
   getTaxes() {

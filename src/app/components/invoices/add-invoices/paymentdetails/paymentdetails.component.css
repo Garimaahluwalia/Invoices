@@ -42,3 +42,11 @@
     height: 45px;
     font-size: 17px;
 }
+
+.bank-background-edit {
+    padding: 20px;
+}
+span.bank {
+    text-align: center;
+    padding-left: 25px;
+}
