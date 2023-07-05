@@ -4,7 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { TAXES } from 'src/app/types/taxes';
-import { CURRENCY } from 'src/app/types/currency';
+import { DEFAULTCURRENCY, CURRENCY } from 'src/app/types/currency';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
 
@@ -16,6 +16,8 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
 })
 export class ProductdetailsComponent implements OnInit {
+  
+
   showTaxHeaders: boolean = true;
   public taxes: string[] = Object.values(TAXES);
   public tax: TAXES = TAXES.GST;
@@ -25,13 +27,13 @@ export class ProductdetailsComponent implements OnInit {
   public name!: "";
   public description!: "";
   public editor: any = ClassicEditor;
-  public data: any = `<p> Enter description here </p>`;
+  // public data: any = `<p> Enter description here </p>`;
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
   public taxAmountData: any;
   public selectedTaxRate: TAXES = TAXES.NONE;
-  public selectedCurrency: any; // Currency
-  public selectedTaxRateValue: number = 0;
+  public selectedCurrency: any = DEFAULTCURRENCY.code; 
+    public selectedTaxRateValue: number = 0;
   public currencies = CURRENCY; // Currency
   public inputcurrency: any;
   public taxamount: any;
@@ -72,21 +74,21 @@ export class ProductdetailsComponent implements OnInit {
     this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
       this.inputcurrency = res;
     });
-    
-    // Set the default currency value if it is not already set
+
+
     if (!this.inputcurrency || this.inputcurrency === '') {
-      this.inputcurrency = '$';
+      this.inputcurrency = this.selectedCurrency;
     }
-    
+
     //currency
   }
 
 
-  
+
   currencyChange(event: any) {  // Currency
     this.selectedCurrency = event.target.value;
     const selectedCurrency = this.currencies.find(currency => currency.code === this.selectedCurrency);
-    const symbol = selectedCurrency ? selectedCurrency.symbol : '$';
+    const symbol = selectedCurrency ? selectedCurrency.code : this.selectedCurrency;
     this.addinvoiceService.sendCurrency(symbol);
   }
 
@@ -138,11 +140,11 @@ export class ProductdetailsComponent implements OnInit {
   onProductValueChange(i: number, taxRateChange?: number) {
     const row = this.productRows[i];
     console.log(row, "OnProductValueChangeRow");
-  
+
     if (this.selectedTaxRate !== TAXES.NONE) {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
       console.log(row.taxamount, "TaxAmount (%)");
-  
+
       const selectedAmount = Number(row.amount || 0);
       if (selectedAmount > 0) {
         const selectedTaxAmount = row.taxamount; // Use the changed tax amount
@@ -159,10 +161,10 @@ export class ProductdetailsComponent implements OnInit {
       row.rate = '0';
       row.total = '0';
     }
-  
+
     this.addinvoiceService.sendProductChanges(this.productRows);
   }
-  
+
 
 
 }

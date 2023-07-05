@@ -3,7 +3,7 @@
 
     <div class="d-flex">
 
-      
+
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Tax</label>
         <select [(ngModel)]="selectedTaxRate" class="form-control form-control-sm taxes-edit selector-currency"
@@ -16,11 +16,13 @@
         <label class="mb-0 mr-3">Currency</label>
         <select class="form-control" name="currency" [(ngModel)]="selectedCurrency" (change)="currencyChange($event)">
           <option disabled selected>Select a currency</option>
-          <option *ngFor="let currency of currencies" [value]="currency.code" [selected]="currency.code === '$'">
+          <option *ngFor="let currency of currencies" [value]="currency.code">
             {{ currency.name }} ({{ currency.code }}) - {{ currency.symbol }}
           </option>
         </select>
       </div>
+      
+      
 
 
     </div>
@@ -57,7 +59,7 @@
               <i class="fa-regular fa-square-plus mr-1"></i> Add Description
             </button>
             <div *ngIf="row.showDescriptionBox">
-              <ckeditor [editor]="editor" [data]="data"></ckeditor>
+              <ckeditor [editor]="editor" name="description" ngModel [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"></ckeditor>
             </div>
           </td>
           <td class="text-end">
@@ -77,7 +79,8 @@
             <td class="text-end">
               <div>
                 <input type="number" [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"
-                  class="form-control bg-light border-0 product-line-price" step="0.01" placeholder="{{inputcurrency}}0.00" />
+                  class="form-control bg-light border-0 product-line-price" step="0.01"
+                  placeholder="{{inputcurrency}}0.00" />
               </div>
             </td>
             <td class="text-end">
