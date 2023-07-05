@@ -7,7 +7,7 @@
             class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1"
             (change)="onClientChange()">
             <option disabled selected>Select a client</option>
-            <option value="" selected >None</option>
+            <option value="" selected>None</option>
             <option *ngFor="let details of clients_details" [value]="details._id">{{ details.name }}</option>
         </select>
     </div>
@@ -46,7 +46,8 @@
         <div class="clients-details">
             <p>select a Client</p>
             <p>or</p>
-            <button type="button" class="btn btn-primary  newclients" (click)="addClients()"><i class="fa-solid fa-circle-plus"></i>
+            <button type="button" class="btn btn-primary  newclients" (click)="addClients()"><i
+                    class="fa-solid fa-circle-plus"></i>
                 Add New clients</button>
         </div>
     </div>

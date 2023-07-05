@@ -1,6 +1,8 @@
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
-    <button type="button" routerLink="/invoice" class="btn btn-info save-cstn-btn"><i class="fa-solid fa-house"></i>
-        Home</button>
+
+    <div class="view-button">  <button type="button" routerLink="/invoice" class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house"></i>
+        Home</button></div>
+  
     <table style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px;"
                 align="center">
         <thead>
@@ -27,7 +29,7 @@
         <tbody>
             <tr>
                 <td>
-                    <table style="width: 100%; padding-top: 10px;" *ngFor="let details of  matchedInvoice">
+                    <table style="width: 100%; padding-top: 10px;" *ngFor="let details of  data">
                         <tbody>
                             <tr>
                                 <td style="text-align: left; width:30%; vertical-align: top;">
@@ -62,21 +64,21 @@
                                     <div>
                                         <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Billed To</h4>
                                         <div>
-                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{details.client.name}}
+                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{details.client?.name}}
                                             </h2>
                                             <p
                                                 style="font-size: 16px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
-                                                {{details.client.address}}</p>
+                                                {{details.client?.address}}</p>
                                             <div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">GSTIN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client.gstin}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client?.gstin}}</span>
                                                 </div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">PAN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client.gstin}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client?.pan}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,7 +113,7 @@
             <tr>
                 <td>
                     <table style="width: 100%; padding-top: 50px; padding-bottom: 50px; border-spacing: 0px;"
-                        *ngFor="let details of  matchedInvoice">
+                        *ngFor="let details of  data">
                         <thead>
                             <tr
                                 style="text-align: center; background-color: #F8D1D1;vertical-align: top;font-size: 14px;">
@@ -140,36 +142,45 @@
                         </thead>
                         <tbody>
                             <tr style="text-align: center; font-size: 14px;"
-                                *ngFor="let details of matchedInvoice[0]?.products; let i = index">
+                            *ngFor="let product of data[0].products; let i = index">
                                 <td
                                     style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
                                     {{ i + 1 }}.
                                 </td>
                                 <td
                                     style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
-                                    {{ details.name }}
+                                    {{product.name}}
                                 </td>
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
-                                    {{ details.HSN_SAC }}
+                                    {{product.HSN_SAC }}
                                 </td>
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{ details.amount }}
+                                    {{product.amount }}
                                 </td>
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{ details.rate.toFixed(2) }}
+                                    {{product.rate.toFixed(2) }}
                                 </td>
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{ details.taxamount }}
+                                    {{product.taxamount }}
                                 </td>
                                 <td
                                     style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{details.total}}
+                                    {{product.total}}
                                 </td>
                             </tr>
+                            <tr *ngIf="description">
+                                <td colspan="7">
+                                  <h4 style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">Description</h4>
+                                  <p style="font-size: 16px; color: #282828; font-weight: 400; line-height: 29px; margin: 10px 0;" [innerHTML]="description">
+                                
+                                  </p>
+                                </td>
+                              </tr>
+                            
                         </tbody>
 
                     </table>
@@ -178,9 +189,10 @@
             <tr>
                 <td>
                     <table style="width: 100%; padding-bottom: 50px; border-spacing: 0px;"
-                        *ngFor="let details of  matchedInvoice">
+                        *ngFor="let details of  data">
                         <tbody>
                             <tr>
+                                
                                 <td style="width: 55%; vertical-align: top;">
                                     <h4 style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">
                                         Declaration</h4>
@@ -195,13 +207,13 @@
                                         <span
                                             style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">Amount</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{totalOfAmountFromProduct}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;"></span>
                                     </div>
                                     <div style="padding-bottom: 10px; float: left; width: 100%;">
                                         <span
                                             style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;" >{{details.tax}}</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;" >{{totalOfrateFromProduct}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;" ></span>
                                     </div>
                                     <div
                                         style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
@@ -209,12 +221,12 @@
                                             style="font-size: 16px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total
                                             ({{details.currency}})</span>
                                         <span
-                                            style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{totalOfAllItemsFromProduct}}</span>
+                                            style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{details.totalAmount}}</span>
                                     </div>
                                     <div style="padding-top: 30px; float: left; width: 100%;">
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
-                                            Total (in words) : {{totalAmountInWords}}
+                                            Total (in words) : 
                                         </p>
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">

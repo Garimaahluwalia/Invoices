@@ -58,5 +58,4 @@ export class ClientDetailsComponent implements OnInit {
   }
 
 
-
 }

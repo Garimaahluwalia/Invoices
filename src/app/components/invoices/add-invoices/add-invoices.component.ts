@@ -89,22 +89,32 @@ export class AddInvoicesComponent implements OnInit {
            "ifscCode": "ICICINBBCTS",
           "swiftCode": "9898BHBZA23",
            "bank": "ICICI Bank Ltd."
-         } */ 
+         } */
       });
     });
   }
 
   submit(f: NgForm) {
-    const invoice = new Invoice();
-    invoice.setData(f.value);
-    invoice.invoiceId = this.invoiceId as string;
-    const payload = invoice.getPayload();
-    if (this.invoiceId) {
-      this.updateInvoice(this.invoiceId, payload);
+
+    const client_details = f.value.client_id;
+    if (!client_details) {
+      this.notifier.notify('error', 'Client is missing');
     } else {
-      this.addInvoice(payload);
+      const invoice = new Invoice();
+      invoice.setData(f.value);
+      const clientId = f.value.client_id;
+      console.log(clientId, "ClientId from form");
+      console.log(f.value, "addForm Submit Value");
+      invoice.invoiceId = this.invoiceId as string;
+      const payload = invoice.getPayload();
+      if (this.invoiceId) {
+        this.updateInvoice(this.invoiceId, payload);
+      } else {
+        this.addInvoice(payload);
+      }
     }
   }
+
 
   addInvoice(payload: any) {
     this.addInvoiceService.addInvoice(payload).subscribe(

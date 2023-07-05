@@ -1,3 +1,5 @@
+
+
 <button type="button" #openModalButton class="btn btn-primary d-none" data-bs-toggle="modal"
     data-bs-target="#addUpdate">Add</button>
 <div class="modal" id="addUpdate" aria-labelledby="addUpdateLabel">
@@ -153,7 +155,7 @@
                     <div class="modal-footer pt-2 pb-0">
                         <button type="button" class="btn btn-secondary" [disabled]="disabledInput"
                             (click)="closeModal()">Close</button>
-                        <button type="button" class="btn btn-primary" [disabled]="disabledInput"
+                        <button type="button" class="btn btn-primary add-client" [disabled]="disabledInput"
                             (click)="saveChanges()">Save changes</button>
                     </div>
                 </div>

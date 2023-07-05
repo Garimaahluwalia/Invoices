@@ -1,3 +1,13 @@
+
+export const DEFAULTCURRENCY =
+{
+    "symbol": "₹",
+    "name": "Indian Rupee",
+    "code": "INR"
+}
+
+
+
 export const CURRENCY =
     [
         {

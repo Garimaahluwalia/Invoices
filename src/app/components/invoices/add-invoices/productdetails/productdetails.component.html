@@ -1,9 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-
     <div class="d-flex">
-
-
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Tax</label>
         <select [(ngModel)]="selectedTaxRate" class="form-control form-control-sm taxes-edit selector-currency"
@@ -21,8 +18,8 @@
           </option>
         </select>
       </div>
-      
-      
+
+
 
 
     </div>
@@ -58,9 +55,12 @@
             <button class="btn cstn-description" type="button" (click)="addDescription(i)">
               <i class="fa-regular fa-square-plus mr-1"></i> Add Description
             </button>
-            <div *ngIf="row.showDescriptionBox">
-              <ckeditor [editor]="editor" name="description" ngModel [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"></ckeditor>
+            <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
+              <textarea #description="ngModel" ngModel name="description" class="d-none">Tester</textarea>
+              <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
+                        (change)="onEditorChange(description, row.description)"></ckeditor>
             </div>
+            
           </td>
           <td class="text-end">
             <div>
@@ -80,7 +80,7 @@
               <div>
                 <input type="number" [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"
                   class="form-control bg-light border-0 product-line-price" step="0.01"
-                  placeholder="{{inputcurrency}}0.00" />
+                  placeholder="{{inputcurrency}}0.00" readonly />
               </div>
             </td>
             <td class="text-end">

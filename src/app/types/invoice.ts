@@ -19,6 +19,8 @@ export interface IInvoice {
    bankDetails: IbankDetails;
    _id?: string;
    __v: number;
+  
+  
 }
 export interface IInvoiceClass {
    invoiceNo: string;
@@ -37,20 +39,21 @@ export interface ICompany {
    address: string;
    GSTIN: string;
    pan: string;
-   postalCode?: string;
    emailaddress: string;
-   website?: string;
-   contactNo?: string;
+ 
+ 
 }
 export interface IProducts {
    name: string;
    description: string;
    amount: number;
    rate: string;
-   total: string
+   total: string;
    HSN_SAC: string;
-   taxamount: number
+   taxamount: number;
 }
+
+
 
 
 export class Invoice implements IInvoice {
@@ -69,7 +72,7 @@ export class Invoice implements IInvoice {
    private _tax!: TAXES;
    public _currency!: string;
    public _client_id!: string;
-
+  
    constructor() { }
 
    setInvoice({ invoiceNo, date }: IInvoiceClass) {
@@ -94,13 +97,11 @@ export class Invoice implements IInvoice {
       return this._bankDetails;
    }
 
-   setCompany({ Businessname, address, contactNo, emailaddress, postalCode, GSTIN, pan }: ICompany) {
+   setCompany({ Businessname, address, emailaddress, GSTIN, pan }: ICompany) {
       this.company = {
          Businessname: Businessname,
          address: address,
-         contactNo: contactNo,
          emailaddress: emailaddress,
-         postalCode: postalCode,
          GSTIN: GSTIN,
          pan: pan,
       }
@@ -112,6 +113,9 @@ export class Invoice implements IInvoice {
    get company(): ICompany {
       return this._company;
    }
+
+
+
 
    set currency(value: any) {
       this._currency = value;
@@ -140,26 +144,31 @@ export class Invoice implements IInvoice {
 
    set invoiceId(value: string | undefined) {
       this._invoiceId = value;
-
    }
    get invoiceId(): string | undefined {
       return this._invoiceId;
    }
 
+
    setProducts(products: any) {
-      const product = [];
+      console.log(products,"getting a value")
+      const product: IProducts[] = [];
       if (products && typeof products === 'object') {
          const keys = Object.keys(products);
          for (const key of keys) {
-            product.push(products[key]);
+            const item = products[key] as IProducts;
+            product.push(item);
          }
       }
       this._products = product;
+      console.log(this._products, "PRODUCTS FROM INVOICES//////////////////////");
    }
+
 
 
    set products(value: IProducts[]) {
       this._products = value;
+      console.log(this._products, "SETPRODUCTS")
    }
 
    get products(): IProducts[] {
@@ -173,12 +182,12 @@ export class Invoice implements IInvoice {
       this.tax = values['tax'] as TAXES;
       this.currency = values['currency'] as string;
       this.client_id = values['client_id'] as string;
-      this.setProducts(values["products"] as unknown as { [key: string]: any });
+      this.setProducts(values["products"] as unknown as IProducts as { [key: string]: any });
    }
 
 
    getPayload() {
-      console.log(this);
+      console.log(this, "getPayload");
       return {
          "invoiceNo": this.invoiceNo.invoiceNo,
          "company": this._company,
@@ -187,7 +196,8 @@ export class Invoice implements IInvoice {
          "date": this.invoiceNo.date,
          "client_id": this.client_id,
          "products": this._products,
-         "bankDetails": this._bankDetails
+         "bankDetails": this._bankDetails,
+       
       };
    }
 

@@ -5,6 +5,7 @@ import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.servi
 import { IbankDetails } from 'src/app/types/invoice';
 import { numberToWords } from "src/app/common/numberToWords";
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
+import { DEFAULTCURRENCY } from 'src/app/types/currency';
 
 @Component({
   selector: 'app-paymentdetails',
@@ -30,18 +31,12 @@ export class PaymentdetailsComponent implements OnInit {
   public totalOfAmountFromProduct: any;
   public taxamount: any;
   public GetInvoiceAndEmit: any;
+  public selectedCurrency: any = DEFAULTCURRENCY.code; 
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService) { }
   ngOnInit(): void {
-
-    // this.invoiceService.invoiceEmitter.subscribe((res:any) => {
-    //   this.GetInvoiceAndEmit = res;
-    //   console.log(this.GetInvoiceAndEmit, "GetInvoiceandemit");
-    // })
-
-
 
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
       this.productRows = res;
@@ -67,7 +62,7 @@ export class PaymentdetailsComponent implements OnInit {
     });
 
     if (!this.currency || this.currency === '') {
-      this.currency = '$';
+      this.currency = this.selectedCurrency;
     }
       this.invoiceService.invoiceEmitter.subscribe((res:any) => {
         this.currency = res.currency;

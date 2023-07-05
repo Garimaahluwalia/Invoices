@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { AbstractControl, ControlContainer, NgForm, NgModel } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { TAXES } from 'src/app/types/taxes';
 import { DEFAULTCURRENCY, CURRENCY } from 'src/app/types/currency';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+
 
 
 @Component({
@@ -16,7 +18,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
 })
 export class ProductdetailsComponent implements OnInit {
-  
+
 
   showTaxHeaders: boolean = true;
   public taxes: string[] = Object.values(TAXES);
@@ -27,13 +29,12 @@ export class ProductdetailsComponent implements OnInit {
   public name!: "";
   public description!: "";
   public editor: any = ClassicEditor;
-  // public data: any = `<p> Enter description here </p>`;
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
   public taxAmountData: any;
   public selectedTaxRate: TAXES = TAXES.NONE;
-  public selectedCurrency: any = DEFAULTCURRENCY.code; 
-    public selectedTaxRateValue: number = 0;
+  public selectedCurrency: any = DEFAULTCURRENCY.code;
+  public selectedTaxRateValue: number = 0;
   public currencies = CURRENCY; // Currency
   public inputcurrency: any;
   public taxamount: any;
@@ -113,8 +114,13 @@ export class ProductdetailsComponent implements OnInit {
 
 
   addDescription(index: number) {
-    this.productRows[index].showDescriptionBox = !this.productRows[index].showDescriptionBox;
+    const row = this.productRows[index];
+    row.showDescriptionBox = !row.showDescriptionBox;
+    if (!row.showDescriptionBox) {
+      row.description = ''; // Clear the description when hiding the CKEditor
+    }
   }
+  
 
   removeRow(rowIndex: any) {
     const rows = [...this.productRows];
@@ -163,6 +169,11 @@ export class ProductdetailsComponent implements OnInit {
     }
 
     this.addinvoiceService.sendProductChanges(this.productRows);
+  }
+
+  public onEditorChange(description: NgModel, value: string) {
+    description.control.setValue(value);
+    console.log(value, "productDetails111111112s")
   }
 
 
