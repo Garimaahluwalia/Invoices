@@ -4,6 +4,7 @@ import endpoints from 'src/app/endpoints';
 import { HttpClient } from '@angular/common/http';
 import { IClients } from 'src/app/types/clients';
 import { TAXES } from 'src/app/types/taxes';
+import { Client } from 'src/app/types/client/client.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +16,33 @@ export class ClientService {
   private _limit: number = 12;
   // pagination
 
-  private _clients: any[] = [];
-  private clientsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  private _addClientFromInvoice: EventEmitter<any> = new EventEmitter<any>();
+  private _clients: Client[] = [];
+  private clientsSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
+  private _addClientFromInvoice: EventEmitter<Client> = new EventEmitter<Client>();
   private _taxName: EventEmitter<TAXES> = new EventEmitter<TAXES>();
 
 
 
   constructor(public http: HttpClient) { }
 
-  set clients(value: any[]) {
+  set clients(value: Client[]) {
     this._clients = value;
   }
-  get clients(): any[] {
+  get clients(): Client[] {
     return this._clients;
+  }
+
+  addClient(data: any) {
+    this._clients.push(data);
+    this.sendClients();
+  }
+
+  updateClient(data: any, ClientId: number) {
+    const clientData = [...this._clients];
+    clientData.splice(ClientId, 1, data);
+    this._clients = clientData;
+    this.sendClients();
+
   }
 
 
@@ -50,20 +64,9 @@ export class ClientService {
   // pagination -->
 
 
-  addClient(data: any) {
-    this._clients.push(data);
-    this.sendClients();
-  }
 
-  updateClient(data: any, ClientId: number) {
-    const clientData = [...this._clients];
-    clientData.splice(ClientId, 1, data);
-    this._clients = clientData;
-    this.sendClients();
 
-  }
-
-  sendPost(payload: any): Observable<any> {
+  addClientToServer(payload: any): Observable<any> {
     return this.http.post(endpoints.CLIENTS.ADD, payload);
   }
 
@@ -71,17 +74,17 @@ export class ClientService {
     return this.http.get<any>(endpoints.CLIENTS.GETALL(page, limit));
   }
 
-  getClient(ClientId: string): Observable<any> {
-    return this.http.get<string>(endpoints.CLIENTS.GET(ClientId));
+  getClient(ClientId: string): Observable<Client> {
+    return this.http.get<Client>(endpoints.CLIENTS.GET(ClientId));
   }
   updateClientReq(ClientId: string, data: any) {
-    return this.http.put(endpoints.CLIENTS.UPDATE(ClientId), data);
+    return this.http.put<Client>(endpoints.CLIENTS.UPDATE(ClientId), data);
   }
   sendClients() {
     this.clientsSubject.next(this._clients);
   }
 
-  recieveClients(): Observable<any[]> {
+  recieveClients(): Observable<Client[]> {
     return this.clientsSubject.asObservable();
   }
 
@@ -94,7 +97,7 @@ export class ClientService {
     try {
       this.getAllClients(this.page, this.limit).subscribe(  // pagination
         res => {
-          this._clients = res.clients;
+          this._clients = res.clients as Client[];
           this.sendClients();
           this.totalNumberOfClient.next(res.totalCount);    // pagination
         },
@@ -109,11 +112,11 @@ export class ClientService {
     }
   }
 
-  recieveClientData(): Observable<any> {
+  recieveClientData(): Observable<Client> {
     return this._addClientFromInvoice.asObservable()
   }
 
-  sendClientDetails(data: any): void {
+  sendClientDetails(data: Client): void {
     this._addClientFromInvoice.emit(data);
   }
 

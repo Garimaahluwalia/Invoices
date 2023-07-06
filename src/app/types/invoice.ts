@@ -135,7 +135,7 @@ export class Invoice implements IInvoice {
 
    set client_id(value: string) {
       this._client_id = value;
-      console.log(this._client_id, "Clientid")
+      console.log(this._client_id, "Clientid---------------------------")
 
    }
    get client_id(): string {

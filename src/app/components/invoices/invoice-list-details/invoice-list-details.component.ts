@@ -13,7 +13,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public invoicelist: any[] = [];
   public _id!: string;
   public data: any;
-  public description : any | null = null;
+  public description: any | null = null;
 
 
 
@@ -39,12 +39,8 @@ export class InvoiceListDetailsComponent implements OnInit {
       this.data = [res];
       const value = this.data[0].products;
       value.forEach((value: { description: any; }) => {
-       this.description = value.description;
-        console.log(  this.description ,"descriptionfromview------------------");
+        this.description = value.description;
       });
-      
-      console.log(value, "productsValuefromViewInvoice")
-      console.log(this.data, "GET_INVOICE_BY_ID")
     })
   }
 }

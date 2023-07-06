@@ -13,7 +13,7 @@ import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-
 import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './Modals/add-client/add-client.component';
 import { DeleteComponent } from './Modals/delete/delete.component';
-import { ClientDetailsComponent } from './components/clients/client/client-details/client-details.component';
+import { ClientDetailsComponent } from './components/invoices/add-invoices/FormsGroup/client-details/client-details.component';
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 

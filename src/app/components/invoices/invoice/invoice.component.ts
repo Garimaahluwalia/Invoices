@@ -54,7 +54,8 @@ export class InvoiceComponent implements OnInit {
     
     this.invoiceService.recieveInvoices().subscribe((data: any) => {
       this.invoices = data;
-     
+      
+      console.log(this.invoices, "The Invoices ")
     });
     // pagination --> 
   }

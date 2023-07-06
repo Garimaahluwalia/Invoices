@@ -1,0 +1,61 @@
+<div class="row mt-5 pt-5">
+  <div class="col-md-7"></div>
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-body p-4">
+        <div class="sub-amount">
+          <span>Amount</span><span>{{currency}}{{totalOfAmountFromProduct}}</span>
+        </div>
+        <div class="sub-amount">
+          <span>Tax Rate : </span><span>{{currency}}{{totalrate}}</span>
+        </div>
+        <div class="total-amount">
+          <span>Total({{ currency }})</span>
+          <span>{{ currency }}{{ totalrate == '0.00' ? totalOfAmountFromProduct : totalOfAllItemsFromProduct
+            }}</span>
+        </div>
+        <div class="amount-words">
+          <h4>Total(in-words) : <span [innerHTML]="totalAmountInWords"></span></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row mt-3" ngModelGroup="bankDetails">
+  <div class="col-lg-4 Bankdetails" >
+    <div class="">
+      <label for="choices-payment-type" class="form-label text-muted text-uppercase fw-semibold">Bank Details</label>
+      <div class="bank-background-edit">
+        <div class="mb-2">
+          <label class="mb-0">Account Holder Name:</label>
+          <span class="bank">{{ Bankdetails.accountHolderName }}</span>
+        </div>
+        <div class="mb-2">
+          <label class="mb-0">Account Number:</label>
+          <span class="bank">{{ Bankdetails.accountNumber }}</span>
+        </div>
+        <div class="mb-2">
+          <label class="mb-0">IFSC Code:</label>
+          <span class="bank">{{ Bankdetails.ifscCode }}</span>
+        </div>
+        <div class="mb-2">
+          <label class="mb-0">Swift Code:</label>
+          <span class="bank">{{ Bankdetails.swiftCode }}</span>
+        </div>
+        <div class="mb-2">
+          <label class="mb-0">Bank:</label>
+          <span class="bank">{{ Bankdetails.bank }}</span>
+        </div>
+
+        <input type="hidden" ngModel name="accountHolderName" [(ngModel)]="Bankdetails.accountHolderName">
+        <input type="hidden" ngModel name="accountNumber" [(ngModel)]="Bankdetails.accountNumber">
+        <input type="hidden" ngModel name="ifscCode" [(ngModel)]="Bankdetails.ifscCode">
+        <input type="hidden" ngModel name="swiftCode" [(ngModel)]="Bankdetails.swiftCode">
+        <input type="hidden" ngModel name="bank" [(ngModel)]="Bankdetails.bank">
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,7 @@ export class InvoiceService {
   private _limit: number = 13;
   // pagination
 
+ 
   private _invoices: IInvoiceResponse[] = [];
   private invoicesSubject: BehaviorSubject<IInvoiceResponse[]> = new BehaviorSubject<IInvoiceResponse[]>([]);
 
@@ -24,8 +25,8 @@ export class InvoiceService {
   public invoiceNumber: string | null = null;         // for InvoiceNumber 
   private _forupdateinvoicedata: IInvoiceResponse | null = null;   // for Invoice Data 
   public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>() // To emit invoice Data
+  public _updateStatus : EventEmitter<any> = new EventEmitter<any>()
   constructor(private http: HttpClient) { }
-
 
 
   // <-- pagination
@@ -110,19 +111,25 @@ export class InvoiceService {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
 
+  downloadInvoice(invoiceId: any): Observable<any> {
+    return this.http.get<string>(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId))
+  }
+
   deleteInvoices(invoiceId: string) {
     return this.http.delete(endpoints.INVOICES_LIST.DELETE(invoiceId));
   }
 
-  updateInvoice(invoiceId: string, data:{[key: string]: any}) {
+  updateInvoice(invoiceId: string, data: { [key: string]: any }) {
     console.log(invoiceId);
     return this.http.put(endpoints.INVOICES_LIST.UPDATE(invoiceId), data);
   }
 
-  updateInvoiceStatus(invoiceId: string): Observable<any> {
-    const url = `${endpoints.INVOICES_LIST.UPDATE_STATUS}/${invoiceId}`;
-    return this.http.put(url, null);
+
+  updateInvoiceStatus(invoiceId: string) {
+    console.log(invoiceId);
+    return this.http.put(endpoints.INVOICES_LIST.UPDATE_STATUS(invoiceId), {});
   }
+
 
   sendInvoices() {
     this.invoicesSubject.next(this._invoices);
@@ -150,4 +157,16 @@ export class InvoiceService {
       this.sendInvoices();
     }
   }
+
+
+
+
+  sendStatus(data: any) {
+    this._updateStatus.emit(data);
+  }
+
+  receiveStatus(): Observable<any> {
+    return this._updateStatus.asObservable();
+  }
+
 }

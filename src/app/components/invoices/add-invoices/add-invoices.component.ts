@@ -20,6 +20,7 @@ export class AddInvoicesComponent implements OnInit {
   private invoiceId: string | null = null;
   public updatedInvoiceNumber: any;
   public updateInvoiceData: any;
+  public download: any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -33,65 +34,33 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.downloadInvoice();
     this.getTaxes();
-    this.invoiceId = this.route.snapshot?.params?.["id"]; // InvoiceId from Route
+    // InvoiceId from Route
+    this.invoiceId = this.route.snapshot?.params?.["id"];
     this.invoiceService.invoiceNumber = this.invoiceId;
-
     if (this.invoiceId) {
       this.invoiceService.getInvoiceforUpdateAndEmit();
     }
-
-
     this.invoiceService.invoiceEmitter.subscribe((res) => {
-      console.log(res, "Responseofemitter");
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
 
       this.addInvoiceService.sendProductChanges(res.products);
-      console.log(this.ProductData, "productData event emitter");
       this.clientService.sendClientDetails(res.client);
 
       this.updateInvoiceData = res;
-
-
-
       this.InvoiceForm.form?.patchValue({
         "invoice": {
           "invoiceNo": res.invoiceNo,
           "date": "2023-06-28"
         },
-        /* "company": {
-          "Businessname": "M CODE INFOSOFT",
-          "address": "#60., 1st Floor, Zirakpur, Punjab, india 140603",
-          "GSTIN": "03DQCPK3553H1Z3",
-          "pan": "DQCPK3553H",
-          "postalCode": "12345",
-          "emailaddress": "info@mcodeinfosoft.com",
-          "contactNo": "123-456-7890"
-        },
-        
-        "client_id": "64991808f711f7bc26179a6f", */
         "currency": res.currency,
         "tax": res.tax,
-        /* "products": {
-           "item0": {
-             "name": "res",
-            "HSN_SAC": "",
-             "amount": 11,
-             "rate": 0.019799999999999998,
-            "taxamount": 0.18,
-            "total": "11.02"
-          }
-        },
-        "bankDetails": {
-          "accountHolderName": "M CODE INFOSOFT",
-           "accountNumber": "098878776809454",
-           "ifscCode": "ICICINBBCTS",
-          "swiftCode": "9898BHBZA23",
-           "bank": "ICICI Bank Ltd."
-         } */
       });
     });
+
+  
   }
 
   submit(f: NgForm) {
@@ -149,6 +118,16 @@ export class AddInvoicesComponent implements OnInit {
     this.clientService.recieveTaxName().subscribe((res) => {
       this.taxesType = res;
     });
+  }
+
+
+  downloadInvoice() {
+    // this.invoiceService.downloadInvoice(this.invoiceId).subscribe((res:any) => {
+    //   this.download = res ;
+
+    // })
+    
+
   }
 }
 

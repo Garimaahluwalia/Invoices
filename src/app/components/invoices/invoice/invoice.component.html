@@ -40,15 +40,14 @@
                                             <td data-label="Email">
                                                 {{details?.client?.email}}
                                             </td>
-                                            <td data-label="Date">{{details.date}}</td>
+                                            <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
                                             <td data-label="Billed">{{details?.totalAmount}}</td>
 
-                                            <td data-label="Status">
-                                                <span class="badge badge-soft-success p-2">
+                                            <td data-label="Status"> 
+                                                <app-status></app-status>
+                                                <!-- <span class="badge badge-soft-success p-2">
                                                     {{details?.status}}
-                                                </span>
-                                                
-
+                                                </span> -->
                                             </td>
                                             <td data-label="Action" class="action-items">
                                                 <ul class="list-inline hstack gap-2 mb-0">
