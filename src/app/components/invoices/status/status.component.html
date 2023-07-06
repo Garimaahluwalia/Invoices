@@ -1,8 +1,8 @@
+<div class="form-group">
+    <select name="invoice" class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1"
+        [(ngModel)]="status" name="status" (change)="onStatusChange()">
+        <option *ngFor="let sts of statuses" [value]="sts">{{sts}}</option>
+    </select>
 
-    <div class="form-group" >
-        <select name="client_id" 
-            class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1" [(ngModel)]="selectedStatus"
-            name="status" (change)="onStatusChange($event)">
-            <option *ngFor="let status of statues" [value]="status">{{status}}</option>
-        </select>
-    </div>
+
+</div>

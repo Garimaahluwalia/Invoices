@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -8,6 +8,9 @@ import { DeleteEvents } from 'src/app/types/delete';
 import { IInvoice, IInvoiceResponse, Invoice } from 'src/app/types/invoice';
 import { ModalEvents } from 'src/app/types/modal';
 import { DatePipe } from '@angular/common';
+import { STATUS } from 'src/app/types/status';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-invoice',
@@ -15,6 +18,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
+
   public currentPage = 1;  //pagination
   public itemsPerPage = 2; //pagination
   public totalItems = 15;   //pagination
@@ -24,6 +28,10 @@ export class InvoiceComponent implements OnInit {
   public invoiceId: string | undefined
   public InvoiceNumber!: number;
   public showDropdown: boolean = false;
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
+
+
+  public readonly statuses: string[] = Object.values(STATUS);
 
 
   constructor(private datePipe: DatePipe,
@@ -47,14 +55,14 @@ export class InvoiceComponent implements OnInit {
 
 
     // <-- pagination 
-    this.invoiceService.totalNumberOfInvoices.subscribe((data: number) => {
+    this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
       this.totalItems = data;
-      
+
     });
-    
-    this.invoiceService.recieveInvoices().subscribe((data: any) => {
+
+    this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
-      
+
       console.log(this.invoices, "The Invoices ")
     });
     // pagination --> 
@@ -89,10 +97,10 @@ export class InvoiceComponent implements OnInit {
 
 
   DeleteInvoices(_id: string) {
-    this.invoiceService.deleteInvoices(_id).subscribe(
+    this.invoiceService.deleteInvoices(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
         this.deleteService.selectedId = null;
-        this.invoiceService.getAllInvoice().subscribe(
+        this.invoiceService.getAllInvoice().pipe(takeUntil(this.destroyed)).subscribe(
           (res: any) => {
             this.invoices = res.invoices.map((invoice: any) => {
               invoice.date = this.formatDate(invoice.date);
@@ -115,6 +123,25 @@ export class InvoiceComponent implements OnInit {
     this.currentPage = page;
     this.invoiceService.page = page;
     this.invoiceService.getAll();
+  }
+
+  updateInvoiceStatus(status: STATUS, invoiceId: string): void {
+    this.invoiceService.updateInvoiceStatus(invoiceId, status).subscribe(
+      (res: any) => {
+        // Save status in invoiceList;
+        //console.log(this.invoiceId, "INVOICEID")
+        // console.log(res, "Response of update invoice status");
+      },
+      (error: any) => {
+
+        console.error(error, "Error occurred while updating invoice status");
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
   }
 
 }

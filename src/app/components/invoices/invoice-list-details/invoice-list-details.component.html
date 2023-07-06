@@ -1,15 +1,22 @@
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
 
-    <div class="view-button">  <button type="button" routerLink="/invoice" class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house"></i>
-        Home</button></div>
-  
+
+    <!-- <div class="buttons"> -->
+        <div class="view-button"> <button type="button" routerLink="/invoice"
+            class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house"></i>
+            Home</button></div>
+            <div class="btn btn-primary print-cstn-btn downloadInvoice" (click)="downloadInvoice()"><i class="ri-download-2-line align-bottom me-1"
+                ></i> Download Invoice</div>
+    <!-- </div> -->
+   
+
     <table style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px;"
-                align="center">
+        align="center">
         <thead>
             <tr>
                 <td>
                     <table style="width: 100%;">
-                       
+
                         <tbody>
                             <tr>
                                 <td style="text-align: left;"><img src="assets\m-logo.png" width="130px"
@@ -136,19 +143,19 @@
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none;  font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Amount </th>
                                 <th
-                                style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                    style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     {{details.tax}} </th>
                                 <th
-                                  style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                    style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Rate </th>
                                 <th
-                                style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                    style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Total </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="text-align: center; font-size: 14px;"
-                            *ngFor="let product of data[0].products; let i = index">
+                                *ngFor="let product of data[0].products; let i = index">
                                 <td
                                     style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
                                     {{ i + 1 }}.
@@ -156,6 +163,10 @@
                                 <td
                                     style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
                                     {{product.name}}
+                                </td>
+                                <td
+                                    style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;" >
+                                  {{product.description}}
                                 </td>
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
@@ -178,15 +189,17 @@
                                     {{product.total}}
                                 </td>
                             </tr>
-                            <tr *ngIf="description">
+                            <!-- <tr *ngIf="description">
                                 <td colspan="7">
-                                  <h4 style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">Description</h4>
-                                  <p style="font-size: 16px; color: #282828; font-weight: 400; line-height: 29px; margin: 10px 0;" [innerHTML]="description">
-                                
-                                  </p>
+                                    <h4 style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">
+                                        Description</h4>
+                                    <p style="font-size: 16px; color: #282828; font-weight: 400; line-height: 29px; margin: 10px 0;"
+                                        [innerHTML]="description">
+
+                                    </p>
                                 </td>
-                              </tr>
-                            
+                            </tr> -->
+
                         </tbody>
 
                     </table>
@@ -198,7 +211,7 @@
                         *ngFor="let details of  data">
                         <tbody>
                             <tr>
-                                
+
                                 <td style="width: 55%; vertical-align: top;">
                                     <h4 style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">
                                         Declaration</h4>
@@ -217,9 +230,9 @@
                                     </div>
                                     <div style="padding-bottom: 10px; float: left; width: 100%;">
                                         <span
-                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;" >{{details.tax}}</span>
+                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">{{details.tax}}</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;" ></span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;"></span>
                                     </div>
                                     <div
                                         style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
@@ -232,7 +245,7 @@
                                     <div style="padding-top: 30px; float: left; width: 100%;">
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
-                                            Total (in words) : 
+                                            Total (in words) :
                                         </p>
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
@@ -317,4 +330,6 @@
             </tr>
         </tbody>
     </table>
+
+   
 </div>

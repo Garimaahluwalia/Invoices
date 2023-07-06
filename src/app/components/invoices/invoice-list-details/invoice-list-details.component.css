@@ -8,3 +8,22 @@ button.btn.btn-info.save-cstn-btn.View-invoice.button {
     font-size: 18px;
     margin-bottom: 20px;
 }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.btn.btn-primary.print-cstn-btn.downloadInvoice {
+    height: 42px;
+    background-color: #bb1b1f !important;
+    border-color: #bb1b1f !important;
+    color: #fff;
+    margin-left: 52px;
+    font-size: 18px;
+}
+
+i.fa-solid.fa-house {
+    margin-right: 10px;
+}

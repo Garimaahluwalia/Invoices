@@ -1,7 +1,7 @@
 export enum STATUS {
-    UNPAID = "UNPAID" ,
-    PAID = "PAID",
-    CANCEL = "CANCEL" ,
-    DRAFT = "DRAFT",
-    SENT = "SENT"
+    DRAFT = 'DRAFT',
+    SENT = 'SENT',
+    CANCELLED = 'CANCELLED',
+    PAID = 'PAID',
+    UNPAID = 'UNPAID'
 }

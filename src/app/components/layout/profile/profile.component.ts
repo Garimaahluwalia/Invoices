@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { ProfileService } from 'src/app/services/profile.service';
 import { IUserProfile } from 'src/app/types/profile';
 
@@ -19,15 +20,19 @@ export class ProfileComponent implements OnInit {
   constructor(public profileService: ProfileService) { }
   
   ngOnInit(): void {
-    this.profileService.addProfile().subscribe((res: any) => {
+    this.profileService.getProfile().subscribe((res: any) => {
       this.userProfile = res;
-      this.profileImage = res.photoUrl
-      console.log(this.profileImage, "URLofImage");
       console.log(this.userProfile, "UserProfile");
+      this.profileImage = res.photoUrl
     });
-
   }
 
+
+  // ngOnDestroy(): void {
+  //   this.destroyed.next(true);
+  //   this.destroyed.complete();
+  // }
+  
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
   }
@@ -35,6 +40,7 @@ export class ProfileComponent implements OnInit {
   saveProfile() {
     this.profileService.updateProfile(this.userProfile).subscribe(
       (response) => {
+        console.log(response, "update responses")
         this.isEditMode = false;
       },
       (error) => {

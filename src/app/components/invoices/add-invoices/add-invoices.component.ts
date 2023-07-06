@@ -6,6 +6,8 @@ import { IInvoice, Invoice } from 'src/app/types/invoice';
 import { NotifierService } from 'angular-notifier';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -21,6 +23,7 @@ export class AddInvoicesComponent implements OnInit {
   public updatedInvoiceNumber: any;
   public updateInvoiceData: any;
   public download: any;
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -34,7 +37,7 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.downloadInvoice();
+
     this.getTaxes();
     // InvoiceId from Route
     this.invoiceId = this.route.snapshot?.params?.["id"];
@@ -86,7 +89,7 @@ export class AddInvoicesComponent implements OnInit {
 
 
   addInvoice(payload: any) {
-    this.addInvoiceService.addInvoice(payload).subscribe(
+    this.addInvoiceService.addInvoice(payload).pipe(takeUntil(this.destroyed)).subscribe(
       (res: any) => {
         this.Invoices = res;
         this.notifier.notify('success', 'Invoice saved successfully');
@@ -122,12 +125,16 @@ export class AddInvoicesComponent implements OnInit {
 
 
   downloadInvoice() {
-    // this.invoiceService.downloadInvoice(this.invoiceId).subscribe((res:any) => {
-    //   this.download = res ;
+    this.invoiceService.downloadInvoice(this.invoiceId).subscribe((res:any) => {
+      this.download = res ;
 
-    // })
-    
+    })
+  }
 
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
   }
 }
 

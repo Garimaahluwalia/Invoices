@@ -26,7 +26,7 @@ export class ProfileService {
     return this.http.post<any>(endpoints.PROFILE.UPLOAD_PROFILE, file);
   }
 
-  addProfile(): Observable<any> {
+  getProfile(): Observable<any> {
     return this.http.get<any>(endpoints.PROFILE.ADD);
   }
 

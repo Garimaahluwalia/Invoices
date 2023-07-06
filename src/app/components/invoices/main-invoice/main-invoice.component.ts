@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -13,6 +15,7 @@ export class MainInvoiceComponent implements OnInit {
   public DashboardCount: any;
   public currentPage = 1;
   public itemsPerPage = 12;
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
   constructor(public invoiceService: InvoiceService,
     public clientService: ClientService,
@@ -20,9 +23,12 @@ export class MainInvoiceComponent implements OnInit {
 
 
   ngOnInit() {
-    this.loginService.getDashboardCounts().subscribe((res) => {
+    this.loginService.getDashboardCounts().pipe(takeUntil(this.destroyed)).subscribe((res) => {
       this.DashboardCount = res;
     })
   }
-
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 }

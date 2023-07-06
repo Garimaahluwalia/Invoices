@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
@@ -12,6 +13,7 @@ import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 export class HeaderComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   public isActiveSideBar: Boolean = false;
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
 
   constructor(public loginService: LoginService,

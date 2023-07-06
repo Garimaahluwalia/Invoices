@@ -7,6 +7,8 @@ import { TAXES } from 'src/app/types/taxes';
 import { DEFAULTCURRENCY, CURRENCY } from 'src/app/types/currency';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 
 
@@ -38,6 +40,7 @@ export class ProductdetailsComponent implements OnInit {
   public currencies = CURRENCY; // Currency
   public inputcurrency: any;
   public taxamount: any;
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
@@ -64,7 +67,7 @@ export class ProductdetailsComponent implements OnInit {
     this.addDescriptionDefault;
     this.addNewLine();
 
-    this.addinvoiceService.getTaxAmount().subscribe((res: any) => {
+    this.addinvoiceService.getTaxAmount().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.taxAmountData = res;
       this.onProductValueChange(0);
     });
@@ -72,7 +75,7 @@ export class ProductdetailsComponent implements OnInit {
 
 
     // currency
-    this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
+    this.addinvoiceService.receiveCurrency().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.inputcurrency = res;
     });
 
@@ -176,6 +179,9 @@ export class ProductdetailsComponent implements OnInit {
     console.log(value, "productDetails111111112s")
   }
 
-
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 
 }

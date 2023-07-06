@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between p-0 m-0">
-                <button type="button" routerLink="/main-invoice" class="btn btn-info save-cstn-btn"><i
+                <button type="button" routerLink="/invoice" class="btn btn-info save-cstn-btn"><i
                         class="fa-solid fa-house"></i>
                     Home</button>
             </div>
@@ -34,11 +34,12 @@
                         <app-productdetails></app-productdetails>
                         <app-paymentdetails></app-paymentdetails>
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-                            <button type="submit" class="btn btn-info save-cstn-btn save-button" [disabled]="InvoiceForm.invalid"><i
-                                    class="ri-printer-line align-bottom me-1"></i>
+                            <button type="submit" class="btn btn-info save-cstn-btn save-button"
+                                [disabled]="InvoiceForm.invalid"><i class="ri-printer-line align-bottom me-1"></i>
                                 Save</button>
-                            <a  class="btn btn-primary print-cstn-btn downloadInvoice"><i
-                                    class="ri-download-2-line align-bottom me-1" (click)="downloadInvoice()"></i> Download Invoice</a>
+                            <a class="btn btn-primary print-cstn-btn downloadInvoice"><i
+                                    class="ri-download-2-line align-bottom me-1" (click)="downloadInvoice()"></i>
+                                Download Invoice</a>
                         </div>
                     </div>
                 </form>

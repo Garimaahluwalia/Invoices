@@ -6,6 +6,8 @@ import { IbankDetails } from 'src/app/types/invoice';
 import { numberToWords } from "src/app/common/numberToWords";
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DEFAULTCURRENCY } from 'src/app/types/currency';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-paymentdetails',
@@ -32,6 +34,7 @@ export class PaymentdetailsComponent implements OnInit {
   public taxamount: any;
   public GetInvoiceAndEmit: any;
   public selectedCurrency: any = DEFAULTCURRENCY.code; 
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
@@ -57,7 +60,7 @@ export class PaymentdetailsComponent implements OnInit {
       }
     });
 
-    this.addinvoiceService.receiveCurrency().subscribe((res: any) => {
+    this.addinvoiceService.receiveCurrency().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.currency = res;
     });
 
@@ -77,5 +80,8 @@ export class PaymentdetailsComponent implements OnInit {
     "swiftCode": "9898BHBZA23",
     "bank": "ICICI Bank Ltd.",
   };
-
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 }

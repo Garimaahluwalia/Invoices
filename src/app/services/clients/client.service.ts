@@ -13,7 +13,7 @@ export class ClientService {
   // pagination
   public totalNumberOfClient: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
-  private _limit: number = 12;
+  private _limit: number = 100;
   // pagination
 
   private _clients: Client[] = [];

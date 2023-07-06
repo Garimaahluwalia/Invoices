@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import endpoints from 'src/app/endpoints';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { STATUS } from 'src/app/types/status';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class InvoiceService {
   private _limit: number = 13;
   // pagination
 
- 
+
   private _invoices: IInvoiceResponse[] = [];
   private invoicesSubject: BehaviorSubject<IInvoiceResponse[]> = new BehaviorSubject<IInvoiceResponse[]>([]);
 
@@ -25,7 +26,7 @@ export class InvoiceService {
   public invoiceNumber: string | null = null;         // for InvoiceNumber 
   private _forupdateinvoicedata: IInvoiceResponse | null = null;   // for Invoice Data 
   public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>() // To emit invoice Data
-  public _updateStatus : EventEmitter<any> = new EventEmitter<any>()
+  public _updateStatus: EventEmitter<any> = new EventEmitter<any>()
   constructor(private http: HttpClient) { }
 
 
@@ -112,7 +113,10 @@ export class InvoiceService {
   }
 
   downloadInvoice(invoiceId: any): Observable<any> {
-    return this.http.get<string>(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId))
+    return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
+      observe: 'response',
+      responseType: "blob"
+    })
   }
 
   deleteInvoices(invoiceId: string) {
@@ -125,9 +129,10 @@ export class InvoiceService {
   }
 
 
-  updateInvoiceStatus(invoiceId: string) {
-    console.log(invoiceId);
-    return this.http.put(endpoints.INVOICES_LIST.UPDATE_STATUS(invoiceId), {});
+  updateInvoiceStatus(invoiceId: string, status: STATUS) {
+    return this.http.put(endpoints.INVOICES_LIST.UPDATE_STATUS(invoiceId), {
+      status
+    });
   }
 
 

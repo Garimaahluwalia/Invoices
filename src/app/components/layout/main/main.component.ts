@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 })
 export class MainComponent  implements OnInit  {
   public isActiveSideBar:Boolean=false;
-  
+
   constructor(private sidebaeService:SidebarService) { }
 
 
@@ -17,5 +18,6 @@ export class MainComponent  implements OnInit  {
       this.isActiveSideBar=rs;
   });
   }
+  
   
 }

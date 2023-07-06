@@ -13,8 +13,8 @@ import { ModalEvents } from 'src/app/types/modal';
 })
 export class ClientComponent implements OnInit {
   public currentPage = 1;  //pagination
-  public itemsPerPage = 12; //pagination
-  public totalItems = 12;   //pagination
+  public itemsPerPage = 100; //pagination
+  public totalItems = 100;   //pagination
   public showModal = false;
   public clients: any[] = [];
   public inputsDisabled = false;

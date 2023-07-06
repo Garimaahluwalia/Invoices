@@ -7,6 +7,8 @@ import { TAXES } from 'src/app/types/taxes';
 import { DEFAULTCURRENCY, CURRENCY } from 'src/app/types/currency';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { takeUntil } from 'rxjs';
 
 
 
@@ -38,7 +40,7 @@ export class ProductdetailsComponent implements OnInit {
   public currencies = CURRENCY; // Currency
   public inputcurrency: any;
   public taxamount: any;
-
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService
@@ -46,7 +48,7 @@ export class ProductdetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.addinvoiceService.recieveProductRows().subscribe((res: any) => {
+    this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.productRows = res;
       console.log(this.productRows, "PRODUCTROWS ///////////")
     });
@@ -64,7 +66,7 @@ export class ProductdetailsComponent implements OnInit {
     this.addDescriptionDefault;
     this.addNewLine();
 
-    this.addinvoiceService.getTaxAmount().subscribe((res: any) => {
+    this.addinvoiceService.getTaxAmount().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.taxAmountData = res;
       this.onProductValueChange(0);
     });
@@ -80,7 +82,7 @@ export class ProductdetailsComponent implements OnInit {
     // });
 
     // currency
-    this.addinvoiceService.receiveCurrency().subscribe((res: string) => {
+    this.addinvoiceService.receiveCurrency().pipe(takeUntil(this.destroyed)).subscribe((res: string) => {
       this.inputcurrency = res;
       const currency = this.currencies.find(currency => currency.code === this.inputcurrency);
       this.inputcurrency = currency?.symbol;
@@ -95,7 +97,10 @@ export class ProductdetailsComponent implements OnInit {
   }
 
 
-
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
   currencyChange(event: any) {  // Currency
     this.selectedCurrency = event.target.value;
     /* const selectedCurrency = this.currencies.find(currency => currency.code === this.selectedCurrency);

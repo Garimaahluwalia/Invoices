@@ -29,7 +29,7 @@
 
                                     <tbody>
                                         <tr
-                                        *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  }">
+                                            *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  }">
                                             <td data-label="Invoice ID">
                                                 <p class="fw-medium mb-0">{{details.invoiceNo}}</p>
                                             </td>
@@ -43,11 +43,9 @@
                                             <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
                                             <td data-label="Billed">{{details?.totalAmount}}</td>
 
-                                            <td data-label="Status"> 
-                                                <app-status></app-status>
-                                                <!-- <span class="badge badge-soft-success p-2">
-                                                    {{details?.status}}
-                                                </span> -->
+                                            <td data-label="Status">
+                                                <app-status
+                                                  [statuses]="statuses"  [status]="details?.status" (output)="updateInvoiceStatus($event, details?._id)"></app-status>
                                             </td>
                                             <td data-label="Action" class="action-items">
                                                 <ul class="list-inline hstack gap-2 mb-0">
@@ -55,7 +53,7 @@
                                                     <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Edit">
                                                         <a class="btn btn-soft-info btn-sm d-inline-block"
-                                                          (click)="updateInvoice(details)">
+                                                            (click)="updateInvoice(details)">
                                                             <i class="las la-pen fs-17 align-middle"></i>
                                                         </a>
                                                     </li>

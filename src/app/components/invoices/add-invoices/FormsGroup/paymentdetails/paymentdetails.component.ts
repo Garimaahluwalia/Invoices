@@ -6,6 +6,7 @@ import { IbankDetails } from 'src/app/types/invoice';
 import { numberToWords } from "src/app/common/numberToWords";
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { CURRENCY, DEFAULTCURRENCY } from 'src/app/types/currency';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 
 @Component({
   selector: 'app-paymentdetails',
@@ -33,7 +34,7 @@ export class PaymentdetailsComponent implements OnInit {
   public GetInvoiceAndEmit: any;
   public selectedCurrency: any = DEFAULTCURRENCY.symbol; 
   public currencies = CURRENCY; // Currency
-
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
@@ -77,7 +78,10 @@ export class PaymentdetailsComponent implements OnInit {
         this.currency = res.currency;
       })
   }
-
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 
   public Bankdetails: IbankDetails = {
     "accountHolderName": "M CODE INFOSOFT",
