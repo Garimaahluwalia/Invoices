@@ -36,6 +36,7 @@ import { ProfileComponent } from './components/layout/profile/profile.component'
 import { DatePipe } from '@angular/common';
 import { StatusComponent } from './components/invoices/status/status.component';
 
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -117,7 +118,6 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     CKEditorModule,
     AppRoutingModule,
-    
   ],
   providers: [
     DatePipe,

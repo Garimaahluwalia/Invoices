@@ -29,7 +29,7 @@ export class InvoiceComponent implements OnInit {
   public InvoiceNumber!: number;
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-
+  public status: typeof STATUS = STATUS;
 
   public readonly statuses: string[] = Object.values(STATUS);
 
@@ -94,8 +94,6 @@ export class InvoiceComponent implements OnInit {
     this.router.navigate(["/add-invoice", details._id]);
   }
 
-
-
   DeleteInvoices(_id: string) {
     this.invoiceService.deleteInvoices(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
@@ -125,19 +123,16 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.getAll();
   }
 
-  updateInvoiceStatus(status: STATUS, invoiceId: string): void {
-    this.invoiceService.updateInvoiceStatus(invoiceId, status).subscribe(
-      (res: any) => {
-        // Save status in invoiceList;
-        //console.log(this.invoiceId, "INVOICEID")
-        // console.log(res, "Response of update invoice status");
-      },
-      (error: any) => {
 
-        console.error(error, "Error occurred while updating invoice status");
-      }
-    );
+  updateStatus(invoiceid: string, status: string ) {
+    this.invoiceService.statusUpdate(invoiceid, status);
+    this.invoiceService.updateInvoiceStatus(invoiceid, status).subscribe((res: any) => {
+      console.log(res, "Response of update invoice status")
+    }, (error: any) => {
+      console.error(error, "Error occurred while updating invoice status")
+    });
   }
+
 
   ngOnDestroy(): void {
     this.destroyed.next(true);

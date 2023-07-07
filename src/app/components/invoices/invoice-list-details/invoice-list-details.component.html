@@ -1,17 +1,17 @@
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
 
 
-    <!-- <div class="buttons"> -->
+    <div class="buttons">
         <div class="view-button"> <button type="button" routerLink="/invoice"
             class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house"></i>
             Home</button></div>
-            <div class="btn btn-primary print-cstn-btn downloadInvoice" (click)="downloadInvoice()"><i class="ri-download-2-line align-bottom me-1"
-                ></i> Download Invoice</div>
-    <!-- </div> -->
+            <div class="btn btn-primary print-cstn-btn downloadInvoice"  (click)="downloadInvoice()"><i class="ri-download-2-line align-bottom me-1"
+               ></i> Download Invoice</div>
+    </div>
    
 
     <table style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px;"
-        align="center">
+        align="center" *ngFor="let details of  data">
         <thead>
             <tr>
                 <td>
@@ -24,7 +24,9 @@
                                 </td>
                                 <td>
                                 </td>
+                              
                                 <td style="text-align: right; vertical-align: middle;">
+                                    <span class="badge badge-primary">{{details.status}}</span>
                                     <h2 style="font-size: 34px; font-weight: 400;">Invoice</h2>
                                 </td>
                             </tr>
@@ -164,10 +166,10 @@
                                     style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
                                     {{product.name}}
                                 </td>
-                                <td
-                                    style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;" >
+                                <!-- <td
+                                    style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
                                   {{product.description}}
-                                </td>
+                                </td> -->
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
                                     {{product.HSN_SAC }}

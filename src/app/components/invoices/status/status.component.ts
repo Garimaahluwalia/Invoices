@@ -8,12 +8,14 @@ import { STATUS } from 'src/app/types/status';
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.css']
 })
-export class StatusComponent {
+export class StatusComponent implements OnInit {
 
-  @Input() invoiceid: string | null = null;
+  @Input() invoiceid: any;
   @Input() status: STATUS = STATUS.UNPAID;
-  @Input() statuses: string[] = [];
-  @Output() output: EventEmitter<STATUS> = new EventEmitter<STATUS>();
+  // @Input() statuses: string[] = [];
+  // @Output() output: EventEmitter<STATUS> = new EventEmitter<STATUS>();
+
+  public updatestatus: any;
 
 
 
@@ -22,9 +24,37 @@ export class StatusComponent {
     public route: Router,
     public router: ActivatedRoute
   ) {}
-
-
-  onStatusChange() {
-    this.output.emit(this.status);
+  ngOnInit(): void {
+   this.getstatus();
   }
+
+
+  // onStatusChange() {
+  //   this.output.emit(this.status);
+  // }
+
+  getstatus(){
+     this.invoiceService.updateInvoiceStatus(this.invoiceid , this.status ).subscribe((res:any) => {
+      this.updatestatus = res ;
+      console.log(this.updatestatus, "response of update invoice status")
+     },
+     (error: any) => {
+      console.error(error, "Error occurred while updating invoice Status")
+     }
+     )
+  }
+
+  // updateInvoiceStatus(status: STATUS, invoiceId: string): void {
+  //   this.invoiceService.updateInvoiceStatus(invoiceId, status).subscribe(
+  //     (res: any) => {
+  //       // Save status in invoiceList;
+  //       //console.log(this.invoiceId, "INVOICEID")
+  //       // console.log(res, "Response of update invoice status");
+  //     },
+  //     (error: any) => {
+
+  //       console.error(error, "Error occurred while updating invoice status");
+  //     }
+  //   );
+  // }
 }

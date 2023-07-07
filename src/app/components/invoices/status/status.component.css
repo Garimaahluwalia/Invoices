@@ -1,3 +1,8 @@
 select#exampleFormControlSelect1 {
     width: 120px;
 }
+span.badge.badge-pill.badge-primary.status {
+    background-color: #bb1b1f;
+    padding: 11px;
+    font-size: 12px;
+}

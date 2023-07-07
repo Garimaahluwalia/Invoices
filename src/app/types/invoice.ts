@@ -1,5 +1,6 @@
 import { TAXES } from "./taxes";
 export interface IInvoiceResponse {
+   InvoiceId: string;
    invoices: IInvoice[];
    totalPages: number;
 }

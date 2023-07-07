@@ -123,11 +123,22 @@ export class AddInvoicesComponent implements OnInit {
     });
   }
 
-
-  downloadInvoice() {
-    this.invoiceService.downloadInvoice(this.invoiceId).subscribe((res:any) => {
-      this.download = res ;
-
+  downloadInvoice(){
+    this.invoiceService.downloadInvoice(this.invoiceId).pipe(takeUntil(this.destroyed)).subscribe((response: any) => {
+      let dataType = response.type;
+      let binaryData = [];
+      binaryData.push(response.body);
+      let downloadLink = document.createElement('a');
+      const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+      downloadLink.href = URI;
+      downloadLink.setAttribute('download',
+        `invoice_${this.invoiceId}.pdf`);
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      setTimeout(() => {
+        downloadLink.remove();
+        window.URL.revokeObjectURL(URI);
+      }, 2000);
     })
   }
 

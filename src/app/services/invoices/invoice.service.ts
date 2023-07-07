@@ -18,7 +18,9 @@ export class InvoiceService {
   // pagination
 
 
-  private _invoices: IInvoiceResponse[] = [];
+  private _invoices: any[] = [];
+
+
   private invoicesSubject: BehaviorSubject<IInvoiceResponse[]> = new BehaviorSubject<IInvoiceResponse[]>([]);
 
 
@@ -28,6 +30,21 @@ export class InvoiceService {
   public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>() // To emit invoice Data
   public _updateStatus: EventEmitter<any> = new EventEmitter<any>()
   constructor(private http: HttpClient) { }
+
+
+
+  
+  statusUpdate(invoiceId: string , status : string){
+    const foundInvoice = this._invoices.find((invoice) => invoice._id === invoiceId);
+    console.log(foundInvoice, "FoundInvoice");
+    if (foundInvoice) {
+      foundInvoice.status = status;
+      console.log("Invoice status updated successfully.");
+     this.sendInvoices();
+    } else {
+      console.log("Invoice not found.");
+    }
+  }
 
 
   // <-- pagination
@@ -93,6 +110,7 @@ export class InvoiceService {
   }
 
 
+
   updateClient(data: IInvoiceResponse, invoiceId: number) {
     const invoiceData = [...this._invoices];
     invoiceData.splice(invoiceId, 1, data);
@@ -129,7 +147,7 @@ export class InvoiceService {
   }
 
 
-  updateInvoiceStatus(invoiceId: string, status: STATUS) {
+  updateInvoiceStatus(invoiceId: string, status: string) {
     return this.http.put(endpoints.INVOICES_LIST.UPDATE_STATUS(invoiceId), {
       status
     });

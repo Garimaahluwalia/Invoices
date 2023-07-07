@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { ProfileService } from 'src/app/services/profile.service';
 import { IUserProfile } from 'src/app/types/profile';
 
@@ -15,12 +16,13 @@ export class ProfileComponent implements OnInit {
   public selectedFile!: File;
   public profileImage: any;
   public Image: any;
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
 
   constructor(public profileService: ProfileService) { }
-  
+
   ngOnInit(): void {
-    this.profileService.getProfile().subscribe((res: any) => {
+    this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.userProfile = res;
       console.log(this.userProfile, "UserProfile");
       this.profileImage = res.photoUrl
@@ -28,17 +30,33 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  // ngOnDestroy(): void {
-  //   this.destroyed.next(true);
-  //   this.destroyed.complete();
-  // }
-  
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
+
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
   }
 
   saveProfile() {
-    this.profileService.updateProfile(this.userProfile).subscribe(
+    const payload = {
+      name: this.userProfile.name,
+      email: this.userProfile.email,
+      mobile: this.userProfile.mobile,
+      registeredOn: this.userProfile.registeredOn,
+      gstIn: this.userProfile.gstIn,
+      pan: this.userProfile.pan,
+      address: this.userProfile.address,
+      accountDetails: {
+        accHolderName: this.userProfile.accountDetails.accHolderName,
+        bankName: this.userProfile.accountDetails.bankName,
+        branchName: this.userProfile.accountDetails.branchName,
+        accountNumber: this.userProfile.accountDetails.accountNumber,
+        ifscCode: this.userProfile.accountDetails.ifscCode
+      }
+    };
+    this.profileService.updateProfile(payload).pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
         console.log(response, "update responses")
         this.isEditMode = false;
@@ -64,7 +82,7 @@ export class ProfileComponent implements OnInit {
 
 
   uploadProfilePhoto(file: FormData) {
-    this.profileService.uploadProfilePhoto(file).subscribe(
+    this.profileService.uploadProfilePhoto(file).pipe(takeUntil(this.destroyed)).subscribe(
       (response: any) => {
       },
       (error) => {
