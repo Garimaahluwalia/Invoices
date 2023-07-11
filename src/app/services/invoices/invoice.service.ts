@@ -35,7 +35,16 @@ export class InvoiceService {
   public subtotalofamount: any;
   public totalamount: any;
   public totalamountoftax: any;
-  constructor(private http: HttpClient, public addinvoiceService: AddInvoicesService) { }
+  constructor(private http: HttpClient,
+     public addinvoiceService: AddInvoicesService) { }
+
+
+
+
+
+
+
+
 
 
 

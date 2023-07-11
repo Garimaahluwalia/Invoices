@@ -149,16 +149,18 @@
                                     {{details.tax}} </th>
                                 <th
                                     style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                    Rate </th>
+                                    Rate </th> 
                                 <th
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Total </th>
                             </tr>
-                            <tr>
-                                <th colspan="5"
+
+                            <tr *ngIf="description">
+                                <th colspan="7"
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Description </th>
                             </tr>
+
                         </thead>
                         <tbody>
                             <tr style="text-align: center; font-size: 14px;"
@@ -196,8 +198,9 @@
                                     {{product.totalAmount}}
                                 </td>
                             </tr>
+
                             <tr *ngFor="let product of data[0].products; let i = index">
-                                <td colspan="5">{{product.description}}</td>
+                                <td colspan="7">{{product.description}}</td>
                             </tr>
 
 

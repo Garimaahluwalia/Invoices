@@ -4,14 +4,14 @@
     <div class="card">
       <div class="card-body p-4">
         <div class="sub-amount">
-          <span>Amount</span><span>{{currency}}{{totalOfAmountFromProduct}}</span>
+          <span>Amount</span><span>{{currency}}{{totalOfAllItemsFromProduct.subtotal}}</span>
         </div>
         <div class="sub-amount">
-          <span>Tax Rate : </span><span>{{currency}}{{totalrate}}</span>
+          <span>Tax Rate : </span><span>{{currency}}{{totalOfAllItemsFromProduct.rate}}</span>
         </div>
         <div class="total-amount">
           <span>Total({{ currency }})</span>
-          <span>{{ currency }}{{ totalrate == '0.00' ? totalOfAmountFromProduct : totalOfAllItemsFromProduct
+          <span>{{ currency }}{{ totalOfAllItemsFromProduct.rate == '0.00' ? totalOfAmountFromProduct.subtotal : totalOfAllItemsFromProduct.total
             }}</span>
         </div>
         <div class="amount-words">

@@ -42,7 +42,8 @@ export class InvoiceListDetailsComponent implements OnInit {
 
   getInvoiceById() {
     this.invoiceService.getInvoice(this._id).pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      this.data = [res];
+      this.data = res;
+      console.log(res, "response")
       const value = this.data[0].products;
       value.forEach((value: { description: any; }) => {
         this.description = value.description;

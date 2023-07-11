@@ -11,9 +11,8 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="invoicenoInput">Invoice No</label>
                         <input name="invoiceNo" ngModel type="text" class="form-control bg-light border-0"
-                            id="invoicenoInput" [(ngModel)]="InvoiceNumber" (ngModelChange)="checkInvoiceNumber()"  placeholder="Invoice No">
+                            id="invoicenoInput" [(ngModel)]="InvoiceNumber"  placeholder="Invoice No">
                     </div>
-                    <div *ngIf="isInvoiceNumberPresent" class="text-danger">Invoice number is already present.</div>
                 </div>
             </div>
             <div class="row mt-4">

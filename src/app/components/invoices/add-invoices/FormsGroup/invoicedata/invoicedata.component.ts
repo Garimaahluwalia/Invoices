@@ -17,8 +17,6 @@ export class InvoicedataComponent implements OnInit {
   public defaultDate: any;
   public InvoiceNumber!: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public invoiceNumber: string | null = null;
-  public isInvoiceNumberPresent: boolean = false;
 
   constructor(
     public invoiceService: InvoiceService,
@@ -43,16 +41,8 @@ export class InvoicedataComponent implements OnInit {
   getInvoiceNumber() {
     this.invoiceService.getInvoiceNumber().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.InvoiceNumber = res.invoiceNumber;
-  
-      if (this.InvoiceNumber) {
-        this.invoiceNumber = this.InvoiceNumber;
-        this.checkInvoiceNumber();
-      }
     });
   }
-  
-  checkInvoiceNumber() {
-    this.isInvoiceNumberPresent = this.invoiceNumber !== null;
-  }
+
 
 }

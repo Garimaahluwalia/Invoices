@@ -7,7 +7,13 @@ import { numberToWords } from "src/app/common/numberToWords";
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { CURRENCY, DEFAULTCURRENCY } from 'src/app/types/currency';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 
+interface IPrices {
+  subtotal: number,
+  rate: number,
+  total: number
+}
 @Component({
   selector: 'app-paymentdetails',
   templateUrl: './paymentdetails.component.html',
@@ -38,26 +44,48 @@ export class PaymentdetailsComponent implements OnInit {
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
-    public invoiceService: InvoiceService) { }
+    public invoiceService: InvoiceService,
+    public invoiceDataHandlerService: InvoiceDataHandlerService) { }
   ngOnInit(): void {
 
-    // this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
-    //   this.productRows = res;
-    //   if (res.length > 0) {
-    //     const firstElement = res[0];
-    //     this.amount = firstElement.amount;
-    //     this.tax = firstElement.tax;
-    //     this.rate = firstElement.rate;
-    //     this.taxamount = firstElement.taxamount;
-    //     this.total = firstElement.total;
-    //     if (this.productRows.length > 0) {
-    //       this.totalOfAllItemsFromProduct = this.productRows.reduce((acc, row) => acc + parseFloat(row.total), 0).toFixed(2);
-    //       this.totalOfAmountFromProduct = this.productRows.reduce((acc, row) => acc + row.amount, 0);
-    //       this.totalrate = this.productRows.reduce((total, row) => total + parseFloat(row.rate), 0);
-    //       this.totalAmountInWords = !isNaN(parseFloat(this.totalOfAllItemsFromProduct)) ? numberToWords(this.totalOfAllItemsFromProduct) : (parseFloat(this.totalOfAmountFromProduct) ? numberToWords(this.totalOfAmountFromProduct) : "");
-    //     }
-    //   }
-    // });
+    this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
+      this.productRows = res;
+      if (res.length > 0) {
+        const firstElement = res[0];
+        this.amount = firstElement.amount;
+        this.tax = firstElement.tax;
+        this.rate = firstElement.rate;
+        this.taxamount = firstElement.taxamount;
+        this.total = firstElement.total;
+        if (this.productRows.length > 0) {
+          const prices: IPrices = {
+            subtotal: 0,
+            rate: 0,
+            total: 0
+          };
+          const calculatedPrices =
+            this.totalOfAllItemsFromProduct = this.productRows.reduce((acc: IPrices, row) => {
+              acc.total += parseFloat(row.total || 0);
+              acc.subtotal += parseFloat(row.amount || 0);
+              acc.rate += parseFloat(row.rate || 0);
+              return acc;
+            }, prices);
+          console.log(calculatedPrices);
+          const {subtotal, total, rate } = calculatedPrices;
+          this.totalAmountInWords = !isNaN(parseFloat(this.totalOfAllItemsFromProduct)) ? numberToWords(this.totalOfAllItemsFromProduct) : (parseFloat(this.totalOfAmountFromProduct) ? numberToWords(this.totalOfAmountFromProduct) : "");
+
+          this.invoiceDataHandlerService.subtotalofamount =  subtotal;
+          this.invoiceDataHandlerService.totalamountoftax = rate;
+          this.invoiceDataHandlerService.totalamount = total;
+
+        } else {
+
+          this.invoiceDataHandlerService.subtotalofamount = 0;
+          this.invoiceDataHandlerService.totalamountoftax = 0;
+          this.invoiceDataHandlerService.totalamount = 0;
+        }
+      }
+    });
 
 
 
