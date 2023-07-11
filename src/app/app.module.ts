@@ -35,6 +35,7 @@ import { MainInvoiceComponent } from './components/invoices/main-invoice/main-in
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { DatePipe } from '@angular/common';
 import { StatusComponent } from './components/invoices/status/status.component';
+import { invoiceactionsComponent } from './Modals/invoice-actions/invoice-actions.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -104,7 +105,8 @@ const customNotifierOptions: NotifierOptions = {
     PhonenumberDirective,
     MainInvoiceComponent,
     ProfileComponent,
-    StatusComponent
+    StatusComponent,
+    invoiceactionsComponent
    
   ],
   imports: [

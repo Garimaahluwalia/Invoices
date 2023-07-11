@@ -9,6 +9,4 @@ export class AppComponent {
   title = 'Invoice-System';
 
   constructor(){}
- 
- 
 }

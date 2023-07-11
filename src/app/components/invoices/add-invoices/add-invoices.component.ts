@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
-import { IInvoice, Invoice } from 'src/app/types/invoice';
+import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { NotifierService } from 'angular-notifier';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -24,6 +25,7 @@ export class AddInvoicesComponent implements OnInit {
   public updateInvoiceData: any;
   public download: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
+  public status : any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -31,7 +33,8 @@ export class AddInvoicesComponent implements OnInit {
     public notifierService: NotifierService,
     public clientService: ClientService,
     public invoiceService: InvoiceService,
-    public router: Router
+    public router: Router,
+    public invoiceDataHandler: InvoiceDataHandlerService
   ) {
     this.notifier = notifierService;
   }
@@ -48,6 +51,8 @@ export class AddInvoicesComponent implements OnInit {
     this.invoiceService.invoiceEmitter.subscribe((res) => {
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
+      this.status = res.status;
+      console.log(this.status , "status from emittter")
 
       this.addInvoiceService.sendProductChanges(res.products);
       this.clientService.sendClientDetails(res.client);
@@ -56,29 +61,28 @@ export class AddInvoicesComponent implements OnInit {
       this.InvoiceForm.form?.patchValue({
         "invoice": {
           "invoiceNo": res.invoiceNo,
-          "date": "2023-06-28"
+         
         },
         "currency": res.currency,
         "tax": res.tax,
       });
     });
-
-  
   }
 
   submit(f: NgForm) {
-
     const client_details = f.value.client_id;
     if (!client_details) {
       this.notifier.notify('error', 'Client is missing');
     } else {
-      const invoice = new Invoice();
-      invoice.setData(f.value);
+      this.invoiceDataHandler.setData(f.value);
+      console.log(f.value, "FormValue")
       const clientId = f.value.client_id;
+     
+      console.log(status, "StatusfromSUbmkit")
       console.log(clientId, "ClientId from form");
       console.log(f.value, "addForm Submit Value");
-      invoice.invoiceId = this.invoiceId as string;
-      const payload = invoice.getPayload();
+      this.invoiceDataHandler.invoiceId = this.invoiceId as string;
+      const payload = this.invoiceDataHandler.getPayload();
       if (this.invoiceId) {
         this.updateInvoice(this.invoiceId, payload);
       } else {
@@ -123,7 +127,7 @@ export class AddInvoicesComponent implements OnInit {
     });
   }
 
-  downloadInvoice(){
+  downloadInvoice() {
     this.invoiceService.downloadInvoice(this.invoiceId).pipe(takeUntil(this.destroyed)).subscribe((response: any) => {
       let dataType = response.type;
       let binaryData = [];

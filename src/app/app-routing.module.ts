@@ -16,6 +16,7 @@ import { DeleteComponent } from './Modals/delete/delete.component';
 import { ClientDetailsComponent } from './components/invoices/add-invoices/FormsGroup/client-details/client-details.component';
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
+import { invoiceactionsComponent } from './Modals/invoice-actions/invoice-actions.component';
 
 
 const routes: Routes = [
@@ -59,6 +60,10 @@ const routes: Routes = [
         path: CLIENTS.DELETE_CLIENTS,
         component: DeleteComponent
       },
+      {
+        path : INVOICES.INVOICE_ACTIONS,
+        component : invoiceactionsComponent
+      }
     ]
   },
   {
@@ -111,6 +116,11 @@ const routes: Routes = [
     path: CLIENTS.DELETE,
     component: DeleteComponent
   },
+  {
+    path: INVOICES.INVOICE_ACTION,
+    component:  invoiceactionsComponent
+  },
+
   {
     path: CLIENTS.CLIENT_DETAILS,
     component: ClientDetailsComponent

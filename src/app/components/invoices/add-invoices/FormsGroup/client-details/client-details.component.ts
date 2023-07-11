@@ -39,7 +39,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   }
 
   onClientChange() {
-    console.log("call", this.clientId);
+    // console.log("call", this.clientId);
     const client: Client | undefined = this.clients.find((client) => client._id === this.clientId);
     if (client) {
       this.selectedClient = client || null;

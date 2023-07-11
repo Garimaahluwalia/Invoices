@@ -14,3 +14,7 @@ i.fa-sharp.fa-solid.fa-xmark.cancel {
     padding: 11px;
     font-size: 12px;
 }
+tr.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }

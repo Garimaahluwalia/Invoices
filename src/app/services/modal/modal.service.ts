@@ -8,6 +8,7 @@ export class ModalService {
   public defaultStatusInitWith = { status: false };
   private _addorUpdateClient: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith);
   private _deleteConfirmation: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith);
+  private _invoiceactions : BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
 
   constructor() { }
 
@@ -20,6 +21,9 @@ export class ModalService {
       case ModalEvents.AddorUpdateClient:
         this._addorUpdateClient.next(data || defaultStatus);
         break;
+        case ModalEvents.invoiceactions:
+          this._invoiceactions.next(data || defaultStatus);
+          break;
     }
   }
 
@@ -29,6 +33,8 @@ export class ModalService {
         return this._addorUpdateClient.asObservable();
         case ModalEvents.Delete:
         return this._deleteConfirmation.asObservable();
+        case ModalEvents.invoiceactions:
+          return this._invoiceactions.asObservable();
     }
   }
   

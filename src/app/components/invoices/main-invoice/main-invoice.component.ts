@@ -4,7 +4,6 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
-import { IInvoice } from 'src/app/types/invoice';
 
 @Component({
   selector: 'app-main-invoice',

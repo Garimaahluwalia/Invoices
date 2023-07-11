@@ -21,7 +21,6 @@
                                             <th scope="col">Invoice</th>
                                             <th scope="col">Billed To</th>
                                             <th scope="col" style="width: 20%;">Email</th>
-
                                             <th scope="col">Amount</th>
                                             <th scope="col" style="width: 16%;">Status</th>
                                             <th scope="col" style="width: 12%;">Actions</th>
@@ -30,7 +29,8 @@
 
                                     <tbody>
                                         <tr
-                                            *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  } let i = index">
+                                            *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  } let i = index"
+                                           >
                                             <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
                                             <td data-label="Invoice ID">
                                                 <p class="fw-medium mb-0">{{details.invoiceNo}}</p>
@@ -42,54 +42,44 @@
                                             <td data-label="Email">
                                                 {{details?.client?.email}}
                                             </td>
-
                                             <td data-label="Billed">{{details?.totalAmount}}</td>
-                                            <td > <span class="badge badge-pill badge-primary status">{{details?.status}}</span></td>
-
-
-
-                                            <!-- <td data-label="Status">
-                                                <app-status
-                                                  [statuses]="statuses"  [status]="details?.status" (output)="updateInvoiceStatus($event, details?._id)"></app-status>
-                                            </td> -->
-                                            <!-- <td data-label="Status">
-                                                <app-status [invoiceid]="details._id"></app-status>
-                                            </td> -->
-
-                                            <!-- <td data-label="paid">
-                                                <div class="ui checkbox markaspaid">
-                                                    <input type="checkbox" class="markaspaid" name="example">
-                                                 
-                                                  </div>
-                                            </td> -->
+                                            <td> <span
+                                                    class="badge badge-pill badge-primary status">{{details?.status}}</span>
+                                            </td>
                                             <td data-label="Action" class="action-items">
                                                 <ul class="list-inline hstack  mb-0">
-
-
-                                                    <a (click)="updateStatus(details._id, status.PAID )">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
-                                                                stroke="#161c26" stroke-linecap="round"
-                                                                stroke-linejoin="round"></path>
-                                                            <path d="M8 12L10.6667 15L16 9" stroke="#161c26"
-                                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <a (click)="updateStatus(details, status.PAID)" 
+                                                    [style.pointer-events]="details.status === 'CANCELLED' || details.status === 'PAID' ? 'none' : 'auto'"
+                                                    data-bs-trigger="hover" data-bs-placement="top" title="Mark as Paid">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                          <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                                                            [attr.stroke]="details.status === 'PAID' ? '#A9A9A9' : '#161c26'"
+                                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                                          <path d="M8 12L10.6667 15L16 9" [attr.stroke]="details.status === 'PAID' ? '#A9A9A9' : '#161c26'"
+                                                            stroke-linecap="round" stroke-linejoin="round"></path>
                                                         </svg>
-                                                    </a>
+                                                      </a>
+                                                      
+                                                      
                                                     <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Edit">
                                                         <a class="btn btn-soft-info btn-sm d-inline-block"
-                                                            (click)="updateInvoice(details)">
+                                                            (click)="updateInvoice(details)" [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
                                                             <i class="las la-pen fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
-                                                    
                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="View">
                                                         <a class="btn btn-soft-info btn-sm d-inline-block"
                                                             [routerLink]="['/view-invoice-list', details._id]">
                                                             <i class="las la-eye fs-17 align-middle"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top" title="Cancel">
+                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
+                                                            (click)="updateStatus(details, status.CANCELLED)" [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
+                                                            <i class="fa-sharp fa-solid fa-xmark cancel"></i>
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
@@ -99,17 +89,9 @@
                                                             <i class="fas fa-trash fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top" title="Cancel">
-                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
-                                                            (click)="updateStatus(details._id, status.CANCELLED)">
-                                                            <i class="fa-sharp fa-solid fa-xmark cancel"></i>
-                                                        </a>
-                                                    </li>
                                                 </ul>
                                             </td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>

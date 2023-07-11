@@ -1,11 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IInvoice, IInvoiceResponse, Invoice } from 'src/app/types/invoice';
+import { IInvoice, IInvoiceResponse } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { Observable } from 'rxjs/internal/Observable';
 import endpoints from 'src/app/endpoints';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { STATUS } from 'src/app/types/status';
+import { AddInvoicesService } from './add-invoices.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,7 @@ export class InvoiceService {
   private _page: number = 1;
   private _limit: number = 13;
   // pagination
-
-
   private _invoices: any[] = [];
-
-
   private invoicesSubject: BehaviorSubject<IInvoiceResponse[]> = new BehaviorSubject<IInvoiceResponse[]>([]);
 
 
@@ -29,18 +26,49 @@ export class InvoiceService {
   private _forupdateinvoicedata: IInvoiceResponse | null = null;   // for Invoice Data 
   public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>() // To emit invoice Data
   public _updateStatus: EventEmitter<any> = new EventEmitter<any>()
-  constructor(private http: HttpClient) { }
+  public productRows: any[] = [];
+  public amount: any;
+  public tax: any;
+  public rate: any;
+  public total: any;
+  public taxamount: any;
+  public subtotalofamount: any;
+  public totalamount: any;
+  public totalamountoftax: any;
+  constructor(private http: HttpClient, public addinvoiceService: AddInvoicesService) { }
 
 
 
-  
-  statusUpdate(invoiceId: string , status : string){
+  // setAmount() {
+  //   this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
+  //     console.log(res, "RESPONSE OF SETAMOUNT================")
+  //     this.productRows = res;
+  //     if (res.length > 0) {
+  //       const firstElement = res[0];
+  //       this.amount = firstElement.amount;
+  //       this.tax = firstElement.tax;
+  //       this.rate = firstElement.rate;
+  //       this.taxamount = firstElement.taxamount;
+  //       this.total = firstElement.total;
+  //       if (this.productRows.length > 0) {
+  //         this.subtotalofamount = this.productRows.reduce((acc, row) => acc + parseFloat(row.total), 0).toFixed(2);
+  //         console.log(this.subtotalofamount, "subtotalofamount")
+  //         this.totalamount = this.productRows.reduce((acc, row) => acc + row.amount, 0);
+  //         this.totalamountoftax = this.productRows.reduce((total, row) => total + parseFloat(row.rate), 0);
+  //       }
+  //     }
+  //   });
+  // }
+
+
+
+  statusUpdate(invoiceId: string, status: string) {
     const foundInvoice = this._invoices.find((invoice) => invoice._id === invoiceId);
     console.log(foundInvoice, "FoundInvoice");
     if (foundInvoice) {
       foundInvoice.status = status;
       console.log("Invoice status updated successfully.");
-     this.sendInvoices();
+      this.sendInvoices();
     } else {
       console.log("Invoice not found.");
     }
@@ -90,6 +118,8 @@ export class InvoiceService {
     try {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
       this.forupdateinvoicedata = rs;
+      this.productRows = rs.product;
+      console.log(this.forupdateinvoicedata, "responseofEMitter")
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
       console.error(e);

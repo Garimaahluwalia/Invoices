@@ -2,7 +2,6 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import endpoints from 'src/app/endpoints';
-import { IInvoice } from 'src/app/types/invoice';
 import { TAXES } from 'src/app/types/taxes';
 
 @Injectable({

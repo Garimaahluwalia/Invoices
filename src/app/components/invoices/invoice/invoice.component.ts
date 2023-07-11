@@ -5,7 +5,6 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { DeleteEvents } from 'src/app/types/delete';
-import { IInvoice, IInvoiceResponse, Invoice } from 'src/app/types/invoice';
 import { ModalEvents } from 'src/app/types/modal';
 import { DatePipe } from '@angular/common';
 import { STATUS } from 'src/app/types/status';
@@ -54,6 +53,8 @@ export class InvoiceComponent implements OnInit {
 
 
 
+
+
     // <-- pagination 
     this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
       this.totalItems = data;
@@ -84,7 +85,7 @@ export class InvoiceComponent implements OnInit {
 
 
 
-  DeleteInvoice(details: any) {
+  Deleteinvoice(details: any) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.INVOICES } });
     })
@@ -123,13 +124,24 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.getAll();
   }
 
+  DeleteInvoice(details: any) {
+    this.router.navigate(["invoice", "delete", details._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.INVOICES } });
+    })
+  }
 
-  updateStatus(invoiceid: string, status: string ) {
-    this.invoiceService.statusUpdate(invoiceid, status);
-    this.invoiceService.updateInvoiceStatus(invoiceid, status).subscribe((res: any) => {
-      console.log(res, "Response of update invoice status")
-    }, (error: any) => {
-      console.error(error, "Error occurred while updating invoice status")
+
+  updateStatus(details: any, status: string) {
+    details.disabled = (status === 'CANCELLED');
+    this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.invoiceactions, {
+        status: true,
+        data: {
+          id: details._id,
+          event: DeleteEvents.INVOICE_ACTIONS,
+          status: status
+        }
+      });
     });
   }
 
