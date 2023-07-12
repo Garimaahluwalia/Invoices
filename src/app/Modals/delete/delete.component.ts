@@ -62,7 +62,15 @@ export class DeleteComponent {
     this.deleteService.selectedId = this.data.id;
     const event = this.data.event as DeleteEvents;
     this.closeModal();
-    this.notifier.notify('success', 'Deleted successfully');
+    this.notifier.show({
+      type: 'success',
+      message: 'Deleted successfully',
+      id: 'THAT_NOTIFICATION_ID', 
+    });
+    setTimeout(() => {
+      this.notifier.hide('THAT_NOTIFICATION_ID');
+    }, 2000);
+    
 
     this.deleteService.sendEvent(event, true)
   }

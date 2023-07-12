@@ -18,7 +18,8 @@ const endpoints = {
     GET_INVOICE_NUMBER: `${environment.BASE_URL}/invoice-number`,
     GET_TAX_AMOUNT: `${environment.BASE_URL}/invoice/getTaxes`,
     UPDATE_STATUS: (InvoiceId: string) => `${environment.BASE_URL}/status/${InvoiceId}`,
-    DOWNLOAD_INVOICE : (InvoiceId: string) => `${environment.BASE_URL}/invoice/getInvoicePdf/${InvoiceId}`
+    DOWNLOAD_INVOICE : (InvoiceId: string) => `${environment.BASE_URL}/invoice/getInvoicePdf/${InvoiceId}`,
+    CHECK_INVOICENUMBER : `${environment.BASE_URL}/invoice-number/`
 
   },
   ADD_INVOICES: {

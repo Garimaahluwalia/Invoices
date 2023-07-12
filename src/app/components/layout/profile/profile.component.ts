@@ -65,7 +65,14 @@ export class ProfileComponent implements OnInit {
       (response) => {
         // console.log(response, "update responses")
         this.isEditMode = false;
-        this.notifier.notify('success', 'Profile updated successfully');
+        this.notifier.show({
+          type: 'success',
+          message: 'Profile updated successfully',
+          id: 'THAT_NOTIFICATION_ID', 
+        });
+        setTimeout(() => {
+          this.notifier.hide('THAT_NOTIFICATION_ID');
+        }, 2000);
       },
       (error) => {
         console.error('Profile update failed:', error);
@@ -90,7 +97,14 @@ export class ProfileComponent implements OnInit {
   uploadProfilePhoto(file: FormData) {
     this.profileService.uploadProfilePhoto(file).pipe(takeUntil(this.destroyed)).subscribe(
       (response: any) => {
-        this.notifier.notify('success', 'Profile Photo updated successfully');
+        this.notifier.show({
+          type: 'success',
+          message: 'Profile Photo updated successfully',
+          id: 'THAT_NOTIFICATION_ID', 
+        });
+        setTimeout(() => {
+          this.notifier.hide('THAT_NOTIFICATION_ID');
+        }, 2000);
       },
       (error) => {
         console.error('Upload error:', error);

@@ -41,7 +41,14 @@ export class LoginComponent {
       console.log(res);
       this.loginService.updateLoginUser(res);
       this.route.navigate(['/main-invoice']);
-      this.notifier.notify('success', 'login successfully');
+      this.notifier.show({
+        type: 'success',
+        message: 'login successfully',
+        id: 'THAT_NOTIFICATION_ID', 
+      });
+      setTimeout(() => {
+        this.notifier.hide('THAT_NOTIFICATION_ID');
+      }, 2000);
 
     }, err => {
       if (err.error) {

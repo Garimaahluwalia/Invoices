@@ -39,7 +39,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public disabledInput: boolean = false;
   private readonly notifier!: NotifierService;
-
+  public invoiceID : any;
 
 
 
@@ -62,6 +62,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
       const { status, data, invoice, disabled } = res;
       this.data = data;
       this.invoice = data?.invoice || false;
+      console.log(data, "InVoiceFromadd-client")
+      this.invoiceID = data._id;
       this.disabledInput = data?.disabled || false;
       if (status) {
         this.openModal();
@@ -124,13 +126,16 @@ export class AddClientComponent implements OnInit, OnDestroy {
       if (this.router.url.includes("clients")) {
         this.router.navigate(["clients"]);
       } else if (this.router.url.includes("add-invoice")) {
-        this.router.navigate(["add-invoice"]).then(() => {
-          this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: false });
-        });
+        if (this.router.url.includes(this.invoiceID)) {
+        } else {
+          this.router.navigate(["add-invoice"]).then(() => {
+            this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: false });
+          });
+        }
       }
     }
   }
-
+  
 
   setData() {
     if (this.data?.edit) {
@@ -152,12 +157,26 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
     if (this.data?.edit) {
       this.updateClient(newData);
-      this.notifier.notify('success', 'Client updated successfully');
+      this.notifier.show({
+        type: 'success',
+        message: 'Client updated successfully',
+        id: 'THAT_NOTIFICATION_ID', 
+      });
+      setTimeout(() => {
+        this.notifier.hide('THAT_NOTIFICATION_ID');
+      }, 2000);
 
     }
     else {
       this.addClient(newData);
-      this.notifier.notify('success', 'Client added successfully');
+      this.notifier.show({
+        type: 'success',
+        message: 'Client added successfully',
+        id: 'THAT_NOTIFICATION_ID', 
+      });
+      setTimeout(() => {
+        this.notifier.hide('THAT_NOTIFICATION_ID');
+      }, 2000);
     }
   }
 

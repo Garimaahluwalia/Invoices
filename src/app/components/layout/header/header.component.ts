@@ -35,7 +35,14 @@ export class HeaderComponent implements OnInit {
       () => {
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
-        this.notifier.notify('success', 'logout successfully');
+        this.notifier.show({
+          type: 'success',
+          message: 'logout successfully',
+          id: 'THAT_NOTIFICATION_ID', 
+        });
+        setTimeout(() => {
+          this.notifier.hide('THAT_NOTIFICATION_ID');
+        }, 2000);
       },
       (error) => {
         console.error('Logout failed:', error);

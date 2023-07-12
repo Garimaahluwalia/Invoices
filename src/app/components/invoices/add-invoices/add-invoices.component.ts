@@ -72,7 +72,14 @@ export class AddInvoicesComponent implements OnInit {
   submit(f: NgForm) {
     const client_details = f.value.client_id;
     if (!client_details) {
-      this.notifier.notify('error', 'Client is missing');
+      this.notifier.show({
+        type: 'error',
+        message: 'Client is missing',
+        id: 'THAT_NOTIFICATION_ID', 
+      });
+      setTimeout(() => {
+        this.notifier.hide('THAT_NOTIFICATION_ID');
+      }, 2000);
     } else {
       this.invoiceDataHandler.setData(f.value);
       console.log(f.value, "FormValue")
@@ -97,7 +104,14 @@ export class AddInvoicesComponent implements OnInit {
       (res: any) => {
         this.Invoices = res;
         this.router.navigateByUrl("/invoice");
-        this.notifier.notify('success', 'Invoice saved successfully');
+        this.notifier.show({
+          type: 'success',
+          message: 'Invoice saved successfully',
+          id: 'THAT_NOTIFICATION_ID', 
+        });
+        setTimeout(() => {
+          this.notifier.hide('THAT_NOTIFICATION_ID');
+        }, 2000);
       },
       (error: any) => {
         console.error(error);
@@ -111,7 +125,14 @@ export class AddInvoicesComponent implements OnInit {
         this.Invoices = res;
         console.log(this.Invoices, "update response");
         this.router.navigateByUrl("/invoice");
-        this.notifier.notify('success', 'Invoice updated successfully');
+        this.notifier.show({
+          type: 'success',
+          message: 'Invoice updated successfully',
+          id: 'THAT_NOTIFICATION_ID', 
+        });
+        setTimeout(() => {
+          this.notifier.hide('THAT_NOTIFICATION_ID');
+        }, 2000);
       },
       (error: any) => {
         console.error(error);
@@ -143,7 +164,14 @@ export class AddInvoicesComponent implements OnInit {
         downloadLink.remove();
         window.URL.revokeObjectURL(URI);
       }, 2000);
-      this.notifier.notify('success', 'Invoice Downloaded successfully');
+      this.notifier.show({
+        type: 'success',
+        message: 'Invoice downloaded successfully',
+        id: 'THAT_NOTIFICATION_ID', 
+      });
+      setTimeout(() => {
+        this.notifier.hide('THAT_NOTIFICATION_ID');
+      }, 2000);
     })
   }
 

@@ -161,6 +161,11 @@ export class InvoiceService {
     return this.http.get<any[]>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
   }
 
+
+
+  checkInvoiceNumber(): Observable<any> {
+    return this.http.get(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER);
+  }
   getAllInvoice(page: number = 1, limit: number = 12): Observable<any> {
     return this.http.get<{ invoices: IInvoiceResponse[], totalCount: number, totalPages: number }>(endpoints.INVOICES_LIST.GETALL(page, limit));
   }

@@ -141,9 +141,10 @@
                                 <th
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     HSN/SAC </th>
-                                <th
-                                    style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none;  font-weight: 400; padding: 5px 10px 10px 10px;">
-                                    Amount </th>
+                                    <th [ngStyle]="{'width': data.tax !== 'NONE' ? '15%' : '100%', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
+                                        Amount
+                                      </th>
+                                      
                                     <th *ngIf="data.tax !== 'NONE'"
                                     style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     {{ data.tax }}
@@ -160,44 +161,31 @@
                             </tr>
                         </thead>
                         <tbody  *ngFor="let product of products; let i = index">
-                            <tr style="text-align: center; font-size: 14px;"
-                               >
-                                <td
-                                    style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                            <tr style="text-align: center; font-size: 14px;">
+                                <td style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
                                     {{ i + 1 }}.
                                 </td>
-                                <td
-                                    style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
-                                    {{product.name}}
+                                <td style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
+                                    {{ product.name }}
+                                    <br>
+                                    <span style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;" [innerHTML]="product.description"></span>
                                 </td>
-                                <td
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
-                                    {{product.HSN_SAC }}
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
+                                    {{ product.HSN_SAC }}
                                 </td>
-                                <td
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{product.amount }}
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ product.amount }}
                                 </td>
-                                <td 
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{product.rate.toFixed(2) }}
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ product.rate.toFixed(2) }}
                                 </td>
-                                <td 
-                                    style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{product.taxamount }}
+                                <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ product.taxamount }}
                                 </td>
-                                <td
-                                    style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{product.total}}
+                                <td style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                    {{ product.total }}
                                 </td>
-                              
                             </tr>
-                            <tr *ngIf="product.description" class="descriptionTr" style="display: flex; flex-direction: column;">
-                                <th style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">Description</th>
-                                <td colspan="5" style="align-self: flex-end;" [innerHTML]="product.description"></td>
-                              </tr>
-                              
-                           
                         </tbody>
 
                     </table>
@@ -241,10 +229,10 @@
                                             style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{ data?.totalamount !== 0 ? data?.totalamount : data?.subtotalofamount }}</span>
                                     </div>
                                     <div style="padding-top: 30px; float: left; width: 100%;">
-                                        <!-- <p
+                                        <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
-                                            Total (in words) : 
-                                        </p> -->
+                                            Total (in words) : {{this.totalAmountInWords}}
+                                        </p>
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
 

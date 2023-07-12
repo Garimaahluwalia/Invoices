@@ -20,6 +20,8 @@ export class InvoiceListDetailsComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public products : any[] = [];
   public totalAmountInWords: any;
+  public subtotalofamount : any;
+  public totalamount : any
 
 
   constructor(
@@ -47,20 +49,22 @@ export class InvoiceListDetailsComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
         this.data = res;
-        this.products = res.products; // Use 'products' instead of 'product'
-        console.log(this.products, "products");
-        console.log(res, "getInvoiceResponse");
+        this.products = res.products;
+        
+        
+        this.subtotalofamount = this.data.subtotalofamount;
+        this.totalamount = this.data.totalamount;
+        this.totalAmountInWords = !isNaN(parseFloat(this.subtotalofamount))
+        ? numberToWords(this.subtotalofamount)
+        : (parseFloat(this.totalamount)
+          ? numberToWords(this.totalamount)
+          : "");
+              console.log(this.totalAmountInWords, "totalAmountInWords")
       });
     
     
   }
-  
-  
- // const value = this.data[0].products;
-      // value.forEach((value: { description: any; }) => {
-      //   this.description = value.description;
-      //   console.log(this.description, "description from view list")
-      // });
+
   downloadInvoice(){
     this.invoiceService.downloadInvoice(this._id).pipe(takeUntil(this.destroyed)).subscribe((response: any) => {
       let dataType = response.type;

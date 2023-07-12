@@ -71,8 +71,8 @@ export class PaymentdetailsComponent implements OnInit {
             }, prices);
           console.log(calculatedPrices);
           const {subtotal, total, rate } = calculatedPrices;
-          this.totalAmountInWords = !isNaN(parseFloat(this.total)) ? numberToWords(this.total) : (parseFloat(this.totalOfProduct.subtotal) ? numberToWords(this.totalOfProduct.subtotal) : "");
-          console.log(this.totalAmount, "TotalAmountInwords")
+          this.totalAmountInWords = !isNaN(parseFloat(String(total))) ? numberToWords(String(total)) : (parseFloat(String(subtotal)) ? numberToWords(String(subtotal)) : "");
+          console.log(this.totalAmountInWords, "TotalAmountInwords")
           this.invoiceDataHandlerService.subtotalofamount =  subtotal;
           this.invoiceDataHandlerService.totalamountoftax = rate;
           this.invoiceDataHandlerService.totalamount = total;

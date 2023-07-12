@@ -5,6 +5,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
 import { ClientService } from '../services/clients/client.service';
+import { InvoiceService } from '../services/invoices/invoice.service';
 
 @Directive({
   selector: '[appInvoiceNumber] [ngModel]',
@@ -18,14 +19,14 @@ import { ClientService } from '../services/clients/client.service';
 })
 export class InvoiceNumberDirective {
 
-  constructor( public clientService : ClientService) { }
+  constructor(public invoiceService : InvoiceService) { }
 
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     const value = control.value;
     if (value && value.trim() !== "") {
-      return this.clientService.checkPhonenumberExist({ phonenumber: value }).pipe(
-        map((res: { [key: string]: boolean | string }) => {
+      return this.invoiceService.checkInvoiceNumber().pipe(
+        map((res: any) => {
           if (res && !res?.['data']) {
             return { isExists: true };
           } else {
