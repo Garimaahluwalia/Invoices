@@ -10,6 +10,5 @@ export interface IClientsResponse {
     user_id: string;
     phoneNumber: string;
     address : string;
-   
   }
   

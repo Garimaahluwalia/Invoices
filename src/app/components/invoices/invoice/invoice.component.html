@@ -42,7 +42,9 @@
                                             <td data-label="Email">
                                                 {{details?.client?.email}}
                                             </td>
-                                            <td data-label="Billed">{{details?.totalAmount}}</td>
+                                            <td data-label="Billed">
+                                                {{ details?.totalamount !== 0 ? details?.totalamount : details?.subtotalofamount }}
+                                              </td>
                                             <td> <span
                                                     class="badge badge-pill badge-primary status">{{details?.status}}</span>
                                             </td>
@@ -60,7 +62,13 @@
                                                         </svg>
                                                       </a>
                                                       
-                                                      
+                                                      <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                      data-bs-trigger="hover" data-bs-placement="top" title="Duplicate">
+                                                      <a class="btn btn-soft-info btn-sm d-inline-block"
+                                                         >
+                                                         <i class="fa-solid fa-copy"></i>
+                                                      </a>
+                                                  </li>
                                                     <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Edit">
                                                         <a class="btn btn-soft-info btn-sm d-inline-block"

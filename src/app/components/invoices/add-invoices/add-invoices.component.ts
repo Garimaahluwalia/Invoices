@@ -96,8 +96,8 @@ export class AddInvoicesComponent implements OnInit {
     this.addInvoiceService.addInvoice(payload).pipe(takeUntil(this.destroyed)).subscribe(
       (res: any) => {
         this.Invoices = res;
-        this.notifier.notify('success', 'Invoice saved successfully');
         this.router.navigateByUrl("/invoice");
+        this.notifier.notify('success', 'Invoice saved successfully');
       },
       (error: any) => {
         console.error(error);
@@ -110,8 +110,8 @@ export class AddInvoicesComponent implements OnInit {
       (res: any) => {
         this.Invoices = res;
         console.log(this.Invoices, "update response");
-        this.notifier.notify('success', 'Invoice updated successfully');
         this.router.navigateByUrl("/invoice");
+        this.notifier.notify('success', 'Invoice updated successfully');
       },
       (error: any) => {
         console.error(error);
@@ -143,6 +143,7 @@ export class AddInvoicesComponent implements OnInit {
         downloadLink.remove();
         window.URL.revokeObjectURL(URI);
       }, 2000);
+      this.notifier.notify('success', 'Invoice Downloaded successfully');
     })
   }
 

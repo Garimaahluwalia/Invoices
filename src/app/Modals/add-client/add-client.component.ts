@@ -23,7 +23,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   public name !: string;
   public email!: string;
   public phoneNumber!: string;
-  public registeredNo!: string;
   public address!: string;
   public gstin!: string;
   public pan!: string;
@@ -72,7 +71,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.name = data?.name || '';
       this.email = data?.email || '';
       this.phoneNumber = data?.phoneNumber || '';
-      this.registeredNo = data?.registeredNo || '';
+     
       this.country = data?.country || '';
       this.state = data?.state || '';
       this.city = data?.city || '';
@@ -138,7 +137,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.name = this.data.name;
       this.email = this.data.email;
       this.phoneNumber = this.data.phoneNumber;
-      this.registeredNo = this.data.registeredNo;
+     
       this.address = this.data.address;
       this.gstin = this.gstin;
       this.pan = this.pan;
@@ -147,7 +146,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
     let newData = {
-      name: this.name, email: this.email, phoneNumber: this.phoneNumber, registeredNo: this.registeredNo, address: address, gstin: this.gstin, pan: this.pan,
+      name: this.name, email: this.email, phoneNumber: this.phoneNumber, address: address, gstin: this.gstin, pan: this.pan,
       country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone,
     }
 

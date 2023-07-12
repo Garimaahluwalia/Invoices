@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { numberToWords } from 'src/app/common/numberToWords';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -17,7 +18,8 @@ export class InvoiceListDetailsComponent implements OnInit {
   public description: any | null = null;
   public download: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-
+  public products : any[] = [];
+  public totalAmountInWords: any;
 
 
   constructor(
@@ -41,19 +43,24 @@ export class InvoiceListDetailsComponent implements OnInit {
   }
 
   getInvoiceById() {
-    this.invoiceService.getInvoice(this._id).pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      this.data = res;
-      console.log(res, "response")
-      const value = this.data[0].products;
-      value.forEach((value: { description: any; }) => {
-        this.description = value.description;
-        console.log(this.description, "description from view list")
+    this.invoiceService.getInvoice(this._id)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((res) => {
+        this.data = res;
+        this.products = res.products; // Use 'products' instead of 'product'
+        console.log(this.products, "products");
+        console.log(res, "getInvoiceResponse");
       });
-    })
+    
+    
   }
-
-
-
+  
+  
+ // const value = this.data[0].products;
+      // value.forEach((value: { description: any; }) => {
+      //   this.description = value.description;
+      //   console.log(this.description, "description from view list")
+      // });
   downloadInvoice(){
     this.invoiceService.downloadInvoice(this._id).pipe(takeUntil(this.destroyed)).subscribe((response: any) => {
       let dataType = response.type;

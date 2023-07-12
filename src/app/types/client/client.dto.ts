@@ -2,7 +2,6 @@ export interface Client {
     name: string;
     email: string;
     phoneNumber: string;
-    registeredNo: string;
     address: string;
     country: string;
     state: string;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -17,9 +18,13 @@ export class ProfileComponent implements OnInit {
   public profileImage: any;
   public Image: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
+  private readonly notifier!: NotifierService;
 
 
-  constructor(public profileService: ProfileService) { }
+  constructor(public profileService: ProfileService,
+    public notifierService: NotifierService) { 
+      this.notifier = notifierService;
+    }
 
   ngOnInit(): void {
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
@@ -58,8 +63,9 @@ export class ProfileComponent implements OnInit {
     };
     this.profileService.updateProfile(payload).pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
-        console.log(response, "update responses")
+        // console.log(response, "update responses")
         this.isEditMode = false;
+        this.notifier.notify('success', 'Profile updated successfully');
       },
       (error) => {
         console.error('Profile update failed:', error);
@@ -84,6 +90,7 @@ export class ProfileComponent implements OnInit {
   uploadProfilePhoto(file: FormData) {
     this.profileService.uploadProfilePhoto(file).pipe(takeUntil(this.destroyed)).subscribe(
       (response: any) => {
+        this.notifier.notify('success', 'Profile updated successfully');
       },
       (error) => {
         console.error('Upload error:', error);

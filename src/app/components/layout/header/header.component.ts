@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { LoginService } from 'src/app/services/auth/login.service';
@@ -14,11 +15,14 @@ export class HeaderComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   public isActiveSideBar: Boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
+  private readonly notifier!: NotifierService;
 
 
   constructor(public loginService: LoginService,
     public router: Router,
-    public sidebaeService: SidebarService) { }
+    public sidebaeService: SidebarService,
+    public notifierService: NotifierService
+    ) { this.notifier = notifierService; }
 
 
   ngOnInit(): void {
@@ -31,6 +35,7 @@ export class HeaderComponent implements OnInit {
       () => {
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
+        this.notifier.notify('success', 'logout successfully');
       },
       (error) => {
         console.error('Logout failed:', error);

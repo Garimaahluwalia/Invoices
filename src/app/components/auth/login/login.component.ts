@@ -16,7 +16,7 @@ export class LoginComponent {
   userlogin!: UserLogin;
   showPassword: boolean = false;
   private readonly notifier!: NotifierService;
-
+ 
   constructor(public route: Router,
     public loginService: LoginService,
     public appcomponent: AppComponent,
@@ -41,6 +41,8 @@ export class LoginComponent {
       console.log(res);
       this.loginService.updateLoginUser(res);
       this.route.navigate(['/main-invoice']);
+      this.notifier.notify('success', 'login successfully');
+
     }, err => {
       if (err.error) {
         this.notifier.notify('error', 'Invalid Password');

@@ -11,7 +11,7 @@
 
 
     <table style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px;"
-        align="center" *ngFor="let details of  data">
+        align="center" >
         <thead>
             <tr>
                 <td>
@@ -26,7 +26,7 @@
                                 </td>
 
                                 <td style="text-align: right; vertical-align: middle;">
-                                    <span class="badge badge-primary">{{details.status}}</span>
+                                    <span class="badge badge-primary">{{data.status}}</span>
                                     <h2 style="font-size: 34px; font-weight: 400;">Invoice</h2>
                                 </td>
                             </tr>
@@ -38,7 +38,7 @@
         <tbody>
             <tr>
                 <td>
-                    <table style="width: 100%; padding-top: 10px;" *ngFor="let details of  data">
+                    <table style="width: 100%; padding-top: 10px;" >
                         <tbody>
                             <tr>
                                 <td style="text-align: left; width:30%; vertical-align: top;">
@@ -73,27 +73,27 @@
                                     <div>
                                         <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Billed To</h4>
                                         <div>
-                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{details.client?.name}}
+                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{data.client?.name}}
                                             </h2>
                                             <p
                                                 style="font-size: 16px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
-                                                {{details.client?.address}}</p>
+                                                {{data.client?.address}}</p>
                                             <div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">GSTIN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client?.gstin}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.gstin}}</span>
                                                 </div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">PAN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client?.pan}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.pan}}</span>
                                                 </div>
 
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">Email:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{details.client?.email}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.email}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,14 +108,14 @@
                                                 <span
                                                     style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                 </span><span
-                                                    style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">{{details.invoiceNo}}</span>
+                                                    style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">{{data.invoiceNo}}</span>
                                             </div>
                                             <div style="float: left; width: 100%;">
                                                 <span
                                                     style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                     Date </span><span
                                                     style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">
-                                                    {{details.date | date: 'dd-MM-yyyy'}}</span>
+                                                    {{data.date | date: 'dd-MM-yyyy'}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
             <tr>
                 <td>
                     <table style="width: 100%; padding-top: 50px; padding-bottom: 50px; border-spacing: 0px;"
-                        *ngFor="let details of  data">
+                       >
                         <thead>
                             <tr
                                 style="text-align: center; background-color: #F8D1D1;vertical-align: top;font-size: 14px;">
@@ -146,7 +146,7 @@
                                     Amount </th>
                                 <th
                                     style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                    {{details.tax}} </th>
+                                    {{data.tax}} </th>
                                 <th
                                     style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Rate </th> 
@@ -154,17 +154,10 @@
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Total </th>
                             </tr>
-
-                            <tr *ngIf="description">
-                                <th colspan="7"
-                                    style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                    Description </th>
-                            </tr>
-
                         </thead>
-                        <tbody>
+                        <tbody  *ngFor="let product of products; let i = index">
                             <tr style="text-align: center; font-size: 14px;"
-                                *ngFor="let product of data[0].products; let i = index">
+                               >
                                 <td
                                     style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
                                     {{ i + 1 }}.
@@ -173,10 +166,6 @@
                                     style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
                                     {{product.name}}
                                 </td>
-                                <!-- <td
-                                    style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
-                                  {{product.description}}
-                                </td> -->
                                 <td
                                     style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
                                     {{product.HSN_SAC }}
@@ -195,26 +184,16 @@
                                 </td>
                                 <td
                                     style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{product.totalAmount}}
+                                    {{product.total}}
                                 </td>
+                              
                             </tr>
-
-                            <tr *ngFor="let product of data[0].products; let i = index">
-                                <td colspan="7">{{product.description}}</td>
-                            </tr>
-
-
-                            <!-- <tr *ngIf="description">
-                                <td colspan="7">
-                                    <h4 style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">
-                                        Description</h4>
-                                    <p style="font-size: 16px; color: #282828; font-weight: 400; line-height: 29px; margin: 10px 0;"
-                                        [innerHTML]="description">
-
-                                    </p>
-                                </td>
-                            </tr> -->
-
+                            <tr *ngIf="product.description" class="descriptionTr" style="display: flex; flex-direction: column;">
+                                <th style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;">Description</th>
+                                <td colspan="5" style="align-self: flex-end;" [innerHTML]="product.description"></td>
+                              </tr>
+                              
+                           
                         </tbody>
 
                     </table>
@@ -223,7 +202,7 @@
             <tr>
                 <td>
                     <table style="width: 100%; padding-bottom: 50px; border-spacing: 0px;"
-                        *ngFor="let details of  data">
+                        >
                         <tbody>
                             <tr>
 
@@ -241,27 +220,27 @@
                                         <span
                                             style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">Amount</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{details.amount}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data.subtotalofamount}}</span>
                                     </div>
                                     <div style="padding-bottom: 10px; float: left; width: 100%;">
                                         <span
-                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">{{details.tax}}</span>
+                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">{{data.tax}}</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;"></span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data.totalamountoftax}}</span>
                                     </div>
                                     <div
                                         style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
                                         <span
                                             style="font-size: 16px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total
-                                            ({{details.currency}})</span>
+                                            ({{data.currency}})</span>
                                         <span
-                                            style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{details.totalAmount}}</span>
+                                            style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{ data?.totalamount !== 0 ? data?.totalamount : data?.subtotalofamount }}</span>
                                     </div>
                                     <div style="padding-top: 30px; float: left; width: 100%;">
-                                        <p
+                                        <!-- <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
-                                            Total (in words) :
-                                        </p>
+                                            Total (in words) : 
+                                        </p> -->
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
 

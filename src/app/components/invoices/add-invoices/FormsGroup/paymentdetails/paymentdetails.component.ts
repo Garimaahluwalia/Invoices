@@ -34,10 +34,9 @@ export class PaymentdetailsComponent implements OnInit {
   public totalTotalAmount: any;
   public AmountInWords: any;
   public totalAmountInWords!: string;
-  public totalOfAllItemsFromProduct: any;
+  public totalOfProduct: any;
   public totalOfAmountFromProduct: any;
   public taxamount: any;
-  public GetInvoiceAndEmit: any;
   public selectedCurrency: any = DEFAULTCURRENCY.symbol;
   public currencies = CURRENCY; // Currency
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
@@ -64,7 +63,7 @@ export class PaymentdetailsComponent implements OnInit {
             total: 0
           };
           const calculatedPrices =
-            this.totalOfAllItemsFromProduct = this.productRows.reduce((acc: IPrices, row) => {
+            this.totalOfProduct = this.productRows.reduce((acc: IPrices, row) => {
               acc.total += parseFloat(row.total || 0);
               acc.subtotal += parseFloat(row.amount || 0);
               acc.rate += parseFloat(row.rate || 0);
@@ -72,7 +71,7 @@ export class PaymentdetailsComponent implements OnInit {
             }, prices);
           console.log(calculatedPrices);
           const {subtotal, total, rate } = calculatedPrices;
-          this.totalAmountInWords = !isNaN(parseFloat(this.totalOfAllItemsFromProduct)) ? numberToWords(this.totalOfAllItemsFromProduct) : (parseFloat(this.totalOfAmountFromProduct) ? numberToWords(this.totalOfAmountFromProduct) : "");
+          this.totalAmountInWords = !isNaN(parseFloat(this.totalOfProduct)) ? numberToWords(this.totalOfProduct) : (parseFloat(this.totalOfProduct) ? numberToWords(this.totalOfAmountFromProduct) : "");
 
           this.invoiceDataHandlerService.subtotalofamount =  subtotal;
           this.invoiceDataHandlerService.totalamountoftax = rate;
