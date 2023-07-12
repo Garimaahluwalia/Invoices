@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -17,10 +18,14 @@ export class DeleteComponent {
 
   public data: any;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
+  private readonly notifier!: NotifierService;
 
   constructor(public modalService: ModalService,
     public deleteService: DeleteService,
-    public router: Router) { }
+    public router: Router,
+    public notifierService: NotifierService) {
+      this.notifier = notifierService;
+     }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.Delete).pipe(takeUntil(this.destroyed)).subscribe((res => {
@@ -57,6 +62,8 @@ export class DeleteComponent {
     this.deleteService.selectedId = this.data.id;
     const event = this.data.event as DeleteEvents;
     this.closeModal();
+    this.notifier.notify('success', 'Deleted successfully');
+
     this.deleteService.sendEvent(event, true)
   }
 

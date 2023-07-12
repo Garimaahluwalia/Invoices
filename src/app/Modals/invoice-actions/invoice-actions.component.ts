@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -14,12 +15,16 @@ import { ModalEvents } from 'src/app/types/modal';
 export class invoiceactionsComponent implements OnInit {
   @ViewChild("closeDeleteModalButton", { static: false }) private closeDeleteModalButton!: ElementRef;
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
+  private readonly notifier!: NotifierService;
 
   constructor(public modalService: ModalService,
     public router: Router,
     public route: ActivatedRoute,
-    public invoiceService: InvoiceService) { }
-
+    public invoiceService: InvoiceService,
+    public notifierService: NotifierService) {
+      this.notifier = notifierService
+     }
+ 
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public invoiceId: any;

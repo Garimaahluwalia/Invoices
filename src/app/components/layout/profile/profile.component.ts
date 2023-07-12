@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
   uploadProfilePhoto(file: FormData) {
     this.profileService.uploadProfilePhoto(file).pipe(takeUntil(this.destroyed)).subscribe(
       (response: any) => {
-        this.notifier.notify('success', 'Profile updated successfully');
+        this.notifier.notify('success', 'Profile Photo updated successfully');
       },
       (error) => {
         console.error('Upload error:', error);
