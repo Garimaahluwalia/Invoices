@@ -21,8 +21,10 @@ export class ProfileComponent implements OnInit {
   private readonly notifier!: NotifierService;
 
 
-  constructor(public profileService: ProfileService,
-    public notifierService: NotifierService) { 
+  constructor(
+    public profileService: ProfileService,
+    public notifierService: NotifierService)
+     { 
       this.notifier = notifierService;
     }
 

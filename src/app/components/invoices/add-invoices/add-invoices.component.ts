@@ -20,7 +20,7 @@ export class AddInvoicesComponent implements OnInit {
   public taxesType: any
   public ProductData: any
   private readonly notifier!: NotifierService;
-  private invoiceId: string | null = null;
+  public invoiceId: string | null = null;
   public updatedInvoiceNumber: any;
   public updateInvoiceData: any;
   public download: any;
@@ -52,11 +52,8 @@ export class AddInvoicesComponent implements OnInit {
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
       this.status = res.status;
-      console.log(this.status , "status from emittter")
-
       this.addInvoiceService.sendProductChanges(res.products);
       this.clientService.sendClientDetails(res.client);
-
       this.updateInvoiceData = res;
       this.InvoiceForm.form?.patchValue({
         "invoice": {
@@ -82,12 +79,7 @@ export class AddInvoicesComponent implements OnInit {
       }, 2000);
     } else {
       this.invoiceDataHandler.setData(f.value);
-      console.log(f.value, "FormValue")
       const clientId = f.value.client_id;
-     
-      console.log(status, "StatusfromSUbmkit")
-      console.log(clientId, "ClientId from form");
-      console.log(f.value, "addForm Submit Value");
       this.invoiceDataHandler.invoiceId = this.invoiceId as string;
       const payload = this.invoiceDataHandler.getPayload();
       if (this.invoiceId) {
@@ -123,7 +115,6 @@ export class AddInvoicesComponent implements OnInit {
     this.invoiceService.updateInvoice(invoiceId, payload).subscribe(
       (res: any) => {
         this.Invoices = res;
-        console.log(this.Invoices, "update response");
         this.router.navigateByUrl("/invoice");
         this.notifier.show({
           type: 'success',

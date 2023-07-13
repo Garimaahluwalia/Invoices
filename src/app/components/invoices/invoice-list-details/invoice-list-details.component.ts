@@ -22,6 +22,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public totalAmountInWords: any;
   public subtotalofamount : any;
   public totalamount : any
+  public totalInWords : any;
 
 
   constructor(
@@ -50,16 +51,14 @@ export class InvoiceListDetailsComponent implements OnInit {
       .subscribe((res) => {
         this.data = res;
         this.products = res.products;
-        
-        
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;
-        this.totalAmountInWords = !isNaN(parseFloat(this.subtotalofamount))
-        ? numberToWords(this.subtotalofamount)
-        : (parseFloat(this.totalamount)
-          ? numberToWords(this.totalamount)
-          : "");
-              console.log(this.totalAmountInWords, "totalAmountInWords")
+        this.totalInWords = '';
+          if (this.totalamount === 0) {
+            this.totalInWords = numberToWords(this.subtotalofamount.toString());
+          } else {
+            this.totalInWords = numberToWords(this.totalamount.toString());
+          }
       });
     
     

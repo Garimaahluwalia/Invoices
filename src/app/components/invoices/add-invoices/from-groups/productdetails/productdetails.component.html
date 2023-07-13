@@ -3,7 +3,6 @@
     <div class="d-flex">
 
       <!-- tax  -->
-
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Tax</label>
         <select [(ngModel)]="selectedTaxRate" class="form-control form-control-sm taxes-edit selector-currency"
@@ -11,8 +10,11 @@
           <option *ngFor="let tax of taxes" [value]="tax">{{tax}}</option>
         </select>
       </div>
-
       <!-- tax -->
+
+
+
+      <!-- CURRENCY  -->
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Currency</label>
         <select class="form-control" name="currency" [(ngModel)]="selectedCurrency" (change)="currencyChange($event)">
@@ -22,8 +24,7 @@
           </option>
         </select>
       </div>
-
-
+      <!-- CURRENCY  -->
 
 
     </div>

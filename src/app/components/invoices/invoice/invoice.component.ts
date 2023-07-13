@@ -63,8 +63,6 @@ export class InvoiceComponent implements OnInit {
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
-
-      console.log(this.invoices, "The Invoices ")
     });
     // pagination --> 
   }
@@ -149,6 +147,12 @@ export class InvoiceComponent implements OnInit {
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
+  }
+
+  addDuplicateInvoice(details:any){
+    this.invoiceService.getDuplicateInvoice(details).subscribe((res:any) => {
+      
+    })
   }
 
 }

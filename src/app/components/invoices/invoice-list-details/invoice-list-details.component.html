@@ -160,12 +160,12 @@
                                 
                             </tr>
                         </thead>
-                        <tbody  *ngFor="let product of products; let i = index">
-                            <tr style="text-align: center; font-size: 14px;">
+                        <tbody >
+                            <tr style="text-align: center; font-size: 14px;"  *ngFor="let product of products; let i = index">
                                 <td style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
                                     {{ i + 1 }}.
                                 </td>
-                                <td style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
+                                <td class="description" style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
                                     {{ product.name }}
                                     <br>
                                     <span style="font-size: 16px; font-weight: 500; color: #979393; margin: 0;" [innerHTML]="product.description"></span>
@@ -177,7 +177,7 @@
                                     {{ product.amount }}
                                 </td>
                                 <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                    {{ product.rate.toFixed(2) }}
+                                    {{ product?.rate?.toFixed(2) }}
                                 </td>
                                 <td style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
                                     {{ product.taxamount }}
@@ -231,7 +231,7 @@
                                     <div style="padding-top: 30px; float: left; width: 100%;">
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
-                                            Total (in words) : {{this.totalAmountInWords}}
+                                            Total (in words) : {{this.totalInWords}}
                                         </p>
                                         <p
                                             style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">

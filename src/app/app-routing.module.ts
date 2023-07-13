@@ -11,12 +11,12 @@ import { InvoiceComponent } from './components/invoices/invoice/invoice.componen
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
 import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
 import { ClientComponent } from './components/clients/client/client.component';
-import { AddClientComponent } from './Modals/add-client/add-client.component';
-import { DeleteComponent } from './Modals/delete/delete.component';
-import { ClientDetailsComponent } from './components/invoices/add-invoices/FormsGroup/client-details/client-details.component';
+import { AddClientComponent } from './modals/add-client/add-client.component';
+import { DeleteComponent } from './modals/delete/delete.component';
+import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component'; 
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
-import { invoiceactionsComponent } from './Modals/invoice-actions/invoice-actions.component';
+import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 
 
 const routes: Routes = [
@@ -81,7 +81,21 @@ const routes: Routes = [
 
     ]
   },
-  
+  {
+    path: INVOICES.UPDATE_INVOICE,
+    component: AddInvoicesComponent,
+    children: [
+      {
+        path: CLIENTS.ADD_CLIENTS,
+        component: AddClientComponent
+      },
+      {
+        path: CLIENTS.UPDATE_CLIENT,
+        component: AddClientComponent
+      },
+
+    ]
+  },
   {
     path: CLIENTS.CLIENTS,
     component: ClientComponent,
@@ -132,11 +146,7 @@ const routes: Routes = [
   {
     path: INVOICES.VIEW_INVOICE_LIST,
     component: InvoiceListDetailsComponent
-  },
-  {
-    path: INVOICES.UPDATE_INVOICE,
-    component: AddInvoicesComponent
-  },
+  }
 
 ];
 

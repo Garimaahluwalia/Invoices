@@ -40,6 +40,7 @@ export class PaymentdetailsComponent implements OnInit {
   public selectedCurrency: any = DEFAULTCURRENCY.symbol;
   public currencies = CURRENCY; // Currency
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
+  public totalInWords : any;
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
@@ -69,11 +70,14 @@ export class PaymentdetailsComponent implements OnInit {
               acc.rate += parseFloat(row.rate || 0);
               return acc;
             }, prices);
-          console.log(calculatedPrices);
-          const {subtotal, total, rate } = calculatedPrices;
-          this.totalAmountInWords = !isNaN(parseFloat(String(total))) ? numberToWords(String(total)) : (parseFloat(String(subtotal)) ? numberToWords(String(subtotal)) : "");
-          console.log(this.totalAmountInWords, "TotalAmountInwords")
-          this.invoiceDataHandlerService.subtotalofamount =  subtotal;
+          const { subtotal, total, rate } = calculatedPrices;
+          this.totalInWords = '';
+          if (calculatedPrices.total === 0) {
+            this.totalInWords = numberToWords(calculatedPrices.subtotal.toString());
+          } else {
+            this.totalInWords = numberToWords(calculatedPrices.total.toString());
+          }
+          this.invoiceDataHandlerService.subtotalofamount = subtotal;
           this.invoiceDataHandlerService.totalamountoftax = rate;
           this.invoiceDataHandlerService.totalamount = total;
 
@@ -92,10 +96,6 @@ export class PaymentdetailsComponent implements OnInit {
       this.currency = res;
       const currency = this.currencies.find(currency => currency.code === this.currency);
       this.currency = currency?.symbol;
-
-
-      console.log(currency, "symbol")
-      console.log(this.currency, "Currency from payment")
     });
 
     if (!this.currency || this.currency === '') {

@@ -36,38 +36,8 @@ export class InvoiceService {
   public totalamount: any;
   public totalamountoftax: any;
   constructor(private http: HttpClient,
-     public addinvoiceService: AddInvoicesService) { }
+    public addinvoiceService: AddInvoicesService) { }
 
-
-
-
-
-
-
-
-
-
-
-  // setAmount() {
-  //   this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
-  //     console.log(res, "RESPONSE OF SETAMOUNT================")
-  //     this.productRows = res;
-  //     if (res.length > 0) {
-  //       const firstElement = res[0];
-  //       this.amount = firstElement.amount;
-  //       this.tax = firstElement.tax;
-  //       this.rate = firstElement.rate;
-  //       this.taxamount = firstElement.taxamount;
-  //       this.total = firstElement.total;
-  //       if (this.productRows.length > 0) {
-  //         this.subtotalofamount = this.productRows.reduce((acc, row) => acc + parseFloat(row.total), 0).toFixed(2);
-  //         console.log(this.subtotalofamount, "subtotalofamount")
-  //         this.totalamount = this.productRows.reduce((acc, row) => acc + row.amount, 0);
-  //         this.totalamountoftax = this.productRows.reduce((total, row) => total + parseFloat(row.rate), 0);
-  //       }
-  //     }
-  //   });
-  // }
 
 
 
@@ -120,15 +90,12 @@ export class InvoiceService {
     return this._productDataSubject;
   }
 
-
-
-
   async getInvoiceforUpdateAndEmit() {
     try {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
       this.forupdateinvoicedata = rs;
       this.productRows = rs.product;
-      console.log(this.forupdateinvoicedata, "responseofEMitter")
+      console.log(this.forupdateinvoicedata, "responseofEMitter");
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
       console.error(e);
@@ -163,15 +130,21 @@ export class InvoiceService {
 
 
 
-  checkInvoiceNumber(): Observable<any> {
-    return this.http.get(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER);
+  checkInvoiceNumber(InvoiceNumber: string): Observable<any> {
+    return this.http.get(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(InvoiceNumber));
   }
+
+
   getAllInvoice(page: number = 1, limit: number = 12): Observable<any> {
     return this.http.get<{ invoices: IInvoiceResponse[], totalCount: number, totalPages: number }>(endpoints.INVOICES_LIST.GETALL(page, limit));
   }
 
   getInvoice(invoiceId: string): Observable<any> {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
+  }
+
+  getDuplicateInvoice(invoiceId: string): Observable<any> {
+    return this.http.get<string>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId));
   }
 
   downloadInvoice(invoiceId: any): Observable<any> {
@@ -224,9 +197,6 @@ export class InvoiceService {
       this.sendInvoices();
     }
   }
-
-
-
 
   sendStatus(data: any) {
     this._updateStatus.emit(data);

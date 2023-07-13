@@ -18,14 +18,14 @@ import { InvoiceService } from '../services/invoices/invoice.service';
   ]
 })
 export class InvoiceNumberDirective {
-
+  public invoiceNumber: any;
   constructor(public invoiceService : InvoiceService) { }
 
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     const value = control.value;
     if (value && value.trim() !== "") {
-      return this.invoiceService.checkInvoiceNumber().pipe(
+      return this.invoiceService.checkInvoiceNumber(value).pipe(
         map((res: any) => {
           if (res && !res?.['data']) {
             return { isExists: true };

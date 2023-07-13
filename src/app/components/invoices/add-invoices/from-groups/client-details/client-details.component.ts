@@ -1,4 +1,4 @@
-import { OnDestroy, Component, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+import { OnDestroy, Component, OnInit, ChangeDetectorRef, AfterContentChecked, Input } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,7 @@ import { Client } from 'src/app/types/client/client.dto';
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy {
+  @Input() public invoiceId: string | null = null;
   // Subscription removed
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
@@ -39,7 +40,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   }
 
   onClientChange() {
-    // console.log("call", this.clientId);
     const client: Client | undefined = this.clients.find((client) => client._id === this.clientId);
     if (client) {
       this.selectedClient = client || null;
@@ -53,7 +53,11 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateClient(clientId: string | null | undefined) {
-    this.router?.navigate(["add-invoice", "add-client", clientId]).then(() => {
+    let route: any[] = ["add-invoice", "add-client", clientId]
+    if(this.invoiceId) {
+      route = ["add-invoice", this.invoiceId, "add-client", clientId]
+    }
+    this.router?.navigate(route).then(() => {
       const data: { [key: string]: string | number | boolean } = { invoice: true, edit: true, clientId: this.clientId as string, ...(this.selectedClient as Client) } as unknown as { [key: string]: string | number | boolean };
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: data });
     });
@@ -61,17 +65,13 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
 
   subscriptions() {
-    // Get All Client
+    
     this.clientService.recieveClients().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
-      this.clients = data;
-      // console.log(this.clientId, "clientID")
-      // console.log(this.clients, "@@@@@@@@@@@@")
+    this.clients = data;
     });
 
     // Get Single Client when added from popup
     this.clientService.recieveClientData().pipe(takeUntil(this.destroyed)).subscribe((clientResponse) => {
-      // console.log(this.clientId, "clientID")
-      // console.log("Recieved", clientResponse);
       this.selectedClient = clientResponse;
       this.clientId = clientResponse._id;
     });

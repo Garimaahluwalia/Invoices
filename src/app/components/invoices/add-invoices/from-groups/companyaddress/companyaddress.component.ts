@@ -11,6 +11,8 @@ import { ControlContainer, NgForm, } from '@angular/forms';
 export class CompanyaddressComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
   
+
+
   ngOnInit(): void { }
   public company: { [k: string]: string } = {
     "Businessname": "M CODE INFOSOFT",
@@ -19,8 +21,5 @@ export class CompanyaddressComponent implements OnInit {
     "pan": "DQCPK3553H",
     "emailaddress": "info@mcodeinfosoft.com",
   }
-
-
- 
-
+  
 }
