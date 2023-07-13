@@ -18,12 +18,10 @@ export class UsernameDirective {
   constructor(public signupService: SignupService) { }
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     const value = control.value;
-    // console.log(value, "Validation value");
     if (value && value.trim() !== "") {
       return this.signupService.checkUsernameExist({ username: value }).pipe(
         map((res: { [key: string]: boolean | string }) => {
-          // console.log(res, "VALIDATIONS RESPONSE");
-          if(res && !res?.['data']) {
+          if (res && !res?.['data']) {
             return { isExists: true };
           } else {
             return null;

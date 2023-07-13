@@ -1,168 +1,186 @@
 <button type="button" #openModalButton class="btn btn-primary d-none" data-bs-toggle="modal"
     data-bs-target="#addUpdate">Add</button>
 <div class="modal" id="addUpdate" aria-labelledby="addUpdateLabel">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header modal-head pb-3">
                 <h1 class="modal-title fs-5" id="addUpdateLabel">Clients</h1>
                 <button type="button" class="close" (click)="closeModal()">
-                    <span aria-hidden="true">&times;</span>
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
+
                 </button>
                 <button type="button" #closeModalButton class="d-none btn-close" data-bs-dismiss="modal"
                     aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="name" id="name" class="form-control" [(ngModel)]="name" name="name"
-                        #nameValidation="ngModel" minlength="4" maxlength="20" appUsername required>
-
-                    <div *ngIf="nameValidation.invalid && (nameValidation.dirty || nameValidation.touched)">
-                        <div *ngIf="nameValidation.errors?.['required']" class="text-danger">Name is required.</div>
-                        <div *ngIf="nameValidation.errors?.['minlength']" class="text-danger">Name should be at least 4
-                            characters long.</div>
-                        <div *ngIf="nameValidation.errors?.['maxlength']" class="text-danger">Name cannot exceed 20
-                            characters.</div>
-                    </div>
-
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">email</label>
-                    <input type="text" id="email" class="form-control" name="email" #emailValidation="ngModel"
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required appEmail [(ngModel)]="email">
-                    <div *ngIf="emailValidation.invalid && (emailValidation.dirty || emailValidation.touched)">
-                        <div *ngIf="emailValidation.errors?.['required']" class="text-danger">Email is required.</div>
-                        <div *ngIf="emailValidation.errors?.['pattern']" class="text-danger">Invalid email format.</div>
-                        <div *ngIf="emailValidation.errors?.['isExists']" class="text-danger">Email already exists.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="phoneNumber" class="form-label">Phone Number</label>
-                    <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber"
-                        #phoneNumberValidation="ngModel" [(ngModel)]="phoneNumber" maxlength="10" required
-                        pattern="^[0-9]{10}$">
-                    <div *ngIf="phoneNumberValidation.invalid && (phoneNumberValidation.dirty || phoneNumberValidation.touched)">
-                        <div *ngIf="phoneNumberValidation.errors?.['required']" class="text-danger">Phone number is required.</div>
-                        <div *ngIf="phoneNumberValidation.errors?.['pattern']" class="text-danger">Invalid phone number format. Use 10 digits.</div>
-                        <div *ngIf="phoneNumberValidation.errors?.['maxlength']" class="text-danger">Phone number should contain 10 digits.</div>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="registeredNo" class="form-label">RegisteredOn</label>
-                    <input type="text" id="registeredNo" class="form-control" [(ngModel)]="registeredNo">
-                </div>
-            </div>
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="addUpdateLabel">Address</h1>
-            </div>
 
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="country" class="form-label">Select Country</label>
-                            <select id="country" class="form-control" [(ngModel)]="country">
-                                <option value="">Select a country</option>
-                                <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}
-                                </option>
-                            </select>
+                            <label for="name" class="form-label">Name</label>
+                            <input type="name" id="name" class="form-control" [(ngModel)]="name" name="name"
+                                #nameValidation="ngModel" minlength="4" maxlength="20" appUsername required
+                                [readonly]="disabledInput">
+                            <div *ngIf="nameValidation.errors?.['required']" class="text-danger">Name is required.
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="state" class="form-label">State / province</label>
-                            <select id="state" class="form-control" [(ngModel)]="address">
-                                <option value="">Select a state</option>
-                                <option value="California">California</option>
-                                <option value="New York">New York</option>
-                                <option value="Texas">Texas</option>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="city" class="form-label">city</label>
-                            <input type="text" id="city" class="form-control" placeholder="City Name"
-                                [(ngModel)]="city">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="zipcode" class="form-label">PostalCode/ZipCode</label>
-                            <input type="number" id="zipcode" class="form-control" placeholder="PostalCode/zipcode"
-                                [(ngModel)]="zipcode">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="street" class="form-label">Street Address</label>
-                    <input type="text" id="street" class="form-control" [(ngModel)]="street"
-                        placeholder="street address">
-
-                </div>
-
-            </div>
-
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="addUpdateLabel">Additional Details</h1>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="BusinessAlias" class="form-label">Business Alias (Nickname)</label>
-                            <input type="text" id="city" class="form-control" placeholder="BusinessAlias"
-                                [(ngModel)]="BusinessAlias">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="UniqueKey" class="form-label">Unique Key</label>
-                            <input type="number" id="UniqueKey" class="form-control" placeholder="UniqueKey"
-                                [(ngModel)]="UniqueKey">
+                            <label for="email" class="form-label">email</label>
+                            <input type="text" id="email" class="form-control" name="email" #emailValidation="ngModel"
+                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required appEmail
+                                [(ngModel)]="email" [readonly]="disabledInput">
+                            <div *ngIf="emailValidation.invalid && (emailValidation.dirty || emailValidation.touched)">
+                                <div *ngIf="emailValidation.errors?.['required']" class="text-danger">Email is required.
+                                </div>
+                                <div *ngIf="emailValidation.errors?.['pattern']" class="text-danger">Invalid email
+                                    format.</div>
+                                <div *ngIf="emailValidation.errors?.['isExists']" class="text-danger">Email already
+                                    exists.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" id="email" class="form-control" name="email"
-                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                            #emailValidation="ngModel" required appEmail [(ngModel)]="email" placeholder="Enter email">
-                        <div *ngIf="emailValidation.invalid && (emailValidation.dirty || emailValidation.touched)">
-                            <div *ngIf="emailValidation.errors?.['required']" class="text-danger">Email is required.</div>
-                            <div *ngIf="emailValidation.errors?.['pattern']" class="text-danger">Invalid email format.</div>
-                            <div *ngIf="emailValidation.errors?.['isExists']" class="text-danger">Email already exists.</div>
+                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber"
+                                #phoneNumberValidation="ngModel" [(ngModel)]="phoneNumber" maxlength="10" required
+                                pattern="^[0-9]{10}$" [readonly]="disabledInput">
+                            <div
+                                *ngIf="phoneNumberValidation.invalid && (phoneNumberValidation.dirty || phoneNumberValidation.touched)">
+                                <div *ngIf="phoneNumberValidation.errors?.['required']" class="text-danger">Phone number
+                                    is
+                                    required.</div>
+                                <div *ngIf="phoneNumberValidation.errors?.['pattern']" class="text-danger">Invalid phone
+                                    number
+                                    format. Use 10 digits.</div>
+                                <div *ngIf="phoneNumberValidation.errors?.['maxlength']" class="text-danger">Phone
+                                    number should
+                                    contain 10 digits.</div>
+                            </div>
                         </div>
-                        
+
+                        <!-- <div class="mb-3">
+                            <label for="registeredNo" class="form-label">RegisteredOn</label>
+                            <input type="text" id="registeredNo" class="form-control" [(ngModel)]="registeredNo"
+                                [readonly]="disabledInput" #registerValidation="ngModel" ngModel>
+                                <div *ngIf="registerValidation.errors?.['required']" class="text-danger">Registered No
+                                    is
+                                    required.</div>
+                        </div> -->
+
+
+
+
+                    </div>
+                    <div class="modal-header pt-0">
+                        <h1 class="modal-title fs-5" id="addUpdateLabel">Address</h1>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="country" class="form-label">Select Country</label>
+                                    <select id="country" class="form-control" [(ngModel)]="country"
+                                        [disabled]="disabledInput">
+                                        <option value="">Select a country</option>
+                                        <option *ngFor="let country of countries" [value]="country.code">{{ country.name
+                                            }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="state" class="form-label">State</label>
+                                    <input type="text" id="state" #stateValidation="ngModel" ngModel
+                                        class="form-control" [(ngModel)]="state" [readonly]="disabledInput" required>
+                                    <div *ngIf="stateValidation.errors?.['required']" class="text-danger">state
+                                        is
+                                        required.</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">city</label>
+                                    <input type="text" id="city" class="form-control" placeholder="City Name"
+                                        [readonly]="disabledInput" [(ngModel)]="city" #cityValidation="ngModel" ngModel>
+                                    <div *ngIf="cityValidation.errors?.['required']" class="text-danger">city is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="zipcode" class="form-label">PostalCode/ZipCode</label>
+                                    <input type="number" id="zipcode" class="form-control" [readonly]="disabledInput"
+                                        placeholder="PostalCode/zipcode" #zipcodeValidation="ngModel" ngModel
+                                        [(ngModel)]="zipcode" required>
+                                    <div *ngIf="zipcodeValidation.errors?.['required']" class="text-danger">Zipcode
+                                        is
+                                        required.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="street" class="form-label">Street Address</label>
+                            <input type="text" id="street" class="form-control" [(ngModel)]="street"
+                                [readonly]="disabledInput" placeholder="street address" #stateValidation="ngModel"
+                                ngModel>
+                            <div *ngIf="stateValidation.errors?.['required']" class="text-danger">state is required.
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="text" id="phone" class="form-control" placeholder="Enter phonenumber"
-                                [(ngModel)]="phone">
+
+                    <div class="modal-header pt-0">
+                        <h1 class="modal-title fs-5" id="addUpdateLabel">Tax Information</h1>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="GSTIN" class="form-label">GSTIN</label>
+                                    <input type="text" id="GSTIN" name="gstin" class="form-control"
+                                        placeholder="Enter GSTIN" [readonly]="disabledInput" [(ngModel)]="gstin"
+                                        #gstinValidation="ngModel" ngModel>
+                                    <div *ngIf="gstinValidation.errors?.['required']" class="text-danger">GSTIN is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="PAN" class="form-label">PAN</label>
+                                    <input type="text" id="zipcode" class="form-control" [readonly]="disabledInput"
+                                        placeholder="Enter PAN" name="pan" [(ngModel)]="pan" #panValidation="ngModel"
+                                        ngModel>
+                                    <div *ngIf="panValidation.errors?.['required']" class="text-danger">PAN is required.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+
+                    <div class="modal-footer pt-2 pb-0">
+                        <button type="button" class="btn btn-secondary" [disabled]="disabledInput"
+                            (click)="closeModal()">Close</button>
+                        <button type="button" class="btn btn-primary add-client" [disabled]="disabledInput"
+                            (click)="saveChanges()">Save changes</button>
                     </div>
                 </div>
-            </div>
-
-
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-                <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
             </div>
         </div>
-    </div>
-</div>

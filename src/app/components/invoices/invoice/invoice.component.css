@@ -5,3 +5,16 @@ span.badge.badge-soft-success.p-2 {
 button.btn.btn-primary {
     margin-right: 12px;
 }
+i.fa-sharp.fa-solid.fa-xmark.cancel {
+    font-size: 21px;
+    margin-top: 10px;
+}   
+.status {
+    background-color: #bb1b1f;
+    padding: 11px;
+    font-size: 12px;
+}
+tr.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }

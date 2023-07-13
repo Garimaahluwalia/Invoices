@@ -8,7 +8,9 @@ import { Observable } from "rxjs";
 })
 
 export class LoginGuard {
-    constructor(private router: Router) {}
+
+
+    constructor(private router: Router) { }
 
     public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         let user = localStorage.getItem("token");

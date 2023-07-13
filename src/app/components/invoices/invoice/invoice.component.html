@@ -1,247 +1,120 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Invoice</h4>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="col-sm-6  pb-2">
+                            <a href="/add-invoice" class="btn btn-primary-outline "><i class="las la-plus me-1"></i>
+                                Add
+                                Invoices</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-hover table-nowrap invoice-table align-middle mb-0">
+                                    <thead>
 
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Invoice</a></li>
-                        <li class="breadcrumb-item active">Invoice</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
+                                        <tr class="text-muted text-uppercase">
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Invoice</th>
+                                            <th scope="col">Billed To</th>
+                                            <th scope="col" style="width: 20%;">Email</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col" style="width: 16%;">Status</th>
+                                            <th scope="col" style="width: 12%;">Actions</th>
+                                        </tr>
+                                    </thead>
 
-    <div class="col-sm-auto ms-auto">
-        <div class="d-flex gap-3">
-            <div class="search-box">
-                <input type="text" class="form-control" placeholder="Search for name or designation...">
-                <i class="las la-search search-icon"></i>
-            </div>
-            <div class="">
-                <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false"
-                    class="btn btn-soft-info btn-icon fs-14"><i class="las la-ellipsis-v fs-18"></i></button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                    <li><a class="dropdown-item" href="#">Print</a></li>
-                    <li><a class="dropdown-item" href="#">Export to Excel</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  } let i = index">
+                                            <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
+                                            <td data-label="Invoice ID">
+                                                <p class="fw-medium mb-0">{{details.invoiceNo}}</p>
+                                            </td>
+                                            <td data-label="Client">
+                                                <a
+                                                    class="text-body align-middle fw-medium">{{details?.client?.name}}</a>
+                                            </td>
+                                            <td data-label="Email">
+                                                {{details?.client?.email}}
+                                            </td>
+                                            <td data-label="Billed">
+                                                {{ details?.totalamount !== 0 ? details?.totalamount :
+                                                details?.subtotalofamount }}
+                                            </td>
+                                            <td> <span
+                                                    class="badge badge-pill badge-primary status">{{details?.status}}</span>
+                                            </td>
+                                            <td data-label="Action" class="action-items">
+                                                <ul class="list-inline hstack  mb-0">
+                                                    <a (click)="updateStatus(details, status.PAID)"
+                                                        [style.pointer-events]="details.status === 'CANCELLED' || details.status === 'PAID' ? 'none' : 'auto'"
+                                                        data-bs-trigger="hover" data-bs-placement="top"
+                                                        title="Mark as Paid">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                                                                [attr.stroke]="details.status === 'PAID' ? '#A9A9A9' : '#161c26'"
+                                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            <path d="M8 12L10.6667 15L16 9"
+                                                                [attr.stroke]="details.status === 'PAID' ? '#A9A9A9' : '#161c26'"
+                                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        </svg>
+                                                    </a>
 
-<div class="row">
-    <div class="col-xl-3 col-md-6">
-        <!-- card -->
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                data-target="559.25">0</span>k</h4> -->
-                        <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Invoices Sent
-                            <span class="text-success fs-14 mb-0 ms-1">
-                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i> <span
-                                    [textContent]="countTotalInvoices()"></span>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-light rounded-circle fs-3">
-                            <i class="las la-file-alt fs-24 text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-end justify-content-between mt-4">
-                    <div>
-                        <span class="badge bg-primary me-1"><span [textContent]="countTotalInvoices()"></span></span>
-                        <span class="text-muted">Invoices
-                            sent</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                data-target="409.66">0</span>k</h4> -->
-                        <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Paid Invoices
-                            <span class="text-danger fs-14 mb-0 ms-1">
-                                <i class="ri-arrow-right-down-line fs-13 align-middle"></i><span
-                                    [textContent]="countPaidInvoices()"></span>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-light rounded-circle fs-3">
-                            <i class="las la-check-square fs-24 text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-end justify-content-between mt-4">
-                    <div>
-                        <span class="badge bg-danger me-1"><span [textContent]="countPaidInvoices()"></span></span>
-                        <span class="text-muted">Paid by
-                            clients</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-primary">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2 text-white">$<span class="counter-value"
-                                data-target="136.98">0</span>k</h4> -->
-                        <p class="text-uppercase fw-medium fs-14 text-white-50 mb-0"> Unpaid Invoices
-                            <span class="text-danger fs-14 mb-0 ms-1">
-                                <i class="ri-arrow-right-down-line fs-13 align-middle"></i> <span
-                                    [textContent]="countUnpaidInvoices()"></span>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-soft-light rounded-circle fs-3">
-                            <i class="las la-clock fs-24 text-white"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-end justify-content-between mt-4">
-                    <div>
-                        <span class="badge bg-danger me-1"><span [textContent]="countUnpaidInvoices()"></span></span>
-                        <span class="text-white">Unpaid
-                            by
-                            clients</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <!-- <h4 class="fs-22 fw-semibold ff-secondary mb-2">$<span class="counter-value"
-                                data-target="84.20">0</span>k</h4> -->
-                        <p class="text-uppercase fw-medium fs-14 text-muted mb-0"> Cancelled Invoices
-                            <span class="text-success fs-14 mb-0 ms-1">
-                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i> <span
-                                    [textContent]="countCancelInvoices()"></span>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-light rounded-circle fs-3">
-                            <i class="las la-times-circle fs-24 text-primary"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-end justify-content-between mt-4">
-                    <div>
-                        <span class="badge bg-primary me-1"><span [textContent]="countCancelInvoices()"></span></span>
-                        <span class="text-muted">Cancelled by
-                            clients</span>
+                                                    <!-- <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top"
+                                                        title="Duplicate">
+                                                        <a class="btn btn-soft-info btn-sm d-inline-block" (click)="addDuplicateInvoice(details)">
+                                                          <i class="fa-solid fa-copy"></i>
+                                                        </a>
+                                                    </li> -->
+                                                    <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top" title="Edit">
+                                                        <a class="btn btn-soft-info btn-sm d-inline-block"
+                                                            (click)="updateInvoice(details)"
+                                                            [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
+                                                            <i class="las la-pen fs-17 align-middle"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                        <a class="btn btn-soft-info btn-sm d-inline-block"
+                                                            [routerLink]="['/view-invoice-list', details._id]">
+                                                            <i class="las la-eye fs-17 align-middle"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top" title="Cancel">
+                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
+                                                            (click)="updateStatus(details, status.CANCELLED)"
+                                                            [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
+                                                            <i class="fa-sharp fa-solid fa-xmark cancel"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top" title="Remove">
+                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
+                                                            (click)="DeleteInvoice(details)">
+                                                            <i class="fas fa-trash fs-17 align-middle"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive table-card">
-                    <table class="table table-hover table-nowrap align-middle mb-0">
-                        <thead>
-                            <tr class="text-muted text-uppercase">
-                                <th style="width: 50px;">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                    </div>
-                                </th>
-                                <th scope="col">Invoice ID</th>
-                                <th scope="col">Client</th>
-                                <th scope="col" style="width: 20%;">Email</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Billed</th>
-                                <th scope="col" style="width: 16%;">Status</th>
-                                <th scope="col" style="width: 12%;">Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr *ngFor="let details of invoices| paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="check1" value="option">
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="fw-medium mb-0">{{InvoiceNumber}}</p>
-                                </td>
-                                <td>
-                                    <img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle me-2">
-                                    <a href="#javascript: void(0);" class="text-body align-middle fw-medium">{{details?.Client}}</a>
-                                </td>
-                                <td>
-                                    <ng-container *ngIf="details?.Email">
-                                        {{details.Email}}
-                                    </ng-container>
-                                </td>
-                                <td>{{details.Date}}</td>
-                                <td>{{details.Billed}}</td>
-                                <td>
-                                    <span class="badge badge-soft-success p-2">{{details.Status}}</span>
-                                </td>
-                                <td>
-                                    <ul class="list-inline hstack gap-2 mb-0">
-                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
-                                            <a class="btn btn-soft-info btn-sm d-inline-block" [routerLink]="['/view-invoice-list', details._id]">
-                                                <i class="las la-eye fs-17 align-middle"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
-                                            <a class="btn btn-soft-info btn-sm d-inline-block" [routerLink]="['/add-invoice', details._id]">
-                                                <i class="las la-pen fs-17 align-middle"></i>
-                                            </a>
-                                        </li>
-                                        <!-- <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Delete">
-                                            <a class="btn btn-soft-danger btn-sm d-inline-block" >
-                                                <i class="las la-file-download fs-17 align-middle"></i>
-                                            </a>
-                                        </li> -->
-                                    </ul>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row pb-4 gy-3">
-    <div class="col-sm-4">
-        <a href="/add-invoice" class="btn btn-primary addMembers-modal"><i class="las la-plus me-1"></i> Add
-            Invoices</a>
-    </div>
-</div>
-<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-
+<router-outlet></router-outlet>
+<pagination-controls (pageChange)="onPageChange($event)" id="invoice"> </pagination-controls>

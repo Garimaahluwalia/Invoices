@@ -1,0 +1,31 @@
+.profile-inputs label{
+  width: 150px;
+
+  }
+  .profile-inputs .form-input{
+    padding: 10px 0px;
+   
+  }
+  .profile-inputs .form-input:not(:last-child){
+    border-bottom: 1px solid #d2d2d2;
+  }
+  .profile-inputs input{
+    width: 50%;
+  }
+  .profile-inputs input:disabled{
+border: 0px;
+background-color: transparent;
+  }
+  .p-upload{
+    padding: 10px 15px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    position: absolute;
+    right: 20px;
+  }
+  .p-upload input{
+    opacity: 0;
+  width: 20px;
+  display: inline-block;
+  position: absolute;
+  }

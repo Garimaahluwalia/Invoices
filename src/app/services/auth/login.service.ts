@@ -10,8 +10,8 @@ import { IUserLoginDetails, UserLogin } from 'src/app/types/userLogin';
   providedIn: 'root'
 })
 export class LoginService {
-
   private _user: UserLogin | null = null;
+
 
   constructor(public http: HttpClient) { }
 
@@ -25,6 +25,7 @@ export class LoginService {
     });
   }
 
+
   set user(user: UserLogin | null) {
     this._user = user;
   }
@@ -32,6 +33,7 @@ export class LoginService {
   get user(): UserLogin | null {
     return this._user;
   }
+
   sendPostlogin(payload: { [k: string]: string }): Observable<any> {
     return this.http.post(endpoints.LOGIN, payload);
   }
@@ -39,18 +41,23 @@ export class LoginService {
   resetPassword(payload: UserLogin): Observable<any> {
     return this.http.post<any>(endpoints.RESET_PASSWORD, payload);
   }
+
   updateLoginUser(user: UserLogin) {
     this.user = user;
     localStorage.setItem(USER_DATA, JSON.stringify(user));
     localStorage.setItem(AUTHORIZATION_TOKEN, user?.access_token as string);
   }
- 
-   userLogout(token: string): Observable<any>{
+
+  userLogout(token: string): Observable<any> {
     return this.http.post(endpoints.LOGOUT, token);
-    
-   }
+
+  }
   removeUserSession() {
     this.user = null;
     localStorage.clear();
+  }
+  
+  getDashboardCounts(): Observable<any> {
+    return this.http.get<any>(endpoints.DASHBOARD);
   }
 }

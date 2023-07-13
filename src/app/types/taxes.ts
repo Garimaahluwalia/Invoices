@@ -1,4 +1,5 @@
 export enum TAXES {
+    NONE = "NONE",
     GST = "GST",
     IGST = "IGST",
     CGST_OR_SGST = "CGST_SGST",
@@ -8,3 +9,5 @@ export enum TAXES {
     HST = "HST",
     TAX = "TAX"
 }
+
+

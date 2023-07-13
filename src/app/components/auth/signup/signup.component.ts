@@ -25,10 +25,11 @@ export class SignupComponent implements OnInit {
 
   }
 
-  constructor(public signupService: SignupService, public route: Router, public router: ActivatedRoute, public notifierService: NotifierService, private formBuilder: FormBuilder) {
+  constructor(public signupService: SignupService,
+    public route: Router, public router: ActivatedRoute,
+    public notifierService: NotifierService,
+    private formBuilder: FormBuilder) {
     this.notifier = notifierService;
-
-
   }
 
 
@@ -44,7 +45,6 @@ export class SignupComponent implements OnInit {
       this.signupData = res;
       this.signupForm.reset();
       this.notifier.notify('success', 'signup successfully ');
-      console.log(this.signupData, "signUp")
 
     }, (error: any) => {
       console.error(error);
@@ -55,5 +55,5 @@ export class SignupComponent implements OnInit {
 
 
   }
-  
+
 }

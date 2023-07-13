@@ -1,0 +1,89 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="col-sm-12 text-end pb-4 pr-0">
+      <button class="btn btn-primary-outline" (click)="toggleEditMode()">Edit Profile</button>
+    </div>
+    <div class="row profile-data">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img [src]="profileImage" alt="profilePhoto" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+            <span class="p-upload"> <i class="fa fa-upload"></i> <input type="file"
+                (change)="onFileSelected($event)" /></span>
+            <h5 class="my-3">{{ userProfile.name }}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">  
+        <div class="card mb-4">
+          <div class="card-body profile-inputs">
+            <div class="form-input">
+              <label>Name</label>
+              <input type="text" placeholder="John Smith" [disabled]="!isEditMode" [(ngModel)]="userProfile.name">
+            </div>
+            <div class="form-input">
+              <label>Email</label>
+              <input type="text" placeholder="example@example.com" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.email">
+            </div>
+            <div class="form-input">
+              <label>Mobile</label>
+              <input type="text" placeholder="(097) 234-5678" [disabled]="!isEditMode" [(ngModel)]="userProfile.mobile">
+            </div>
+            <div class="form-input">
+              <label>Registered On</label>
+              <input type="text" placeholder="2/12/2012" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.registeredOn">
+            </div>
+            <div class="form-input">
+              <label>GSTIN</label>
+              <input type="text" placeholder="03DQCPK3553H1Z3" [disabled]="!isEditMode" [(ngModel)]="userProfile.gstIn">
+            </div>
+            <div class="form-input">
+              <label>Pan</label>
+              <input type="text" placeholder="DQCPK3553H" [disabled]="!isEditMode" [(ngModel)]="userProfile.pan">
+            </div>
+            <div class="form-input">
+              <label>Address</label>
+              <input type="text" placeholder="Bay Area, San Francisco, CA" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.address">
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-body profile-inputs">
+            <div class="">
+              <h3 class="border-bottom">Account Details</h3>
+            </div>
+            <div class="form-input">
+              <label>Acc Holder Name</label>
+              <input type="text" placeholder="John Smith" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.accountDetails.accHolderName">
+            </div>
+            <div class="form-input">
+              <label>Bank Name</label>
+              <input type="text" placeholder="Francisco" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.accountDetails.bankName">
+            </div>
+            <div class="form-input">
+              <label>Branch Name</label>
+              <input type="text" placeholder="San" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.accountDetails.branchName">
+            </div>
+            <div class="form-input">
+              <label>Account Number</label>
+              <input type="text" placeholder="32455234122" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.accountDetails.accountNumber">
+            </div>
+            <div class="form-input">
+              <label>IFSC code</label>
+              <input type="text" placeholder="sdk2322" [disabled]="!isEditMode"
+                [(ngModel)]="userProfile.accountDetails.ifscCode">
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary-outline" (click)="saveProfile()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

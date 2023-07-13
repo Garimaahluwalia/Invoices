@@ -3,29 +3,41 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import endpoints from 'src/app/endpoints';
 import { HttpClient } from '@angular/common/http';
 import { IClients } from 'src/app/types/clients';
+import { TAXES } from 'src/app/types/taxes';
+import { Client } from 'src/app/types/client/client.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  private _clients: IClients[] = [];
-  private clientsSubject: BehaviorSubject<IClients[]> = new BehaviorSubject<IClients[]>([]);
-  private _addClientFromInvoice: EventEmitter<IClients> = new EventEmitter<IClients>();
+  // pagination
+  public totalNumberOfClient: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private _page: number = 1;
+  private _limit: number = 100;
+  // pagination
+
+  private _clients: Client[] = [];
+  private clientsSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
+  private _addClientFromInvoice: EventEmitter<Client> = new EventEmitter<Client>();
+  private _taxName: EventEmitter<TAXES> = new EventEmitter<TAXES>();
+
+
 
   constructor(public http: HttpClient) { }
 
-  set clients(value: IClients[]) {
+  set clients(value: Client[]) {
     this._clients = value;
   }
-  get clients(): IClients[] {
+  get clients(): Client[] {
     return this._clients;
   }
 
-  addClient(data: IClients) {
+  addClient(data: any) {
     this._clients.push(data);
     this.sendClients();
   }
-  updateClient(data: IClients, ClientId: number) {
+
+  updateClient(data: any, ClientId: number) {
     const clientData = [...this._clients];
     clientData.splice(ClientId, 1, data);
     this._clients = clientData;
@@ -33,24 +45,46 @@ export class ClientService {
 
   }
 
-  sendPost(payload: IClients): Observable<any> {
+
+  // <-- pagination
+  set page(value: number) {
+    this._page = value;
+  }
+  get page(): number {
+    return this._page;
+  }
+
+  set limit(value: number) {
+    this._limit = value;
+  }
+
+  get limit(): number {
+    return this._limit;
+  }
+  // pagination -->
+
+
+
+
+  addClientToServer(payload: any): Observable<any> {
     return this.http.post(endpoints.CLIENTS.ADD, payload);
   }
 
-  getAllClients(): Observable<any[]> {
-    return this.http.get<any[]>(endpoints.CLIENTS.GETALL);
+  getAllClients(page: number = 1, limit: number = 12): Observable<any> { //pagination
+    return this.http.get<any>(endpoints.CLIENTS.GETALL(page, limit));
   }
-  getClient(ClientId: string): Observable<any> {
-    return this.http.get<string>(endpoints.CLIENTS.GET(ClientId));
+
+  getClient(ClientId: string): Observable<Client> {
+    return this.http.get<Client>(endpoints.CLIENTS.GET(ClientId));
   }
-  updateClientReq(ClientId: string, data: IClients) {
-    return this.http.put(endpoints.CLIENTS.UPDATE(ClientId), data);
+  updateClientReq(ClientId: string, data: any) {
+    return this.http.put<Client>(endpoints.CLIENTS.UPDATE(ClientId), data);
   }
   sendClients() {
     this.clientsSubject.next(this._clients);
   }
 
-  recieveClients(): Observable<IClients[]> {
+  recieveClients(): Observable<Client[]> {
     return this.clientsSubject.asObservable();
   }
 
@@ -58,27 +92,43 @@ export class ClientService {
     return this.http.delete(endpoints.CLIENTS.DELETE(clientId));
   }
 
+
   getAll() {
-    this.getAllClients().subscribe(
-      res => {
-        this._clients = res;
-        this.sendClients();
-      },
-      err => {
-        console.error('Error while fetching pages:', err);
-      }
-    );
+    try {
+      this.getAllClients(this.page, this.limit).subscribe(  // pagination
+        res => {
+          this._clients = res.clients as Client[];
+          this.sendClients();
+          this.totalNumberOfClient.next(res.totalCount);    // pagination
+        },
+        err => {
+          console.error('Error while fetching pages:', err);
+        }
+      );
+    } catch (e) {
+      console.error(e);
+      this._clients = []; // pagination
+      this.sendClients();
+    }
   }
 
-  recieveClientData(): Observable<IClients> {
+  recieveClientData(): Observable<Client> {
     return this._addClientFromInvoice.asObservable()
   }
 
-  sendClientDetails(data: IClients): void {
+  sendClientDetails(data: Client): void {
     this._addClientFromInvoice.emit(data);
   }
 
   checkPhonenumberExist(payload: { [k: string]: string }): Observable<any> {
     return this.http.post(endpoints.CLIENTS.CHECKPHONENUMBER, payload);
   }
+
+  sendTaxName(data: TAXES): void {
+    this._taxName.emit(data);
+  }
+  recieveTaxName(): Observable<TAXES> {
+    return this._taxName.asObservable()
+  }
+
 }

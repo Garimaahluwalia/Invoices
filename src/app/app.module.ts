@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { InvoiceComponent } from './components/invoices/invoice/invoice.component';
-import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { MainComponent } from './components/layout/main/main.component';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -18,23 +17,27 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
 import { EmailDirective } from './directives/email.directive';
 import { UsernameDirective } from './directives/username.directive';
-import { InvoicedataComponent } from './components/invoices/add-invoices/invoicedata/invoicedata.component';
-import { CompanyaddressComponent } from './components/invoices/add-invoices/companyaddress/companyaddress.component';
-import { ShippingaddressComponent } from './components/invoices/add-invoices/shippingaddress/shippingaddress.component';
-import { BillingaddressComponent } from './components/invoices/add-invoices/billingaddress/billingaddress.component';
-import { ProductdetailsComponent } from './components/invoices/add-invoices/productdetails/productdetails.component';
-import { PaymentdetailsComponent } from './components/invoices/add-invoices/paymentdetails/paymentdetails.component';
+import { InvoicedataComponent } from './components/invoices/add-invoices/from-groups/invoicedata/invoicedata.component';
+import { CompanyaddressComponent } from './components/invoices/add-invoices/from-groups/companyaddress/companyaddress.component';
+import { ProductdetailsComponent } from './components/invoices/add-invoices/from-groups/productdetails/productdetails.component'; 
+import { PaymentdetailsComponent } from './components/invoices/add-invoices/from-groups/paymentdetails/paymentdetails.component'; 
 import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
-import { AddinvoicethemeComponent } from './components/invoices/addinvoicetheme/addinvoicetheme.component';
 import { AuthInterceptor } from './interceptors/intercept';
 import { CommonModule } from '@angular/common';
 import { ClientComponent } from './components/clients/client/client.component';
-import { AddClientComponent } from './Modals/add-client/add-client.component';
-import { DeleteComponent } from './Modals/delete/delete.component';
+import { AddClientComponent } from './modals/add-client/add-client.component';
+import { DeleteComponent } from './modals/delete/delete.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ClientDetailsComponent } from './components/invoices/client-details/client-details.component';
+import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component'; 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PhonenumberDirective } from './directives/phonenumber.directive';
+import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
+import { ProfileComponent } from './components/layout/profile/profile.component';
+import { DatePipe } from '@angular/common';
+import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
+import { InvoiceNumberDirective } from './directives/invoice-number.directive';
+
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -82,7 +85,6 @@ const customNotifierOptions: NotifierOptions = {
     LoginComponent,
     SignupComponent,
     InvoiceComponent,
-    DashboardComponent,
     MainComponent,
     HeaderComponent,
     FooterComponent,
@@ -93,17 +95,19 @@ const customNotifierOptions: NotifierOptions = {
     UsernameDirective,
     InvoicedataComponent,
     CompanyaddressComponent,
-    ShippingaddressComponent,
-    BillingaddressComponent,
     ProductdetailsComponent,
     PaymentdetailsComponent,
     InvoiceListDetailsComponent,
-    AddinvoicethemeComponent,
     ClientComponent,
     AddClientComponent,
     DeleteComponent,
     ClientDetailsComponent,
     PhonenumberDirective,
+    MainInvoiceComponent,
+    ProfileComponent,
+    invoiceactionsComponent,
+    InvoiceNumberDirective
+   
   ],
   imports: [
     BrowserModule,
@@ -118,6 +122,7 @@ const customNotifierOptions: NotifierOptions = {
     AppRoutingModule,
   ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

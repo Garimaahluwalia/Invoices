@@ -1,4 +1,12 @@
 .modal-backdrop {
     background-color: #ffff !important; /* Custom background color and opacity */
   }
+  button.btn.btn-primary.add-client {
+    background-color: #bb1b1f !important;
+    background-color: #bb1b1f;
+    border-color: #bb1b1f;
+    color: #fff;
+    /* padding: 6px 20px; */
+    font-size: 18px;
+}
   

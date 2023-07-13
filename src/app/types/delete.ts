@@ -1,3 +1,5 @@
 export enum DeleteEvents {
-    CLIENTS = "CLIENTS"
+    INVOICES=  "INVOICES",
+    CLIENTS = "CLIENTS",
+    INVOICE_ACTIONS = "INVOICE_ACTIONS"
 }

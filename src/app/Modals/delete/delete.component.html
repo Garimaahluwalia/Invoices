@@ -1,23 +1,23 @@
 <button type="button" #openDeleteModal class="btn btn-primary d-none" data-bs-toggle="modal"
   data-bs-target="#deleteContent">Add</button>
 
-<div class="modal fade" id="deleteContent" tabindex="-1" aria-labelledby="deleteContentLabel" aria-hidden="true">
+<div class="modal" id="deleteContent" tabindex="-1" aria-labelledby="deleteContentLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header pb-3">
         <h1 class="modal-title fs-5" id="deleteContentLabel">Delete Confirmation</h1>
         <button type="button" class="close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
+          <i class="fa-sharp fa-regular fa-circle-xmark" style="color:#000"></i>
         </button>
         <button type="button" #closeDeleteModalButton class="d-none btn-close" data-bs-dismiss="modal"
           aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <i class="fa-sharp fa-regular fa-circle-xmark" style="color:#000"></i>
         </button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete this Client?
+        Are you sure you want to delete this?
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer pt-2 pb-2">
         <button type="button" class="btn btn-primary" (click)="yes()">Yes</button>
         <button type="button" class="btn btn-secondary" (click)="no()">No</button>
       </div>

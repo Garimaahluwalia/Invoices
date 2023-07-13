@@ -8,7 +8,6 @@ import endpoints from '../endpoints';
 export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const authToken = localStorage.getItem(AUTHORIZATION_TOKEN)
-        // console.log(authToken, "authToken")
         if (!request.url.includes(endpoints.LOGIN)) {
             const modifiedRequest = request.clone({
                 setHeaders: {

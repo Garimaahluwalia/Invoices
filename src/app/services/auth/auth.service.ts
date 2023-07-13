@@ -6,7 +6,9 @@ import { Observable } from "rxjs";
     providedIn: "root"
 })
 export class AuthService implements CanActivate { 
+
     constructor(private router: Router, public route: ActivatedRoute){}
+    
   public  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     let user = localStorage.getItem("token");
     if(user) {

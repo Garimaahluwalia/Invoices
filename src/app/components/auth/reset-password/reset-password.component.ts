@@ -9,8 +9,11 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-  resetResponse: any;
-  constructor(public http: HttpClientModule, public loginService: LoginService){}
+ public resetResponse: any;
+
+  constructor(public http: HttpClientModule,
+     public loginService: LoginService){}
+
   ngOnInit(): void {}
   submit(resetForm: NgForm) {
     const email = resetForm.value.email;
@@ -26,7 +29,6 @@ export class ResetPasswordComponent implements OnInit {
     }).subscribe(
       (res: any) => {
         this.resetResponse = res;
-        console.log(this.resetResponse, "resetpassword");
       },
       (err) => {
         if (err.error) {
