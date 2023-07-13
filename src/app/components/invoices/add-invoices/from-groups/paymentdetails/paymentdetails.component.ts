@@ -8,6 +8,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { CURRENCY, DEFAULTCURRENCY } from 'src/app/types/currency';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 interface IPrices {
   subtotal: number,
@@ -26,7 +27,8 @@ export class PaymentdetailsComponent implements OnInit {
   public tax: any;
   public rate: any;
   public total: any;
-  public currency: any;
+  public defaultCurrency: string = DEFAULTCURRENCY.symbol;
+  public currency: string = this.defaultCurrency;
   public taxAmountData: any;
   public totalAmount: any;
   public totalrate: any;
@@ -34,18 +36,23 @@ export class PaymentdetailsComponent implements OnInit {
   public totalTotalAmount: any;
   public AmountInWords: any;
   public totalAmountInWords!: string;
-  public totalOfProduct: any;
+  public totalOfProduct: any = {
+    subtotal: 0,
+    rate: 0,
+    total: 0
+  };
   public totalOfAmountFromProduct: any;
   public taxamount: any;
-  public selectedCurrency: any = DEFAULTCURRENCY.symbol;
   public currencies = CURRENCY; // Currency
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public totalInWords : any;
+  public totalInWords: any;
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService,
-    public invoiceDataHandlerService: InvoiceDataHandlerService) { }
+    public invoiceDataHandlerService: InvoiceDataHandlerService,
+    private __ref: ChangeDetectorRef
+    ) { }
   ngOnInit(): void {
 
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
@@ -63,13 +70,13 @@ export class PaymentdetailsComponent implements OnInit {
             rate: 0,
             total: 0
           };
-          const calculatedPrices =
-            this.totalOfProduct = this.productRows.reduce((acc: IPrices, row) => {
-              acc.total += parseFloat(row.total || 0);
-              acc.subtotal += parseFloat(row.amount || 0);
-              acc.rate += parseFloat(row.rate || 0);
-              return acc;
-            }, prices);
+          const calculatedPrices = this.totalOfProduct = this.productRows.reduce((acc: IPrices, row) => {
+            acc.total += parseFloat(row.total || 0);
+            acc.subtotal += parseFloat(row.amount || 0);
+            acc.rate += parseFloat(row.rate || 0);
+            return acc;
+          }, prices);
+
           const { subtotal, total, rate } = calculatedPrices;
           this.totalInWords = '';
           if (calculatedPrices.total === 0) {
@@ -92,18 +99,17 @@ export class PaymentdetailsComponent implements OnInit {
 
 
 
-    this.addinvoiceService.receiveCurrency().subscribe((res: string) => {
-      this.currency = res;
-      const currency = this.currencies.find(currency => currency.code === this.currency);
-      this.currency = currency?.symbol;
+    this.addinvoiceService.receiveCurrency().subscribe((currency: string) => {
+      console.log("Recieved", currency);
+      /* this.currency = res; */
+      const currencyDetails = this.currencies.find((v) => v.code === currency);
+      console.log("Recieved", currencyDetails);
+      if (currencyDetails) {
+        this.currency = currencyDetails?.symbol;
+      }
     });
 
-    if (!this.currency || this.currency === '') {
-      this.currency = this.selectedCurrency;
-    }
-    this.invoiceService.invoiceEmitter.subscribe((res: any) => {
-      this.currency = res.currency;
-    })
+
   }
   ngOnDestroy(): void {
     this.destroyed.next(true);

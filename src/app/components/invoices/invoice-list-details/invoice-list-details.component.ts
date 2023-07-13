@@ -5,6 +5,7 @@ import { numberToWords } from 'src/app/common/numberToWords';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -23,6 +24,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public subtotalofamount : any;
   public totalamount : any
   public totalInWords : any;
+  public invoiceImage : any;
 
 
   constructor(
@@ -30,7 +32,8 @@ export class InvoiceListDetailsComponent implements OnInit {
     public route: Router,
     public router: ActivatedRoute,
     public clientService: ClientService,
-    public addinvoiceService: AddInvoicesService
+    public addinvoiceService: AddInvoicesService,
+    public profileService: ProfileService
   ) { }
 
 
@@ -39,6 +42,17 @@ export class InvoiceListDetailsComponent implements OnInit {
       this._id = params['id'];
       this.getInvoiceById();
     });
+
+
+    this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
+      (response) => {
+        this.invoiceImage = response.photoUrl;
+        console.log(response, "GETPROFILEAPIRESPONSE")
+      },
+      (error) => {
+        console.error('Profile update failed:', error);
+      }
+    );
   }
   ngOnDestroy(): void {
     this.destroyed.next(true);

@@ -26,6 +26,7 @@ export class AddInvoicesComponent implements OnInit {
   public download: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status : any;
+  public currency : any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -48,19 +49,26 @@ export class AddInvoicesComponent implements OnInit {
     if (this.invoiceId) {
       this.invoiceService.getInvoiceforUpdateAndEmit();
     }
+
+    /* this.addInvoiceService.receiveCurrency().subscribe((res: any) => {
+      this.currency = res;
+    }) */
     this.invoiceService.invoiceEmitter.subscribe((res) => {
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
       this.status = res.status;
+      this.currency = res.currency;
+      console.log(this.currency, "CURRENCY FROM ADD-INVOICE")
       this.addInvoiceService.sendProductChanges(res.products);
       this.clientService.sendClientDetails(res.client);
+      this.addInvoiceService.sendCurrency(this.currency);
       this.updateInvoiceData = res;
       this.InvoiceForm.form?.patchValue({
         "invoice": {
           "invoiceNo": res.invoiceNo,
          
         },
-        "currency": res.currency,
+        // "currency": res.currency,
         "tax": res.tax,
       });
     });

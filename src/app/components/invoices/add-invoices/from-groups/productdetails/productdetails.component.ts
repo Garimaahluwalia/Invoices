@@ -23,7 +23,7 @@ export class ProductdetailsComponent implements OnInit {
 
 
   public showTaxHeaders: boolean = true;
-  public taxes: string[] = Object.values(TAXES); 
+  public taxes: string[] = Object.values(TAXES);
   public rate!: number;
   public amount!: number;
   public HSN_SAC: any;
@@ -33,11 +33,11 @@ export class ProductdetailsComponent implements OnInit {
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
   public taxAmountData: any;
-  public selectedTaxRate: TAXES = TAXES.NONE;  
-  public selectedCurrency: any = DEFAULTCURRENCY.code;
+  public selectedTaxRate: TAXES = TAXES.NONE;
+  public selectedCurrency: any = DEFAULTCURRENCY.code;  // Currency 
   public selectedTaxRateValue: number = 0;
   public currencies = CURRENCY; // Currency
-  public inputcurrency: any;
+  public inputcurrency: any;  // currency
   public taxamount: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   constructor(public clientService: ClientService,
@@ -49,7 +49,7 @@ export class ProductdetailsComponent implements OnInit {
   ngOnInit(): void {
     this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.productRows = res;
-        });
+    });
 
     if (this.productRows.length > 0) {
       const firstProduct = this.productRows[0];
@@ -69,20 +69,20 @@ export class ProductdetailsComponent implements OnInit {
       this.onProductValueChange(0);
     });
 
-   
+
     // currency
+
+
     this.addinvoiceService.receiveCurrency().pipe(takeUntil(this.destroyed)).subscribe((res: string) => {
       this.inputcurrency = res;
       const currency = this.currencies.find(currency => currency.code === this.inputcurrency);
       this.inputcurrency = currency?.symbol;
+      console.log(this.inputcurrency, "CURRENCY INPUTS")
     });
-
 
     if (!this.inputcurrency || this.inputcurrency === '') {
       this.inputcurrency = this.selectedCurrency;
     }
-
-    //currency
   }
 
 
@@ -90,12 +90,11 @@ export class ProductdetailsComponent implements OnInit {
     this.destroyed.next(true);
     this.destroyed.complete();
   }
-  currencyChange(event: any) {  // Currency
+
+  currencyChange(event: any) {
     this.selectedCurrency = event.target.value;
-    console.log(this.selectedCurrency, "SELECTEDCURRENCY");
     this.addinvoiceService.sendCurrency(this.selectedCurrency);
   }
-
 
   addDescriptionDefault() {
     this.showDescriptionBoxOpen = !this.showDescriptionBoxOpen;
@@ -120,7 +119,7 @@ export class ProductdetailsComponent implements OnInit {
     const row = this.productRows[index];
     row.showDescriptionBox = !row.showDescriptionBox;
     if (!row.showDescriptionBox) {
-      row.description = ''; 
+      row.description = '';
     }
   }
 
@@ -150,7 +149,7 @@ export class ProductdetailsComponent implements OnInit {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
       const selectedAmount = Number(row.amount || 0);
       if (selectedAmount > 0) {
-        const selectedTaxAmount = row.taxamount; 
+        const selectedTaxAmount = row.taxamount;
         const rate = (selectedTaxAmount * selectedAmount) / 100;
         row.rate = parseFloat(rate.toFixed(2));
         const taxAmount = (selectedAmount * selectedTaxAmount) / 100;

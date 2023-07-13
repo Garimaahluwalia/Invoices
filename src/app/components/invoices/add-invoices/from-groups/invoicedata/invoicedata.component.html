@@ -11,7 +11,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="invoicenoInput">Invoice No</label>
                         <input name="invoiceNo" ngModel type="text" class="form-control bg-light border-0" #invoicenNumberValidation="ngModel"
-                            id="invoicenoInput" [(ngModel)]="InvoiceNumber"  placeholder="Invoice No" appInvoiceNumber>
+                            id="invoicenoInput" [(ngModel)]="InvoiceNumber" [invoiceId]="invoiceId" placeholder="Invoice No" appInvoiceNumber>
 
                             <div *ngIf="invoicenNumberValidation.invalid && (invoicenNumberValidation.dirty || invoicenNumberValidation.touched)">
                                 <div *ngIf="invoicenNumberValidation.errors?.['required']" class="text-danger">Invoice is required.
@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-6">
             <div class="text-end">
-                <img src="assets\images\mcode-m.png" class="img-fluid company-logo" />
+                <img [src]="invoiceImage" width="150px" height="150px" class="img-fluid company-logo" />
             </div>
         </div>
     </div>

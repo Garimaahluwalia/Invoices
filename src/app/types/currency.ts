@@ -1,5 +1,11 @@
 
-export const DEFAULTCURRENCY =
+export interface ICurrency {
+    symbol: string;
+    name: string;
+    code: string;
+
+}
+export const DEFAULTCURRENCY: ICurrency =
 {
     "symbol": "₹",
     "name": "Indian Rupee",
@@ -8,7 +14,7 @@ export const DEFAULTCURRENCY =
 
 
 
-export const CURRENCY =
+export const CURRENCY: ICurrency[] =
     [
         {
             "name": "US Dollar",

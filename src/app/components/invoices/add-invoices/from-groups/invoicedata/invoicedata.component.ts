@@ -4,6 +4,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DatePipe } from '@angular/common';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { ProfileService } from 'src/app/services/profile.service';
 
 
 @Component({
@@ -14,13 +15,15 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 })
 export class InvoicedataComponent implements OnInit {
   @Input() invoice!: { [key: string]: string | number }
+  @Input() invoiceId: string | null = null;
   public defaultDate: any;
   public InvoiceNumber!: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-
+  public invoiceImage : any;
   constructor(
     public invoiceService: InvoiceService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    public profileService : ProfileService
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +33,23 @@ export class InvoicedataComponent implements OnInit {
     if (!this.invoiceService.invoiceNumber) {
       this.getInvoiceNumber();
     }
+
+
+
+
+
+
+
+    this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
+      (response) => {
+        this.invoiceImage = response.photoUrl;
+        console.log(response, "GETPROFILEAPIRESPONSE")
+      },
+      (error) => {
+        console.error('Profile update failed:', error);
+      }
+    );
+
   }
 
   ngOnDestroy(): void {

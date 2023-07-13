@@ -35,7 +35,6 @@ export class invoiceactionsComponent implements OnInit {
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.invoiceactions).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status } = res;
-      console.log(res);
       this.data = data, status;
       this.invoiceId = data.id;
       this.status = data.status;
@@ -67,7 +66,6 @@ export class invoiceactionsComponent implements OnInit {
 
   yes() {
     this.invoiceService.updateInvoiceStatus(this.invoiceId, this.status).subscribe((res: any) => {
-      console.log(res, "Response of update invoice status")
       this.invoiceService.statusUpdate(this.invoiceId, this.status);
     }, (error: any) => {
       console.error(error, "Error occurred while updating invoice status")

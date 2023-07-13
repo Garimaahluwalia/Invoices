@@ -13,7 +13,7 @@ export class AddInvoicesService {
 
   public invoiceData: any;
   private _selectedTax: TAXES = TAXES.GST;
-  private _currency: EventEmitter<any[]> = new EventEmitter<any[]>();
+  private _currency: EventEmitter<string> = new EventEmitter<string>();
   private _calculateTaxRate: EventEmitter<any[]> = new EventEmitter<any[]>();
   constructor(public http: HttpClient) { }
   public invoiceListData = [];
@@ -54,7 +54,7 @@ export class AddInvoicesService {
   }
 
 
-  sendCurrency(data: any) {
+  sendCurrency(data: string) {
     this._currency.emit(data);
   }
 

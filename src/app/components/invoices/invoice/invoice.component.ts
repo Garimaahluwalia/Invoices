@@ -149,11 +149,11 @@ export class InvoiceComponent implements OnInit {
     this.destroyed.complete();
   }
 
-  addDuplicateInvoice(details:any){
-    this.invoiceService.getDuplicateInvoice(details).subscribe((res:any) => {
-      
-    })
-  }
+  // addDuplicateInvoice(details:any){
+  //   this.invoiceService.getDuplicateInvoice(details).subscribe((res:any) => {
+
+  //   })
+  // }
 
 }
 

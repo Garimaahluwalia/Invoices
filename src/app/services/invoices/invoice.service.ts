@@ -7,6 +7,7 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { STATUS } from 'src/app/types/status';
 import { AddInvoicesService } from './add-invoices.service';
+import { CURRENCY } from 'src/app/types/currency';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class InvoiceService {
   public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>() // To emit invoice Data
   public _updateStatus: EventEmitter<any> = new EventEmitter<any>()
   public productRows: any[] = [];
+  public currency : any;
   public amount: any;
   public tax: any;
   public rate: any;
@@ -35,6 +37,7 @@ export class InvoiceService {
   public subtotalofamount: any;
   public totalamount: any;
   public totalamountoftax: any;
+  public currencies = CURRENCY; 
   constructor(private http: HttpClient,
     public addinvoiceService: AddInvoicesService) { }
 
@@ -79,9 +82,6 @@ export class InvoiceService {
     return this._forupdateinvoicedata;
   }
 
-
-
-
   set productDataSubject(value: any) {
     this._productDataSubject = value;
   }
@@ -95,6 +95,7 @@ export class InvoiceService {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
       this.forupdateinvoicedata = rs;
       this.productRows = rs.product;
+      console.log(this.currency, "CURRENCY??????????????????????????????????????????")
       console.log(this.forupdateinvoicedata, "responseofEMitter");
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
@@ -130,8 +131,8 @@ export class InvoiceService {
 
 
 
-  checkInvoiceNumber(InvoiceNumber: string): Observable<any> {
-    return this.http.get(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(InvoiceNumber));
+  checkInvoiceNumber(InvoiceNumber: string, InvoiceId : string): Observable<any> {
+    return this.http.get(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(InvoiceNumber, InvoiceId));
   }
 
 
@@ -143,9 +144,9 @@ export class InvoiceService {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
 
-  getDuplicateInvoice(invoiceId: string): Observable<any> {
-    return this.http.get<string>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId));
-  }
+  // getDuplicateInvoice(invoiceId: string): Observable<any> {
+  //   return this.http.get<string>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId));
+  // }
 
   downloadInvoice(invoiceId: any): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
