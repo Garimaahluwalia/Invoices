@@ -87,6 +87,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   updateInvoice(details: any) {
+    console.log("Update Invoice function called")
     this.router.navigate(["/add-invoice", details._id]);
   }
 
