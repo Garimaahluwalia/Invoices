@@ -10,21 +10,22 @@
     </div>
 
 
-<div style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px; margin: auto;"> 
-   <table  >
-    <thead>
-        <tr>
-            <td>
-                <table style="width: 100%;">
+    <div style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px; margin: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        <table style="width: 100%;">
 
-                    <tbody>
-                        <tr>
-                            <td style="text-align: left;"><img [src]="invoiceImage" width="150px"
-                                    height="150px" />
-                            </td>
-                            <td>
-                            </td>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left;"><img [src]="invoiceImage" width="150px"
+                                            height="150px" />
+                                    </td>
+                                    <td>
+                                    </td>
 
+<<<<<<< HEAD
                             <td style="text-align: right; vertical-align: middle;">
                                 <span class="badge badge-primary">{{data.status}}</span>
                                 <h2 style="font-size: 34px; font-weight: 400; padding-top: 15px;">Invoice</h2>
@@ -109,8 +110,257 @@
                                                 style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                             </span><span
                                                 style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">{{data.invoiceNo}}</span>
+=======
+                                    <td style="text-align: right; vertical-align: middle;">
+                                        <span class="badge badge-primary">{{data.status}}</span>
+                                        <h2 style="font-size: 34px; font-weight: 400; padding-top: 15px;">Invoice</h2>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <table style="width: 100%; margin-top: 10px;">
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left; width:30%; vertical-align: top;">
+                                        <div>
+                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Billed By
+                                            </h4>
+                                            <div>
+                                                <h2
+                                                    style="font-size: 20px; color: #2B2B2B; font-weight: bold;     margin: 14px 0px;">
+                                                    M CODE INFOSOFT</h2>
+                                                <p
+                                                    style="font-size: 17px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
+                                                    #60, 1st Floor, Zirakpur,<br> Punjab, India - 140603</p>
+                                                <div>
+                                                    <div style="padding-bottom: 8px;">
+                                                        <span
+                                                            style="font-size: 17px; font-weight: 700; color: #979393;">GSTIN:</span><span
+                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">03DQCPK3553H1Z3</span>
+                                                    </div>
+                                                    <div style="padding-bottom: 8px;">
+                                                        <span
+                                                            style="font-size: 17px; font-weight: 700; color: #979393;">PAN:</span><span
+                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">DQCPK3553H</span>
+                                                    </div>
+                                                    <div style="padding-bottom: 8px;">
+                                                        <span
+                                                            style="font-size: 17px; font-weight: 700; color: #979393;">Email:</span><span
+                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">Info@mcodeinfosoft.com</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </td>
+                                    <td style="text-align: left; width:30%; vertical-align: top;">
+                                        <div>
+                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Billed To
+                                            </h4>
+                                            <div>
+                                                <h2
+                                                    style="font-size: 20px; color: #2B2B2B; font-weight: bold; margin: 14px 0px;">
+                                                    {{data.client?.name}}
+                                                </h2>
+                                                <p
+                                                    style="font-size: 17px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0; padding-right:25px;">
+                                                    {{data.client?.address}}</p>
+                                                <div>
+                                                    <div style="padding-bottom: 8px;">
+                                                        <span
+                                                            style="font-size: 17px; font-weight: 700; color: #979393;">GSTIN:</span><span
+                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.gstin}}</span>
+                                                    </div>
+                                                    <div style="padding-bottom: 8px;">
+                                                        <span
+                                                            style="font-size: 17px; font-weight: 700; color: #979393;">PAN:</span><span
+                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.pan}}</span>
+                                                    </div>
+
+                                                    <div style="padding-bottom: 8px;">
+                                                        <span
+                                                            style="font-size: 17px; font-weight: 700; color: #979393;">Email:</span><span
+                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.email}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: left; width:30%; vertical-align: top;">
+                                        <div>
+                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Invoice
+                                                Details
+                                            </h4>
+                                            <div>
+                                                <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                                    <span
+                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Invoice
+                                                    </span><span
+                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">{{data.invoiceNo}}</span>
+                                                </div>
+                                                <div style="float: left; width: 100%;">
+                                                    <span
+                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Invoice
+                                                        Date </span><span
+                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">
+                                                        {{data.date | date: 'dd-MM-yyyy'}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%; padding-top: 50px; padding-bottom: 50px; border-spacing: 0px;">
+                            <thead>
+                                <tr
+                                    style="text-align: center; background-color: #F8D1D1;vertical-align: top;font-size: 17px;">
+                                    <th
+                                        style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none;font-weight: 400; padding: 5px 10px 10px 10px;">
+                                    </th>
+                                    <th
+                                        style="width: 35%; text-align: left; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                        Item </th>
+                                    <th
+                                        style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                        HSN/SAC </th>
+                                    <th
+                                        [ngStyle]="{'width': data.tax !== 'NONE' ? '15%' : '100%', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
+                                        Amount
+                                    </th>
+
+                                    <ng-container *ngIf="data.tax !== 'NONE'">
+                                        <th
+                                            style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                            {{ data.tax }}
+                                        </th>
+                                        <th
+                                            style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                            Rate
+                                        </th>
+                                        <th
+                                            style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
+                                            Total
+                                        </th>
+                                    </ng-container>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="text-align: center; font-size: 17px;"
+                                    *ngFor="let product of products; let i = index">
+                                    <td
+                                        style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                        {{ i + 1 }}.
+                                    </td>
+                                    <td class="description"
+                                        style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
+                                        {{ product.name }}
+                                        <br>
+                                        <span style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
+                                            [innerHTML]="product.description"></span>
+                                    </td>
+                                    <td
+                                        style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
+                                        {{ product.HSN_SAC }}
+                                    </td>
+                                    <td
+                                        style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                        {{ product.amount }}
+                                    </td>
+                                    <ng-container *ngIf="data.tax !== 'NONE'">
+                                        <td
+                                            style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                            {{ product?.rate?.toFixed(2) }}
+                                        </td>
+                                        <td
+                                            style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                            {{ product.taxamount }}
+                                        </td>
+                                        <td
+                                            style="border: 1px solid #d1d1d1; border-left: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                            {{ product.total }}
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%; padding-bottom: 50px; border-spacing: 0px;">
+                            <tbody>
+                                <tr>
+
+                                    <td style="width: 55%; vertical-align: top;">
+                                        <h4 style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;">
+                                            Declaration</h4>
+                                        <p
+                                            style="font-size: 18px; color: #282828; font-weight: 400; line-height: 29px; margin: 10px 0; word-spacing: 2px;">
+                                            We declare that this invoice shows the actual price of the goods
+                                            described and that all particulars are true and correct.
+                                        </p>
+                                    </td>
+                                    <td style="width: 40%; vertical-align: top;">
+                                        <div style="padding-bottom: 15px; float: left; width: 100%;">
+                                            <span
+                                                style="font-size: 17px; font-weight: 700; color: #979393; float: left; padding-left: 10px;">Amount</span>
+                                            <span
+                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data.subtotalofamount}}</span>
+                                        </div>
+                                        <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                            <span *ngIf="data.tax !== 'NONE'"
+                                                style="font-size: 17px; font-weight: 700; color: #979393; float: left; padding-left: 10px;">{{data.tax}}</span>
+                                            <span *ngIf="data.tax !== 'NONE'"
+                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data.totalamountoftax}}</span>
+>>>>>>> 339ca5e4dc0e744102337f5e09a84652fda59a2a
+                                        </div>
+                                        <div
+                                            style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
+                                            <span
+                                                style="font-size: 17px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total
+                                                ({{data.currency}})</span>
+                                            <span
+                                                style="font-size: 17px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{
+                                                data?.totalamount !== 0 ? data?.totalamount : data?.subtotalofamount
+                                                }}</span>
+                                        </div>
+                                        <div style="padding-top: 30px; float: left; width: 100%;">
+                                            <p
+                                                style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
+                                                Total (in words) : {{this.totalInWords}}
+                                            </p>
+                                            <p
+                                                style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
+
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td style="width: 5%; vertical-align: top;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%; padding-bottom: 250px; padding-top: 20px; border-spacing: 0px;">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 40%; vertical-align: top;">
                                         <div style="float: left; width: 100%;">
+<<<<<<< HEAD
                                             <span
                                                 style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                 Date </span><span
@@ -317,6 +567,74 @@
         </tr>
     </tbody>
 </table></div>
+=======
+                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Bank Details
+                                            </h4>
+                                            <div style="float: left; width: 100%;">
+                                                <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                                    <span
+                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Account
+                                                        Holder Name</span><span
+                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">M
+                                                        CODE INFOSOFT</span>
+                                                </div>
+                                                <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                    <span
+                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Account
+                                                        Number</span>
+                                                    <span
+                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">004305006771</span>
+                                                </div>
+                                                <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                    <span
+                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">IFSC</span>
+                                                    <span
+                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">ICIC0000043</span>
+                                                </div>
+                                                <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                    <span
+                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">SWIFT
+                                                        Code</span>
+                                                    <span
+                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">ICICINBBCTS</span>
+                                                </div>
+                                                <div style="float: left; width: 100%;">
+                                                    <span
+                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Bank</span>
+                                                    <span
+                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">ICICI
+                                                        Bank Ltd.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 60%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%; border-spacing: 0px;">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 100%; text-align: center;">
+                                        <p
+                                            style="font-size: 12px; color: #282828; font-weight: 700; line-height: 29px; margin: 0; word-spacing: 2px;">
+                                            This is an electronically generated document, no signature is required.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+>>>>>>> 339ca5e4dc0e744102337f5e09a84652fda59a2a
 
 
 </div>
