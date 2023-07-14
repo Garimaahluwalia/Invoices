@@ -28,6 +28,7 @@
 .company-details div span:nth-child(2){
     font-size: 16px;
     font-weight: 500;
+    margin-bottom: 7px;
 }
 .details-head{
     background-color: transparent;

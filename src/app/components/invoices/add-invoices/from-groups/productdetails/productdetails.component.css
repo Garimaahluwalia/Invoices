@@ -16,6 +16,12 @@
     background-color: #e12026;
 }
 
+
+
+table thead .table-active{
+    --in-table-accent-bg: #e12026 !important; 
+    background-color: #e12026 !important;
+}
 .items-chart tr th {
     color: #fff;
     font-size: 16px;
@@ -49,7 +55,7 @@
 }
 
 .br-8 {
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
 .cstn-description {

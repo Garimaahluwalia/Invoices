@@ -100,7 +100,15 @@
 .table tbody tr:last-child td {
     border-bottom: 0px !important;
 }
-
+.navbar-menu .navbar-nav .nav-sm .nav-link:before{
+    display: none;
+}
+#sidebarInvoiceManagement ul {
+    padding-left: 5px;
+}
+#sidebarInvoiceManagement ul i {
+  font-size: 16px;
+}
 @media only screen and (max-width:1200px) {
     .invoice-card p {
         font-size: 22px !important;

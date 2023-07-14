@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
-                        <div class="col-sm-6  pb-2">
+                        <div class="col-sm-12 text-right pt-4  pb-2">
                             <a href="/add-invoice" class="btn btn-primary-outline "><i class="las la-plus me-1"></i>
                                 Add
                                 Invoices</a>
@@ -78,30 +78,39 @@
                                                         <a class="btn btn-soft-info btn-sm d-inline-block"
                                                             (click)="updateInvoice(details)"
                                                             [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
-                                                            <i class="las la-pen fs-17 align-middle"></i>
+                                                            <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="View">
                                                         <a class="btn btn-soft-info btn-sm d-inline-block"
                                                             [routerLink]="['/view-invoice-list', details._id]">
-                                                            <i class="las la-eye fs-17 align-middle"></i>
+                                                            <i class="fa-solid fa-eye"></i>
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top" title="Cancel">
-                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
-                                                            (click)="updateStatus(details, status.CANCELLED)"
-                                                            [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
-                                                            <i class="fa-sharp fa-solid fa-xmark cancel"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top" title="Remove">
-                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
-                                                            (click)="DeleteInvoice(details)">
-                                                            <i class="fas fa-trash fs-17 align-middle"></i>
-                                                        </a>
+                                                
+                                                    <li>
+                                                        <div class="list-menu">
+                                                            <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false"
+                                                                class="btn btn-soft-info btn-icon fs-14"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                                                                <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                                data-bs-trigger="hover" data-bs-placement="top" title="Cancel">
+                                                                <a class="btn btn-soft-danger btn-sm d-inline-block"
+                                                                    (click)="updateStatus(details, status.CANCELLED)"
+                                                                    [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
+                                                                    <i class="fa-sharp fa-solid fa-xmark cancel"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                                data-bs-trigger="hover" data-bs-placement="top" title="Remove">
+                                                                <a class="btn btn-soft-danger btn-sm d-inline-block"
+                                                                    (click)="DeleteInvoice(details)">
+                                                                    <i class="fas fa-trash fs-17 align-middle"></i>
+                                                                </a>
+                                                            </li>
+                                                            </ul>
+                                                        </div>
                                                     </li>
                                                 </ul>
                                             </td>
