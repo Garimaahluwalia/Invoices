@@ -27,8 +27,12 @@
 }
 .total-amount span:nth-child(2){
     font-size: 43px;
+    line-height: 45px;
     font-weight: 700;
     color: #424141;
+    word-wrap: break-word;
+    width: 50%;
+    text-align: right;
 }
 .bank-background-edit{
     background-color: #f6f6f6;
@@ -49,4 +53,10 @@
 span.bank {
     text-align: center;
     padding-left: 25px;
+}
+.amount-words{
+    margin-top: 15px;
+}
+.amount-words h5{
+    font-size: 18px;
 }
