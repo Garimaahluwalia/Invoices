@@ -16,7 +16,7 @@ export class InvoiceService {
   // pagination
   public totalNumberOfInvoices: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
-  private _limit: number = 13;
+  private _limit: number = 10;
   // pagination
   private _invoices: any[] = [];
   private invoicesSubject: BehaviorSubject<IInvoiceResponse[]> = new BehaviorSubject<IInvoiceResponse[]>([]);
@@ -176,6 +176,7 @@ export class InvoiceService {
   }
 
   getAll() {
+    console.log(this.page);
     try {
       this.getAllInvoice(this.page, this.limit).subscribe(
         (res) => {

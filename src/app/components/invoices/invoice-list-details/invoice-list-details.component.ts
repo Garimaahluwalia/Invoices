@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { numberToWords } from 'src/app/common/numberToWords';
 import { ClientService } from 'src/app/services/clients/client.service';
@@ -25,6 +26,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public totalamount : any
   public totalInWords : any;
   public invoiceImage : any;
+   private readonly notifier!: NotifierService;
 
 
   constructor(
@@ -33,8 +35,9 @@ export class InvoiceListDetailsComponent implements OnInit {
     public router: ActivatedRoute,
     public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
-    public profileService: ProfileService
-  ) { }
+    public profileService: ProfileService,
+    public notifierService: NotifierService,
+  ) { this.notifier = notifierService; }
 
 
   ngOnInit(): void {
@@ -78,24 +81,37 @@ export class InvoiceListDetailsComponent implements OnInit {
     
   }
 
-  downloadInvoice(){
-    this.invoiceService.downloadInvoice(this._id).pipe(takeUntil(this.destroyed)).subscribe((response: any) => {
-      let dataType = response.type;
-      let binaryData = [];
-      binaryData.push(response.body);
-      let downloadLink = document.createElement('a');
-      const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
-      downloadLink.href = URI;
-      downloadLink.setAttribute('download',
-        `invoice_${this._id}.pdf`);
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      setTimeout(() => {
-        downloadLink.remove();
-        window.URL.revokeObjectURL(URI);
-      }, 2000);
-    })
+  downloadInvoice() {
+    this.invoiceService.downloadInvoice(this._id)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe({
+        next: (response: any) => {
+          let dataType = response.type;
+          let binaryData = [];
+          binaryData.push(response.body);
+          let downloadLink = document.createElement('a');
+          const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+          downloadLink.href = URI;
+          downloadLink.setAttribute('download', `invoice_${this._id}.pdf`);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          setTimeout(() => {
+            downloadLink.remove();
+            window.URL.revokeObjectURL(URI);
+          }, 1000);
+        },
+        complete: () => {
+          this.notifier.show({
+            type: 'success',
+            message: 'Invoice downloaded successfully',
+            id: 'THAT_NOTIFICATION_ID',
+          });
+          setTimeout(() => {
+            this.notifier.hide('THAT_NOTIFICATION_ID');
+          }, 2000);
+        }
+      });
   }
-
+  
 
 }

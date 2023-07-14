@@ -25,25 +25,23 @@ export class InvoiceComponent implements OnInit {
   public totalItems = 15;   //pagination
 
 
-  public invoices: any[] = []
+  public invoices: any[] = [];
   public invoiceId: string | undefined
   public InvoiceNumber!: number;
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;
-
   public readonly statuses: string[] = Object.values(STATUS);
 
 
-  constructor(private datePipe: DatePipe,
+  constructor(
+    private datePipe: DatePipe,
     public invoiceService: InvoiceService,
     public router: Router, public route: ActivatedRoute,
     public deleteService: DeleteService,
     public modalService: ModalService,
     public clientService: ClientService,
     public sidebarService: SidebarService) { }
-
-
   ngOnInit(): void {
     this.itemsPerPage = this.invoiceService.limit;  //pagination
     this.loadInvoices();
@@ -70,6 +68,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   loadInvoices() {
+    console.log("Load Invoices");
     this.invoiceService.getAll();
   }
 
@@ -115,6 +114,7 @@ export class InvoiceComponent implements OnInit {
 
   //pagination
   onPageChange(page: number) {
+    console.log("Page Changes")
     this.currentPage = page;
     this.invoiceService.page = page;
     this.invoiceService.getAll();
@@ -150,7 +150,6 @@ export class InvoiceComponent implements OnInit {
   // addDuplicateInvoice(details:any){
   //   this.invoiceService.getDuplicateInvoice(details).subscribe((res:any) => {
   //   })
-  // }
 
   toggleBodyClass() {
     this.sidebarService.isMobile.emit(!this.isActiveSideBar);

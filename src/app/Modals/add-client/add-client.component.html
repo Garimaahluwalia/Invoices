@@ -124,9 +124,9 @@
                         <div class="mb-3">
                             <label for="street" class="form-label">Street Address</label>
                             <input type="text" id="street" class="form-control" [(ngModel)]="street"
-                                [readonly]="disabledInput" placeholder="street address" #stateValidation="ngModel"
+                                [readonly]="disabledInput" placeholder="street address" #streetValidation="ngModel"
                                 ngModel>
-                            <div *ngIf="stateValidation.errors?.['required']" class="text-danger">state is required.
+                            <div *ngIf="streetValidation.errors?.['required']" class="text-danger">state is required.
                             </div>
                         </div>
                     </div>
