@@ -58,7 +58,7 @@ export class AddInvoicesComponent implements OnInit {
       this.ProductData = res.products;
       this.status = res.status;
       this.currency = res.currency;
-      console.log(this.currency, "CURRENCY FROM ADD-INVOICE")
+      // console.log(this.currency, "CURRENCY FROM ADD-INVOICE")
       this.addInvoiceService.sendProductChanges(res.products);
       this.clientService.sendClientDetails(res.client);
       this.addInvoiceService.sendCurrency(this.currency);

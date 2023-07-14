@@ -46,10 +46,8 @@ export class InvoiceService {
 
   statusUpdate(invoiceId: string, status: string) {
     const foundInvoice = this._invoices.find((invoice) => invoice._id === invoiceId);
-    console.log(foundInvoice, "FoundInvoice");
     if (foundInvoice) {
       foundInvoice.status = status;
-      console.log("Invoice status updated successfully.");
       this.sendInvoices();
     } else {
       console.log("Invoice not found.");
@@ -95,8 +93,6 @@ export class InvoiceService {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
       this.forupdateinvoicedata = rs;
       this.productRows = rs.product;
-      console.log(this.currency, "CURRENCY??????????????????????????????????????????")
-      console.log(this.forupdateinvoicedata, "responseofEMitter");
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
       console.error(e);
@@ -160,7 +156,6 @@ export class InvoiceService {
   }
 
   updateInvoice(invoiceId: string, data: { [key: string]: any }) {
-    console.log(invoiceId);
     return this.http.put(endpoints.INVOICES_LIST.UPDATE(invoiceId), data);
   }
 

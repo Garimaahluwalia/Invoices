@@ -31,7 +31,7 @@
                         <div class="mb-3">
                             <label for="email" class="form-label">email</label>
                             <input type="text" id="email" class="form-control" name="email" #emailValidation="ngModel"
-                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required appEmail
+                              required appEmail
                                 [(ngModel)]="email" [readonly]="disabledInput">
                             <div *ngIf="emailValidation.invalid && (emailValidation.dirty || emailValidation.touched)">
                                 <div *ngIf="emailValidation.errors?.['required']" class="text-danger">Email is required.
@@ -66,19 +66,6 @@
                                     contain 10 digits.</div>
                             </div>
                         </div>
-
-                        <!-- <div class="mb-3">
-                            <label for="registeredNo" class="form-label">RegisteredOn</label>
-                            <input type="text" id="registeredNo" class="form-control" [(ngModel)]="registeredNo"
-                                [readonly]="disabledInput" #registerValidation="ngModel" ngModel>
-                                <div *ngIf="registerValidation.errors?.['required']" class="text-danger">Registered No
-                                    is
-                                    required.</div>
-                        </div> -->
-
-
-
-
                     </div>
                     <div class="modal-header pt-0">
                         <h1 class="modal-title fs-5" id="addUpdateLabel">Address</h1>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { STATUS } from 'src/app/types/status';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-invoice',
@@ -17,7 +18,8 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
-
+  @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
+  public isActiveSideBar: Boolean = false;
   public currentPage = 1;  //pagination
   public itemsPerPage = 2; //pagination
   public totalItems = 15;   //pagination
@@ -38,22 +40,18 @@ export class InvoiceComponent implements OnInit {
     public router: Router, public route: ActivatedRoute,
     public deleteService: DeleteService,
     public modalService: ModalService,
-    public clientService: ClientService) { }
+    public clientService: ClientService,
+    public sidebarService: SidebarService) { }
 
 
   ngOnInit(): void {
     this.itemsPerPage = this.invoiceService.limit;  //pagination
     this.loadInvoices();
     this.deleteService.recieveDeleteEvent(DeleteEvents.INVOICES)?.subscribe(res => {
-      console.log(res, "invoice deleted succeessfully");
       if (res) {
         this.DeleteInvoices(this.deleteService.selectedId as string);
       }
     });
-
-
-
-
 
     // <-- pagination 
     this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
@@ -151,9 +149,17 @@ export class InvoiceComponent implements OnInit {
 
   // addDuplicateInvoice(details:any){
   //   this.invoiceService.getDuplicateInvoice(details).subscribe((res:any) => {
-
   //   })
   // }
+
+  toggleBodyClass() {
+    this.sidebarService.isMobile.emit(!this.isActiveSideBar);
+    this.isActiveSideBar = !this.isActiveSideBar
+  }
+
+  triggerButtonClick() {
+    this.mobileNav.nativeElement.click();
+  }
 
 }
 

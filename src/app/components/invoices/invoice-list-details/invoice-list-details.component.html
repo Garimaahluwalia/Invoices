@@ -26,7 +26,7 @@
                                 </td>
 
                                 <td style="text-align: right; vertical-align: middle;">
-                                    <span class="badge badge-primary">{{data.status}}</span>
+                                    <span class="badge badge-primary">{{data?.status}}</span>
                                     <h2 style="font-size: 34px; font-weight: 400;">Invoice</h2>
                                 </td>
                             </tr>
@@ -73,27 +73,27 @@
                                     <div>
                                         <h4 style="font-size: 16px; color: #282828; font-weight: 400;">Billed To</h4>
                                         <div>
-                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{data.client?.name}}
+                                            <h2 style="font-size: 18px; color: #2B2B2B;">{{data?.client?.name}}
                                             </h2>
                                             <p
                                                 style="font-size: 16px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
-                                                {{data.client?.address}}</p>
+                                                {{data?.client?.address}}</p>
                                             <div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">GSTIN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.gstin}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data?.client?.gstin}}</span>
                                                 </div>
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">PAN:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.pan}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data?.client?.pan}}</span>
                                                 </div>
 
                                                 <div style="padding-bottom: 8px;">
                                                     <span
                                                         style="font-size: 16px; font-weight: 500; color: #979393;">Email:</span><span
-                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data.client?.email}}</span>
+                                                        style="font-size: 16px; color: #282828; font-weight: 400; padding-left: 5px;">{{data?.client?.email}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,14 +108,14 @@
                                                 <span
                                                     style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                 </span><span
-                                                    style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">{{data.invoiceNo}}</span>
+                                                    style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">{{data?.invoiceNo}}</span>
                                             </div>
                                             <div style="float: left; width: 100%;">
                                                 <span
                                                     style="font-size: 16px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                     Date </span><span
                                                     style="font-size: 16px; color: #282828; font-weight: 400; float: left; width: 50%;">
-                                                    {{data.date | date: 'dd-MM-yyyy'}}</span>
+                                                    {{data?.date | date: 'dd-MM-yyyy'}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -141,19 +141,19 @@
                                 <th
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     HSN/SAC </th>
-                                    <th [ngStyle]="{'width': data.tax !== 'NONE' ? '15%' : '100%', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
+                                    <th [ngStyle]="{'width': data?.tax !== 'NONE' ? '15%' : '100%', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
                                         Amount
                                       </th>
                                       
-                                    <th *ngIf="data.tax !== 'NONE'"
+                                    <th *ngIf="data?.tax !== 'NONE'"
                                     style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                    {{ data.tax }}
+                                    {{ data?.tax }}
                                 </th>
-                                <th *ngIf="data.tax !== 'NONE'"
+                                <th *ngIf="data?.tax !== 'NONE'"
                                     style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Rate
                                 </th>
-                                <th *ngIf="data.tax !== 'NONE'"
+                                <th *ngIf="data?.tax !== 'NONE'"
                                     style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
                                     Total
                                 </th>
@@ -212,19 +212,19 @@
                                         <span
                                             style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">Amount</span>
                                         <span
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data.subtotalofamount}}</span>
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data?.subtotalofamount}}</span>
                                     </div>
                                     <div style="padding-bottom: 10px; float: left; width: 100%;">
-                                        <span *ngIf="data.tax !== 'NONE'"
-                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">{{data.tax}}</span>
-                                        <span *ngIf="data.tax !== 'NONE'"
-                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data.totalamountoftax}}</span>
+                                        <span *ngIf="data?.tax !== 'NONE'"
+                                            style="font-size: 16px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">{{data?.tax}}</span>
+                                        <span *ngIf="data?.tax !== 'NONE'"
+                                            style="font-size: 16px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data?.totalamountoftax}}</span>
                                     </div>
                                     <div
                                         style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
                                         <span
                                             style="font-size: 16px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total
-                                            ({{data.currency}})</span>
+                                            ({{data?.currency}})</span>
                                         <span
                                             style="font-size: 16px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{ data?.totalamount !== 0 ? data?.totalamount : data?.subtotalofamount }}</span>
                                     </div>

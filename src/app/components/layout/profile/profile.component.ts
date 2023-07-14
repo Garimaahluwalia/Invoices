@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { ProfileService } from 'src/app/services/profile.service';
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { IUserProfile } from 'src/app/types/profile';
 
 @Component({
@@ -11,6 +12,8 @@ import { IUserProfile } from 'src/app/types/profile';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
+  public isActiveSideBar: Boolean = false;
   public isEditMode = false;
   public userProfile: any;
   public profilePhoto!: any;
@@ -23,7 +26,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public profileService: ProfileService,
-    public notifierService: NotifierService)
+    public notifierService: NotifierService,
+    public sidebarService : SidebarService)
      { 
       this.notifier = notifierService;
     }
@@ -31,7 +35,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.userProfile = res;
-      console.log(this.userProfile, "UserProfile");
       this.profileImage = res.photoUrl
     });
   }
@@ -65,7 +68,6 @@ export class ProfileComponent implements OnInit {
     };
     this.profileService.updateProfile(payload).pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
-        // console.log(response, "update responses")
         this.isEditMode = false;
         this.notifier.show({
           type: 'success',
@@ -85,7 +87,6 @@ export class ProfileComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file: FileList = event.target.files;
-    console.log(event.target.files, "images uploaded")
     if (file && file.length > 0) {
       const fileToUpload: File = file[0];
       this.profileImage = URL.createObjectURL(fileToUpload)
@@ -114,6 +115,13 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  toggleBodyClass() {
+    this.sidebarService.isMobile.emit(!this.isActiveSideBar);
+    this.isActiveSideBar = !this.isActiveSideBar
+  }
 
+  triggerButtonClick() {
+    this.mobileNav.nativeElement.click();
+  }
 
 }

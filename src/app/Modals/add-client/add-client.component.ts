@@ -62,8 +62,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
       const { status, data, invoice, disabled } = res;
       this.data = data;
       this.invoice = data?.invoice || false;
-      console.log(data, "InVoiceFromadd-client")
-      
       this.disabledInput = data?.disabled || false;
       if (status) {
         this.openModal();
@@ -81,7 +79,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.street = data?.street || '';
       this.gstin = data?.gstin || '';
       this.pan = data?.pan || '';
-
     });
     this.cdr.detectChanges();
   }
@@ -107,7 +104,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
   openModal() {
-    console.log("Open me")
+ 
     try {
       this.openModalButton?.nativeElement?.click();
     } catch (e) {
@@ -126,7 +123,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       if (this.router.url.includes("clients")) {
         this.router.navigate(["clients"]);
       } else if (this.router.url.includes("add-invoice")) {
-        if (this.router.url.includes(this.data._id)) {
+        if (this.router.url.includes(this.data?._id)) {
         } else {
           this.router.navigate(["add-invoice"]).then(() => {
             this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: false });

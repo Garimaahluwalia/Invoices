@@ -29,10 +29,6 @@ export class InvoiceDataHandlerService implements IInvoice {
 
 
 
-
-
-
-
   set subtotalofamount(value: number) {
     this._subtotalofamount = value;
   }
@@ -112,7 +108,7 @@ export class InvoiceDataHandlerService implements IInvoice {
 
   set tax(value: TAXES) {
     this._tax = value;
-    console.log(value,);
+
 
   }
   get tax(): TAXES {
@@ -149,7 +145,6 @@ export class InvoiceDataHandlerService implements IInvoice {
   }
 
 
-
   set products(value: IProducts[]) {
     this._products = value;
 
@@ -167,15 +162,12 @@ export class InvoiceDataHandlerService implements IInvoice {
     this.currency = values['currency'] as string;
     this.client_id = values['client_id'] as string;
     this.setProducts(values["products"] as unknown as IProducts as { [key: string]: any });
-    /* this.subtotalofamount = values['subtotalofamount'] as any;
-    this.totalamountoftax = values['totalamountoftax'] as any;
-    this.totalamount = values['totalamount'] as any; */
     this.status = values['status'] as string;
   }
 
 
   getPayload() {
-    console.log(this, "getPayload");
+
     return {
       "invoiceNo": this.invoiceNo.invoiceNo,
       "company": this._company,
