@@ -77,7 +77,6 @@ export class ProductdetailsComponent implements OnInit {
       this.inputcurrency = res;
       const currency = this.currencies.find(currency => currency.code === this.inputcurrency);
       this.inputcurrency = currency?.symbol;
-      console.log(this.inputcurrency, "CURRENCY INPUTS")
     });
 
     if (!this.inputcurrency || this.inputcurrency === '') {

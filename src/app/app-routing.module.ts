@@ -13,7 +13,7 @@ import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-
 import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './modals/add-client/add-client.component';
 import { DeleteComponent } from './modals/delete/delete.component';
-import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component'; 
+import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component';
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
@@ -32,40 +32,48 @@ const routes: Routes = [
       {
         path: INVOICES.MAIN_INVOICES,
         component: MainInvoiceComponent
-      }
-    ]
-  },
-  {
-    path: ROUTELINKS.LOGIN,
-    component: LoginComponent,
-    canActivate: [LoginGuard]
-  },
-  {
-    path: ROUTELINKS.SIGNUP,
-    component: SignupComponent
-  },
-  {
-    path: ROUTELINKS.RESET_PASSWORD,
-    component: ResetPasswordComponent
-  },
-  {
-    path: ROUTELINKS.MAINLAYOUT,
-    component: MainComponent
-  },
-  {
-    path: INVOICES.INVOICE,
-    component: InvoiceComponent,
-    children: [
-      {
-        path: CLIENTS.DELETE_CLIENTS,
-        component: DeleteComponent
       },
       {
-        path : INVOICES.INVOICE_ACTIONS,
-        component : invoiceactionsComponent
-      }
+        path: INVOICES.INVOICE,
+        component: InvoiceComponent,
+        children: [
+          {
+            path: CLIENTS.DELETE_CLIENTS,
+            component: DeleteComponent
+          },
+          {
+            path: INVOICES.INVOICE_ACTIONS,
+            component: invoiceactionsComponent
+          }
+        ]
+      },
+      {
+        path: CLIENTS.CLIENTS,
+        component: ClientComponent,
+        children: [
+          {
+            path: CLIENTS.ADD_CLIENTS,
+            component: AddClientComponent
+          },
+          {
+            path: CLIENTS.UPDATE_CLIENT,
+            component: AddClientComponent
+          },
+          {
+            path: CLIENTS.DELETE_CLIENTS,
+            component: DeleteComponent
+          },
+        ]
+      },
     ]
   },
+
+  {
+    path: ROUTELINKS.MAINLAYOUT,
+    component: MainComponent,
+
+  },
+
   {
     path: INVOICES.ADD_INVOICE,
     component: AddInvoicesComponent,
@@ -96,24 +104,7 @@ const routes: Routes = [
 
     ]
   },
-  {
-    path: CLIENTS.CLIENTS,
-    component: ClientComponent,
-    children: [
-      {
-        path: CLIENTS.ADD_CLIENTS,
-        component: AddClientComponent
-      },
-      {
-        path: CLIENTS.UPDATE_CLIENT,
-        component: AddClientComponent
-      },
-      {
-        path: CLIENTS.DELETE_CLIENTS,
-        component: DeleteComponent
-      },
-    ]
-  },
+
   {
     path: CLIENTS.PROFILE,
     component: MainComponent,
@@ -132,7 +123,7 @@ const routes: Routes = [
   },
   {
     path: INVOICES.INVOICE_ACTION,
-    component:  invoiceactionsComponent
+    component: invoiceactionsComponent
   },
 
   {
@@ -146,6 +137,19 @@ const routes: Routes = [
   {
     path: INVOICES.VIEW_INVOICE_LIST,
     component: InvoiceListDetailsComponent
+  },
+  {
+    path: ROUTELINKS.LOGIN,
+    component: LoginComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: ROUTELINKS.SIGNUP,
+    component: SignupComponent
+  },
+  {
+    path: ROUTELINKS.RESET_PASSWORD,
+    component: ResetPasswordComponent
   }
 
 ];

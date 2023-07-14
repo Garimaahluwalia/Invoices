@@ -36,9 +36,11 @@ export class invoiceactionsComponent implements OnInit {
     this.modalService.recieveEvent(ModalEvents.invoiceactions).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status } = res;
       this.data = data, status;
-      this.invoiceId = data.id;
-      this.status = data.status;
-      this.confirmationMessage = (data.status === "PAID") ? 'mark this Paid' : 'cancel it';
+      this.invoiceId = data?.id;
+      this.status = data?.status;
+      setTimeout(() => {
+        this.confirmationMessage = (data?.status === "PAID") ? 'mark this Paid' : 'cancel it';
+      }, 0);
       if (status || data) {
         this.openModal();
       } else {

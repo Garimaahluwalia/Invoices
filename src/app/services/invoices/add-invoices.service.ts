@@ -10,7 +10,6 @@ import { TAXES } from 'src/app/types/taxes';
 
 export class AddInvoicesService {
   private _productRowsChanges: EventEmitter<any[]> = new EventEmitter<any[]>();
-
   public invoiceData: any;
   private _selectedTax: TAXES = TAXES.GST;
   private _currency: EventEmitter<string> = new EventEmitter<string>();

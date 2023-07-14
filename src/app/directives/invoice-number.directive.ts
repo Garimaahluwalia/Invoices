@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
-import { ClientService } from '../services/clients/client.service';
 import { InvoiceService } from '../services/invoices/invoice.service';
 
 @Directive({
@@ -24,7 +23,6 @@ export class InvoiceNumberDirective {
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     const value = control.value;
-    console.log(value,"ajis")
     if (value && value.trim() !== "") {
       return this.invoiceService.checkInvoiceNumber(value, this.invoiceId ).pipe(
         map((res: any) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { IClients, IClientsResponse } from 'src/app/types/clients';
@@ -12,17 +13,20 @@ import { ModalEvents } from 'src/app/types/modal';
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent implements OnInit {
-  public currentPage = 1;  //pagination
-  public itemsPerPage = 100; //pagination
-  public totalItems = 100;   //pagination
   public showModal = false;
   public clients: any[] = [];
   public inputsDisabled = false;
 
+  
+  public currentPage = 1;  //pagination
+  public itemsPerPage = 2; //pagination
+  public totalItems = 15;
+
   constructor(public clientService: ClientService,
     public router: Router,
     public modalService: ModalService,
-    public deleteService: DeleteService) { }
+    public deleteService: DeleteService,
+    public invoiceService: InvoiceService) { }
 
   ngOnInit(): void {
     this.itemsPerPage = this.clientService.limit;  //pagination
@@ -91,9 +95,10 @@ export class ClientComponent implements OnInit {
 
   //pagination
   onPageChange(page: number) {
+    console.log("Page Changes")
     this.currentPage = page;
-    this.clientService.page = page;
-    this.clientService.getAll();
+    this.invoiceService.page = page;
+    this.invoiceService.getAll();
   }
 
 }

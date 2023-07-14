@@ -100,10 +100,8 @@ export class PaymentdetailsComponent implements OnInit {
 
 
     this.addinvoiceService.receiveCurrency().subscribe((currency: string) => {
-      console.log("Recieved", currency);
       /* this.currency = res; */
       const currencyDetails = this.currencies.find((v) => v.code === currency);
-      console.log("Recieved", currencyDetails);
       if (currencyDetails) {
         this.currency = currencyDetails?.symbol;
       }

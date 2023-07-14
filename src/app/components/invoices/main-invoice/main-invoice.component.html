@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count" [textContent]="DashboardCount.invoiceCount" ></p>
+                                        <p class="pl-0 invoice-count" [textContent]="DashboardCount?.invoiceCount" ></p>
                                         
                                         <span class="text-muted">Invoices
                                             sent</span>
@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count" [textContent]="DashboardCount.paidInvoiceCount" ></p>
+                                        <p class="pl-0 invoice-count" [textContent]="DashboardCount?.paidInvoiceCount" ></p>
                                         
                                         <span class="text-muted">Paid by
                                             clients</span>
@@ -284,7 +284,7 @@
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count"   [textContent]="DashboardCount.unpaidInvoiceCount"></p>
+                                        <p class="pl-0 invoice-count"   [textContent]="DashboardCount?.unpaidInvoiceCount"></p>
                                         
                                         <span class="text-muted">Unpaid Paid by
                                             clients</span>
@@ -314,7 +314,7 @@
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="text-center">
-                                        <p class="pl-0 invoice-count"    [textContent]="DashboardCount.clientCount"></p>
+                                        <p class="pl-0 invoice-count"    [textContent]="DashboardCount?.clientCount"></p>
                                         
                                         <span class="text-muted">Total Clients</span>
                                     </div>

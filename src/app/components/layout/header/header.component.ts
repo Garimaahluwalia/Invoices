@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { takeUntil } from 'rxjs';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { LoginService } from 'src/app/services/auth/login.service';
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(public loginService: LoginService,
     public router: Router,
-    public sidebaeService: SidebarService,
+    public sidebarService: SidebarService,
     public notifierService: NotifierService
     ) { this.notifier = notifierService; }
 
@@ -31,7 +32,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     const token = AUTHORIZATION_TOKEN;
-    this.loginService.userLogout(token).subscribe(
+    this.loginService.userLogout(token).pipe(takeUntil(this.destroyed)).subscribe(
       () => {
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
@@ -49,11 +50,15 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
-
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 
   toggleBodyClass() {
-    this.sidebaeService.isMobile.emit(!this.isActiveSideBar);
+    console.log("Sidebar", this.isActiveSideBar);
     this.isActiveSideBar = !this.isActiveSideBar
+    this.sidebarService.isMobile.emit(this.isActiveSideBar ? true : false);
   }
 
   triggerButtonClick() {

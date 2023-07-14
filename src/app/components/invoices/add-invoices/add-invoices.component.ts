@@ -58,7 +58,7 @@ export class AddInvoicesComponent implements OnInit {
       this.ProductData = res.products;
       this.status = res.status;
       this.currency = res.currency;
-      console.log(this.currency, "CURRENCY FROM ADD-INVOICE")
+      // console.log(this.currency, "CURRENCY FROM ADD-INVOICE")
       this.addInvoiceService.sendProductChanges(res.products);
       this.clientService.sendClientDetails(res.client);
       this.addInvoiceService.sendCurrency(this.currency);
@@ -145,33 +145,6 @@ export class AddInvoicesComponent implements OnInit {
     this.clientService.recieveTaxName().subscribe((res) => {
       this.taxesType = res;
     });
-  }
-
-  downloadInvoice() {
-    this.invoiceService.downloadInvoice(this.invoiceId).pipe(takeUntil(this.destroyed)).subscribe((response: any) => {
-      let dataType = response.type;
-      let binaryData = [];
-      binaryData.push(response.body);
-      let downloadLink = document.createElement('a');
-      const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
-      downloadLink.href = URI;
-      downloadLink.setAttribute('download',
-        `invoice_${this.invoiceId}.pdf`);
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      setTimeout(() => {
-        downloadLink.remove();
-        window.URL.revokeObjectURL(URI);
-      }, 2000);
-      this.notifier.show({
-        type: 'success',
-        message: 'Invoice downloaded successfully',
-        id: 'THAT_NOTIFICATION_ID', 
-      });
-      setTimeout(() => {
-        this.notifier.hide('THAT_NOTIFICATION_ID');
-      }, 2000);
-    })
   }
 
 

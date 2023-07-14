@@ -1,7 +1,4 @@
-<app-header></app-header>
-<app-sidebar></app-sidebar>
-<div class="main-content">
-    <div class="page-content">
+ <div class="page-content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -70,7 +67,6 @@
                                                                 (click)="ViewClient(details)"></i>
                                                         </a>
                                                     </li>
-
                                                     <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top" title="Edit">
                                                         <a class="btn btn-soft-info btn-sm d-inline-block"
@@ -78,13 +74,6 @@
                                                             <i class="las la-pen fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
-                                                    <!-- <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="hover" data-bs-placement="top" title="Remove">
-                                                        <a class="btn btn-soft-danger btn-sm d-inline-block"
-                                                            (click)="DeleteClient(details)">
-                                                            <i class="fas fa-trash fs-17 align-middle"></i>
-                                                        </a>
-                                                    </li> -->
                                                 </ul>
                                             </td>
                                         </tr>
@@ -98,5 +87,4 @@
         </div>
     </div>
     <pagination-controls (pageChange)="onPageChange($event)" id="client"> </pagination-controls>
-</div>
 <router-outlet></router-outlet>

@@ -8,7 +8,8 @@ import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent  implements OnInit  {
-  public isActiveSideBar:Boolean=false;
+
+  public isActiveSideBar:Boolean = false;
 
   constructor(private sidebaeService:SidebarService) { }
 
