@@ -140,9 +140,11 @@ export class InvoiceService {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
 
-  // getDuplicateInvoice(invoiceId: string): Observable<any> {
-  //   return this.http.get<string>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId));
-  // }
+
+
+  public getDuplicateInvoice(invoiceId: any): Observable<any> {
+    return this.http.post<any>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId), {});
+  }
 
   downloadInvoice(invoiceId: any): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {

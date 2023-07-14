@@ -87,7 +87,6 @@ export class InvoiceComponent implements OnInit {
   }
 
   updateInvoice(details: any) {
-    console.log("Update Invoice function called")
     this.router.navigate(["/add-invoice", details._id]);
   }
 
@@ -149,10 +148,14 @@ export class InvoiceComponent implements OnInit {
     this.destroyed.complete();
   }
 
-  // addDuplicateInvoice(details:any){
-  //   this.invoiceService.getDuplicateInvoice(details).subscribe((res:any) => {
-  //   })
-
+  addDuplicateInvoice(details:any){
+    this.invoiceService.getDuplicateInvoice(details._id).subscribe((res:any) => {
+      this.router.navigate(["/add-invoice" , res._id]);
+      console.log(res, "Response")
+    }, error => {
+      console.error(error);
+    });
+  }
   toggleBodyClass() {
     this.sidebarService.isMobile.emit(!this.isActiveSideBar);
     this.isActiveSideBar = !this.isActiveSideBar
