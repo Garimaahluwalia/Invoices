@@ -148,14 +148,19 @@ export class InvoiceComponent implements OnInit {
     this.destroyed.complete();
   }
 
-  addDuplicateInvoice(details:any){
-    this.invoiceService.getDuplicateInvoice(details._id).subscribe((res:any) => {
-      this.router.navigate(["/add-invoice" , res._id]);
-      console.log(res, "Response")
-    }, error => {
-      console.error(error);
+  duplicateInvoice(details: any) {
+    this.router.navigate(["add-invoice"]).then(() => {
+      this.invoiceService._duplicateInvoice.next(details);
     });
   }
+  // addDuplicateInvoice(details:any){
+  //   this.invoiceService.getDuplicateInvoice(details._id).subscribe((res:any) => {
+  //     this.router.navigate(["/add-invoice" , res._id]);
+  //     console.log(res, "Response")
+  //   }, error => {
+  //     console.error(error);
+  //   });
+  // }
   toggleBodyClass() {
     this.sidebarService.isMobile.emit(!this.isActiveSideBar);
     this.isActiveSideBar = !this.isActiveSideBar

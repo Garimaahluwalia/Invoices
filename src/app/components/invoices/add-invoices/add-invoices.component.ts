@@ -25,8 +25,8 @@ export class AddInvoicesComponent implements OnInit {
   public updateInvoiceData: any;
   public download: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public status : any;
-  public currency : any;
+  public status: any;
+  public currency: any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -41,7 +41,20 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.invoiceService._duplicateInvoice.pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
+      if (Object.keys(res).length > 0) {
+        console.log(res, "Observer");
+        setTimeout(() => {
+          this.ProductData = res.products;
+          this.status = res.status;
+          this.currency = res.currency;
+          this.addInvoiceService.sendProductChanges(res.products);
+          this.addInvoiceService.sendCurrency(this.currency);
+          this.updateInvoiceData = res;
+          this.invoiceService._duplicateInvoice.next({});
+        }, 500);
+      }
+    })
     this.getTaxes();
     // InvoiceId from Route
     this.invoiceId = this.route.snapshot?.params?.["id"];
@@ -66,7 +79,7 @@ export class AddInvoicesComponent implements OnInit {
       this.InvoiceForm.form?.patchValue({
         "invoice": {
           "invoiceNo": res.invoiceNo,
-         
+
         },
         // "currency": res.currency,
         "tax": res.tax,
@@ -80,7 +93,7 @@ export class AddInvoicesComponent implements OnInit {
       this.notifier.show({
         type: 'error',
         message: 'Client is missing',
-        id: 'THAT_NOTIFICATION_ID', 
+        id: 'THAT_NOTIFICATION_ID',
       });
       setTimeout(() => {
         this.notifier.hide('THAT_NOTIFICATION_ID');
@@ -107,7 +120,7 @@ export class AddInvoicesComponent implements OnInit {
         this.notifier.show({
           type: 'success',
           message: 'Invoice saved successfully',
-          id: 'THAT_NOTIFICATION_ID', 
+          id: 'THAT_NOTIFICATION_ID',
         });
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
@@ -127,7 +140,7 @@ export class AddInvoicesComponent implements OnInit {
         this.notifier.show({
           type: 'success',
           message: 'Invoice updated successfully',
-          id: 'THAT_NOTIFICATION_ID', 
+          id: 'THAT_NOTIFICATION_ID',
         });
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');

@@ -38,11 +38,10 @@ export class InvoiceService {
   public totalamount: any;
   public totalamountoftax: any;
   public currencies = CURRENCY; 
+  public _duplicateInvoice = new BehaviorSubject<any>({});
+
   constructor(private http: HttpClient,
     public addinvoiceService: AddInvoicesService) { }
-
-
-
 
   statusUpdate(invoiceId: string, status: string) {
     const foundInvoice = this._invoices.find((invoice) => invoice._id === invoiceId);
@@ -142,9 +141,9 @@ export class InvoiceService {
 
 
 
-  public getDuplicateInvoice(invoiceId: any): Observable<any> {
-    return this.http.post<any>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId), {});
-  }
+  // public getDuplicateInvoice(invoiceId: any): Observable<any> {
+  //   return this.http.post<any>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId), {});
+  // }
 
   downloadInvoice(invoiceId: any): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
