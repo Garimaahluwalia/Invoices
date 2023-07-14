@@ -1,5 +1,8 @@
 @import '~sweetalert2/dist/sweetalert2.min.css';
 @import "node_modules/angular-notifier/styles";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&display=swap');
+
+
 
 
 :root {
@@ -21,7 +24,6 @@
     --highlight-color: #E31E24;
 
 }
-
 
 
 .btn-primary-outline {

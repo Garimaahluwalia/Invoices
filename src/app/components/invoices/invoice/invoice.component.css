@@ -26,19 +26,21 @@ tr.disabled {
 
 .hstack i {
   font-size: 18px;
+  padding: 6px;
 }
 
 .list-menu button {
   padding: 0px;
-  width: 15px;
+  width: 18px;
+  height: 30px;
 }
 
-.list-menu button:hover {
-  background-color: transparent;
+.list-menu button:hover , .list-menu .btn.show{
+    background-color: #ffdad5 !important;
 }
 
 .hstack .btn:hover {
-  background-color: transparent !important;
+    background-color: #ffdad5 !important;
 }
 
 .list-menu i {
@@ -66,4 +68,14 @@ tr.disabled {
 .disabled {
   pointer-events: none;
   opacity: 0.5; /* Optionally decrease the opacity to indicate it's disabled */
+}
+.list-menu span{
+    font-size: 14px;
+    font-weight: 600;
+}
+.list-menu li:hover{
+    background-color: #ffdad5 !important;
+}
+.list-menu .dropdown-menu.show{
+    transform: translate3d(1024px, 185px, 0px) !important;
 }
