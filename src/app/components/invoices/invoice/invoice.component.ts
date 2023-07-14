@@ -128,8 +128,13 @@ export class InvoiceComponent implements OnInit {
 
 
   updateStatus(details: any, status: string) {
+<<<<<<< HEAD
     console.log("Function called")
     // details.disabled = (status === 'CANCELLED');
+=======
+    console.log("updatestatus called")
+    details.disabled = (status === 'CANCELLED');
+>>>>>>> f35ebd45d2217be3184f76d12173672be4505930
     this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.invoiceactions, {
         status: true,

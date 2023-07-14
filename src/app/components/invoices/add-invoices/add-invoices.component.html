@@ -10,7 +10,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-xxl-9">
-            <div class="card">
+            <div class="card p-4">
                 <form class="needs-validation" novalidate id="invoice_form" #InvoiceForm="ngForm"
                     (ngSubmit)="submit(InvoiceForm)">
                     <div class="row">
@@ -19,18 +19,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 pl-5 pr-2">
+                        <div class="col-lg-6">
                             <div class="outer-layout w-100">
                                 <app-companyaddress></app-companyaddress>
                             </div>
                         </div>
-                        <div class="col-lg-6 pr-5 pl-2">
+                        <div class="col-lg-6">
                             <div class="outer-layout w-100">
                                 <app-client-details [invoiceId]="invoiceId"></app-client-details>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body pl-5">
+                    <div class="card-body px-0">
                         <app-productdetails></app-productdetails>
                         <app-paymentdetails></app-paymentdetails>
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">

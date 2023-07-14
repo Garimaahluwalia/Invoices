@@ -28,6 +28,7 @@
 .company-details div span:nth-child(2){
     font-size: 16px;
     font-weight: 500;
+    margin-bottom: 7px;
 }
 .details-head{
     background-color: transparent;
@@ -66,4 +67,11 @@ button.btn.btn-primary.newclients {
     color: #fff;
     padding: 6px 20px;
     font-size: 18px;
+}
+.client-edit{
+    width: 30px;
+    text-align: center;
+    border-radius: 3px;
+    margin-left: auto;
+    font-size: 21px;
 }

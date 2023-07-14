@@ -3,7 +3,7 @@
     <div class="d-flex">
 
       <!-- tax  -->
-      <div class="d-flex align-items-center ml-5">
+      <div class="d-flex align-items-center">
         <label class="mb-0 mr-3">Tax</label>
         <select [(ngModel)]="selectedTaxRate" class="form-control form-control-sm taxes-edit selector-currency"
           name="tax" (change)="onTaxRateChange()">
@@ -57,7 +57,7 @@
                 Please enter a product name
               </div>
             </div>
-            <button class="btn cstn-description" type="button" (click)="addDescription(i)">
+            <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
               <i class="fa-regular fa-square-plus mr-1"></i> Add Description
             </button>
             <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
@@ -75,7 +75,7 @@
             </div>
           </td>
           <td class="text-end">
-            <div>
+            <div class="list-width">
               <input type="number" [(ngModel)]="row.amount" (ngModelChange)="onProductValueChange(i)" name="amount"
                 class="form-control bg-light border-0 product-line-price" placeholder="{{inputcurrency}}0.00" />
             </div>
@@ -97,7 +97,7 @@
               </div>
             </td>
             <td class="text-end">
-              <div>
+              <div >
                 <input type="text" ngModel name="total" [(ngModel)]="row.total"
                   (ngModelChange)="onProductValueChange(i)" class="form-control bg-light border-0 product-line-price"
                   placeholder="{{inputcurrency}}0.00" readonly />
@@ -105,7 +105,7 @@
             </td>
           </ng-container>
           <td class="product-removal">
-            <a href="javascript:void(0)" class="btn p-0" (ngModelChange)="onProductValueChange(i)"
+            <a href="javascript:void(0)" class="btn pt-2" (ngModelChange)="onProductValueChange(i)"
               (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
           </td>
         </tr>

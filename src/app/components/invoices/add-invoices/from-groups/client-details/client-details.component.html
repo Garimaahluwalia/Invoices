@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-3">
     <div class="mb-3">
         <span class="main-head">Billed To </span><span>(client Details)</span>
     </div>
@@ -20,7 +20,7 @@
                 <span>Email</span><span>{{selectedClient.email}}</span>
             </div>
             <div class="d-flex align-items-center">
-                <span>Phone Number </span><span>{{selectedClient.phoneNumber}}</span>
+                <span>Phone No. </span><span>{{selectedClient.phoneNumber}}</span>
             </div>
             <!-- <div class="d-flex align-items-center">
                 <span>Registered On</span><span>{{selectedClient.registeredNo}}</span>
@@ -36,9 +36,9 @@
             </div>
         </div>
     </div>
-    <div [class.d-none]="!clientId" (click)="updateClient(clientId)">
-        <i class="fa-solid fa-pen"></i>
-        <span>Edit</span>
+    <div [class.d-none]="!clientId" (click)="updateClient(clientId)" class="client-edit">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span></span>
     </div>
 
     <div class="card-body company-details text-center" *ngIf="!clientId">

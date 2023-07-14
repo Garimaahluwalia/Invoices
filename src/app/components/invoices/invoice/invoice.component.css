@@ -11,10 +11,42 @@ i.fa-sharp.fa-solid.fa-xmark.cancel {
 }   
 .status {
     background-color: #bb1b1f;
-    padding: 11px;
-    font-size: 12px;
+    padding: 9px;
+    font-size: 11px;
+    width: 85px;
 }
 tr.disabled {
     opacity: 0.6;
     pointer-events: none;
+  }
+  .hstack i{
+    font-size: 18px;
+  }
+  .list-menu button{
+    padding:0px;
+    width: 15px;
+  }
+  .list-menu button:hover{
+    background-color: transparent;
+  }
+  .hstack .btn:hover{
+    background-color: transparent !important;
+  }
+  .list-menu i{
+    margin-top: 0px;
+  }
+  .list-menu ul{
+min-width: 70px;
+padding: 0px
+  }
+  .list-menu ul li{
+    display: block;
+    text-align: center;
+    padding: 7px 0px;
+    padding-bottom: 10px;
+  }
+  .list-menu ul li:nth-child(1){
+    border-bottom: 1px solid gray;
+    margin-right: 0px;
+
   }
