@@ -47,12 +47,13 @@
                                             </td>
                                             <td data-label="Action" class="action-items">
                                                 <ul class="list-inline hstack  mb-0">
-                                                    <a (click)="updateStatus(details, status.PAID)"
+                                                    <a 
                                                         [style.pointer-events]="details.status === 'CANCELLED' || details.status === 'PAID' ? 'none' : 'auto'"
                                                         data-bs-trigger="hover" data-bs-placement="top"
                                                         title="Mark as Paid">
                                                         <app-svg svg="paid-icon"   (OnSVGClick)="updateStatus(details, status.PAID)"
                                                         className="paid-icon" [height]="2" [width]="15"></app-svg>
+                                                    </a>
                                                         <!-- <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -63,7 +64,7 @@
                                                                 [attr.stroke]="details.status === 'PAID' ? '#A9A9A9' : '#161c26'"
                                                                 stroke-linecap="round" stroke-linejoin="round"></path>
                                                         </svg> -->
-                                                    </a>
+                                                  
 
                                                     <!-- <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                         data-bs-trigger="hover" data-bs-placement="top"
