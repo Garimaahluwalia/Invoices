@@ -75,7 +75,7 @@
             </div>
           </td>
           <td class="text-end">
-            <div>
+            <div class="list-width">
               <input type="number" [(ngModel)]="row.amount" (ngModelChange)="onProductValueChange(i)" name="amount"
                 class="form-control bg-light border-0 product-line-price" placeholder="{{inputcurrency}}0.00" />
             </div>
@@ -97,7 +97,7 @@
               </div>
             </td>
             <td class="text-end">
-              <div>
+              <div >
                 <input type="text" ngModel name="total" [(ngModel)]="row.total"
                   (ngModelChange)="onProductValueChange(i)" class="form-control bg-light border-0 product-line-price"
                   placeholder="{{inputcurrency}}0.00" readonly />

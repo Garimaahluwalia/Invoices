@@ -87,4 +87,6 @@ table thead .table-active{
   .width-10 {
     width: 10%;
   }
- 
+ .list-width{
+    width: 100px;
+ }
