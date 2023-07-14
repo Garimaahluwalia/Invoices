@@ -87,6 +87,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   updateInvoice(details: any) {
+    console.log("Update Invoice function called")
     this.router.navigate(["/add-invoice", details._id]);
   }
 
@@ -128,8 +129,8 @@ export class InvoiceComponent implements OnInit {
 
 
   updateStatus(details: any, status: string) {
-    console.log("updatestatus called")
-    details.disabled = (status === 'CANCELLED');
+    console.log("Function called")
+    // details.disabled = (status === 'CANCELLED');
     this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.invoiceactions, {
         status: true,
