@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
 
   saveProfile() {
     const payload = {
-      name: this.userProfile?.name,
+      name: this.userProfile.name,
       email: this.userProfile.email,
       mobile: this.userProfile.mobile,
       registeredOn: this.userProfile.registeredOn,
