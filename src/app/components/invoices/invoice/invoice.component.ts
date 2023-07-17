@@ -54,7 +54,6 @@ export class InvoiceComponent implements OnInit {
     // <-- pagination 
     this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
       this.totalItems = data;
-
     });
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
