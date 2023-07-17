@@ -93,6 +93,17 @@ export class ClientService {
   }
 
 
+  updateListAndSendClientData(data: Client) {
+    const clients: Client[] = [...this.clients];
+    const indexOfClient = clients.findIndex((v: Client) => v._id === data._id);
+    if (indexOfClient !== -1) {
+      clients.splice(indexOfClient, 1, data);
+    }
+    this.sendClientDetails(data);
+    this._clients = clients as Client[];
+    this.sendClients();
+  }
+
   getAll() {
     try {
       this.getAllClients(this.page, this.limit).subscribe(  // pagination

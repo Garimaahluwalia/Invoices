@@ -70,8 +70,6 @@ export class DeleteComponent {
     setTimeout(() => {
       this.notifier.hide('THAT_NOTIFICATION_ID');
     }, 2000);
-    
-
     this.deleteService.sendEvent(event, true)
   }
 

@@ -139,7 +139,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.name = this.data.name;
       this.email = this.data.email;
       this.phoneNumber = this.data.phoneNumber;
-     
       this.address = this.data.address;
       this.gstin = this.gstin;
       this.pan = this.pan;
@@ -151,7 +150,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       name: this.name, email: this.email, phoneNumber: this.phoneNumber, address: address, gstin: this.gstin, pan: this.pan,
       country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone,
     }
-
+     console.log(newData, "NewData")
     if (this.data?.edit) {
       this.updateClient(newData);
       this.notifier.show({
@@ -178,12 +177,9 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
   updateClient(newData: any) {
+    console.log(newData, "NEWDATA")
     this.clientService.updateClientReq(this.data.clientId, newData).subscribe((res:Client) => {
-      if (this.invoice) {
-        this.clientService.sendClientDetails(res);
-      } else {
-        this.clientService.getAll();
-      }
+      this.clientService.updateListAndSendClientData(res);
       this.closeModal();
     }, err => {
       console.error(err);
