@@ -50,12 +50,13 @@ export class InvoiceListDetailsComponent implements OnInit {
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
         this.invoiceImage = response.photoUrl;
-        // console.log(response, "GETPROFILEAPIRESPONSE")
       },
       (error) => {
         console.error('Profile update failed:', error);
       }
     );
+
+    
   }
   ngOnDestroy(): void {
     this.destroyed.next(true);

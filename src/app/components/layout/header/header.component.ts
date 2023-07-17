@@ -56,7 +56,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleBodyClass() {
-    console.log("Sidebar", this.isActiveSideBar);
     this.isActiveSideBar = !this.isActiveSideBar
     this.sidebarService.isMobile.emit(this.isActiveSideBar ? true : false);
   }

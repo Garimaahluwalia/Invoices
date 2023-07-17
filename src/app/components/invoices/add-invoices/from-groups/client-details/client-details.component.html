@@ -7,7 +7,7 @@
             class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1"
             (change)="onClientChange()">
             <option disabled selected [value]="null">Select a client</option>
-            <option *ngFor="let details of clients" [value]="details._id">{{details.name}}</option>
+            <option *ngFor="let details of clients" [value]="details._id" [innerText]="details.name"></option>
         </select>
     </div>
 

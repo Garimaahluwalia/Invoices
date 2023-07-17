@@ -9,6 +9,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
+import { take } from 'rxjs';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -27,6 +28,7 @@ export class AddInvoicesComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: any;
   public currency: any;
+  public duplicateInvoice: boolean = false;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -41,49 +43,43 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.invoiceService._duplicateInvoice.pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
-      if (Object.keys(res).length > 0) {
-        console.log(res, "Observer");
-        setTimeout(() => {
-          this.ProductData = res.products;
-          this.status = res.status;
-          this.currency = res.currency;
-          this.addInvoiceService.sendProductChanges(res.products);
-          this.addInvoiceService.sendCurrency(this.currency);
-          this.updateInvoiceData = res;
-          this.invoiceService._duplicateInvoice.next({});
-        }, 500);
-      }
-    })
     this.getTaxes();
-    // InvoiceId from Route
+    this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false; 
+    
+
     this.invoiceId = this.route.snapshot?.params?.["id"];
     this.invoiceService.invoiceNumber = this.invoiceId;
+
     if (this.invoiceId) {
       this.invoiceService.getInvoiceforUpdateAndEmit();
     }
 
-    /* this.addInvoiceService.receiveCurrency().subscribe((res: any) => {
-      this.currency = res;
-    }) */
-    this.invoiceService.invoiceEmitter.subscribe((res) => {
+    this.invoiceService.invoiceEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
       this.updatedInvoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
       this.status = res.status;
       this.currency = res.currency;
-      // console.log(this.currency, "CURRENCY FROM ADD-INVOICE")
       this.addInvoiceService.sendProductChanges(res.products);
-      this.clientService.sendClientDetails(res.client);
+      if (!this.duplicateInvoice) {
+        this.clientService.sendClientDetails(res.client);
+      }
       this.addInvoiceService.sendCurrency(this.currency);
       this.updateInvoiceData = res;
-      this.InvoiceForm.form?.patchValue({
-        "invoice": {
-          "invoiceNo": res.invoiceNo,
-
-        },
-        // "currency": res.currency,
+      let formData: { [key: string]: any } = {
         "tax": res.tax,
-      });
+      };
+
+      if (!this.duplicateInvoice) {
+        formData = {
+          ...formData,
+          "invoice": {
+            "invoiceNo": res.invoiceNo,
+
+          }
+        }
+      }
+
+      this.InvoiceForm.form?.patchValue(formData);
     });
   }
 
@@ -103,6 +99,9 @@ export class AddInvoicesComponent implements OnInit {
       const clientId = f.value.client_id;
       this.invoiceDataHandler.invoiceId = this.invoiceId as string;
       const payload = this.invoiceDataHandler.getPayload();
+      if (this.duplicateInvoice) {
+        this.invoiceId = null;
+      }
       if (this.invoiceId) {
         this.updateInvoice(this.invoiceId, payload);
       } else {
@@ -113,7 +112,7 @@ export class AddInvoicesComponent implements OnInit {
 
 
   addInvoice(payload: any) {
-    this.addInvoiceService.addInvoice(payload).pipe(takeUntil(this.destroyed)).subscribe(
+    this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
         this.Invoices = res;
         this.router.navigateByUrl("/invoice");
@@ -133,7 +132,7 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   updateInvoice(invoiceId: string, payload: { [key: string]: any }) {
-    this.invoiceService.updateInvoice(invoiceId, payload).subscribe(
+    this.invoiceService.updateInvoice(invoiceId, payload).pipe(take(1)).subscribe(
       (res: any) => {
         this.Invoices = res;
         this.router.navigateByUrl("/invoice");

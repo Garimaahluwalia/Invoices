@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DatePipe } from '@angular/common';
@@ -13,32 +13,27 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./invoicedata.component.css'],
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
-export class InvoicedataComponent implements OnInit {
+export class InvoicedataComponent implements OnInit, OnChanges {
   @Input() invoice!: { [key: string]: string | number }
+  @Input() duplicateInvoice: boolean = false;
   @Input() invoiceId: string | null = null;
   public defaultDate: any;
   public InvoiceNumber!: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public invoiceImage : any;
+  public invoiceImage: any;
   constructor(
     public invoiceService: InvoiceService,
     private datePipe: DatePipe,
-    public profileService : ProfileService
+    public profileService: ProfileService
   ) { }
 
   ngOnInit(): void {
     const currentDate = new Date();
     this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
 
-    if (!this.invoiceService.invoiceNumber) {
+    if (!this.invoiceService.invoiceNumber || this.duplicateInvoice) {
       this.getInvoiceNumber();
     }
-
-
-
-
-
-
 
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
@@ -49,6 +44,15 @@ export class InvoicedataComponent implements OnInit {
       }
     );
 
+  }
+
+  ngOnChanges({ duplicateInvoice  }: SimpleChanges) : void {
+      if(!duplicateInvoice?.firstChange) {
+          this.duplicateInvoice = duplicateInvoice?.currentValue;
+          if(this.duplicateInvoice) {
+            this.getInvoiceNumber();
+          }
+      }
   }
 
   ngOnDestroy(): void {

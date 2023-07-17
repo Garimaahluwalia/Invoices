@@ -14,9 +14,13 @@ import { CURRENCY } from 'src/app/types/currency';
 })
 export class InvoiceService {
   // pagination
+
+
   public totalNumberOfInvoices: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
   private _limit: number = 10;
+
+
   // pagination
   private _invoices: any[] = [];
   private invoicesSubject: BehaviorSubject<IInvoiceResponse[]> = new BehaviorSubject<IInvoiceResponse[]>([]);
@@ -28,7 +32,7 @@ export class InvoiceService {
   public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>() // To emit invoice Data
   public _updateStatus: EventEmitter<any> = new EventEmitter<any>()
   public productRows: any[] = [];
-  public currency : any;
+  public currency: any;
   public amount: any;
   public tax: any;
   public rate: any;
@@ -37,8 +41,7 @@ export class InvoiceService {
   public subtotalofamount: any;
   public totalamount: any;
   public totalamountoftax: any;
-  public currencies = CURRENCY; 
-  public _duplicateInvoice = new BehaviorSubject<any>({});
+  public currencies = CURRENCY;
 
   constructor(private http: HttpClient,
     public addinvoiceService: AddInvoicesService) { }
@@ -52,6 +55,7 @@ export class InvoiceService {
       console.log("Invoice not found.");
     }
   }
+
 
 
   // <-- pagination
@@ -126,7 +130,7 @@ export class InvoiceService {
 
 
 
-  checkInvoiceNumber(InvoiceNumber: string, InvoiceId : string): Observable<any> {
+  checkInvoiceNumber(InvoiceNumber: string, InvoiceId: string): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(InvoiceNumber, InvoiceId));
   }
 
@@ -177,10 +181,10 @@ export class InvoiceService {
   }
 
   getAll() {
-    console.log(this.page);
+    // console.log(this.page);
     try {
       this.getAllInvoice(this.page, this.limit).subscribe(
-        (res) => {
+        (res) => { 
           this._invoices = res.invoices;
           this.totalNumberOfInvoices.next(res.totalCount);
           this.sendInvoices();

@@ -15,7 +15,7 @@
                     (ngSubmit)="submit(InvoiceForm)">
                     <div class="row">
                         <div class="col-md-12">
-                            <app-invoicedata [invoiceId]="invoiceId"></app-invoicedata>
+                            <app-invoicedata [invoiceId]="invoiceId" [duplicateInvoice]="duplicateInvoice"></app-invoicedata>
                         </div>
                     </div>
                     <div class="row">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="outer-layout w-100">
-                                <app-client-details [invoiceId]="invoiceId"></app-client-details>
+                                <app-client-details [invoiceId]="invoiceId" [duplicateInvoice]="duplicateInvoice"></app-client-details>
                             </div>
                         </div>
                     </div>

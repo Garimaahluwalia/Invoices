@@ -68,7 +68,6 @@ export class InvoiceComponent implements OnInit {
   }
 
   loadInvoices() {
-    console.log("Load Invoices");
     this.invoiceService.getAll();
   }
 
@@ -128,8 +127,6 @@ export class InvoiceComponent implements OnInit {
 
 
   updateStatus(details: any, status: string) {
-    console.log("Function called")
-    // details.disabled = (status === 'CANCELLED');
     this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.invoiceactions, {
         status: true,
@@ -149,18 +146,9 @@ export class InvoiceComponent implements OnInit {
   }
 
   duplicateInvoice(details: any) {
-    this.router.navigate(["add-invoice"]).then(() => {
-      this.invoiceService._duplicateInvoice.next(details);
-    });
+    this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate" }})
   }
-  // addDuplicateInvoice(details:any){
-  //   this.invoiceService.getDuplicateInvoice(details._id).subscribe((res:any) => {
-  //     this.router.navigate(["/add-invoice" , res._id]);
-  //     console.log(res, "Response")
-  //   }, error => {
-  //     console.error(error);
-  //   });
-  // }
+ 
   toggleBodyClass() {
     this.sidebarService.isMobile.emit(!this.isActiveSideBar);
     this.isActiveSideBar = !this.isActiveSideBar
