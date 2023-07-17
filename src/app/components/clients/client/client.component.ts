@@ -20,7 +20,7 @@ export class ClientComponent implements OnInit {
   
   public currentPage = 1;  //pagination
   public itemsPerPage = 2; //pagination
-  public totalItems = 15;
+  public totalItems = 15;   //pagination
 
   constructor(public clientService: ClientService,
     public router: Router,
@@ -97,8 +97,8 @@ export class ClientComponent implements OnInit {
   onPageChange(page: number) {
     console.log("Page Changes")
     this.currentPage = page;
-    this.invoiceService.page = page;
-    this.invoiceService.getAll();
+    this.clientService.page = page;
+    this.clientService.getAll();
   }
 
 }

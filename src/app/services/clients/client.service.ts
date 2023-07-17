@@ -13,7 +13,7 @@ export class ClientService {
   // pagination
   public totalNumberOfClient: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
-  private _limit: number = 100;
+  private _limit: number = 10;
   // pagination
 
   private _clients: Client[] = [];
@@ -71,7 +71,7 @@ export class ClientService {
   }
 
   getAllClients(page: number = 1, limit: number = 12): Observable<any> { //pagination
-    return this.http.get<any>(endpoints.CLIENTS.GETALL(page, limit));
+    return this.http.get<{ clients: Client[], totalCount: number, totalPages: number }>(endpoints.CLIENTS.GETALL(page, limit));
   }
 
   getClient(ClientId: string): Observable<Client> {
@@ -110,7 +110,8 @@ export class ClientService {
         res => {
           this._clients = res.clients as Client[];
           this.sendClients();
-          this.totalNumberOfClient.next(res.totalCount);    // pagination
+          this.totalNumberOfClient.next(res.totalCount); 
+          this.sendClients();   // pagination
         },
         err => {
           console.error('Error while fetching pages:', err);

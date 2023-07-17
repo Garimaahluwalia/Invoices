@@ -177,7 +177,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
   updateClient(newData: any) {
-    console.log(newData, "NEWDATA")
     this.clientService.updateClientReq(this.data.clientId, newData).subscribe((res:Client) => {
       this.clientService.updateListAndSendClientData(res);
       this.closeModal();

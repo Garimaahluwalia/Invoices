@@ -12,7 +12,7 @@
                     <button class="btn btn-primary-outline addPayment-modal" (click)="addClient()"><i
                             class="las la-plus me-1"></i> Add New</button>
                 </div>
-                <div class="col-sm-auto ms-auto">
+                <!-- <div class="col-sm-auto ms-auto">
                     <div class="d-flex gap-3 table-search">
                         <div class="search-box">
                             <input type="text" class="form-control" id="searchMemberList"
@@ -31,7 +31,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">
@@ -51,7 +51,7 @@
 
                                     <tbody>
                                         <tr
-                                            *ngFor="let details of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'client', totalItems: totalItems  }">
+                                            *ngFor="let details of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'clients', totalItems: totalItems  } let i = index">
                                             <td data-label="Name">
                                                 <a class="text-body align-middle fw-medium">{{details.name}}</a>
                                             </td>
@@ -86,5 +86,5 @@
             </div>
         </div>
     </div>
-    <pagination-controls (pageChange)="onPageChange($event)" id="client"> </pagination-controls>
+    <pagination-controls (pageChange)="onPageChange($event)" id="clients"> </pagination-controls>
 <router-outlet></router-outlet>
