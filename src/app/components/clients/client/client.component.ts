@@ -95,7 +95,6 @@ export class ClientComponent implements OnInit {
 
   //pagination
   onPageChange(page: number) {
-    console.log("Page Changes")
     this.currentPage = page;
     this.clientService.page = page;
     this.clientService.getAll();

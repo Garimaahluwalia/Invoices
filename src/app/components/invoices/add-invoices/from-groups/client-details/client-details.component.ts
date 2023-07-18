@@ -50,7 +50,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   onClientChange() {
     const client: Client | undefined = this.clients.find((client) => client._id === this.clientId);
     if (client) {
-      console.log(client, "Clients")
       this.selectedClient = client || null;
     }
   }
@@ -84,14 +83,12 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   subscriptions() {
     this.clientService.recieveClients().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.clients = data;
-      console.log(this.clients, "CLIENTS")
     });
 
     // Get Single Client when added from popup
     this.clientService.recieveClientData().pipe(takeUntil(this.destroyed)).subscribe((clientResponse) => {
       this.selectedClient = clientResponse;
       this.clientId = clientResponse._id;
-      console.log(this.selectedClient, "SELECTEDCLIENT")
     });
   }
 
