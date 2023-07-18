@@ -44,6 +44,7 @@ export class InvoiceComponent implements OnInit {
     public sidebarService: SidebarService) { }
   ngOnInit(): void {
     this.itemsPerPage = this.invoiceService.limit;  //pagination
+    this.invoiceService.getAll();
     this.loadInvoices();
     this.deleteService.recieveDeleteEvent(DeleteEvents.INVOICES)?.subscribe(res => {
       if (res) {
