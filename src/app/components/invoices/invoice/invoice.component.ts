@@ -114,7 +114,6 @@ export class InvoiceComponent implements OnInit {
 
   //pagination
   onPageChange(page: number) {
-    console.log("Page Changes")
     this.currentPage = page;
     this.invoiceService.page = page;
     this.invoiceService.getAll();
