@@ -90,3 +90,9 @@ input#searchMemberList {
   width: 100px;
   margin-left: 80%;
 }
+
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 15px;
+}
