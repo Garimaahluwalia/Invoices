@@ -21,7 +21,7 @@ export class InvoiceComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   public isActiveSideBar: Boolean = false;
   public currentPage = 1;  //pagination
-  public itemsPerPage = 2; //pagination
+  public itemsPerPage = 10; //pagination
   public totalItems = 15;   //pagination
 
 
@@ -32,8 +32,9 @@ export class InvoiceComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;
   public readonly statuses: string[] = Object.values(STATUS);
-
-
+  public buttonVisible = false;
+  public checkboxes: boolean[] = [];
+  isButtonEnabled: boolean = false;
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -138,17 +139,22 @@ export class InvoiceComponent implements OnInit {
       });
     });
   }
-
-
+  toggleCheckbox(index: number) {
+    this.checkboxes[index] = !this.checkboxes[index];
+    this.updateButtonEnabledState();
+  }
+  updateButtonEnabledState() {
+    this.isButtonEnabled = this.checkboxes.some(checked => checked);
+  }
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
   }
 
   duplicateInvoice(details: any) {
-    this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate" }})
+    this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate" } })
   }
- 
+
   toggleBodyClass() {
     this.sidebarService.isMobile.emit(!this.isActiveSideBar);
     this.isActiveSideBar = !this.isActiveSideBar
@@ -159,8 +165,14 @@ export class InvoiceComponent implements OnInit {
   }
 
 
-  sorting(){
+  sorting() {
     alert("Hi")
+  }
+
+  bulkdelete() {
+    this.router.navigate(["invoice", "delete"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { event: DeleteEvents.BULK_DELETE } });
+    })
   }
 }
 

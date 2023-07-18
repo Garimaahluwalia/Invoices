@@ -67,7 +67,7 @@ tr.disabled {
 
 .disabled {
   pointer-events: none;
-  opacity: 0.5; /* Optionally decrease the opacity to indicate it's disabled */
+  opacity: 0.5; 
 }
 .list-menu span{
     font-size: 14px;
@@ -80,4 +80,13 @@ tr.disabled {
 .list-menu .dropdown-menu.show{
     transform: translate3d(1024px, 185px, 0px) !important;
 }
+}
+.bulk-delete{
+  margin-bottom: 20px;
+  background-color: var(--highlight-color) !important;
+    border-color: var(--highlight-color) !important;
+}
+input#searchMemberList {
+  width: 100px;
+  margin-left: 80%;
 }
