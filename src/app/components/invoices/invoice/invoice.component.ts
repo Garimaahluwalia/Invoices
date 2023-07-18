@@ -93,17 +93,18 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.deleteInvoices(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
         this.deleteService.selectedId = null;
-        this.invoiceService.getAllInvoice().pipe(takeUntil(this.destroyed)).subscribe(
-          (res: any) => {
-            this.invoices = res.invoices.map((invoice: any) => {
-              invoice.date = this.formatDate(invoice.date);
-              return invoice;
-            });
-          },
-          (err) => {
-            console.error(err);
-          }
-        );
+        // this.invoiceService.getAllInvoice().pipe(takeUntil(this.destroyed)).subscribe(
+        //   (res: any) => {
+        //     this.invoices = res.invoices.map((invoice: any) => {
+        //       invoice.date = this.formatDate(invoice.date);
+        //       return invoice;
+        //     });
+        //   },
+        //   (err) => {
+        //     console.error(err);
+        //   }
+        // );
+        this.invoiceService.getAll();
       },
       (err) => {
         console.error(err);
