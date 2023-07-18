@@ -158,5 +158,9 @@ export class InvoiceComponent implements OnInit {
     this.mobileNav.nativeElement.click();
   }
 
+
+  sorting(){
+    alert("Hi")
+  }
 }
 
