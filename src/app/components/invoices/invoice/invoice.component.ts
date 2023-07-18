@@ -51,19 +51,19 @@ export class InvoiceComponent implements OnInit {
     this.deleteService.recieveDeleteEvent()?.subscribe(res => {
       if (res) {
         switch (res?.['type'] as string) {
-            case "single": {
-              this.checkedItems[res['id'] as string] = false;
-              this.deleteInvoice(res['id'] as string);
+          case "single": {
+            this.checkedItems[res['id'] as string] = false;
+            this.deleteInvoice(res['id'] as string);
             break;
-            }
-            case "multi": {
-              console.log(res['bulkItems']);
-              //this.deleteInvoices(res['bulkItems'] as string);
-             
-              break;
-            }
+          }
+          case "multi": {
+            console.log(res['bulkItems']);
+            //this.deleteInvoices(res['bulkItems'] as string);
+
+            break;
+          }
         }
-        
+
       }
     });
 
@@ -170,7 +170,7 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.bulkDelete().subscribe((res: any) => {
       console.log(res, "Bulk delete response")
     })
-  } 
+  }
 
 
   bulkdelete() {
@@ -183,7 +183,6 @@ export class InvoiceComponent implements OnInit {
     this.router.navigate(["invoice", "delete", 'all']).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string } })
     })
-
   }
 
   ascendingOrder() {
