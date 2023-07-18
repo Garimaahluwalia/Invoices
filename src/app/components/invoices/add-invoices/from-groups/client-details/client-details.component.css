@@ -74,4 +74,5 @@ button.btn.btn-primary.newclients {
     border-radius: 3px;
     margin-left: auto;
     font-size: 21px;
+    cursor: pointer;
 }
