@@ -42,11 +42,11 @@ export class ClientComponent implements OnInit {
     });
     // pagination --> 
 
-    this.deleteService.recieveDeleteEvent(DeleteEvents.CLIENTS)?.subscribe(res => {
+   /*  this.deleteService.recieveDeleteEvent()?.subscribe(res => {
       if (res) {
         this.DeleteClients(this.deleteService.selectedId as string);
       }
-    });
+    }); */
   }
 
 
@@ -85,7 +85,7 @@ export class ClientComponent implements OnInit {
 
   DeleteClients(_id: string) {
     this.clientService.deleteClients(_id).subscribe((res) => {
-      this.deleteService.selectedId = null;
+      // this.deleteService.selectedId = null;
       this.clientService.getAll();
     }, err => {
       console.error(err);

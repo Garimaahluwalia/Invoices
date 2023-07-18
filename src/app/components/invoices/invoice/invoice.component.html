@@ -12,33 +12,44 @@
                         <input type="text" class="form-control" id="searchMemberList" placeholder="Search for Result">
 
                     </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="isButtonEnabled">
+                         Bulk-Actions
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="javascript:void(0)" (click)="bulkdelete()">Bulk Delete</a></li>
+                          <li><a class="dropdown-item" href="javascript:void(0)">Download As PDF</a></li>
+                     
+                        </ul>
+                      </div>
                     <div class="card-body">
                         <div class="table-responsive table-card">
                             <table class="table table-hover table-nowrap invoice-table align-middle mb-0">
                                 <thead>
-                                    <button type="button" class="btn btn-primary bulk-delete" *ngIf="isButtonEnabled"
-                                        (click)="bulkdelete()">Bulk Delete</button>
-                                        
                                     <tr class="text-muted text-uppercase">
                                         <th></th>
                                         <th scope="col">Date
-                                            <span class="sort-icon" (click)="sorting()"><i
-                                                    class="fas fa-sort"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" (click)="ascendingOrder()"></i>
+                                                <i class="fa-solid fa-arrow-down" (click)="descendingOrder()"></i></span>
                                         </th>
                                         <th scope="col">Invoice
-                                            <span class="sort-icon"><i class="fas fa-sort"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" (click)="ascendingOrder()"></i>
+                                                <i class="fa-solid fa-arrow-down" (click)="descendingOrder()"></i></span>
                                         </th>
                                         <th scope="col">Billed To
-                                            <span class="sort-icon"><i class="fas fa-sort"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" (click)="ascendingOrder()"></i>
+                                                <i class="fa-solid fa-arrow-down" (click)="descendingOrder()"></i></span>
                                         </th>
                                         <th scope="col" style="width: 20%;">Email
-                                            <span class="sort-icon"><i class="fas fa-sort"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" (click)="ascendingOrder()"></i>
+                                                <i class="fa-solid fa-arrow-down" (click)="descendingOrder()"></i></span>
                                         </th>
                                         <th scope="col">Amount
-                                            <span class="sort-icon"><i class="fas fa-sort"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" (click)="ascendingOrder()"></i>
+                                                <i class="fa-solid fa-arrow-down" (click)="descendingOrder()"></i></span>
                                         </th>
                                         <th scope="col" style="width: 16%;">Status
-                                            <span class="sort-icon"><i class="fas fa-sort"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"></i><i class="fa-solid fa-arrow-down"></i></span>
                                         </th>
                                         <th scope="col" style="width: 12%;">Actions
                                         </th>
@@ -49,10 +60,9 @@
 
                                     <tr
                                         *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  } let i = index">
-
                                         <td>
-                                            <input type="checkbox" (change)="toggleCheckbox(i)"
-                                                [checked]="checkboxes[i]">
+                                            <input type="checkbox" (change)="checkItem($event, details._id)"
+                                                [checked]="checkedItems[details._id]">
                                         </td>
                                         <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
                                         <td data-label="Invoice ID">

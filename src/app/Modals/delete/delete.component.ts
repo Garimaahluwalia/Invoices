@@ -17,6 +17,7 @@ export class DeleteComponent {
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
 
   public data: any;
+  public bulkItems: string[] = [];
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   private readonly notifier!: NotifierService;
 
@@ -29,14 +30,26 @@ export class DeleteComponent {
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.Delete).pipe(takeUntil(this.destroyed)).subscribe((res => {
-      const { data, status } = res;
+      const { data, status,  } = res;
       this.data = data, status;
+      this.bulkItems = data?.bulkItems || null;
       if (status || data) {
         this.openModal();
       } else {
         this.closeModal();
       }
     }));
+
+    // this.modalService.recieveEvent(ModalEvents.BulkDelete).pipe(takeUntil(this.destroyed)).subscribe((res => {
+    //   const{ data, status} = res;
+    //   console.log(this.data, "DATA")
+    //   this.data = data, status;
+    //   if(status || data) {
+    //     this.openModal();
+    //   }else{
+    //     this.closeModal();
+    //   }
+    // }))
   }
 
   openModal() {
@@ -59,7 +72,6 @@ export class DeleteComponent {
 
 
   yes() {
-    this.deleteService.selectedId = this.data.id;
     const event = this.data.event as DeleteEvents;
     this.closeModal();
     this.notifier.show({
@@ -70,14 +82,17 @@ export class DeleteComponent {
     setTimeout(() => {
       this.notifier.hide('THAT_NOTIFICATION_ID');
     }, 2000);
-    this.deleteService.sendEvent(event, true);
+  let type = "single";
+  if(this.bulkItems?.length > 0) {
+    type = "multi";
+  }
+    this.deleteService.sendEvent({ type, id: this.data.id, bulkItems: this.bulkItems});
   }
 
 
   no() {
-    this.deleteService.selectedId = this.data.id;
     const event = this.data.event as DeleteEvents;
     this.closeModal();
-    this.deleteService.sendEvent(event, false);
+    this.deleteService.sendEvent(null);
   }
 }

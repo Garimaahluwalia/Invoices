@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IEventResponse, ModalEvents } from 'src/app/types/modal';
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,8 @@ export class ModalService {
   public defaultStatusInitWith = { status: false };
   private _addorUpdateClient: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith);
   private _deleteConfirmation: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith);
-  private _invoiceactions : BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
+  private _invoiceactions: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
+  private _bulkDelete: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
 
   constructor() { }
 
@@ -21,9 +22,12 @@ export class ModalService {
       case ModalEvents.AddorUpdateClient:
         this._addorUpdateClient.next(data || defaultStatus);
         break;
-        case ModalEvents.invoiceactions:
-          this._invoiceactions.next(data || defaultStatus);
-          break;
+      case ModalEvents.invoiceactions:
+        this._invoiceactions.next(data || defaultStatus);
+        break;
+      case ModalEvents.BulkDelete:
+        this._bulkDelete.next(data || defaultStatus)
+
     }
   }
 
@@ -31,11 +35,13 @@ export class ModalService {
     switch (event) {
       case ModalEvents.AddorUpdateClient:
         return this._addorUpdateClient.asObservable();
-        case ModalEvents.Delete:
+      case ModalEvents.Delete:
         return this._deleteConfirmation.asObservable();
-        case ModalEvents.invoiceactions:
-          return this._invoiceactions.asObservable();
+      case ModalEvents.invoiceactions:
+        return this._invoiceactions.asObservable();
+      case ModalEvents.BulkDelete:
+        return this._bulkDelete.asObservable();
     }
   }
-  
+
 }

@@ -33,8 +33,10 @@ export class InvoiceComponent implements OnInit {
   public status: typeof STATUS = STATUS;
   public readonly statuses: string[] = Object.values(STATUS);
   public buttonVisible = false;
-  public checkboxes: boolean[] = [];
   isButtonEnabled: boolean = false;
+
+  public checkedItems: { [key: string]: boolean } = {};
+
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -45,11 +47,23 @@ export class InvoiceComponent implements OnInit {
     public sidebarService: SidebarService) { }
   ngOnInit(): void {
     this.itemsPerPage = this.invoiceService.limit;  //pagination
-    this.invoiceService.getAll();
     this.loadInvoices();
-    this.deleteService.recieveDeleteEvent(DeleteEvents.INVOICES)?.subscribe(res => {
+    this.deleteService.recieveDeleteEvent()?.subscribe(res => {
       if (res) {
-        this.DeleteInvoices(this.deleteService.selectedId as string);
+        switch (res?.['type'] as string) {
+            case "single": {
+              this.checkedItems[res['id'] as string] = false;
+              this.deleteInvoice(res['id'] as string);
+            break;
+            }
+            case "multi": {
+              console.log(res['bulkItems']);
+              //this.deleteInvoices(res['bulkItems'] as string);
+             
+              break;
+            }
+        }
+        
       }
     });
 
@@ -69,6 +83,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   loadInvoices() {
+    this.checkedItems = {};
     this.invoiceService.getAll();
   }
 
@@ -80,9 +95,9 @@ export class InvoiceComponent implements OnInit {
 
 
 
-  Deleteinvoice(details: any) {
+  deleteinvoice(details: any) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.INVOICES } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id } });
     })
   }
 
@@ -90,21 +105,9 @@ export class InvoiceComponent implements OnInit {
     this.router.navigate(["/add-invoice", details._id]);
   }
 
-  DeleteInvoices(_id: string) {
-    this.invoiceService.deleteInvoices(_id).pipe(takeUntil(this.destroyed)).subscribe(
+  deleteInvoice(_id: string) {
+    this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
-        this.deleteService.selectedId = null;
-        // this.invoiceService.getAllInvoice().pipe(takeUntil(this.destroyed)).subscribe(
-        //   (res: any) => {
-        //     this.invoices = res.invoices.map((invoice: any) => {
-        //       invoice.date = this.formatDate(invoice.date);
-        //       return invoice;
-        //     });
-        //   },
-        //   (err) => {
-        //     console.error(err);
-        //   }
-        // );
         this.invoiceService.getAll();
       },
       (err) => {
@@ -122,7 +125,7 @@ export class InvoiceComponent implements OnInit {
 
   DeleteInvoice(details: any) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.INVOICES } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id } });
     })
   }
 
@@ -139,13 +142,7 @@ export class InvoiceComponent implements OnInit {
       });
     });
   }
-  toggleCheckbox(index: number) {
-    this.checkboxes[index] = !this.checkboxes[index];
-    this.updateButtonEnabledState();
-  }
-  updateButtonEnabledState() {
-    this.isButtonEnabled = this.checkboxes.some(checked => checked);
-  }
+
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
@@ -169,10 +166,39 @@ export class InvoiceComponent implements OnInit {
     alert("Hi")
   }
 
-  bulkdelete() {
-    this.router.navigate(["invoice", "delete"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { event: DeleteEvents.BULK_DELETE } });
+  BULKDELETE() {
+    this.invoiceService.bulkDelete().subscribe((res: any) => {
+      console.log(res, "Bulk delete response")
     })
+  } 
+
+
+  bulkdelete() {
+    const bulkItems: string[] = [];
+    for (const key in this.checkedItems) {
+      if (this.checkedItems.hasOwnProperty(key) && this.checkedItems[key]) {
+        bulkItems.push(key);
+      }
+    }
+    this.router.navigate(["invoice", "delete", 'all']).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string } })
+    })
+
+  }
+
+  ascendingOrder() {
+
+  }
+
+  descendingOrder() {
+
+  }
+
+  checkItem(event: any, itemId: string) {
+    const checked: boolean = event.target.checked;
+    this.checkedItems[itemId] = checked;
+    const isAnyChecked = Object.values(this.checkedItems).some(v => v === true);
+    this.isButtonEnabled = isAnyChecked;
   }
 }
 

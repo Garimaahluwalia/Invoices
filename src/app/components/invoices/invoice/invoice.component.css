@@ -96,3 +96,18 @@ svg {
   vertical-align: middle;
   margin-right: 15px;
 }
+
+button.btn.btn-secondary.dropdown-toggle.show {
+  background-color: var(--highlight-color) !important;
+  border-color: var(--highlight-color) !important;
+  margin-bottom: 60px;
+}
+
+button.btn.btn-secondary{
+  background-color: var(--highlight-color) !important;
+  border-color: var(--highlight-color) !important;
+}
+
+i.fa-sharp.fa-solid.fa-arrow-up {
+  margin-right: 4px;
+}

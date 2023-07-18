@@ -143,11 +143,9 @@ export class InvoiceService {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
 
-
-
-  // public getDuplicateInvoice(invoiceId: any): Observable<any> {
-  //   return this.http.post<any>(endpoints.INVOICES_LIST.DUPLICATE_INVOICE(invoiceId), {});
-  // }
+  bulkDelete() {
+    return this.http.delete(endpoints.INVOICES_LIST.BULK_DELETE);
+  }
 
   downloadInvoice(invoiceId: any): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
@@ -156,7 +154,7 @@ export class InvoiceService {
     })
   }
 
-  deleteInvoices(invoiceId: string) {
+  deleteInvoice(invoiceId: string) {
     return this.http.delete(endpoints.INVOICES_LIST.DELETE(invoiceId));
   }
 
