@@ -81,3 +81,8 @@ tr.disabled {
     transform: translate3d(1024px, 185px, 0px) !important;
 }
 }
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 15px;
+}
