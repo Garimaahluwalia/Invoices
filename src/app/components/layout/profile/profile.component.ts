@@ -81,6 +81,7 @@ export class ProfileComponent implements OnInit {
       (error) => {
         console.error('Profile update failed:', error);
       }
+      
     );
   }
 
