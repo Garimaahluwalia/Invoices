@@ -40,7 +40,7 @@ export class InvoiceComponent implements OnInit {
   public readonly statuses: string[] = Object.values(STATUS);
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
-  public  ORDER: ORDER = ORDER.DESC;
+ public order: ORDER = ORDER.DESC;
 
   constructor(
     private datePipe: DatePipe,
@@ -204,8 +204,8 @@ export class InvoiceComponent implements OnInit {
   }
 
   sortingOrder(sortField: string, sortOrder: ORDER) {
-    this.ORDER = this.ORDER === ORDER.DESC ? ORDER.ASEC : ORDER.DESC;
-    console.log(`Sorting by ${sortField} in ${this.ORDER} order.`);
+   
+   console.log(sortField, sortOrder, "SORTING")
   }
 
 
