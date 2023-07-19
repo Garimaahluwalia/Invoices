@@ -93,6 +93,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   fetchCountries() {
     axios.get('https://restcountries.com/v2/all')
       .then(response => {
+        console.log(response, "COUNTRY RESPONSE")
         this.countries = response.data.map((country: { name: any; alpha2Code: any; }) => ({
           name: country.name,
           code: country.alpha2Code
