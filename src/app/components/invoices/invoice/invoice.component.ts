@@ -32,9 +32,7 @@ export class InvoiceComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;
   public readonly statuses: string[] = Object.values(STATUS);
-  public buttonVisible = false;
-  isButtonEnabled: boolean = false;
-
+  public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
 
   constructor(
@@ -57,15 +55,14 @@ export class InvoiceComponent implements OnInit {
             break;
           }
           case "multi": {
-            console.log(res['bulkItems']);
-            //this.deleteInvoices(res['bulkItems'] as string);
-
+            const bulkItems: string[] = res['bulkItems'] as string[];
+            this.deletebulkInvoices(bulkItems);
             break;
           }
         }
-
       }
     });
+    
 
     // <-- pagination 
     this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
@@ -77,6 +74,24 @@ export class InvoiceComponent implements OnInit {
     });
     // pagination --> 
   }
+
+
+  deletebulkInvoices(ids: string[]) {
+    if (ids.length === 0) {
+      console.warn('No items selected for bulk delete.');
+      return;
+    }
+    this.invoiceService.bulkDelete(ids).subscribe(
+      () => {
+        console.log('Bulk delete successful!');
+      },
+      (error) => {
+       
+        console.error('Bulk delete failed:', error);
+      }
+    );
+  }
+
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
@@ -162,15 +177,11 @@ export class InvoiceComponent implements OnInit {
   }
 
 
-  sorting() {
-    alert("Hi")
-  }
-
-  BULKDELETE() {
-    this.invoiceService.bulkDelete().subscribe((res: any) => {
-      console.log(res, "Bulk delete response")
-    })
-  }
+  // BULKDELETE() {
+  //   this.invoiceService.bulkDelete().subscribe((res: any) => {
+  //     console.log(res, "Bulk delete response")
+  //   })
+  // }
 
 
   bulkdelete() {
@@ -183,6 +194,15 @@ export class InvoiceComponent implements OnInit {
     this.router.navigate(["invoice", "delete", 'all']).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string } })
     })
+    
+  }
+
+  checkItem(event: any, itemId: string) {
+    const checked: boolean = event.target.checked;
+    this.checkedItems[itemId] = checked;
+    const isAnyChecked = Object.values(this.checkedItems).some(v => v === true);
+    console.log(isAnyChecked, "Anychecked")
+    this.isButtonEnabled = isAnyChecked;
   }
 
   ascendingOrder() {
@@ -193,11 +213,6 @@ export class InvoiceComponent implements OnInit {
 
   }
 
-  checkItem(event: any, itemId: string) {
-    const checked: boolean = event.target.checked;
-    this.checkedItems[itemId] = checked;
-    const isAnyChecked = Object.values(this.checkedItems).some(v => v === true);
-    this.isButtonEnabled = isAnyChecked;
-  }
+
 }
 
