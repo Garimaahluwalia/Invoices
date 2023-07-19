@@ -144,9 +144,9 @@ export class InvoiceService {
   }
 
   bulkDelete(ids: string[]) {
-    return this.http.delete(endpoints.INVOICES_LIST.BULK_DELETE , { params: { ids: ids.join(',') } });
+    return this.http.post(endpoints.INVOICES_LIST.BULK_DELETE , {ids});
   }
-  
+ 
   downloadInvoice(invoiceId: any): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
       observe: 'response',

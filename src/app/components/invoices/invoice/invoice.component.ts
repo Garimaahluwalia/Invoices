@@ -43,6 +43,8 @@ export class InvoiceComponent implements OnInit {
     public modalService: ModalService,
     public clientService: ClientService,
     public sidebarService: SidebarService) { }
+
+
   ngOnInit(): void {
     this.itemsPerPage = this.invoiceService.limit;  //pagination
     this.loadInvoices();
@@ -56,7 +58,6 @@ export class InvoiceComponent implements OnInit {
           }
           case "multi": {
             const bulkItems: string[] = res['bulkItems'] as string[];
-            // console.log(bulkItems, "BULKITEMS")
             this.deletebulkInvoices(bulkItems);
             break;
           }
@@ -81,7 +82,10 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.bulkDelete(ids).subscribe(
       () => {
         console.log('Bulk delete successful!');
+        this.invoices = this.invoices.filter(item => !ids.includes(item._id));
+        this.checkedItems = {};
       },
+      
       (error) => {
         console.error('Bulk delete failed:', error);
       }
@@ -172,14 +176,6 @@ export class InvoiceComponent implements OnInit {
     this.mobileNav.nativeElement.click();
   }
 
-
-  // BULKDELETE() {
-  //   this.invoiceService.bulkDelete().subscribe((res: any) => {
-  //     console.log(res, "Bulk delete response")
-  //   })
-  // }
-
-
   bulkdelete() {
     const bulkItems: string[] = [];
     for (const key in this.checkedItems) {
@@ -190,7 +186,6 @@ export class InvoiceComponent implements OnInit {
     this.router.navigate(["invoice", "delete", 'all']).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string } })
     })
-    
   }
 
   checkItem(event: any, itemId: string) {
