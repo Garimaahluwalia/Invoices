@@ -25,6 +25,7 @@
     "angular-notifier": "^12.0.0",
     "axios": "^1.4.0",
     "intl-tel-input": "^18.1.8",
+    "jspdf": "^2.5.1",
     "ng2-tel-input": "^2.3.0",
     "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^17.0.2",

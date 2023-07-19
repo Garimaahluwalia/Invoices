@@ -8,11 +8,11 @@ const endpoints = {
   RESET_PASSWORD: `${environment.BASE_URL}/forgot-password`,
   LOGOUT: `${environment.BASE_URL}/logout`,
   DASHBOARD: `${environment.BASE_URL}/dashboard`,
-  
+
 
 
   INVOICES_LIST: {
-    GETALL: (page: number, limit: number) => `${environment.BASE_URL}/invoice?page=${page}&limit=${limit}`,
+    GETALL: (page: number, limit: number , order : string , field : any) => `${environment.BASE_URL}/invoice?page=${page}&limit=${limit}&order=${order}&field=${field}`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     DELETE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
@@ -21,9 +21,8 @@ const endpoints = {
     UPDATE_STATUS: (InvoiceId: string) => `${environment.BASE_URL}/status/${InvoiceId}`,
     DOWNLOAD_INVOICE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/getInvoicePdf/${InvoiceId}`,
     CHECK_INVOICENUMBER: (InvoiceNumber: string, InvoiceId: string) => `${environment.BASE_URL}/invoice-number/${InvoiceNumber}/${InvoiceId}`,
-    DUPLICATE_INVOICE :(InvoiceId: any) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
-    BULK_DELETE : `${environment.BASE_URL}/invoice/bulkDelete`,
-
+    DUPLICATE_INVOICE: (InvoiceId: any) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
+    BULK_DELETE: `${environment.BASE_URL}/invoice/bulkDelete`,
   },
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoice`,

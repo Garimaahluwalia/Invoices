@@ -7,6 +7,8 @@ import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -113,6 +115,19 @@ export class InvoiceListDetailsComponent implements OnInit {
         }
       });
   }
+
+  /* public downloadInvoice(): void {
+    let DATA: any = document.getElementById('pdfHolder');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('angular-demo.pdf');
+    });
+  } */
   
 
 }

@@ -11,7 +11,13 @@ import { STATUS } from 'src/app/types/status';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
+// import { ORDER } from 'src/app/types/order';
 
+
+export enum ORDER {
+  DESC = 'desc',
+  ASEC = 'asec',
+}
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -34,6 +40,7 @@ export class InvoiceComponent implements OnInit {
   public readonly statuses: string[] = Object.values(STATUS);
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
+  public  ORDER: ORDER = ORDER.DESC;
 
   constructor(
     private datePipe: DatePipe,
@@ -196,12 +203,9 @@ export class InvoiceComponent implements OnInit {
     this.isButtonEnabled = isAnyChecked;
   }
 
-  ascendingOrder() {
-
-  }
-
-  descendingOrder() {
-
+  sortingOrder(sortField: string, sortOrder: ORDER) {
+    this.ORDER = this.ORDER === ORDER.DESC ? ORDER.ASEC : ORDER.DESC;
+    console.log(`Sorting by ${sortField} in ${this.ORDER} order.`);
   }
 
 

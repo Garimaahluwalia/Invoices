@@ -19,6 +19,8 @@ export class InvoiceService {
   public totalNumberOfInvoices: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
   private _limit: number = 10;
+  private order!: string;
+  private field : any;
 
 
   // pagination
@@ -135,8 +137,8 @@ export class InvoiceService {
   }
 
 
-  getAllInvoice(page: number = 1, limit: number = 10): Observable<any> {
-    return this.http.get<{ invoices: IInvoiceResponse[], totalCount: number, totalPages: number }>(endpoints.INVOICES_LIST.GETALL(page, limit));
+  getAllInvoice(page: number = 1, limit: number = 10, order : string , field : any): Observable<any> {
+    return this.http.get<{ invoices: IInvoiceResponse[], totalCount: number, totalPages: number }>(endpoints.INVOICES_LIST.GETALL(page, limit, order , field));
   }
 
   getInvoice(invoiceId: string): Observable<any> {
@@ -181,7 +183,7 @@ export class InvoiceService {
   getAll() {
     // console.log(this.page);
     try {
-      this.getAllInvoice(this.page, this.limit).subscribe(
+      this.getAllInvoice(this.page, this.limit , this.order , this.field ).subscribe(
         (res) => { 
           this._invoices = res.invoices;
           this.totalNumberOfInvoices.next(res.totalCount);
