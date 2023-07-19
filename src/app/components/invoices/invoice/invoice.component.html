@@ -8,20 +8,36 @@
                             Add
                             Invoices</a>
                     </div>
-                    <div class="search-box">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Search for Result">
+                    <div class="search-box" [ngClass]="{'search-focused': isSearchFocused}">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="searchQuery"
+                          (ngModelChange)="handleSearch()"
+                          (focus)="isSearchFocused = true"
+                          (blur)="isSearchFocused = false"
+                          placeholder="Search for Result"
+                          (keyup)="handleSearch()"
+                        >
+                      </div>
+                      
+                    <!-- <div class="search-box">
+                        <input type="text" class="form-control" [(ngModel)]="searchQuery" (keyup)="handleSearch()"
+                            placeholder="Search for Result">
+                    </div> -->
 
-                    </div>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="isButtonEnabled">
-                         Bulk-Actions
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" *ngIf="isButtonEnabled">
+                            Bulk-Actions
                         </button>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="javascript:void(0)" (click)="bulkdelete()">Bulk Delete</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0)">Download As PDF</a></li>
-                     
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="bulkdelete()">Bulk
+                                    Delete</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)">Download As PDF</a></li>
+
                         </ul>
-                      </div>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive table-card">
                             <table class="table table-hover table-nowrap invoice-table align-middle mb-0">
@@ -30,30 +46,49 @@
                                         <th></th>
                                         <th scope="col">Date
                                             <span class="sort-icon">
-                                                <i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;" (click)="sortingOrder('date', ORDER)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;" (click)="sortingOrder('date', ORDER)"></i>
-                                              </span>
-                                              
-                                              
+                                                <i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;"
+                                                    (click)="sortingOrder('date', ORDER.DESC)"></i>
+                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                    (click)="sortingOrder('date', ORDER.ASC)"></i>
+                                            </span>
+
+
                                         </th>
                                         <th scope="col">Invoice
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;" (click)="sortingOrder('invoice' , ORDER)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;" (click)="sortingOrder('invoice' , ORDER)"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
+                                                    style="cursor: pointer;"
+                                                    (click)="sortingOrder('invoice' , ORDER.DESC)"></i>
+                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                    (click)="sortingOrder('invoice' , ORDER.ASC)"></i></span>
                                         </th>
-                                        <th scope="col">Billed To
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;" (click)="sortingOrder('client' , ORDER)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;" (click)="sortingOrder('client' , ORDER)"></i></span>
+                                        <th scope="col">CLIENTS
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
+                                                    style="cursor: pointer;"
+                                                    (click)="sortingOrder('name' , ORDER.DESC)"></i>
+                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                    (click)="sortingOrder('name' , ORDER.ASC)"></i></span>
                                         </th>
                                         <th scope="col" style="width: 20%;">Email
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;" (click)="sortingOrder('email' , ORDER)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;" (click)="sortingOrder('email' , ORDER)"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
+                                                    style="cursor: pointer;"
+                                                    (click)="sortingOrder('email' , ORDER.DESC)"></i>
+                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                    (click)="sortingOrder('email' , ORDER.ASC)"></i></span>
                                         </th>
                                         <th scope="col">Amount
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;" (click)="sortingOrder('amount' , ORDER)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;" (click)="sortingOrder('amount' , ORDER)"></i></span>
+                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
+                                                    style="cursor: pointer;"
+                                                    (click)="sortingOrder('subtotalofamount' , ORDER.DESC)"></i>
+                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                    (click)="sortingOrder('subtotalofamount' , ORDER.ASC)"></i></span>
                                         </th>
                                         <th scope="col" style="width: 16%;">Status
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;"></i><i class="fa-solid fa-arrow-down" style="cursor: pointer;"></i></span>
+                                            <span class="sort-icon">
+                                                <i class="fa-sharp fa-solid fa-arrow-up"
+                                                    style="cursor: pointer;" (click)="sortingOrder('status' , ORDER.DESC)"></i>
+                                                    <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                    (click)="sortingOrder('status' , ORDER.ASC)"></i>
+                                                </span>
                                         </th>
                                         <th scope="col" style="width: 12%;">Actions
                                         </th>

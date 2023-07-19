@@ -37,8 +37,9 @@ export class InvoiceComponent implements OnInit {
   public readonly statuses: string[] = Object.values(STATUS);
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
-  public readonly ORDER: ORDER = ORDER.DESC;
-
+  public readonly ORDER = ORDER;
+  public searchQuery: string = '';
+  public isSearchFocused: boolean = false;
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -77,6 +78,7 @@ export class InvoiceComponent implements OnInit {
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
+      console.log(this.invoices, "INVOICES")
     });
     // pagination --> 
   }
@@ -201,9 +203,16 @@ export class InvoiceComponent implements OnInit {
   }
 
   sortingOrder(sortField: any, sortOrder: ORDER) {
+    this.invoiceService.sortField = sortField;
+    this.invoiceService.sortOrder = sortOrder;
+    this.loadInvoices();
     console.log(sortField, sortOrder, "SORTING")
   }
 
-
+  handleSearch() {
+    this.invoiceService.searchQuery = this.searchQuery;
+    this.loadInvoices();
+    console.log('Search Query:', this.searchQuery);
+  }
 }
 

@@ -111,3 +111,25 @@ button.btn.btn-secondary{
 i.fa-sharp.fa-solid.fa-arrow-up {
   margin-right: 4px;
 }
+
+input.form-control.ng-untouched.ng-pristine.ng-valid {
+  width: 300px;
+  margin-left: 80%;
+}
+
+input.form-control.ng-valid.ng-dirty.ng-touched {
+  width: 100px;
+  margin-left: 80%;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-box input {
+  width: 100px;
+}
+
+.search-focused input {
+  margin-left: 80%;
+}
