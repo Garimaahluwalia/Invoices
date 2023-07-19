@@ -56,6 +56,7 @@ export class InvoiceComponent implements OnInit {
           }
           case "multi": {
             const bulkItems: string[] = res['bulkItems'] as string[];
+            // console.log(bulkItems, "BULKITEMS")
             this.deletebulkInvoices(bulkItems);
             break;
           }
@@ -77,16 +78,11 @@ export class InvoiceComponent implements OnInit {
 
 
   deletebulkInvoices(ids: string[]) {
-    if (ids.length === 0) {
-      console.warn('No items selected for bulk delete.');
-      return;
-    }
     this.invoiceService.bulkDelete(ids).subscribe(
       () => {
         console.log('Bulk delete successful!');
       },
       (error) => {
-       
         console.error('Bulk delete failed:', error);
       }
     );
