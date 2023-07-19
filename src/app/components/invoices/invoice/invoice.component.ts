@@ -11,13 +11,10 @@ import { STATUS } from 'src/app/types/status';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
-// import { ORDER } from 'src/app/types/order';
+import { ORDER } from 'src/app/types/order';
 
 
-export enum ORDER {
-  DESC = 'desc',
-  ASEC = 'asec',
-}
+
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -40,7 +37,7 @@ export class InvoiceComponent implements OnInit {
   public readonly statuses: string[] = Object.values(STATUS);
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
- public order: ORDER = ORDER.DESC;
+  public readonly ORDER: ORDER = ORDER.DESC;
 
   constructor(
     private datePipe: DatePipe,
@@ -71,7 +68,7 @@ export class InvoiceComponent implements OnInit {
         }
       }
     });
-    
+
 
     // <-- pagination 
     this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
@@ -92,7 +89,7 @@ export class InvoiceComponent implements OnInit {
         this.invoices = this.invoices.filter(item => !ids.includes(item._id));
         this.checkedItems = {};
       },
-      
+
       (error) => {
         console.error('Bulk delete failed:', error);
       }
@@ -203,9 +200,8 @@ export class InvoiceComponent implements OnInit {
     this.isButtonEnabled = isAnyChecked;
   }
 
-  sortingOrder(sortField: string, sortOrder: ORDER) {
-   
-   console.log(sortField, sortOrder, "SORTING")
+  sortingOrder(sortField: any, sortOrder: ORDER) {
+    console.log(sortField, sortOrder, "SORTING")
   }
 
 
