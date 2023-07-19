@@ -14,6 +14,7 @@ export class ClientService {
   public totalNumberOfClient: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
   private _limit: number = 10;
+  private _searchQuery! : string;
   // pagination
 
   private _clients: Client[] = [];
@@ -54,6 +55,14 @@ export class ClientService {
     return this._page;
   }
 
+  set searchQuery(value: string) {
+    this._searchQuery = value;
+  }
+
+  get searchQuery(): string {
+    return this._searchQuery;
+  }
+
   set limit(value: number) {
     this._limit = value;
   }
@@ -70,8 +79,8 @@ export class ClientService {
     return this.http.post(endpoints.CLIENTS.ADD, payload);
   }
 
-  getAllClients(page: number = 1, limit: number = 12): Observable<any> { //pagination
-    return this.http.get<{ clients: Client[], totalCount: number, totalPages: number }>(endpoints.CLIENTS.GETALL(page, limit));
+  getAllClients(page: number = 1, limit: number = 12 , searchQuery : string): Observable<any> { //pagination
+    return this.http.get<{ clients: Client[], totalCount: number, totalPages: number }>(endpoints.CLIENTS.GETALL(page, limit, searchQuery));
   }
 
   getClient(ClientId: string): Observable<Client> {
@@ -106,7 +115,7 @@ export class ClientService {
 
   getAll() {
     try {
-      this.getAllClients(this.page, this.limit).subscribe(  // pagination
+      this.getAllClients(this.page, this.limit, this.searchQuery).subscribe(  // pagination
         res => {
           this._clients = res.clients as Client[];
           this.sendClients();

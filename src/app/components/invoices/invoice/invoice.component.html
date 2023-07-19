@@ -3,47 +3,46 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
-                    <div class="col-sm-12 text-right pt-4  pb-2">
-                        <a href="/add-invoice" class="btn btn-primary-outline "><i class="las la-plus me-1"></i>
-                            Add
-                            Invoices</a>
-                    </div>
-                    <div class="search-box" [ngClass]="{'search-focused': isSearchFocused}">
-                        <input
-                          type="text"
-                          class="form-control"
-                          [(ngModel)]="searchQuery"
-                          (ngModelChange)="handleSearch()"
-                          (focus)="isSearchFocused = true"
-                          (blur)="isSearchFocused = false"
-                          placeholder="Search for Result"
-                          (keyup)="handleSearch()"
-                        >
-                      </div>
-                      
-                    <!-- <div class="search-box">
-                        <input type="text" class="form-control" [(ngModel)]="searchQuery" (keyup)="handleSearch()"
-                            placeholder="Search for Result">
-                    </div> -->
 
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" *ngIf="isButtonEnabled">
-                            Bulk-Actions
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="bulkdelete()">Bulk
-                                    Delete</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0)">Download As PDF</a></li>
-
-                        </ul>
-                    </div>
                     <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="form-outline">
+                                        <input type="search" id="form1" class="form-control invoice-search"
+                                            [(ngModel)]="searchQuery" (ngModelChange)="handleSearch()"
+                                            (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
+                                            placeholder="Search for Result" (keyup)="handleSearch()" />
+                                        <!-- <label class="form-label" for="form1">Search</label> -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 text-right">
+
+                                <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
+                                    *ngIf="isButtonEnabled" (click)="bulkdelete()">
+                                    Bulk Delete</button>
+
+                                <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
+                                    *ngIf="isButtonEnabled">
+                                    Bulk PDF</button>
+                                <a href="/add-invoice" class="btn btn-primary-outline "><i class="las la-plus me-1"></i>
+                                    Add
+                                    Invoices</a>
+                            </div>
+
+                        </div>
                         <div class="table-responsive table-card">
                             <table class="table table-hover table-nowrap invoice-table align-middle mb-0">
                                 <thead>
                                     <tr class="text-muted text-uppercase">
-                                        <th></th>
+                                        <th>
+                                            <input type="checkbox" (change)="selectUnselectAllItems($event)">
+                                        </th>
                                         <th scope="col">Date
                                             <span class="sort-icon">
                                                 <i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;"
@@ -62,33 +61,19 @@
                                                     (click)="sortingOrder('invoice' , ORDER.ASC)"></i></span>
                                         </th>
                                         <th scope="col">CLIENTS
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
-                                                    style="cursor: pointer;"
-                                                    (click)="sortingOrder('name' , ORDER.DESC)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
-                                                    (click)="sortingOrder('name' , ORDER.ASC)"></i></span>
+                                            <span class="sort-icon">
+                                            </span>
                                         </th>
                                         <th scope="col" style="width: 20%;">Email
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
-                                                    style="cursor: pointer;"
-                                                    (click)="sortingOrder('email' , ORDER.DESC)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
-                                                    (click)="sortingOrder('email' , ORDER.ASC)"></i></span>
+                                            <span class="sort-icon"></span>
                                         </th>
                                         <th scope="col">Amount
-                                            <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
-                                                    style="cursor: pointer;"
-                                                    (click)="sortingOrder('subtotalofamount' , ORDER.DESC)"></i>
-                                                <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
-                                                    (click)="sortingOrder('subtotalofamount' , ORDER.ASC)"></i></span>
+                                            <span class="sort-icon"></span>
                                         </th>
                                         <th scope="col" style="width: 16%;">Status
                                             <span class="sort-icon">
-                                                <i class="fa-sharp fa-solid fa-arrow-up"
-                                                    style="cursor: pointer;" (click)="sortingOrder('status' , ORDER.DESC)"></i>
-                                                    <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
-                                                    (click)="sortingOrder('status' , ORDER.ASC)"></i>
-                                                </span>
+
+                                            </span>
                                         </th>
                                         <th scope="col" style="width: 12%;">Actions
                                         </th>
@@ -100,8 +85,8 @@
                                     <tr
                                         *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  } let i = index">
                                         <td>
-                                            <input type="checkbox" (change)="checkItem($event, details._id)"
-                                                [checked]="checkedItems[details._id]">
+                                            <input type="checkbox" #selectUnselectItems (change)="checkItem($event, details._id)"
+                                                [checked]="checkedItems[details._id]" [value]="details._id">
                                         </td>
                                         <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
                                         <td data-label="Invoice ID">
@@ -204,7 +189,6 @@
             </div>
         </div>
     </div>
-</div>
 
-<router-outlet></router-outlet>
-<pagination-controls (pageChange)="onPageChange($event)" id="invoice"> </pagination-controls>
+    <router-outlet></router-outlet>
+    <pagination-controls (pageChange)="onPageChange($event)" id="invoice"> </pagination-controls>

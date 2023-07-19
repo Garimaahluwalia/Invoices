@@ -16,7 +16,8 @@ export class ClientComponent implements OnInit {
   public showModal = false;
   public clients: any[] = [];
   public inputsDisabled = false;
-
+  public searchQuery: string = '';
+  public isSearchFocused: boolean = false;
   
   public currentPage = 1;  //pagination
   public itemsPerPage = 2; //pagination
@@ -42,11 +43,6 @@ export class ClientComponent implements OnInit {
     });
     // pagination --> 
 
-   /*  this.deleteService.recieveDeleteEvent()?.subscribe(res => {
-      if (res) {
-        this.DeleteClients(this.deleteService.selectedId as string);
-      }
-    }); */
   }
 
 
@@ -100,4 +96,10 @@ export class ClientComponent implements OnInit {
     this.clientService.getAll();
   }
 
+
+  handleSearch(){
+  this.clientService.searchQuery = this.searchQuery;
+    this.clientService.getAll();
+    console.log('Search Query:', this.searchQuery);
+  }
 }

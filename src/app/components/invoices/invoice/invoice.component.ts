@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChildren, OnInit, ViewChild, QueryList } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -21,6 +21,7 @@ import { ORDER } from 'src/app/types/order';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
+  @ViewChildren("selectUnselectItems") elements?: QueryList<ElementRef<HTMLInputElement>>
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   public isActiveSideBar: Boolean = false;
   public currentPage = 1;  //pagination
@@ -90,6 +91,7 @@ export class InvoiceComponent implements OnInit {
         console.log('Bulk delete successful!');
         this.invoices = this.invoices.filter(item => !ids.includes(item._id));
         this.checkedItems = {};
+        this.isButtonEnabled = false;
       },
 
       (error) => {
@@ -198,8 +200,8 @@ export class InvoiceComponent implements OnInit {
     const checked: boolean = event.target.checked;
     this.checkedItems[itemId] = checked;
     const isAnyChecked = Object.values(this.checkedItems).some(v => v === true);
-    console.log(isAnyChecked, "Anychecked")
     this.isButtonEnabled = isAnyChecked;
+    console.log(isAnyChecked, "Anychecked")
   }
 
   sortingOrder(sortField: any, sortOrder: ORDER) {
@@ -213,6 +215,15 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.searchQuery = this.searchQuery;
     this.loadInvoices();
     console.log('Search Query:', this.searchQuery);
+  }
+
+  selectUnselectAllItems(event: any) {
+    const checked = event.target.checked;
+    this.isButtonEnabled = checked;
+    this.elements?.forEach(element => {
+      this.checkedItems[element.nativeElement.value] = checked;
+      element.nativeElement.checked = checked as any;
+    });
   }
 }
 

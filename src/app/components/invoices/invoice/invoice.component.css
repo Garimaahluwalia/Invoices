@@ -86,10 +86,10 @@ tr.disabled {
   background-color: var(--highlight-color) !important;
     border-color: var(--highlight-color) !important;
 }
-input#searchMemberList {
+/* input#searchMemberList {
   width: 100px;
   margin-left: 80%;
-}
+} */
 
 svg {
   overflow: hidden;
@@ -112,24 +112,17 @@ i.fa-sharp.fa-solid.fa-arrow-up {
   margin-right: 4px;
 }
 
-input.form-control.ng-untouched.ng-pristine.ng-valid {
-  width: 300px;
-  margin-left: 80%;
+
+
+.bulk-invoice[_ngcontent-vxu-c11] {
+  background-color: #E31E24 !important;
+  border-color: #E31E24 !important;
+  color: #fff;
+  padding: 6px 17px;
+  font-size: 18px;
 }
 
-input.form-control.ng-valid.ng-dirty.ng-touched {
-  width: 100px;
-  margin-left: 80%;
-}
-
-.search-box {
-  position: relative;
-}
-
-.search-box input {
-  width: 100px;
-}
-
-.search-focused input {
-  margin-left: 80%;
+button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
+  background-color: #E31E24 !important;
+  border: #E31E24 !important;
 }

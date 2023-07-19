@@ -32,7 +32,7 @@ const endpoints = {
   CLIENTS: {
     CHECKPHONENUMBER: `${environment.BASE_URL}/check`,
     ADD: `${environment.BASE_URL}/client`,
-    GETALL: (page: number, limit: number) => `${environment.BASE_URL}/client?page=${page}&limit=${limit}`,
+    GETALL: (page: number, limit: number, searchQuery: string = "") => `${environment.BASE_URL}/client?page=${page}&limit=${limit}&searchQuery=${searchQuery}`,
     GET: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
     UPDATE: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
     DELETE: (ClientId: string) => `${environment.BASE_URL}/client/${ClientId}`,
