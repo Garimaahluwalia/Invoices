@@ -9,6 +9,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs';
+import * as moment from 'moment';
 
 
 
@@ -21,7 +22,7 @@ import { takeUntil } from 'rxjs';
 })
 export class ProductdetailsComponent implements OnInit {
 
-
+  public defaultDateRange!: string;
   public showTaxHeaders: boolean = true;
   public taxes: string[] = Object.values(TAXES);
   public rate!: number;
@@ -47,6 +48,7 @@ export class ProductdetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.defaultDateRange = moment().format('MM/DD/YYYY');
     this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.productRows = res;
     });

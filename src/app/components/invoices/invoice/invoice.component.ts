@@ -12,7 +12,7 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { ORDER } from 'src/app/types/order';
-
+import * as moment from 'moment';
 
 
 @Component({
@@ -44,7 +44,7 @@ export class InvoiceComponent implements OnInit {
   public readonly ORDER = ORDER;
   public searchQuery: string = '';
   public isSearchFocused: boolean = false;
-
+  public defaultDateRange!: string;
   
   constructor(
     private datePipe: DatePipe,
@@ -57,6 +57,8 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.defaultDateRange = moment().format('MM/DD/YYYY');
     this.itemsPerPage = this.invoiceService.limit;  //pagination
     this.loadInvoices();
 
@@ -242,5 +244,33 @@ export class InvoiceComponent implements OnInit {
     });
   }
   
+  dateRangePicker(event:any){
+    const dateRangePickerValue = event.target.value;
+    console.log(dateRangePickerValue , "DATERANGEVALUES")
+  }
+
+
+  bulkPDFDownload(){
+      this.invoiceService.bulkDownloadAsPDF(this._id)
+        .pipe(takeUntil(this.destroyed))
+        .subscribe({
+          next: (response: any) => {
+            let dataType = response.type;
+            let binaryData = [];
+            binaryData.push(response.body);
+            let downloadLink = document.createElement('a');
+            const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+            downloadLink.href = URI;
+            downloadLink.setAttribute('download', `invoice_${this._id}.pdf`);
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            setTimeout(() => {
+              downloadLink.remove();
+              window.URL.revokeObjectURL(URI);
+            }, 1000);
+          },
+        });
+
+  }
 }
 

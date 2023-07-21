@@ -21,6 +21,12 @@ export class InvoicedataComponent implements OnInit, OnChanges {
   public InvoiceNumber!: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public invoiceImage: any;
+
+
+
+
+
+  
   constructor(
     public invoiceService: InvoiceService,
     private datePipe: DatePipe,

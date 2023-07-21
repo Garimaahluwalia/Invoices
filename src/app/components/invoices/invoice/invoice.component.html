@@ -14,10 +14,17 @@
                                             (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
                                             placeholder="Search for Result" (keyup)="handleSearch()" />
                                     </div>
+<!--                                       
                                     <button type="button" class="btn btn-primary">
                                         <i class="fas fa-search"></i>
-                                    </button>
+                                    </button> -->
+                                    <div class="d-flex align-items-center ml-5">
+                                        <label class="date-range">Select Date Range</label>
+                                      <input type="text" name="daterange" (change)="dateRangePicker($event)" class="datepicker" [value]="defaultDateRange"/>
+                                      </div>
                                 </div>
+
+                               
 
                             </div>
                             <div class="col-md-6 text-right">
@@ -27,7 +34,7 @@
                                     Bulk Delete</button>
 
                                 <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
-                                    *ngIf="isButtonEnabled">
+                                    *ngIf="isButtonEnabled" (click)="bulkPDFDownload()">
                                     Bulk PDF</button>
                                 <a href="/add-invoice" class="btn btn-primary-outline "><i class="las la-plus me-1"></i>
                                     Add

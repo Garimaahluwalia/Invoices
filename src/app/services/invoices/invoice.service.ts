@@ -170,6 +170,10 @@ export class InvoiceService {
     return this.http.post(endpoints.INVOICES_LIST.BULK_DELETE , {ids});
   }
  
+
+  bulkDownloadAsPDF(ids: string[]) {
+    return this.http.post(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF , {ids});
+  }
   downloadInvoice(invoiceId: any): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
       observe: 'response',
