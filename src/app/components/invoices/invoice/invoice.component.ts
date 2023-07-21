@@ -151,6 +151,7 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.page = page;
     this.invoiceService.getAll();
     this.checkedItems = {};
+    this.selectUnselectSingle.nativeElement.checked = false;
   }
 
   DeleteInvoice(details: any) {
