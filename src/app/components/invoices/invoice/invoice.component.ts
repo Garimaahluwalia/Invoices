@@ -23,6 +23,7 @@ import { ORDER } from 'src/app/types/order';
 export class InvoiceComponent implements OnInit {
   @ViewChildren("selectUnselectItems") elements?: QueryList<ElementRef<HTMLInputElement>>
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
+  @ViewChild('selectUnselectSingle', { static: true }) selectUnselectSingle!: ElementRef;
   public isActiveSideBar: Boolean = false;
   public currentPage = 1;  //pagination
   public itemsPerPage = 10; //pagination
@@ -202,10 +203,17 @@ export class InvoiceComponent implements OnInit {
   }
 
   checkItem(event: any, itemId: string) {
-    // console.log(itemId, "ITEMID")
-    const checked: boolean = event.target.checked;  // Checked return true or false 
+    const checked: boolean = event.target.checked;  // Checked will be true or false 
     this.checkedItems[itemId] = checked;
-    const isAnyChecked = Object.values(this.checkedItems).some(v => v === true);
+
+    const ObjectValues = Object.values(this.checkedItems);  // Returns Array
+
+    const isAnyChecked = ObjectValues.some(v => v === true);  // Return true or false
+
+    if(this.invoices.length === ObjectValues.length) {
+      const isAllchecked = ObjectValues.every( v => v === true);
+      console.log(isAllchecked , "isAllchecked");
+    }
     console.log(isAnyChecked, "isAnyChecked");
     this.isButtonEnabled = isAnyChecked;
   }
@@ -214,7 +222,6 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.sortField = sortField;
     this.invoiceService.sortOrder = sortOrder;
     this.loadInvoices();
-    // console.log(sortField, sortOrder, "SORTING")
   }
 
   handleSearch() {

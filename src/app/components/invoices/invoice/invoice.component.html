@@ -41,7 +41,7 @@
                                     <tr class="text-muted text-uppercase">
                                         <th>
                                             <!-- Select-unselect-all-items -->
-                                            <input type="checkbox" (change)="selectUnselectAllItems($event)">
+                                            <input type="checkbox" #selectUnselectSingle (change)="selectUnselectAllItems($event)">
                                         </th>
                                         <th scope="col">Date
                                             <span class="sort-icon">
