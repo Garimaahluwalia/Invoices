@@ -184,11 +184,15 @@ export class InvoiceService {
   bulkDelete(ids: string[]) {
     return this.http.post(endpoints.INVOICES_LIST.BULK_DELETE , {ids});
   }
- 
 
-  bulkDownloadAsPDF(ids: string[]) {
-    return this.http.post(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF , {ids});
+
+  bulkDownloadAsPDF(invoiceId: string): Observable<any> {
+    return this.http.get<string>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(invoiceId));
   }
+
+  // bulkDownloadAsPDF(ids: string[]) {
+  //   return this.http.post(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF , {ids});
+  // }
 
 
   downloadInvoice(invoiceId: any): Observable<any> {
