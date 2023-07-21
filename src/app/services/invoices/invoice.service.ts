@@ -22,6 +22,8 @@ export class InvoiceService {
   private _sortOrder!: string;
   private _sortField! : string;
   private _searchQuery : any;
+  private _startDate : any;
+  private _endDate : any;
 
 
   // pagination
@@ -57,6 +59,19 @@ export class InvoiceService {
     } else {
       console.log("Invoice not found.");
     }
+  }
+
+  set startDate(value: any) {
+    this._startDate = value;
+  }
+  get startDate(): any {
+    return this._startDate;
+  }
+  set endDate(value: any) {
+    this._endDate = value;
+  }
+  get endDate(): any {
+    return this._endDate;
   }
 
 
@@ -158,8 +173,8 @@ export class InvoiceService {
   }
 
 
-  getAllInvoice(page: number = 1, limit: number = 10, order : string , field : any , searchQuery :any): Observable<any> {
-    return this.http.get<{ invoices: IInvoiceResponse[], totalCount: number, totalPages: number }>(endpoints.INVOICES_LIST.GETALL(page, limit, order , field , searchQuery));
+  getAllInvoice(page: number = 1, limit: number = 10, order : string , field : any , searchQuery :any , startDate:any , endDate :any): Observable<any> {
+    return this.http.get<{ invoices: IInvoiceResponse[], totalCount: number, totalPages: number }>(endpoints.INVOICES_LIST.GETALL(page, limit, order , field , searchQuery , startDate , endDate ));
   }
 
   getInvoice(invoiceId: string): Observable<any> {
@@ -174,6 +189,8 @@ export class InvoiceService {
   bulkDownloadAsPDF(ids: string[]) {
     return this.http.post(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF , {ids});
   }
+
+
   downloadInvoice(invoiceId: any): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
       observe: 'response',
@@ -208,7 +225,7 @@ export class InvoiceService {
   getAll() {
     // console.log(this.page);
     try {
-      this.getAllInvoice(this.page, this.limit , this.sortOrder , this.sortField , this.searchQuery ).subscribe(
+      this.getAllInvoice(this.page, this.limit , this.sortOrder , this.sortField , this.searchQuery , this.startDate , this.endDate).subscribe(
         (res) => { 
           this._invoices = res.invoices;
           this.totalNumberOfInvoices.next(res.totalCount);

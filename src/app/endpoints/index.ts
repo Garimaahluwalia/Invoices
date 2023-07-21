@@ -12,7 +12,7 @@ const endpoints = {
 
 
   INVOICES_LIST: {
-    GETALL: (page: number, limit: number, sortOrder: string = "", sortField: string = "", searchQuery: string = "") => `${environment.BASE_URL}/invoice?page=${page}&limit=${limit}&sortOrder=${sortOrder}&sortField=${sortField}&searchQuery=${searchQuery}`,
+    GETALL: (page: number, limit: number, sortOrder: string = "", sortField: string = "", searchQuery: string = "" , startDate:string = "" , endDate:string ="") => `${environment.BASE_URL}/invoice?page=${page}&limit=${limit}&sortOrder=${sortOrder}&sortField=${sortField}&searchQuery=${searchQuery}&startDate=${startDate}&endDate=${endDate}`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     DELETE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,

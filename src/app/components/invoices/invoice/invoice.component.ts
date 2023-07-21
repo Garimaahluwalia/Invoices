@@ -43,9 +43,11 @@ export class InvoiceComponent implements OnInit {
   public checkedItems: { [key: string]: boolean } = {};
   public readonly ORDER = ORDER;
   public searchQuery: string = '';
+  public startDate :any;
+  public endDate : any;
   public isSearchFocused: boolean = false;
   public defaultDateRange!: string;
-  
+
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -194,6 +196,15 @@ export class InvoiceComponent implements OnInit {
     this.mobileNav.nativeElement.click();
   }
 
+  // bulkIds() {
+  //   const bulkItems: string[] = [];
+  //   for (const key in this.checkedItems) {
+  //     if (this.checkedItems.hasOwnProperty(key) && this.checkedItems[key]) {
+  //       bulkItems.push(key);
+  //     }
+  //   }
+  // }
+
   bulkdelete() {
     const bulkItems: string[] = [];
     for (const key in this.checkedItems) {
@@ -214,10 +225,10 @@ export class InvoiceComponent implements OnInit {
 
     const isAnyChecked = ObjectValues.some(v => v === true);  // Return true or false
 
-    if(this.invoices.length === ObjectValues.length) {
-      const isAllchecked = ObjectValues.every( v => v === true);
+    if (this.invoices.length === ObjectValues.length) {
+      const isAllchecked = ObjectValues.every(v => v === true);
       this.selectUnselectSingle.nativeElement.checked = isAllchecked as any;
-      console.log(isAllchecked , "isAllchecked");
+      console.log(isAllchecked, "isAllchecked");
     }
     console.log(isAnyChecked, "isAnyChecked");
     this.isButtonEnabled = isAnyChecked;
@@ -243,33 +254,41 @@ export class InvoiceComponent implements OnInit {
       element.nativeElement.checked = checked as any;
     });
   }
-  
-  dateRangePicker(event:any){
-    const dateRangePickerValue = event.target.value;
-    console.log(dateRangePickerValue , "DATERANGEVALUES")
+
+  dateRangePicker(startDate: any , endDate: any) {
+    console.log(startDate, "startdate" , endDate , "endDate")
+    this.invoiceService.startDate = startDate;
+    this.invoiceService.endDate = endDate;
+    this.loadInvoices();
   }
 
 
-  bulkPDFDownload(){
-      this.invoiceService.bulkDownloadAsPDF(this._id)
-        .pipe(takeUntil(this.destroyed))
-        .subscribe({
-          next: (response: any) => {
-            let dataType = response.type;
-            let binaryData = [];
-            binaryData.push(response.body);
-            let downloadLink = document.createElement('a');
-            const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
-            downloadLink.href = URI;
-            downloadLink.setAttribute('download', `invoice_${this._id}.pdf`);
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            setTimeout(() => {
-              downloadLink.remove();
-              window.URL.revokeObjectURL(URI);
-            }, 1000);
-          },
-        });
+  bulkPDFDownload() {
+    const bulkItems: string[] = [];
+    for (const key in this.checkedItems) {
+      if (this.checkedItems.hasOwnProperty(key) && this.checkedItems[key]) {
+        bulkItems.push(key);
+      }
+    }
+    this.invoiceService.bulkDownloadAsPDF(bulkItems)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe({
+        next: (response: any) => {
+          let dataType = response.type;
+          let binaryData = [];
+          binaryData.push(response.body);
+          let downloadLink = document.createElement('a');
+          const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+          downloadLink.href = URI;
+          downloadLink.setAttribute('download', `invoice_${bulkItems}.zip`);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          setTimeout(() => {
+            downloadLink.remove();
+            window.URL.revokeObjectURL(URI);
+          }, 1000);
+        },
+      });
 
   }
 }
