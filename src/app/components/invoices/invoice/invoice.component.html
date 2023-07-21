@@ -13,7 +13,6 @@
                                             [(ngModel)]="searchQuery" (ngModelChange)="handleSearch()"
                                             (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
                                             placeholder="Search for Result" (keyup)="handleSearch()" />
-                                        <!-- <label class="form-label" for="form1">Search</label> -->
                                     </div>
                                     <button type="button" class="btn btn-primary">
                                         <i class="fas fa-search"></i>
@@ -41,6 +40,7 @@
                                 <thead>
                                     <tr class="text-muted text-uppercase">
                                         <th>
+                                            <!-- Select-unselect-all-items -->
                                             <input type="checkbox" (change)="selectUnselectAllItems($event)">
                                         </th>
                                         <th scope="col">Date
@@ -82,7 +82,8 @@
 
                                 <tbody>
 
-                                    <tr
+                                    <ng-container *ngIf="invoices.length > 0; else NoResultFound" >
+                                      <tr
                                         *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  } let i = index">
                                         <td>
                                             <input type="checkbox" #selectUnselectItems (change)="checkItem($event, details._id)"
@@ -180,7 +181,14 @@
                                                 </li>
                                             </ul>
                                         </td>
-                                    </tr>
+                                    </tr> 
+                                    </ng-container>
+                                    <ng-template #NoResultFound>
+                                        <tr>
+                                            <td colspan="7" style="text-align: center; font-weight: 700; font-size: 20px;">No Result Found</td>
+                                          </tr>
+                                          
+                                    </ng-template>
                                 </tbody>
                             </table>
                         </div>

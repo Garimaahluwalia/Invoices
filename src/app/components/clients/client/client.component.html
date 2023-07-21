@@ -1,49 +1,48 @@
- <div class="page-content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">User</h4>
-                    </div>
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">User</h4>
                 </div>
             </div>
-            <div class="row pb-4 gy-3">
-                <div class="col-md-4 text-md-left text-right">
-                    <button class="btn btn-primary-outline addPayment-modal" (click)="addClient()"><i
-                            class="las la-plus me-1"></i> Add New</button>
-                </div>
-                <div class="input-group">
-                    <div class="form-outline">
-                      <input type="search" id="form1" class="form-control" [(ngModel)]="searchQuery"
-                      (ngModelChange)="handleSearch()"
-                      (focus)="isSearchFocused = true"
-                      (blur)="isSearchFocused = false"
-                      placeholder="Search for Result"
-                      (keyup)="handleSearch()" />
-                     
-                    </div>
-                    <button type="button" class="btn btn-primary">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </div>
+        </div>
+        <div class="row pb-4 gy-3">
+            <div class="col-md-4 text-md-left text-right">
+                <button class="btn btn-primary-outline addPayment-modal" (click)="addClient()"><i
+                        class="las la-plus me-1"></i> Add New</button>
             </div>
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" id="form1" class="form-control" [(ngModel)]="searchQuery"
+                        (ngModelChange)="handleSearch()" (focus)="isSearchFocused = true"
+                        (blur)="isSearchFocused = false" placeholder="Search for Result" (keyup)="handleSearch()" />
 
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="table-responsive table-card">
-                                <table class="table table-hover table-nowrap align-middle mb-0">
-                                    <thead>
-                                        <tr class="text-muted text-uppercase">
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col" style="width: 12%;">Action</th>
-                                        </tr>
-                                    </thead>
+                </div>
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
 
-                                    <tbody>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive table-card">
+                            <table class="table table-hover table-nowrap align-middle mb-0">
+                                <thead>
+                                    <tr class="text-muted text-uppercase">
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col" style="width: 12%;">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <ng-container *ngIf="clients.length > 0; else NoClientFound">
                                         <tr
                                             *ngFor="let details of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'clients', totalItems: totalItems  } let i = index">
                                             <td data-label="Name">
@@ -68,24 +67,28 @@
                                                             <i class="las la-pen fs-17 align-middle"></i>
                                                         </a>
                                                     </li>
-                                                    <!-- <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                        data-bs-trigger="delete" data-bs-placement="top" title="delete">
-                                                        <a class="btn btn-soft-info btn-sm d-inline-block"
-                                                            (click)="DeleteClient(details)">
-                                                            <i class="las la-pen fs-17 align-middle"></i>
-                                                        </a>
-                                                    </li> -->
                                                 </ul>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </ng-container>
+                                    <ng-template #NoClientFound>
+                                        <tr>
+                                            <td colspan="7"
+                                                style="text-align: center; font-weight: 700; font-size: 20px;">No Result
+                                                Found</td>
+                                        </tr>
+                                    </ng-template>
+
+
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <pagination-controls (pageChange)="onPageChange($event)" id="clients"> </pagination-controls>
+</div>
+<pagination-controls (pageChange)="onPageChange($event)" id="clients"> </pagination-controls>
 <router-outlet></router-outlet>

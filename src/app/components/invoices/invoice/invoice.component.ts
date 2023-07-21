@@ -36,11 +36,15 @@ export class InvoiceComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;
   public readonly statuses: string[] = Object.values(STATUS);
+
+
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
   public readonly ORDER = ORDER;
   public searchQuery: string = '';
   public isSearchFocused: boolean = false;
+
+  
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -54,6 +58,7 @@ export class InvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.itemsPerPage = this.invoiceService.limit;  //pagination
     this.loadInvoices();
+
     this.deleteService.recieveDeleteEvent()?.subscribe(res => {
       if (res) {
         switch (res?.['type'] as string) {
@@ -197,24 +202,25 @@ export class InvoiceComponent implements OnInit {
   }
 
   checkItem(event: any, itemId: string) {
-    const checked: boolean = event.target.checked;
+    // console.log(itemId, "ITEMID")
+    const checked: boolean = event.target.checked;  // Checked return true or false 
     this.checkedItems[itemId] = checked;
     const isAnyChecked = Object.values(this.checkedItems).some(v => v === true);
+    console.log(isAnyChecked, "isAnyChecked");
     this.isButtonEnabled = isAnyChecked;
-    console.log(isAnyChecked, "Anychecked")
   }
 
   sortingOrder(sortField: any, sortOrder: ORDER) {
     this.invoiceService.sortField = sortField;
     this.invoiceService.sortOrder = sortOrder;
     this.loadInvoices();
-    console.log(sortField, sortOrder, "SORTING")
+    // console.log(sortField, sortOrder, "SORTING")
   }
 
   handleSearch() {
     this.invoiceService.searchQuery = this.searchQuery;
     this.loadInvoices();
-    console.log('Search Query:', this.searchQuery);
+    console.log('Search Query :- ', this.searchQuery);
   }
 
   selectUnselectAllItems(event: any) {
@@ -225,5 +231,6 @@ export class InvoiceComponent implements OnInit {
       element.nativeElement.checked = checked as any;
     });
   }
+  
 }
 
