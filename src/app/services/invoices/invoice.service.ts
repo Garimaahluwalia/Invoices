@@ -186,8 +186,8 @@ export class InvoiceService {
   }
 
 
-  bulkDownloadAsPDF(invoiceId: string): Observable<any> {
-    return this.http.get<string>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(invoiceId));
+  bulkDownloadAsPDF(invoiceId: string[]): Observable<any> {
+    return this.http.get<string[]>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(invoiceId));
   }
 
   // bulkDownloadAsPDF(ids: string[]) {
