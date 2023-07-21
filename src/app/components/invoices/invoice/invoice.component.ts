@@ -150,6 +150,7 @@ export class InvoiceComponent implements OnInit {
     this.currentPage = page;
     this.invoiceService.page = page;
     this.invoiceService.getAll();
+    this.checkedItems = {};
   }
 
   DeleteInvoice(details: any) {
@@ -212,6 +213,7 @@ export class InvoiceComponent implements OnInit {
 
     if(this.invoices.length === ObjectValues.length) {
       const isAllchecked = ObjectValues.every( v => v === true);
+      this.selectUnselectSingle.nativeElement.checked = isAllchecked as any;
       console.log(isAllchecked , "isAllchecked");
     }
     console.log(isAnyChecked, "isAnyChecked");
