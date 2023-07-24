@@ -104,16 +104,15 @@ export class InvoiceComponent implements OnInit {
   ngAfterViewInit() {
     $('input[name="daterange"]').daterangepicker({
       opens: 'left'
-    }, (start: { format: (arg0: string) => string; }, end: { format: (arg0: string) => string; }, label: any) => {
-      // console.log(start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-      this.dateRangePicker(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
+    }, (start: any, end: any, label: any) => {
+      this.dateRangePicker(start, end);
     });
   }
-
-  dateRangePicker(start: string, end: string) {
+  
+  dateRangePicker(start: any, end: any) {
     console.log(start, "startdate", end, "endDate");
-    this.invoiceService.startDate = start;
-    this.invoiceService.endDate = end;
+    this.invoiceService.startDate = start._d;
+    this.invoiceService.endDate = end._d;
     this.loadInvoices();
   }
 

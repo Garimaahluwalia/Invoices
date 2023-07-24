@@ -1,0 +1,9 @@
+button.btn.btn-primary.add-columns {
+    width: 181px;
+    margin: auto 73%;
+    align-items: end;
+}
+
+input.form-control.column-name {
+    width: 350px;
+}

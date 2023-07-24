@@ -37,7 +37,7 @@ import { DatePipe } from '@angular/common';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 import { InvoiceNumberDirective } from './directives/invoice-number.directive';
 import { SvgComponent } from './common/svg/svg.component';
-import { AddColumnsComponent } from './modals/add-columns/add-columns.component';
+import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -110,8 +110,7 @@ const customNotifierOptions: NotifierOptions = {
     invoiceactionsComponent,
     InvoiceNumberDirective,
     SvgComponent,
-    AddColumnsComponent
-   
+    AddFieldsComponent,
   ],
   imports: [
     BrowserModule,

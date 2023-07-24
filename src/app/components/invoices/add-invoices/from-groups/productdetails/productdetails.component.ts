@@ -179,8 +179,12 @@ export class ProductdetailsComponent implements OnInit {
 
   addFields(){
     this.router.navigate(["add-invoice", "add-field"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.addField, { status: true, data: { invoice: true } });
+      this.modalService.sendEvent(ModalEvents.addField, { status: true});
     });
   }
 
+
+  // this.router.navigate(["add-invoice", "add-client"], options).then(() => {
+  //   this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true } });
+  // });
 }

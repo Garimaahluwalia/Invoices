@@ -39,17 +39,6 @@ export class DeleteComponent {
         this.closeModal();
       }
     }));
-
-    // this.modalService.recieveEvent(ModalEvents.BulkDelete).pipe(takeUntil(this.destroyed)).subscribe((res => {
-    //   const{ data, status} = res;
-    //   console.log(this.data, "DATA")
-    //   this.data = data, status;
-    //   if(status || data) {
-    //     this.openModal();
-    //   }else{
-    //     this.closeModal();
-    //   }
-    // }))
   }
 
   openModal() {

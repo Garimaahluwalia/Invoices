@@ -1,0 +1,96 @@
+<button type="button" #openModalButton class="btn btn-primary d-none" data-bs-toggle="modal"
+    data-bs-target="#addUpdate">Add</button>
+<div class="modal" id="addUpdate" aria-labelledby="addUpdateLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-head pb-3">
+                <!-- <h1 class="modal-title fs-5" id="addUpdateLabel">Clients</h1> -->
+                <button type="button" class="close" (click)="closeModal()">
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
+
+                </button>
+                <button type="button" #closeModalButton class="d-none btn-close" data-bs-dismiss="modal"
+                    aria-label="Close">
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <h4>Edit columns</h4>
+                    <p>Add new fields or Edit name of fields in the invoice. Use this to add fields like units, hours,
+                        service/product specification etc. Also, private columns are not visible to clients and are not
+                        part of pdf.</p>
+                    <hr>
+
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-primary add-columns">Add New columns</button>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="text" class="form-label">Column Name</label>
+                            <input type="text" class="form-control column-name">
+                          </div>
+                        </div>
+                      
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="column-type" class="form-label">Column Type</label>
+                            <input type="text" id="column-type" class="form-control column-type">
+                          </div>
+                        </div>
+                      </div>
+                   
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="text" id="column-type" class="form-control column-name">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="text" id="column-type" class="form-control column-type">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="text" id="column-type" class="form-control column-name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="text" id="column-type" class="form-control column-type">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="text" id="column-type" class="form-control column-name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="text" id="column-type" class="form-control column-type">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer pt-2 pb-0">
+                        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+                        <button type="button" class="btn btn-primary add-client">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
