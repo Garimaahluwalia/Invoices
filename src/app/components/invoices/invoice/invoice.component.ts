@@ -46,8 +46,8 @@ export class InvoiceComponent implements OnInit {
   public checkedItems: { [key: string]: boolean } = {};
   public readonly ORDER = ORDER;
   public searchQuery: string = '';
-  public startDate :any;
-  public endDate : any;
+  public startDate: any;
+  public endDate: any;
   public isSearchFocused: boolean = false;
   public defaultDateRange!: string;
   private readonly notifier!: NotifierService;
@@ -60,8 +60,8 @@ export class InvoiceComponent implements OnInit {
     public clientService: ClientService,
     public sidebarService: SidebarService,
     public notifierService: NotifierService,) {
-      this.notifier = notifierService;
-     }
+    this.notifier = notifierService;
+  }
 
 
   ngOnInit(): void {
@@ -102,14 +102,22 @@ export class InvoiceComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    $(function () {
-      $('input[name="daterange"]').daterangepicker({
-        opens: 'left'
-      }, function (start: { format: (arg0: string) => string; }, end: { format: (arg0: string) => string; }, label: any) {
-        console.log(start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-      });
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, (start: { format: (arg0: string) => string; }, end: { format: (arg0: string) => string; }, label: any) => {
+      // console.log(start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+      this.dateRangePicker(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
     });
   }
+
+  dateRangePicker(start: string, end: string) {
+    console.log(start, "startdate", end, "endDate");
+    this.invoiceService.startDate = start;
+    this.invoiceService.endDate = end;
+    this.loadInvoices();
+  }
+
+
   deletebulkInvoices(ids: string[]) {
     this.invoiceService.bulkDelete(ids).subscribe(
       () => {
@@ -261,12 +269,6 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  dateRangePicker(startDate: any , endDate: any) {
-    console.log(startDate, "startdate" , endDate , "endDate")
-    this.invoiceService.startDate = startDate;
-    this.invoiceService.endDate = endDate;
-    this.loadInvoices();
-  }
 
 
   bulkPDFDownload() {
@@ -282,7 +284,7 @@ export class InvoiceComponent implements OnInit {
         next: (response: any) => {
           const blob = new Blob([response.body], { type: 'application/zip' }); // Create a blob using response
           const url = window.URL.createObjectURL(blob); // Create URL from that blob
-          
+
           let downloadLink = document.createElement('a');
           downloadLink.href = url;
           downloadLink.setAttribute('download', `invoices.zip`); // Downloaded file name
@@ -292,7 +294,7 @@ export class InvoiceComponent implements OnInit {
             downloadLink.remove();
             window.URL.revokeObjectURL(url);
           }, 1000);
-  
+
           setTimeout(() => {
             this.notifier.show({
               type: 'success',
@@ -300,7 +302,7 @@ export class InvoiceComponent implements OnInit {
               id: 'THAT_NOTIFICATION_ID',
             });
           }, 3000);
-  
+
           setTimeout(() => {
             this.notifier.hide('THAT_NOTIFICATION_ID');
           }, 5000);
@@ -311,7 +313,7 @@ export class InvoiceComponent implements OnInit {
         }
       });
   }
-  
+
 
 
 
