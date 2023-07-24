@@ -100,6 +100,5 @@ export class ClientComponent implements OnInit {
   handleSearch(){
   this.clientService.searchQuery = this.searchQuery;
     this.clientService.getAll();
-    console.log('Search Query:', this.searchQuery);
   }
 }

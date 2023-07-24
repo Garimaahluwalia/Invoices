@@ -2,7 +2,8 @@ export enum ModalEvents {
   AddorUpdateClient = "AddorUpdateClient",
   Delete = "Delete",
   invoiceactions = "invoiceactions",
-  BulkDelete = "BulkDelete"
+  BulkDelete = "BulkDelete",
+  addField = "addField"
 }
 
 export interface IEventResponse {

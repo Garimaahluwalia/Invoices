@@ -29,23 +29,29 @@
             ],
             "styles": [
               "src/styles.css",
-             
-    "src/styles.css",
-    "node_modules/ngx-toastr/toastr.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bootstrap-daterangepicker/daterangepicker.css"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js",
-            "node_modules/daterangepicker/daterangepicker.js"]
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/daterangepicker/daterangepicker.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/bootstrap-daterangepicker/daterangepicker.js"
+            ]
           },
           "configurations": {
             "production": {
               "optimization": {
                 "scripts": true,
                 "styles": {
-                    "minify": true,
-                    "inlineCritical": false
+                  "minify": true,
+                  "inlineCritical": false
                 },
                 "fonts": true
-            },
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -110,12 +116,13 @@
             "styles": [
               "src/styles.css",
               "src/styles.css",
-              
-    "src/styles.css",
-    "node_modules/ngx-toastr/toastr.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js",
-            "node_modules/daterangepicker/daterangepicker.js"]
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/daterangepicker/daterangepicker.js"
+            ]
           }
         }
       }

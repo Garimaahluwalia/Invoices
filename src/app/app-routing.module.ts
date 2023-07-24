@@ -17,6 +17,7 @@ import { ClientDetailsComponent } from './components/invoices/add-invoices/from-
 import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
+import { AddColumnsComponent } from './modals/add-columns/add-columns.component';
 
 
 const routes: Routes = [
@@ -86,6 +87,11 @@ const routes: Routes = [
         path: CLIENTS.UPDATE_CLIENT,
         component: AddClientComponent
       },
+      {
+        path : INVOICES.ADD_FIELD,
+        component : AddColumnsComponent
+
+      }
 
     ]
   },
@@ -116,6 +122,10 @@ const routes: Routes = [
   {
     path: CLIENTS.ADD_CLIENTS,
     component: AddClientComponent
+  },
+  {
+    path : INVOICES.ADD_FIELD,
+    component : AddColumnsComponent
   },
   {
     path: CLIENTS.DELETE,

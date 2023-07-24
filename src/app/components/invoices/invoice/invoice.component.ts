@@ -13,8 +13,11 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { ORDER } from 'src/app/types/order';
 import * as moment from 'moment';
+import { NotifierService } from 'angular-notifier';
+// import * as $ from 'jquery';
 
 
+declare var $: any;
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -47,7 +50,7 @@ export class InvoiceComponent implements OnInit {
   public endDate : any;
   public isSearchFocused: boolean = false;
   public defaultDateRange!: string;
-
+  private readonly notifier!: NotifierService;
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -55,7 +58,10 @@ export class InvoiceComponent implements OnInit {
     public deleteService: DeleteService,
     public modalService: ModalService,
     public clientService: ClientService,
-    public sidebarService: SidebarService) { }
+    public sidebarService: SidebarService,
+    public notifierService: NotifierService,) {
+      this.notifier = notifierService;
+     }
 
 
   ngOnInit(): void {
@@ -95,6 +101,15 @@ export class InvoiceComponent implements OnInit {
   }
 
 
+  ngAfterViewInit() {
+    $(function () {
+      $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+      }, function (start: { format: (arg0: string) => string; }, end: { format: (arg0: string) => string; }, label: any) {
+        console.log(start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+      });
+    });
+  }
   deletebulkInvoices(ids: string[]) {
     this.invoiceService.bulkDelete(ids).subscribe(
       () => {
@@ -196,15 +211,6 @@ export class InvoiceComponent implements OnInit {
     this.mobileNav.nativeElement.click();
   }
 
-  // bulkIds() {
-  //   const bulkItems: string[] = [];
-  //   for (const key in this.checkedItems) {
-  //     if (this.checkedItems.hasOwnProperty(key) && this.checkedItems[key]) {
-  //       bulkItems.push(key);
-  //     }
-  //   }
-  // }
-
   bulkdelete() {
     const bulkItems: string[] = [];
     for (const key in this.checkedItems) {
@@ -274,22 +280,41 @@ export class InvoiceComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe({
         next: (response: any) => {
-          let dataType = response.type;
-          let binaryData = [];
-          binaryData.push(response.body);
+          const blob = new Blob([response.body], { type: 'application/zip' }); // Create a blob using response
+          const url = window.URL.createObjectURL(blob); // Create URL from that blob
+          
           let downloadLink = document.createElement('a');
-          const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
-          downloadLink.href = URI;
-          downloadLink.setAttribute('download', `invoice_${bulkItems}.zip`);
+          downloadLink.href = url;
+          downloadLink.setAttribute('download', `invoices.zip`); // Downloaded file name
           document.body.appendChild(downloadLink);
           downloadLink.click();
           setTimeout(() => {
             downloadLink.remove();
-            window.URL.revokeObjectURL(URI);
+            window.URL.revokeObjectURL(url);
           }, 1000);
+  
+          setTimeout(() => {
+            this.notifier.show({
+              type: 'success',
+              message: 'Invoices Downloaded successfully',
+              id: 'THAT_NOTIFICATION_ID',
+            });
+          }, 3000);
+  
+          setTimeout(() => {
+            this.notifier.hide('THAT_NOTIFICATION_ID');
+          }, 5000);
         },
+        error: (error) => {
+          // handle error
+          console.log(error);
+        }
       });
-
   }
+  
+
+
+
+
 }
 

@@ -10,6 +10,9 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+import { ModalEvents } from 'src/app/types/modal';
+import { ModalService } from 'src/app/services/modal/modal.service';
 
 
 
@@ -43,7 +46,9 @@ export class ProductdetailsComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
-    public invoiceService: InvoiceService
+    public invoiceService: InvoiceService,
+    public router : Router,
+    public modalService : ModalService
   ) { }
 
 
@@ -172,6 +177,10 @@ export class ProductdetailsComponent implements OnInit {
     description.control.setValue(value);
   }
 
-
+  addFields(){
+    this.router.navigate(["add-invoice", "add-field"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.addField, { status: true, data: { invoice: true } });
+    });
+  }
 
 }
