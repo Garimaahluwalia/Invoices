@@ -49,35 +49,40 @@ export class ProductdetailsComponent implements OnInit {
       "fieldName": "Item",
       "hidden": true,
       "default": true,
-      "sortOrder": 1
+      "sortOrder": 1,
+      "custom" : true
     },
     {
       "type": "TEXT",
       "fieldName": "Amount",
       "hidden": true,
       "default": true,
-      "sortOrder": 3
+      "sortOrder": 3,
+       "custom" : true
     },
     {
       "type": "TEXT",
       "fieldName": "Rate",
       "hidden": false,
       "default": true,
-      "sortOrder": 2
+      "sortOrder": 2,
+      "custom" : true
     },
     {
       "type": "TEXT",
       "fieldName": "Taxamount",
       "hidden": false,
       "default": true,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "custom" : true
     },
     {
       "type": "TEXT",
       "fieldName": "Total",
       "hidden": false,
       "default": true,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "custom" : true
     }
   ]
 
