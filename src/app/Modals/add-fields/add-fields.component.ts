@@ -44,6 +44,8 @@ export class AddFieldsComponent {
     this.closeModalButton?.nativeElement.click();
     this.router.navigate(["add-invoice"]);
   }
+
+  
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();

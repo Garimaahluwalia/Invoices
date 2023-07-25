@@ -91,3 +91,15 @@ table thead .table-active{
     width: 100px;
  }
 
+ th.width-40 {
+    background-color: var(--highlight-color) !important;
+    border-color: var(--highlight-color) !important;
+}
+th.width-10 {
+    background-color: var(--highlight-color) !important;
+    border-color: var(--highlight-color) !important;
+}
+th {
+    background-color: var(--highlight-color) !important;
+    border-color: var(--highlight-color) !important;
+}

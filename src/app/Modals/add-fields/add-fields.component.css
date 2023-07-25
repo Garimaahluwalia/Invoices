@@ -7,3 +7,19 @@ button.btn.btn-primary.add-columns {
 input.form-control.column-name {
     width: 350px;
 }
+.type {
+    width: 200px;
+}
+label.form-label.column-name {
+    margin: 0px 25px 10px;
+}
+label.form-label.column-type {
+    margin: 0px 25px 10px;
+}
+
+input.form-control.column-name {
+    margin: 20px;
+}
+input.form-control.type {
+    margin: 20px;
+}
