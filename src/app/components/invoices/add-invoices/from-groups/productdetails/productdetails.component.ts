@@ -45,35 +45,35 @@ export class ProductdetailsComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public fields = [
     {
-      "type": "TEXT|NUMBER",
+      "type": "TEXT",
       "fieldName": "Item",
       "hidden": true,
       "default": true,
       "sortOrder": 1
     },
     {
-      "type": "TEXT|NUMBER",
+      "type": "TEXT",
       "fieldName": "Amount",
       "hidden": true,
       "default": true,
       "sortOrder": 3
     },
     {
-      "type": "TEXT|NUMBER",
+      "type": "TEXT",
       "fieldName": "Rate",
       "hidden": false,
       "default": true,
       "sortOrder": 2
     },
     {
-      "type": "TEXT|NUMBER",
+      "type": "TEXT",
       "fieldName": "Taxamount",
       "hidden": false,
       "default": true,
       "sortOrder": 4
     },
     {
-      "type": "TEXT|NUMBER",
+      "type": "TEXT",
       "fieldName": "Total",
       "hidden": false,
       "default": true,

@@ -25,52 +25,59 @@
 
                 </div>
                 <div class="row">
-                    <button type="button" class="btn btn-primary add-columns">Add New columns</button>
+                    <button type="button" class="btn btn-primary add-columns" (click)="addcolumns()">Add New columns</button>
                 </div>
                 <label for="text" class="form-label column-name">Column Name</label>
                 <label for="column-type" class="form-label column-type">Column Type</label>
                 <div class="row">
-                
-                   
 
-                    <div class="modal-body" >
+
+
+                    <div class="modal-body">
                         <div class="row" *ngFor="let details of fields">
                             <div class="col-md-6">
-                              <div class="mb-3">
-                           
-                                <input type="text" class="form-control column-name" placeholder={{details.fieldName}}>
-                              </div>
+                                <div class="mb-3">
+
+                                    <input type="text" class="form-control column-name"
+                                        placeholder={{details.fieldName}}>
+                                </div>
                             </div>
-                          
+
                             <div class="col-md-6">
                                 <div class="mb-3 position-relative">
-                                  <input type="text" id="column-type" class="form-control type" placeholder="{{details.type}}">
-                                  <i class="fa-solid fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-2 me-2"></i>
+                                    <input type="text" id="column-type" class="form-control type"
+                                        placeholder="{{details.type}}" readonly>
+                                    <i
+                                        class="fa-solid fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-2 me-2"></i>
                                 </div>
+                            </div>
+
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control column-name"   >
+                            </div>
+                            <div class="col-md-6">
+                            <div class="d-flex align-items-center type">
+                                <select  class="form-control form-control-sm taxes-edit selector-currency"
+                                  name="columntype" >
+                                  <option *ngFor="let columnType of columnType" [value]="columnType">{{columnType}}</option>
+                                </select>
                               </div>
-                              
-                              
-                              
-                              
-                          </div>
-                       
-                          <div class="row highlight-row" >
-                            <table class="invoice-table table table-borderless table-nowrap mb-0" style="padding: 20px;">
+                              </div>
+                        </div> -->
+                        
+                        <div class="row highlight-row">
+                            <table class="invoice-table table table-borderless table-nowrap mb-0"
+                                style="padding: 20px;">
                                 <thead class="align-middle items-chart">
-                                  <tr class="table-active">
-                                    <th scope="" class="width-40">Item</th>
-                                    <th scope="" class="width-10">HSN/SAC</th>
-                                    <th scope="" class="width-10">Amount</th>
-                                    <ng-container>
-                                      <th scope="col">Taxamount</th>
-                                      <th scope="col">Rate</th>
-                                      <th scope="col">Total</th>
-                                    </ng-container>
-                                    <th></th>
-                                  </tr>
+                                    <tr class="table-active">
+                                        <th scope="" class="width-40" *ngFor="let details of fields">
+                                            {{details.fieldName}}</th>
+                                    </tr>
                                 </thead>
-                                </table>
-                          </div>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="modal-footer pt-2 pb-0">
