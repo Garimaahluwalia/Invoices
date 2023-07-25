@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AbstractControl, ControlContainer, NgForm, NgModel } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ClientService } from 'src/app/services/clients/client.service';
@@ -13,6 +13,8 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { ModalEvents } from 'src/app/types/modal';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { Field } from 'src/app/types/columnType';
+import { AddFieldsComponent } from 'src/app/modals/add-fields/add-fields.component';
 
 
 
@@ -24,6 +26,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 
 })
 export class ProductdetailsComponent implements OnInit {
+  @ViewChild(AddFieldsComponent) public addFieldModal!: AddFieldsComponent
   public defaultDateRange!: string;
   public showTaxHeaders: boolean = true;
   public taxes: string[] = Object.values(TAXES);
@@ -43,14 +46,24 @@ export class ProductdetailsComponent implements OnInit {
   public inputcurrency: any;  // currency
   public taxamount: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public fields = [
+  public fields: Field[] = [
     {
       "type": "TEXT",
       "fieldName": "Item",
       "hidden": true,
       "default": true,
       "sortOrder": 1,
-      "custom" : true
+      "custom": false,
+      "delete": false
+    },
+    {
+      "type": "TEXT",
+      "fieldName": "HSN/SAC",
+      "hidden": true,
+      "default": true,
+      "sortOrder": 3,
+      "custom": false,
+      "delete": false
     },
     {
       "type": "TEXT",
@@ -58,7 +71,8 @@ export class ProductdetailsComponent implements OnInit {
       "hidden": true,
       "default": true,
       "sortOrder": 3,
-       "custom" : true
+      "custom": false,
+      "delete": false
     },
     {
       "type": "TEXT",
@@ -66,7 +80,8 @@ export class ProductdetailsComponent implements OnInit {
       "hidden": false,
       "default": true,
       "sortOrder": 2,
-      "custom" : true
+      "custom": false,
+      "delete": false
     },
     {
       "type": "TEXT",
@@ -74,7 +89,8 @@ export class ProductdetailsComponent implements OnInit {
       "hidden": false,
       "default": true,
       "sortOrder": 4,
-      "custom" : true
+      "custom": false,
+      "delete": false
     },
     {
       "type": "TEXT",
@@ -82,7 +98,8 @@ export class ProductdetailsComponent implements OnInit {
       "hidden": false,
       "default": true,
       "sortOrder": 4,
-      "custom" : true
+      "custom": false,
+      "delete": false
     }
   ]
 
@@ -221,9 +238,10 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   addFields() {
-    this.router.navigate(["add-invoice", "add-field"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.addField, { status: true });
-    });
+    /* this.router.navigate(["add-invoice", "add-field"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.addField, { status: true, data: {fields: this.fields }});
+    }); */
+    this.addFieldModal.openModal();
   }
 
 }

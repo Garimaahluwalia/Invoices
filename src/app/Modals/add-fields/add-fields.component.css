@@ -23,3 +23,8 @@ input.form-control.column-name {
 input.form-control.type {
     margin: 20px;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}

@@ -25,7 +25,8 @@
 
                 </div>
                 <div class="row">
-                    <button type="button" class="btn btn-primary add-columns" (click)="addcolumns()">Add New columns</button>
+                    <button type="button" class="btn btn-primary add-columns" (click)="addcolumns()">Add New
+                        columns</button>
                 </div>
                 <label for="text" class="form-label column-name">Column Name</label>
                 <label for="column-type" class="form-label column-type">Column Type</label>
@@ -34,38 +35,33 @@
 
 
                     <div class="modal-body">
-                        <div class="row" *ngFor="let details of fields">
+                        
+                        <div class="row" *ngFor="let details of fields; let i = index;">
                             <div class="col-md-6">
-                                <div class="mb-3">
-
-                                    <input type="text" class="form-control column-name"
-                                        placeholder={{details.fieldName}}>
-                                </div>
+                                <div class="mb-3 d-flex align-items-center">
+                                    <i class="fa-solid fa-grip-vertical me-2"></i>
+                                    <input type="text" class="form-control column-name" placeholder={{details.fieldName}}>
+                                  </div>
+                                  
                             </div>
 
                             <div class="col-md-6">
                                 <div class="mb-3 position-relative">
-                                    <input type="text" id="column-type" class="form-control type"
-                                        placeholder="{{details.type}}" readonly>
-                                    <i
-                                        class="fa-solid fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-2 me-2"></i>
+                                    <select [disabled]="details.custom === false"
+                                        class="form-control type form-control-sm taxes-edit selector-currency"
+                                        name="columntype">
+                                        <option *ngFor="let columnType of columnType" [value]="columnType">
+                                            {{columnType}}</option>
+                                    </select>
+                                    <div class="position-absolute top-50 end-0 translate-middle-y">
+                                        <i class="fa-solid fa-eye-slash pe-2 me-2"></i>
+                                        <i class="fa-solid fa-trash" *ngIf="details.delete !== false" (click)="deleteField(i)"></i>
+                                      </div>
+                                      
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control column-name"   >
-                            </div>
-                            <div class="col-md-6">
-                            <div class="d-flex align-items-center type">
-                                <select  class="form-control form-control-sm taxes-edit selector-currency"
-                                  name="columntype" >
-                                  <option *ngFor="let columnType of columnType" [value]="columnType">{{columnType}}</option>
-                                </select>
-                              </div>
-                              </div>
-                        </div> -->
-                        
+                       
                         <div class="row highlight-row">
                             <table class="invoice-table table table-borderless table-nowrap mb-0"
                                 style="padding: 20px;">

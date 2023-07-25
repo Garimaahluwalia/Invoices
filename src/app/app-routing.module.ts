@@ -46,10 +46,7 @@ const routes: Routes = [
             path: INVOICES.INVOICE_ACTIONS,
             component: invoiceactionsComponent
           },
-          {
-            path: INVOICES.ADD_FIELDS,
-            component: AddFieldsComponent
-          }
+       
         ]
       },
       {
@@ -91,10 +88,7 @@ const routes: Routes = [
         path: CLIENTS.UPDATE_CLIENT,
         component: AddClientComponent
       },
-      {
-        path : INVOICES.ADD_FIELDS,
-        component : AddFieldsComponent
-      }
+    
 
 
     ]
@@ -127,10 +121,7 @@ const routes: Routes = [
     path: CLIENTS.ADD_CLIENTS,
     component: AddClientComponent
   },
-  {
-    path: INVOICES.ADD_FIELDS,
-    component: AddFieldsComponent
-  },
+
   {
     path: CLIENTS.DELETE,
     component: DeleteComponent

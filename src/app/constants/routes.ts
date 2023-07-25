@@ -15,7 +15,6 @@ export const INVOICES = {
     MAIN_INVOICES: "main-invoice",
     INVOICE_ACTION: "invoice-actions",
     INVOICE_ACTIONS: "invoice-actions/:id",
-    ADD_FIELDS : "add-field"
 }
 
 export const CLIENTS = {
