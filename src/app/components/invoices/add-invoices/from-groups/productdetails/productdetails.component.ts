@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, ControlContainer, NgForm, NgModel } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ClientService } from 'src/app/services/clients/client.service';
@@ -24,7 +24,6 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 
 })
 export class ProductdetailsComponent implements OnInit {
-
   public defaultDateRange!: string;
   public showTaxHeaders: boolean = true;
   public taxes: string[] = Object.values(TAXES);
@@ -44,11 +43,50 @@ export class ProductdetailsComponent implements OnInit {
   public inputcurrency: any;  // currency
   public taxamount: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
+  public fields = [
+    {
+      "type": "TEXT|NUMBER",
+      "fieldName": "Item",
+      "hidden": true,
+      "default": true,
+      "sortOrder": 1
+    },
+    {
+      "type": "TEXT|NUMBER",
+      "fieldName": "Amount",
+      "hidden": true,
+      "default": true,
+      "sortOrder": 3
+    },
+    {
+      "type": "TEXT|NUMBER",
+      "fieldName": "Rate",
+      "hidden": false,
+      "default": true,
+      "sortOrder": 2
+    },
+    {
+      "type": "TEXT|NUMBER",
+      "fieldName": "Taxamount",
+      "hidden": false,
+      "default": true,
+      "sortOrder": 4
+    },
+    {
+      "type": "TEXT|NUMBER",
+      "fieldName": "Total",
+      "hidden": false,
+      "default": true,
+      "sortOrder": 4
+    }
+  ]
+
+
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService,
-    public router : Router,
-    public modalService : ModalService
+    public router: Router,
+    public modalService: ModalService
   ) { }
 
 
@@ -177,14 +215,10 @@ export class ProductdetailsComponent implements OnInit {
     description.control.setValue(value);
   }
 
-  addFields(){
+  addFields() {
     this.router.navigate(["add-invoice", "add-field"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.addField, { status: true});
+      this.modalService.sendEvent(ModalEvents.addField, { status: true });
     });
   }
 
-
-  // this.router.navigate(["add-invoice", "add-client"], options).then(() => {
-  //   this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true } });
-  // });
 }

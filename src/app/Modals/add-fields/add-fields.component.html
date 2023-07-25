@@ -27,64 +27,46 @@
                 <div class="row">
                     <button type="button" class="btn btn-primary add-columns">Add New columns</button>
                 </div>
+                <label for="text" class="form-label column-name">Column Name</label>
+                <label for="column-type" class="form-label column-type">Column Type</label>
                 <div class="row">
                 
                    
 
-                    <div class="modal-body">
-                        <div class="row">
+                    <div class="modal-body" >
+                        <div class="row" *ngFor="let details of fields">
                             <div class="col-md-6">
                               <div class="mb-3">
-                                <label for="text" class="form-label column-name">Column Name</label>
-                                <input type="text" class="form-control column-name">
+                           
+                                <input type="text" class="form-control column-name" placeholder={{details.fieldName}}>
                               </div>
                             </div>
                           
                             <div class="col-md-6">
                               <div class="mb-3">
-                                <label for="column-type" class="form-label column-type">Column Type</label>
-                                <input type="text" id="column-type" class="form-control type">
+                               
+                                <input type="text" id="column-type" class="form-control type" placeholder={{details.type}}>
                               </div>
                             </div>
                           </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <input type="text" id="column-type" class="form-control column-name">
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <input type="text" id="column-type" class="form-control type">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <input type="text" id="column-type" class="form-control column-name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <input type="text" id="column-type" class="form-control type">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <input type="text" id="column-type" class="form-control column-name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <input type="text" id="column-type" class="form-control type">
-                                </div>
-                            </div>
-                        </div>
+                       
+                          <div class="row highlight-row" >
+                            <table class="invoice-table table table-borderless table-nowrap mb-0" style="padding: 20px;">
+                                <thead class="align-middle items-chart">
+                                  <tr class="table-active">
+                                    <th scope="" class="width-40">Item</th>
+                                    <th scope="" class="width-10">HSN/SAC</th>
+                                    <th scope="" class="width-10">Amount</th>
+                                    <ng-container>
+                                      <th scope="col"></th>
+                                      <th scope="col">Rate</th>
+                                      <th scope="col">Total</th>
+                                    </ng-container>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                </table>
+                          </div>
                     </div>
 
                     <div class="modal-footer pt-2 pb-0">
