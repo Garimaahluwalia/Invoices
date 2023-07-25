@@ -28,21 +28,20 @@
                     <button type="button" class="btn btn-primary add-columns" (click)="addcolumns()">Add New
                         columns</button>
                 </div>
-                <label for="text" class="form-label column-name">Column Name</label>
+                <label for="text" class="form-label column-name me-2">Column Name</label>
                 <label for="column-type" class="form-label column-type">Column Type</label>
+
                 <div class="row">
-
-
-
                     <div class="modal-body">
-                        
+
                         <div class="row" *ngFor="let details of fields; let i = index;">
                             <div class="col-md-6">
                                 <div class="mb-3 d-flex align-items-center">
                                     <i class="fa-solid fa-grip-vertical me-2"></i>
-                                    <input type="text" class="form-control column-name" placeholder={{details.fieldName}}>
-                                  </div>
-                                  
+                                    <input type="text" class="form-control column-name"
+                                        placeholder={{details.fieldName}}>
+                                </div>
+
                             </div>
 
                             <div class="col-md-6">
@@ -54,14 +53,17 @@
                                             {{columnType}}</option>
                                     </select>
                                     <div class="position-absolute top-50 end-0 translate-middle-y">
-                                        <i class="fa-solid fa-eye-slash pe-2 me-2"></i>
-                                        <i class="fa-solid fa-trash" *ngIf="details.delete !== false" (click)="deleteField(i)"></i>
-                                      </div>
-                                      
+                                        <a (click)="togglePassword()" class="eye-b me-2">
+                                            <i class="{{show ? 'fas fa-eye' : 'fas fa-eye-slash'}} black-color"></i>
+                                        </a>
+                                        <i class="fa-solid fa-trash" *ngIf="details.delete !== false"
+                                            (click)="deleteField(i)"></i>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="row highlight-row">
                             <table class="invoice-table table table-borderless table-nowrap mb-0"
                                 style="padding: 20px;">
@@ -77,7 +79,7 @@
 
                     <div class="modal-footer pt-2 pb-0">
                         <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-                        <button type="button" class="btn btn-primary add-client">Save changes</button>
+                        <button type="button" class="btn btn-primary add-client" (click)="saveChanges()">Save changes</button>
                     </div>
                 </div>
 

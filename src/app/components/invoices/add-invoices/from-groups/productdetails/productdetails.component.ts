@@ -243,5 +243,8 @@ export class ProductdetailsComponent implements OnInit {
     }); */
     this.addFieldModal.openModal();
   }
-
+  handleSaveEvent(fields: Field[]) {
+   
+    console.log(fields, "FIELDS");
+  }
 }

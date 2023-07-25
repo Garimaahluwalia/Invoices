@@ -123,4 +123,4 @@
   </div>
 </div>
 
-<app-add-fields #addFieldModal [fields]="fields"></app-add-fields>
+<app-add-fields #addFieldModal [fields]="fields" (onSave)="handleSaveEvent($event)"></app-add-fields>
