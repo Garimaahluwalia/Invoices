@@ -54,7 +54,8 @@ export class ProductdetailsComponent implements OnInit {
       "default": true,
       "sortOrder": 1,
       "custom": false,
-      "delete": false
+      "delete": false,
+      "tax": false
     },
     {
       "type": "TEXT",
@@ -63,7 +64,8 @@ export class ProductdetailsComponent implements OnInit {
       "default": true,
       "sortOrder": 3,
       "custom": false,
-      "delete": false
+      "delete": false,
+      "tax": false
     },
     {
       "type": "TEXT",
@@ -72,37 +74,44 @@ export class ProductdetailsComponent implements OnInit {
       "default": true,
       "sortOrder": 3,
       "custom": false,
-      "delete": false
+      "delete": false,
+      "tax": false
     },
+  ]
+
+
+  public TaxFields: Field[] = [
     {
-      "type": "TEXT",
+      "type": "NUMBER",
       "fieldName": "Rate",
       "hidden": false,
       "default": true,
       "sortOrder": 2,
       "custom": false,
-      "delete": false
+      "delete": false,
+      "tax": true
     },
     {
-      "type": "TEXT",
+      "type": "NUMBER",
       "fieldName": "Taxamount",
       "hidden": false,
       "default": true,
       "sortOrder": 4,
       "custom": false,
-      "delete": false
+      "delete": false,
+      "tax": true
     },
     {
-      "type": "TEXT",
+      "type": "NUMBER",
       "fieldName": "Total",
       "hidden": false,
       "default": true,
       "sortOrder": 4,
       "custom": false,
-      "delete": false
+      "delete": false,
+      "tax": true
     }
   ]
-
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
@@ -152,6 +161,17 @@ export class ProductdetailsComponent implements OnInit {
   }
 
 
+  onTaxRateChange() {
+    this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
+    this.clientService.sendTaxName(this.selectedTaxRate);
+    this.productRows.forEach((row, index) => {
+      this.onProductValueChange(index, this.selectedTaxRateValue);
+    });
+    this.fields = [...this.fields, ...this.TaxFields];
+  }
+
+
+
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
@@ -199,13 +219,7 @@ export class ProductdetailsComponent implements OnInit {
     this.addinvoiceService.sendProductChanges(rows);
   }
 
-  onTaxRateChange() {
-    this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
-    this.clientService.sendTaxName(this.selectedTaxRate);
-    this.productRows.forEach((row, index) => {
-      this.onProductValueChange(index, this.selectedTaxRateValue);
-    });
-  }
+
 
 
 
@@ -238,7 +252,6 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   addFields() {
-   
     this.addFieldModal.openModal();
   }
 

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { COLUMNTYPE, Field } from 'src/app/types/columnType';
-import { ModalEvents } from 'src/app/types/modal';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -42,6 +41,10 @@ export class AddFieldsComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.fields, "FIELDS")
   }
+   
+
+  
+
 
   openModal() {
     this.openModalButton?.nativeElement?.click();

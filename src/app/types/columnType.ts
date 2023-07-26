@@ -24,7 +24,8 @@ export class Field {
     public default!: boolean;
     public sortOrder!: number;
     public custom!: boolean;
-    public delete! : boolean;
+    public delete!: boolean;
+    public tax!: boolean
 
     constructor(type: FieldType, fieldName: string, sortOrder: number) {
         this.type = type;
@@ -33,6 +34,7 @@ export class Field {
         this.default = false;
         this.custom = true;
         this.delete = true;
+        this.tax = false;
         this.sortOrder = sortOrder;
     }
 }
