@@ -1,15 +1,13 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AbstractControl, ControlContainer, NgForm, NgModel } from '@angular/forms';
+import { Component,OnInit, ViewChild } from '@angular/core';
+import {  ControlContainer, NgForm, NgModel } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { TAXES } from 'src/app/types/taxes';
 import { DEFAULTCURRENCY, CURRENCY } from 'src/app/types/currency';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs';
-import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { ModalEvents } from 'src/app/types/modal';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -122,7 +120,6 @@ export class ProductdetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.defaultDateRange = moment().format('MM/DD/YYYY');
     this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.productRows = res;
     });
@@ -224,7 +221,6 @@ export class ProductdetailsComponent implements OnInit {
 
 
   onProductValueChange(i: number, taxRateChange?: number) {
-    console.log(this.productRows);
     const row = this.productRows[i];
     if (this.selectedTaxRate !== TAXES.NONE) {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
@@ -232,12 +228,10 @@ export class ProductdetailsComponent implements OnInit {
       if (selectedAmount > 0) {
         const selectedTaxAmount = row.taxamount;
         const rate = (selectedTaxAmount * selectedAmount) / 100;
-        console.log(rate, "RATE")
         row.rate = parseFloat(rate.toFixed(2));
         const taxAmount = (selectedAmount * selectedTaxAmount) / 100;
         const roundedTaxAmount = taxAmount.toFixed(2);
         row.total = (selectedAmount + taxAmount).toFixed(2);
-        console.log(row.total, "Total Of Amount")
       } else {
         row.rate = '0';
         row.total = '0';

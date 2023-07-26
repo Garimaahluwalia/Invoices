@@ -47,12 +47,13 @@
                                     <select [disabled]="details.custom === false"
                                       class="form-control type form-control-sm taxes-edit selector-currency"
                                       name="columntype">
-                                      <option *ngFor="let columnType of columnType" [value]="columnType" >{{columnType}}</option>
+                                      <option *ngFor="let columnType of columnType" [value]="columnType"  >{{columnType}}</option>
                                     </select>
                                     <div class="position-absolute top-50 end-0 translate-middle-y">
-                                      <a  (click)="togglePassword(details)" class="eye-b me-2">
+                                      <a *ngIf="i !== 0" (click)="togglePassword(details)" class="eye-b me-2">
                                         <i class="{{details.hidden ? 'fas fa-eye-slash' : 'fas fa-eye'}} black-color"></i>
-                                      </a>
+                                    </a>
+                                    
                                       <i class="fa-solid fa-trash" *ngIf="details.delete !== false" (click)="deleteField(i)"></i>
                                     </div>
                                   </div>

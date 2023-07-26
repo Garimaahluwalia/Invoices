@@ -111,3 +111,11 @@ button.btn.btn-primary {
     padding: 8px;
     border: var(--bs-border-width) solid var(--bs-border-color);
 }
+
+button.btn.btn-primary{
+    background-color: white !important;
+    color: black;
+    font-size: 16px;
+    padding: 8px;
+    border: var(--bs-border-width) solid var(--bs-border-color) !important;
+}

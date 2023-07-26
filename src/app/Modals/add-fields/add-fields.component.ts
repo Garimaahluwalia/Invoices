@@ -33,7 +33,6 @@ export class AddFieldsComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes, "Fields Changes")
     if (changes['fields'].currentValue && !changes?.['fields'].firstChange) {
       this.fields = changes['fields'].currentValue;
       this.__ref.detectChanges();

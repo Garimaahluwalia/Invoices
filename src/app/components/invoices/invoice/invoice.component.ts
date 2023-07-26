@@ -12,9 +12,7 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { ORDER } from 'src/app/types/order';
-import * as moment from 'moment';
 import { NotifierService } from 'angular-notifier';
-// import * as $ from 'jquery';
 
 
 declare var $: any;
@@ -65,8 +63,6 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    this.defaultDateRange = moment().format('MM/DD/YYYY');
     this.itemsPerPage = this.invoiceService.limit;  //pagination
     this.loadInvoices();
 
