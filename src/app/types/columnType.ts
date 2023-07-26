@@ -25,16 +25,20 @@ export class Field {
     public sortOrder!: number;
     public custom!: boolean;
     public delete!: boolean;
-    public tax!: boolean
+    public tax!: boolean;
+    public label?: string;
+    public readonly? : boolean;
 
-    constructor(type: FieldType, fieldName: string, sortOrder: number , tax : false) {
+    constructor(type: FieldType, fieldName: string, sortOrder: number, tax: boolean = false, deleteable: boolean = true, custom: boolean = true, label?: string , readonly : boolean = false) {
         this.type = type;
         this.fieldName = fieldName;
         this.hidden = false;
         this.default = false;
-        this.custom = true;
-        this.delete = true;
-        this.tax = false;
+        this.custom = custom;
+        this.delete = deleteable;
+        this.tax = tax;
         this.sortOrder = sortOrder;
+        this.label = label ? label : fieldName;
+        this.readonly = readonly;
     }
 }

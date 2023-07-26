@@ -36,74 +36,44 @@
     <table class="invoice-table table table-borderless table-nowrap mb-0">
       <thead class="align-middle items-chart">
         <tr class="table-active">
-          <th scope="" class="width-40" *ngFor="let details of fields">{{details.fieldName}}</th>
-          <!-- <th scope="" class="width-10">HSN/SAC</th>
-          <th scope="" class="width-10">Amount</th>
-          <ng-container *ngIf="selectedTaxRate !== 'NONE'">
-            <th scope="col">{{selectedTaxRate}}</th>
-            <th scope="col">Rate</th>
-            <th scope="col">Total</th>
+          <ng-container *ngFor="let details of fields">
+            <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
           </ng-container>
-          <th></th> -->
         </tr>
       </thead>
       <tbody id="newlink">
         <tr *ngFor="let row of productRows; let i = index" class="product" [ngModelGroup]="'item' + i.toString()">
-          <td class="text-start">
-            <div class="mb-2">
-              <input type="text" ngModel name="name"  [(ngModel)]="row.name" class="form-control bg-light border-0"
-                placeholder="Item Name" required />
-              <div class="invalid-feedback">
-                Please enter a product name
+          <ng-container *ngFor="let details of fields; let first = first;">
+            <td class="text-start" *ngIf="first; else addOtherFields">
+              <div class="mb-2">
+                <input type="text" ngModel name="name"    [(ngModel)]="row[details.fieldName]" class="form-control bg-light border-0"
+                  placeholder="Item Name" required />
+                <div class="invalid-feedback">
+                  Please enter a product name
+                </div>
               </div>
-            </div>
-            <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
-              <i class="fa-regular fa-square-plus mr-1"></i> Add Description
-            </button>
-            <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
-              <textarea #description="ngModel" ngModel name="description" class="d-none">{{row.description}}</textarea>
-              <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
-                (change)="onEditorChange(description, row.description)"
-                (ready)="onEditorChange(description, row.description)"> </ckeditor>
-            </div>
-
-          </td>
-          <td class="text-end">
-            <div>
-              <input type="text" [(ngModel)]="row.HSN_SAC" name="HSN_SAC"
-                class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
-            </div>
-          </td>
-          <td class="text-end">
-            <div class="list-width">
-              <input type="number" [(ngModel)]="row.amount" (ngModelChange)="onProductValueChange(i)" name="amount"
-                class="form-control bg-light border-0 product-line-price" placeholder="{{inputcurrency}}0.00" />
-            </div>
-          </td>
-
-          <ng-container *ngIf="selectedTaxRate !== 'NONE'">
-            <td class="text-end">
-              <div>
-                <input type="number" [(ngModel)]="row.rate" (ngModelChange)="onProductValueChange(i)" name="rate"
-                  class="form-control bg-light border-0 product-line-price" step="0.01"
-                  placeholder="{{inputcurrency}}0.00" readonly />
+              <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
+                <i class="fa-regular fa-square-plus mr-1"></i> Add Description
+              </button>
+              <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
+                <textarea #description="ngModel" ngModel name="description" class="d-none">{{row.description}}</textarea>
+                <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
+                  (change)="onEditorChange(description, row.description)"
+                  (ready)="onEditorChange(description, row.description)"> </ckeditor>
               </div>
+  
             </td>
-            <td class="text-end">
-              <div>
-                <input type="number" ngModel name="taxamount" [(ngModel)]="row.taxamount"
-                  (ngModelChange)="onProductValueChange(i)" class="form-control bg-light border-0 product-line-price"
-                  step="0.01" [placeholder]="'00.00%'" />
-              </div>
-            </td>
-            <td class="text-end">
-              <div >
-                <input type="text" ngModel name="total" [(ngModel)]="row.total"
-                  (ngModelChange)="onProductValueChange(i)" class="form-control bg-light border-0 product-line-price"
-                  placeholder="{{inputcurrency}}0.00" readonly />
-              </div>
-            </td>
+            <ng-template #addOtherFields>
+              <td class="text-end">
+                <div>
+                  <input [type]="details.type" [(ngModel)]="row[details.fieldName]"   [name]="details.fieldName" [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                    class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                </div>
+              </td>
+            </ng-template>
           </ng-container>
+          
+          
           <td class="product-removal">
             <a href="javascript:void(0)" class="btn pt-2" (ngModelChange)="onProductValueChange(i)"
               (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>

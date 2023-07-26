@@ -27,7 +27,7 @@ export class AddFieldsComponent implements OnInit {
     public router: Router,
     public modalService: ModalService,
     private __ref: ChangeDetectorRef,
-    public clientService : ClientService
+    public clientService: ClientService
   ) { }
 
 
@@ -43,7 +43,7 @@ export class AddFieldsComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.fields, "FIELDS")
   }
-   
+
 
   openModal() {
     this.openModalButton?.nativeElement?.click();
@@ -63,7 +63,7 @@ export class AddFieldsComponent implements OnInit {
 
 
   addcolumns() {
-    const field: Field = new Field('TEXT', "Column 1", 2 , false);
+    const field: Field = new Field('TEXT', "Column 1", 2, false);
     this.fields.splice(1, 0, field);
   }
 
@@ -71,8 +71,8 @@ export class AddFieldsComponent implements OnInit {
     this.fields.splice(index, 1);
   }
 
-  togglePassword(index: number) {
-    this.show[index] = !this.show[index];
+  togglePassword(item: Field) {
+    item.hidden = !item.hidden;
   }
 
   saveChanges() {
@@ -82,6 +82,13 @@ export class AddFieldsComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
+  }
+
+
+  onItemChange(i: number, item: Field) {
+    if (item.custom) {
+      item.fieldName = item.label as string;
+    }
   }
 
 }

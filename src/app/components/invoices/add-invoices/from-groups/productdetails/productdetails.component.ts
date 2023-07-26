@@ -49,33 +49,39 @@ export class ProductdetailsComponent implements OnInit {
   public fields: Field[] = [
     {
       "type": "TEXT",
-      "fieldName": "Item",
-      "hidden": true,
+      "fieldName": "item",
+      "label": "Item",
+      "hidden": false,
       "default": true,
       "sortOrder": 1,
       "custom": false,
       "delete": false,
-      "tax": false
+      "tax": false,
+      "readonly": false
     },
     {
       "type": "TEXT",
-      "fieldName": "HSN/SAC",
-      "hidden": true,
+      "fieldName": "HSN_SAC",
+      "label": "HSN_SAC",
+      "hidden": false,
       "default": true,
       "sortOrder": 3,
       "custom": false,
       "delete": false,
-      "tax": false
+      "tax": false,
+      "readonly": false
     },
     {
-      "type": "TEXT",
-      "fieldName": "Amount",
-      "hidden": true,
+      "type": "NUMBER",
+      "fieldName": "amount",
+      "label": "Amount",
+      "hidden": false,
       "default": true,
       "sortOrder": 3,
       "custom": false,
       "delete": false,
-      "tax": false
+      "tax": false,
+      "readonly": false
     },
   ]
 
@@ -83,33 +89,27 @@ export class ProductdetailsComponent implements OnInit {
   public TaxFields: Field[] = [
     {
       "type": "NUMBER",
-      "fieldName": "Rate",
-      "hidden": false,
-      "default": true,
-      "sortOrder": 2,
-      "custom": false,
-      "delete": false,
-      "tax": true
-    },
-    {
-      "type": "NUMBER",
-      "fieldName": "Taxamount",
+      "fieldName": "rate",
+      "label": "Taxamount",
       "hidden": false,
       "default": true,
       "sortOrder": 4,
       "custom": false,
       "delete": false,
-      "tax": true
+      "tax": true,
+      "readonly": true
     },
     {
       "type": "NUMBER",
-      "fieldName": "Total",
+      "fieldName": "total",
+      "label": "Total",
       "hidden": false,
       "default": true,
       "sortOrder": 4,
       "custom": false,
       "delete": false,
-      "tax": true
+      "tax": true,
+      "readonly": true
     }
   ]
 
@@ -163,17 +163,16 @@ export class ProductdetailsComponent implements OnInit {
 
   onTaxRateChange() {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
+    this.fields = this.fields.filter(v => !v.tax);
+    if (this.selectedTaxRate !== "NONE") {
+      const field: Field = new Field("NUMBER", "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
+      this.fields = [...this.fields, field, ...this.TaxFields];
+    }
+
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {
       this.onProductValueChange(index, this.selectedTaxRateValue);
     });
-    if(this.selectedTaxRate === "NONE"){
-      this.fields = this.fields.filter(v => !v.tax);
-    }
-    else{
-      const field: Field = new Field('TEXT', "Column 1", 2 , this.selectedTaxRate);
-      this.fields = [...this.fields, ...this.TaxFields];
-    }
   }
 
 
@@ -192,15 +191,11 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   addNewLine() {
-    const newRow = {
-      HSN_SAC: '',
-      amount: '',
-      rate: '',
-      taxamount: '',
-      total: '',
-      description: ''
-    };
-    this.productRows.push(newRow);
+    const obj: any = {};
+    for (const field of this.fields) {
+      obj[field.fieldName] = "";
+    }
+    this.productRows.push(obj);
     const newIndex = this.productRows.length - 1;
     this.onProductValueChange(newIndex);
   }
@@ -229,6 +224,7 @@ export class ProductdetailsComponent implements OnInit {
 
 
   onProductValueChange(i: number, taxRateChange?: number) {
+    console.log(this.productRows);
     const row = this.productRows[i];
     if (this.selectedTaxRate !== TAXES.NONE) {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
@@ -236,10 +232,12 @@ export class ProductdetailsComponent implements OnInit {
       if (selectedAmount > 0) {
         const selectedTaxAmount = row.taxamount;
         const rate = (selectedTaxAmount * selectedAmount) / 100;
+        console.log(rate, "RATE")
         row.rate = parseFloat(rate.toFixed(2));
         const taxAmount = (selectedAmount * selectedTaxAmount) / 100;
         const roundedTaxAmount = taxAmount.toFixed(2);
         row.total = (selectedAmount + taxAmount).toFixed(2);
+        console.log(row.total, "Total Of Amount")
       } else {
         row.rate = '0';
         row.total = '0';
@@ -252,14 +250,16 @@ export class ProductdetailsComponent implements OnInit {
     this.addinvoiceService.sendProductChanges(this.productRows);
   }
 
+
+
   public onEditorChange(description: NgModel, value: string) {
     description.control.setValue(value);
+
   }
 
   addFields() {
     this.addFieldModal.openModal();
   }
-
 
   handleSaveEvent(fields: Field[]) {
     this.fields = fields;

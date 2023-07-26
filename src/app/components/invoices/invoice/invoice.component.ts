@@ -95,7 +95,7 @@ export class InvoiceComponent implements OnInit {
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
-      console.log(this.invoices, "INVOICES")
+      // console.log(this.invoices, "INVOICES")
     });
     // pagination --> 
   }
@@ -120,7 +120,7 @@ export class InvoiceComponent implements OnInit {
   deletebulkInvoices(ids: string[]) {
     this.invoiceService.bulkDelete(ids).subscribe(
       () => {
-        console.log('Bulk delete successful!');
+        // console.log('Bulk delete successfull!');
         this.invoices = this.invoices.filter(item => !ids.includes(item._id));
         this.checkedItems = {};
         this.isButtonEnabled = false;
