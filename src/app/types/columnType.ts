@@ -27,7 +27,7 @@ export class Field {
     public delete!: boolean;
     public tax!: boolean
 
-    constructor(type: FieldType, fieldName: string, sortOrder: number) {
+    constructor(type: FieldType, fieldName: string, sortOrder: number , tax : false) {
         this.type = type;
         this.fieldName = fieldName;
         this.hidden = false;

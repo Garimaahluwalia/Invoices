@@ -35,15 +35,14 @@
                     <div class="modal-body">
 
                         <div cdkDropList (cdkDropListDropped)="drop($event)">
-                            <div *ngFor="let details of fields; let i = index">
-                              <div cdkDrag class="row">
+                            <div *ngFor="let details of fields; let i = index;" cdkDrag>
+                              <div class="row">
                                 <div class="col-md-6">
                                   <div class="mb-3 d-flex align-items-center">
-                                    <i class="fa-solid fa-grip-vertical me-2"></i>
+                                    <i cdkDragHandle class="fa-solid fa-grip-vertical me-2"></i>
                                     <input type="text" class="form-control column-name" placeholder={{details.fieldName}}>
                                   </div>
                                 </div>
-                          
                                 <div class="col-md-6">
                                   <div class="mb-3 position-relative">
                                     <select [disabled]="details.custom === false"
@@ -62,6 +61,9 @@
                               </div>
                             </div>
                           </div>
+                          
+                          
+                          
                           
                           
                           

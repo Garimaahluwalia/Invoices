@@ -4,6 +4,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { COLUMNTYPE, Field } from 'src/app/types/columnType';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ClientService } from 'src/app/services/clients/client.service';
 
 @Component({
   selector: 'app-add-fields',
@@ -25,7 +26,8 @@ export class AddFieldsComponent implements OnInit {
   constructor(
     public router: Router,
     public modalService: ModalService,
-    private __ref: ChangeDetectorRef
+    private __ref: ChangeDetectorRef,
+    public clientService : ClientService
   ) { }
 
 
@@ -42,9 +44,6 @@ export class AddFieldsComponent implements OnInit {
     console.log(this.fields, "FIELDS")
   }
    
-
-  
-
 
   openModal() {
     this.openModalButton?.nativeElement?.click();
@@ -64,7 +63,7 @@ export class AddFieldsComponent implements OnInit {
 
 
   addcolumns() {
-    const field: Field = new Field('TEXT', "Column 1", 2);
+    const field: Field = new Field('TEXT', "Column 1", 2 , false);
     this.fields.splice(1, 0, field);
   }
 

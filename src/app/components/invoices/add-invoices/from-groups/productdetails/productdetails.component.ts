@@ -167,9 +167,14 @@ export class ProductdetailsComponent implements OnInit {
     this.productRows.forEach((row, index) => {
       this.onProductValueChange(index, this.selectedTaxRateValue);
     });
-    this.fields = [...this.fields, ...this.TaxFields];
+    if(this.selectedTaxRate === "NONE"){
+      this.fields = this.fields.filter(v => !v.tax);
+    }
+    else{
+      const field: Field = new Field('TEXT', "Column 1", 2 , this.selectedTaxRate);
+      this.fields = [...this.fields, ...this.TaxFields];
+    }
   }
-
 
 
   ngOnDestroy(): void {
