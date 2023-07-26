@@ -53,8 +53,8 @@
                                             {{columnType}}</option>
                                     </select>
                                     <div class="position-absolute top-50 end-0 translate-middle-y">
-                                        <a (click)="togglePassword()" class="eye-b me-2">
-                                            <i class="{{show ? 'fas fa-eye' : 'fas fa-eye-slash'}} black-color"></i>
+                                        <a (click)="togglePassword(i)" class="eye-b me-2">
+                                            <i class="{{show[i] ? 'fas fa-eye' : 'fas fa-eye-slash'}} black-color"></i>
                                         </a>
                                         <i class="fa-solid fa-trash" *ngIf="details.delete !== false"
                                             (click)="deleteField(i)"></i>
@@ -79,11 +79,10 @@
 
                     <div class="modal-footer pt-2 pb-0">
                         <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-                        <button type="button" class="btn btn-primary add-client" (click)="saveChanges()">Save changes</button>
+                        <button type="button" class="btn btn-primary add-client" (click)="saveChanges()">Save
+                            changes</button>
                     </div>
                 </div>
-
-                <div class="row"></div>
             </div>
         </div>
         <router-outlet></router-outlet>

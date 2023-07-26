@@ -238,13 +238,13 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   addFields() {
-    /* this.router.navigate(["add-invoice", "add-field"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.addField, { status: true, data: {fields: this.fields }});
-    }); */
+   
     this.addFieldModal.openModal();
   }
+
+
   handleSaveEvent(fields: Field[]) {
-   
+    this.fields = fields;
     console.log(fields, "FIELDS");
   }
 }

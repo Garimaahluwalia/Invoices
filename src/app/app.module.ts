@@ -38,7 +38,7 @@ import { invoiceactionsComponent } from './modals/invoice-actions/invoice-action
 import { InvoiceNumberDirective } from './directives/invoice-number.directive';
 import { SvgComponent } from './common/svg/svg.component';
 import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -123,6 +123,7 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     CKEditorModule,
     AppRoutingModule,
+    DragDropModule
   ],
   providers: [
     DatePipe,

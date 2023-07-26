@@ -4,6 +4,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { COLUMNTYPE, Field } from 'src/app/types/columnType';
 import { ModalEvents } from 'src/app/types/modal';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-add-fields',
@@ -20,7 +21,7 @@ export class AddFieldsComponent implements OnInit {
   public columnType: any[] = Object.values(COLUMNTYPE);
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
-  public show: boolean = true;
+  public show: boolean[] = [];
 
   constructor(
     public router: Router,
@@ -31,7 +32,7 @@ export class AddFieldsComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes, "Changes")
+    console.log(changes, "Fields Changes")
     if (changes['fields'].currentValue && !changes?.['fields'].firstChange) {
       this.fields = changes['fields'].currentValue;
       this.__ref.detectChanges();
@@ -67,12 +68,18 @@ export class AddFieldsComponent implements OnInit {
   deleteField(index: number) {
     this.fields.splice(index, 1);
   }
-  togglePassword() {
-    this.show = !this.show;
+
+  togglePassword(index: number) {
+    this.show[index] = !this.show[index];
   }
+
   saveChanges() {
     this.onSave.emit(this.fields);
     this.closeModal();
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
   }
 
 }
