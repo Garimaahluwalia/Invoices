@@ -306,7 +306,9 @@ export class InvoiceComponent implements OnInit {
   }
 
 
-
+  opened(){
+    alert("Hello")
+  }
 
 
 }

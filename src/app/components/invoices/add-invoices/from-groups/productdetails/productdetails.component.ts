@@ -44,6 +44,7 @@ export class ProductdetailsComponent implements OnInit {
   public inputcurrency: any;  // currency
   public taxamount: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
+  
   public fields: Field[] = [
     {
       "type": "TEXT",
