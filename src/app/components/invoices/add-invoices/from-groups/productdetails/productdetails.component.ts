@@ -1,5 +1,5 @@
-import { Component,OnInit, ViewChild } from '@angular/core';
-import {  ControlContainer, NgForm, NgModel } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ControlContainer, NgForm, NgModel } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { ModalEvents } from 'src/app/types/modal';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { Field } from 'src/app/types/columnType';
+import { COLUMNTYPE, Field } from 'src/app/types/columnType';
 import { AddFieldsComponent } from 'src/app/modals/add-fields/add-fields.component';
 
 
@@ -55,7 +55,8 @@ export class ProductdetailsComponent implements OnInit {
       "custom": false,
       "delete": false,
       "tax": false,
-      "readonly": false
+      "readonly": false,
+      "columnType": COLUMNTYPE.TEXT
     },
     {
       "type": "TEXT",
@@ -67,7 +68,8 @@ export class ProductdetailsComponent implements OnInit {
       "custom": false,
       "delete": false,
       "tax": false,
-      "readonly": false
+      "readonly": false,
+      "columnType": COLUMNTYPE.TEXT
     },
     {
       "type": "NUMBER",
@@ -79,7 +81,8 @@ export class ProductdetailsComponent implements OnInit {
       "custom": false,
       "delete": false,
       "tax": false,
-      "readonly": false
+      "readonly": false,
+      "columnType": COLUMNTYPE.TEXT
     },
   ]
 
@@ -95,7 +98,8 @@ export class ProductdetailsComponent implements OnInit {
       "custom": false,
       "delete": false,
       "tax": true,
-      "readonly": true
+      "readonly": true,
+      "columnType": COLUMNTYPE.TEXT
     },
     {
       "type": "NUMBER",
@@ -107,7 +111,8 @@ export class ProductdetailsComponent implements OnInit {
       "custom": false,
       "delete": false,
       "tax": true,
-      "readonly": true
+      "readonly": true,
+      "columnType": COLUMNTYPE.TEXT
     }
   ]
 

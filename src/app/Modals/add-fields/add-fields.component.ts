@@ -3,17 +3,18 @@ import { Router } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { COLUMNTYPE, Field } from 'src/app/types/columnType';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ClientService } from 'src/app/services/clients/client.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-add-fields',
   templateUrl: './add-fields.component.html',
-  styleUrls: ['./add-fields.component.css']
+  styleUrls: ['./add-fields.component.css'],
+
 })
 export class AddFieldsComponent implements OnInit {
-  @ViewChild('openModalButton', { static: false }) private openModalButton!: ElementRef<HTMLButtonElement>;
-  @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef<HTMLButtonElement>;
+  @ViewChild('openAddFields', { static: false }) private openAddFields!: ElementRef<HTMLButtonElement>;
+  @ViewChild('closeAddFields', { static: false }) private closeAddFields!: ElementRef<HTMLButtonElement>;
   @Input() fields: Field[] = [];
 
   @Output() onSave = new EventEmitter<Field[]>();
@@ -22,6 +23,7 @@ export class AddFieldsComponent implements OnInit {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public show: boolean[] = [];
+  public selectedColumnType: any;
 
   constructor(
     public router: Router,
@@ -45,12 +47,12 @@ export class AddFieldsComponent implements OnInit {
 
 
   openModal() {
-    this.openModalButton?.nativeElement?.click();
+    this.openAddFields?.nativeElement?.click();
   }
 
 
   closeModal() {
-    this.closeModalButton?.nativeElement.click();
+    this.closeAddFields?.nativeElement.click();
     this.router.navigate(["add-invoice"]);
   }
 
@@ -62,7 +64,7 @@ export class AddFieldsComponent implements OnInit {
 
 
   addcolumns() {
-    const field: Field = new Field('TEXT', "Column 1", 2, false);
+    const field: Field = new Field('TEXT', "Column 1", 2, false, this.selectedColumnType);
     this.fields.splice(1, 0, field);
   }
 
@@ -79,15 +81,22 @@ export class AddFieldsComponent implements OnInit {
     this.closeModal();
   }
 
+
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
   }
-
 
   onItemChange(i: number, item: Field) {
     if (item.custom) {
       item.fieldName = item.label as string;
     }
   }
+
+  onColumnChange(event: any) {
+    this.selectedColumnType = event.target.value;
+    console.log(this.selectedColumnType, "COLUMN TYPE")
+  }
+
 
 }

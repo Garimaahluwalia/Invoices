@@ -116,6 +116,6 @@ button.btn.btn-primary{
     background-color: white !important;
     color: black;
     font-size: 16px;
-    padding: 8px;
+    padding: 9px 13px 7px;
     border: var(--bs-border-width) solid var(--bs-border-color) !important;
 }

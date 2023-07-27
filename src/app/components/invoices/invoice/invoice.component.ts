@@ -106,7 +106,6 @@ export class InvoiceComponent implements OnInit {
   }
   
   dateRangePicker(start: any, end: any) {
-    console.log(start, "startdate", end, "endDate");
     this.invoiceService.startDate = start._d;
     this.invoiceService.endDate = end._d;
     this.loadInvoices();
@@ -237,9 +236,7 @@ export class InvoiceComponent implements OnInit {
     if (this.invoices.length === ObjectValues.length) {
       const isAllchecked = ObjectValues.every(v => v === true);
       this.selectUnselectSingle.nativeElement.checked = isAllchecked as any;
-      console.log(isAllchecked, "isAllchecked");
     }
-    console.log(isAnyChecked, "isAnyChecked");
     this.isButtonEnabled = isAnyChecked;
   }
 
@@ -252,7 +249,6 @@ export class InvoiceComponent implements OnInit {
   handleSearch() {
     this.invoiceService.searchQuery = this.searchQuery;
     this.loadInvoices();
-    console.log('Search Query :- ', this.searchQuery);
   }
 
   selectUnselectAllItems(event: any) {

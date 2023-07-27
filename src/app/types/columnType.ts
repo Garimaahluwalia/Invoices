@@ -27,9 +27,10 @@ export class Field {
     public delete!: boolean;
     public tax!: boolean;
     public label?: string;
-    public readonly? : boolean;
+    public readonly?: boolean;
+    public columnType?: COLUMNTYPE
 
-    constructor(type: FieldType, fieldName: string, sortOrder: number, tax: boolean = false, deleteable: boolean = true, custom: boolean = true, label?: string , readonly : boolean = false) {
+    constructor(type: FieldType, fieldName: string, sortOrder: number, tax: boolean = false, deleteable: boolean = true, custom: boolean = true, label?: string, readonly: boolean = false, columnType?: COLUMNTYPE) {
         this.type = type;
         this.fieldName = fieldName;
         this.hidden = false;
@@ -40,5 +41,6 @@ export class Field {
         this.sortOrder = sortOrder;
         this.label = label ? label : fieldName;
         this.readonly = readonly;
+        this.columnType = columnType;
     }
 }

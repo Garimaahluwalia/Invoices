@@ -16,8 +16,8 @@ import { Client } from 'src/app/types/client/client.dto';
 export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() public invoiceId: string | null = null;
   @Input() public duplicateInvoice: boolean = false;
-  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public clients: Client[] = [];
   public selectedClient: Client | null = null;
   public clientId: string | null | undefined = null;
@@ -41,9 +41,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges({ duplicateInvoice }: SimpleChanges): void {
     if (!duplicateInvoice?.firstChange) {
       this.duplicateInvoice = duplicateInvoice?.currentValue;
-      /* if(this.duplicateInvoice) {
-        this.getInvoiceNumber();
-      } */
     }
   }
 

@@ -25,72 +25,74 @@
         </select>
       </div>
       <!-- CURRENCY  -->
-     
+
       <div class="d-flex align-items-center ml-5">
         <button type="button" class="btn btn-primary" (click)="addFields()">Rename/Add-Fields</button>
       </div>
+    </div>
   </div>
-</div>
-<div class="card-body p-0 mt-3" ngModelGroup="products">
-  <div class="table-responsive br-8">
-    <table class="invoice-table table table-borderless table-nowrap mb-0">
-      <thead class="align-middle items-chart">
-        <tr class="table-active">
-          <ng-container *ngFor="let details of fields">
-            <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
-          </ng-container>
-        </tr>
-      </thead>
-      <tbody id="newlink">
-        <tr *ngFor="let row of productRows; let i = index" class="product" [ngModelGroup]="'item' + i.toString()">
-          <ng-container *ngFor="let details of fields; let first = first;">
-            <td class="text-start" *ngIf="first; else addOtherFields">
-              <div class="mb-2">
-                <input type="text" ngModel name="name"    [(ngModel)]="row[details.fieldName]" class="form-control bg-light border-0"
-                  placeholder="Item Name" required />
-                <div class="invalid-feedback">
-                  Please enter a product name
+  <div class="card-body p-0 mt-3" ngModelGroup="products">
+    <div class="table-responsive br-8">
+      <table class="invoice-table table table-borderless table-nowrap mb-0">
+        <thead class="align-middle items-chart">
+          <tr class="table-active">
+            <ng-container *ngFor="let details of fields">
+              <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody id="newlink">
+          <tr *ngFor="let row of productRows; let i = index" class="product" [ngModelGroup]="'item' + i.toString()">
+            <ng-container *ngFor="let details of fields; let first = first;">
+              <td class="text-start" *ngIf="first; else addOtherFields">
+                <div class="mb-2">
+                  <input type="text" ngModel name="name" [(ngModel)]="row[details.fieldName]"
+                    class="form-control bg-light border-0" placeholder="Item Name" required />
+                  <div class="invalid-feedback">
+                    Please enter a product name
+                  </div>
                 </div>
-              </div>
-              <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
-                <i class="fa-regular fa-square-plus mr-1"></i> Add Description
-              </button>
-              <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
-                <textarea #description="ngModel" ngModel name="description" class="d-none">{{row.description}}</textarea>
-                <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
-                  (change)="onEditorChange(description, row.description)"
-                  (ready)="onEditorChange(description, row.description)"> </ckeditor>
-              </div>
-  
-            </td>
-            <ng-template #addOtherFields>
-              <td class="text-end">
-                <div>
-                  <input [type]="details.type" [(ngModel)]="row[details.fieldName]"   [name]="details.fieldName" [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
-                    class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
+                  <i class="fa-regular fa-square-plus mr-1"></i> Add Description
+                </button>
+                <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
+                  <textarea #description="ngModel" ngModel name="description"
+                    class="d-none">{{row.description}}</textarea>
+                  <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
+                    (change)="onEditorChange(description, row.description)"
+                    (ready)="onEditorChange(description, row.description)"> </ckeditor>
                 </div>
+
               </td>
-            </ng-template>
-          </ng-container>
-          
-          
-          <td class="product-removal">
-            <a href="javascript:void(0)" class="btn pt-2" (ngModelChange)="onProductValueChange(i)"
-              (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row">
-    <div clas="col-md-12">
-      <div class="text-center">
-        <button class="btn cstn-description add-new-line" type="button" (click)="addNewLine()">
-          <i class="fa-regular fa-square-plus mr-1"></i> Add New Line
-        </button>
+              <ng-template #addOtherFields>
+                <td class="text-end">
+                  <div>
+                    <input [type]="details.type" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                  </div>
+                </td>
+              </ng-template>
+            </ng-container>
+
+
+            <td class="product-removal">
+              <a href="javascript:void(0)" class="btn pt-2" (ngModelChange)="onProductValueChange(i)"
+                (click)="removeRow(i)"><i class="fa-solid fa-xmark"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div clas="col-md-12">
+        <div class="text-center">
+          <button class="btn cstn-description add-new-line" type="button" (click)="addNewLine()">
+            <i class="fa-regular fa-square-plus mr-1"></i> Add New Line
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<app-add-fields #addFieldModal [fields]="fields" (onSave)="handleSaveEvent($event)"></app-add-fields>
+  <app-add-fields #addFieldModal [fields]="fields" (onSave)="handleSaveEvent($event)"></app-add-fields>
