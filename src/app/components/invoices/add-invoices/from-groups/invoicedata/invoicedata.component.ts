@@ -17,16 +17,11 @@ export class InvoicedataComponent implements OnInit, OnChanges {
   @Input() invoice!: { [key: string]: string | number }
   @Input() duplicateInvoice: boolean = false;
   @Input() invoiceId: string | null = null;
-  public defaultDate: any;
-  public InvoiceNumber!: any;
+  public defaultDate!: string;
+  public InvoiceNumber!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public invoiceImage: any;
+  public invoiceImage!: string;
 
-
-
-
-
-  
   constructor(
     public invoiceService: InvoiceService,
     private datePipe: DatePipe,
@@ -35,7 +30,7 @@ export class InvoicedataComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     const currentDate = new Date();
-    this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+    this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd') as string;
 
     if (!this.invoiceService.invoiceNumber || this.duplicateInvoice) {
       this.getInvoiceNumber();

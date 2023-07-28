@@ -15,11 +15,11 @@ export class ProfileComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   public isActiveSideBar: Boolean = false;
   public isEditMode = false;
-  public userProfile: any;
-  public profilePhoto!: any;
+  public userProfile!: IUserProfile;
+  public profilePhoto!: string;
   public selectedFile!: File;
-  public profileImage: any;
-  public Image: any;
+  public profileImage!: string;
+  public Image!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   private readonly notifier!: NotifierService;
 
@@ -27,13 +27,12 @@ export class ProfileComponent implements OnInit {
   constructor(
     public profileService: ProfileService,
     public notifierService: NotifierService,
-    public sidebarService : SidebarService)
-     { 
-      this.notifier = notifierService;
-    }
+    public sidebarService: SidebarService) {
+    this.notifier = notifierService;
+  }
 
   ngOnInit(): void {
-    this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
+    this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: IUserProfile) => {
       this.userProfile = res;
       this.profileImage = res.photoUrl
     });
@@ -68,11 +67,12 @@ export class ProfileComponent implements OnInit {
     };
     this.profileService.updateProfile(payload).pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
+        console.log(response, "profileupdate")
         this.isEditMode = false;
         this.notifier.show({
           type: 'success',
           message: 'Profile updated successfully',
-          id: 'THAT_NOTIFICATION_ID', 
+          id: 'THAT_NOTIFICATION_ID',
         });
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
       (error) => {
         console.error('Profile update failed:', error);
       }
-      
+
     );
   }
 
@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit {
         this.notifier.show({
           type: 'success',
           message: 'Profile Photo updated successfully',
-          id: 'THAT_NOTIFICATION_ID', 
+          id: 'THAT_NOTIFICATION_ID',
         });
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');

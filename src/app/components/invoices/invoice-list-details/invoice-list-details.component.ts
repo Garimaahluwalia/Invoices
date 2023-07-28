@@ -4,11 +4,10 @@ import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { numberToWords } from 'src/app/common/numberToWords';
 import { ClientService } from 'src/app/services/clients/client.service';
+import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ProfileService } from 'src/app/services/profile.service';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -16,18 +15,18 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./invoice-list-details.component.css']
 })
 export class InvoiceListDetailsComponent implements OnInit {
-  public invoicelist: any[] = [];
+  public invoicelist: IInvoice[] = [];
   public _id!: string;
   public data: any;
   public description: any | null = null;
-  public download: any;
+  public download!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public products : any[] = [];
-  public totalAmountInWords: any;
-  public subtotalofamount : any;
-  public totalamount : any
-  public totalInWords : any;
-  public invoiceImage : any;
+  public totalAmountInWords!: number;
+  public subtotalofamount! : number;
+  public totalamount! : number;
+  public totalInWords! : string;
+  public invoiceImage! : string;
    private readonly notifier!: NotifierService;
 
 
@@ -115,19 +114,5 @@ export class InvoiceListDetailsComponent implements OnInit {
         }
       });
   }
-
-  /* public downloadInvoice(): void {
-    let DATA: any = document.getElementById('pdfHolder');
-    html2canvas(DATA).then((canvas) => {
-      let fileWidth = 208;
-      let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      const FILEURI = canvas.toDataURL('image/png');
-      let PDF = new jsPDF('p', 'mm', 'a4');
-      let position = 0;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-      PDF.save('angular-demo.pdf');
-    });
-  } */
-  
 
 }

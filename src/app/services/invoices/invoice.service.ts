@@ -2,50 +2,42 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IInvoice, IInvoiceResponse } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { Observable } from 'rxjs/internal/Observable';
-import endpoints from 'src/app/endpoints';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
-import { STATUS } from 'src/app/types/status';
 import { AddInvoicesService } from './add-invoices.service';
 import { CURRENCY } from 'src/app/types/currency';
+import { IProductRows } from 'src/app/types/product';
+import endpoints from 'src/app/endpoints';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class InvoiceService {
-  // pagination
-
-
   public totalNumberOfInvoices: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
   private _limit: number = 10;
   private _sortOrder!: string;
-  private _sortField! : string;
-  private _searchQuery : any;
-  private _startDate : any;
-  private _endDate : any;
-
-
-  // pagination
-  private _invoices: any[] = [];
-  private invoicesSubject: BehaviorSubject<IInvoiceResponse[]> = new BehaviorSubject<IInvoiceResponse[]>([]);
-
-
-  private _productDataSubject = new BehaviorSubject<any[]>([]);   // for products Data
-  public invoiceNumber: string | null = null;         // for InvoiceNumber 
-  private _forupdateinvoicedata: IInvoiceResponse | null = null;   // for Invoice Data 
-  public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>() // To emit invoice Data
+  private _sortField!: string;
+  private _searchQuery!: string;
+  private _startDate!: string;
+  private _endDate!: string;
+  private _invoices: IInvoice[] = [];
+  private invoicesSubject: BehaviorSubject<IInvoice[]> = new BehaviorSubject<IInvoice[]>([]);
+  private _productDataSubject = new BehaviorSubject<any[]>([]);
+  public invoiceNumber: string | null = null;
+  private _forupdateinvoicedata: IInvoice | null = null;
+  public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>()
   public _updateStatus: EventEmitter<any> = new EventEmitter<any>()
-  public productRows: any[] = [];
-  public currency: any;
-  public amount: any;
-  public tax: any;
-  public rate: any;
-  public total: any;
-  public taxamount: any;
-  public subtotalofamount: any;
-  public totalamount: any;
-  public totalamountoftax: any;
+  public productRows: IProductRows[] = [];
+  public currency!: number;
+  public amount!: number;
+  public tax!: number;
+  public rate!: number;
+  public total!: number;
+  public taxamount!: number;
+  public subtotalofamount!: number;
+  public totalamount!: number;
+  public totalamountoftax!: number;
   public currencies = CURRENCY;
 
   constructor(private http: HttpClient,
@@ -61,24 +53,24 @@ export class InvoiceService {
     }
   }
 
-  set startDate(value: any) {
+  set startDate(value: string) {
     this._startDate = value;
   }
-  get startDate(): any {
+  get startDate(): string {
     return this._startDate;
   }
-  set endDate(value: any) {
+  set endDate(value: string) {
     this._endDate = value;
   }
-  get endDate(): any {
+  get endDate(): string {
     return this._endDate;
   }
 
 
-  set searchQuery(value: any) {
+  set searchQuery(value: string) {
     this._searchQuery = value;
   }
-  get searchQuery(): any {
+  get searchQuery(): string {
     return this._searchQuery;
   }
 
@@ -96,7 +88,7 @@ export class InvoiceService {
     return this._sortField;
   }
 
-  // <-- pagination
+
   set page(value: number) {
     this._page = value;
   }
@@ -111,13 +103,13 @@ export class InvoiceService {
   get limit(): number {
     return this._limit;
   }
-  // pagination -->
 
-  set forupdateinvoicedata(value: IInvoiceResponse | null) {
+
+  set forupdateinvoicedata(value: IInvoice | null) {
     this._forupdateinvoicedata = value;
   }
 
-  get forupdateinvoicedata(): IInvoiceResponse | null {
+  get forupdateinvoicedata(): IInvoice | null {
     return this._forupdateinvoicedata;
   }
 
@@ -134,36 +126,37 @@ export class InvoiceService {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
       this.forupdateinvoicedata = rs;
       this.productRows = rs.product;
+      console.log(this.productRows, "PRODUCT ROWS")
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
       console.error(e);
     }
   }
 
-  set invoices(value: IInvoiceResponse[]) {
+  set invoices(value: IInvoice[]) {
     this._invoices = value;
   }
 
-  get invoices(): IInvoiceResponse[] {
+  get invoices(): IInvoice[] {
     return this._invoices;
   }
 
-  addInvoice(data: IInvoiceResponse) {
+  addInvoice(data: IInvoice) {
     this._invoices.push(data);
     this.sendInvoices();
   }
 
 
 
-  updateClient(data: IInvoiceResponse, invoiceId: number) {
+  updateClient(data: IInvoice, invoiceId: number) {
     const invoiceData = [...this._invoices];
     invoiceData.splice(invoiceId, 1, data);
     this._invoices = invoiceData;
     this.sendInvoices();
   }
 
-  getInvoiceNumber(): Observable<any[]> {
-    return this.http.get<any[]>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
+  getInvoiceNumber(): Observable<string[]> {
+    return this.http.get<string[]>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
   }
 
 
@@ -173,25 +166,25 @@ export class InvoiceService {
   }
 
 
-  getAllInvoice(page: number = 1, limit: number = 10, order : string , field : any , searchQuery :any , startDate:any , endDate :any): Observable<any> {
-    return this.http.get<{ invoices: IInvoiceResponse[], totalCount: number, totalPages: number }>(endpoints.INVOICES_LIST.GETALL(page, limit, order , field , searchQuery , startDate , endDate ));
-  }
+
 
   getInvoice(invoiceId: string): Observable<any> {
     return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
 
   bulkDelete(ids: string[]) {
-    return this.http.post(endpoints.INVOICES_LIST.BULK_DELETE , {ids});
+    return this.http.post(endpoints.INVOICES_LIST.BULK_DELETE, { ids });
   }
 
 
   bulkDownloadAsPDF(invoiceId: string[]): Observable<any> {
-    return this.http.get<string[]>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(invoiceId) , {  observe: 'response',
-     responseType: 'blob' as 'json' });
+    return this.http.get<string[]>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(invoiceId), {
+      observe: 'response',
+      responseType: 'blob' as 'json'
+    });
   }
 
-  downloadInvoice(invoiceId: any): Observable<any> {
+  downloadInvoice(invoiceId: string): Observable<any> {
     return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
       observe: 'response',
       responseType: "blob"
@@ -218,15 +211,18 @@ export class InvoiceService {
     this.invoicesSubject.next(this._invoices);
   }
 
-  recieveInvoices(): Observable<IInvoiceResponse[]> {
+  recieveInvoices(): Observable<IInvoice[]> {
     return this.invoicesSubject.asObservable();
   }
 
+  getAllInvoice(page: number = 1, limit: number = 10, order: string, field: string, searchQuery: string, startDate: string, endDate: string): Observable<IInvoiceResponse> {
+    return this.http.get<IInvoiceResponse>(endpoints.INVOICES_LIST.GETALL(page, limit, order, field, searchQuery, startDate, endDate));
+  }
+
   getAll() {
-    // console.log(this.page);
     try {
-      this.getAllInvoice(this.page, this.limit , this.sortOrder , this.sortField , this.searchQuery , this.startDate , this.endDate).subscribe(
-        (res) => { 
+      this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate).subscribe(
+        (res) => {
           this._invoices = res.invoices;
           this.totalNumberOfInvoices.next(res.totalCount);
           this.sendInvoices();

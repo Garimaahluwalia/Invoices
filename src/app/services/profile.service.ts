@@ -8,16 +8,13 @@ import { IUserProfile } from '../types/profile';
   providedIn: 'root'
 })
 export class ProfileService {
-  public _userProfile: any[] = [];
+  public _userProfile: IUserProfile[] = [];
   constructor(private http: HttpClient) { }
-  private userProfileSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-
-
-  set userProfile(value: any[]) {
+  set userProfile(value: IUserProfile[]) {
     this._userProfile = value;
   }
-  get userProfile(): any[] {
+  get userProfile(): IUserProfile[] {
     return this._userProfile;
   }
 
@@ -26,8 +23,8 @@ export class ProfileService {
     return this.http.post<any>(endpoints.PROFILE.UPLOAD_PROFILE, file);
   }
 
-  getProfile(): Observable<any> {
-    return this.http.get<any>(endpoints.PROFILE.ADD);
+  getProfile(): Observable<IUserProfile> {
+    return this.http.get<IUserProfile>(endpoints.PROFILE.ADD);
   }
 
   updateProfile(updatedProfile: any) {

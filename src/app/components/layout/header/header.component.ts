@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     public router: Router,
     public sidebarService: SidebarService,
     public notifierService: NotifierService
-    ) { this.notifier = notifierService; }
+  ) { this.notifier = notifierService; }
 
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
         this.notifier.show({
           type: 'success',
           message: 'logout successfully',
-          id: 'THAT_NOTIFICATION_ID', 
+          id: 'THAT_NOTIFICATION_ID',
         });
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
@@ -50,10 +50,6 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
 
   toggleBodyClass() {
     this.isActiveSideBar = !this.isActiveSideBar
@@ -62,6 +58,11 @@ export class HeaderComponent implements OnInit {
 
   triggerButtonClick() {
     this.mobileNav.nativeElement.click();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
   }
 
 }

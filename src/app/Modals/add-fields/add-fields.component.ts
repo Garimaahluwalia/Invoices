@@ -21,7 +21,6 @@ export class AddFieldsComponent implements OnInit {
 
   public FieldTpes: string[] = Object.values(FieldType);
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
-  public data: any;
   public show: boolean[] = [];
   public selectedColumnType: any;
 
@@ -42,7 +41,6 @@ export class AddFieldsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
   }
 
 
@@ -82,25 +80,10 @@ export class AddFieldsComponent implements OnInit {
   }
 
   saveChanges() {
-    const payload =
-    {
-      "type": "Text",
-      "fieldName": "MyField",
-      "hidden": false,
-      "default": false,
-      "custom": true,
-      "delete": false,
-      "tax": true,
-      "sortOrder": 1,
-      "label": "My Label",
-      "readonly": true
-    }
-    console.log(payload, "payload")
     this.onSave.emit(this.fields);
+    console.log(this.fields, "Fields")
     this.closeModal();
-  }
-
-
+  } 
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.fields, event.previousIndex, event.currentIndex);

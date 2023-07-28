@@ -1,8 +1,9 @@
+import { IClient } from "src/app/types/client/client.dto";
 import { TAXES } from "src/app/types/taxes";
 
 export interface IInvoiceResponse {
-   InvoiceId: string;
    invoices: IInvoice[];
+   totalCount: number;
    totalPages: number;
 }
 
@@ -12,19 +13,20 @@ export interface IInvoice {
    products: IProducts[];
    _currency: string;
    tax: TAXES;
-   Client?: string;
+   client: IClient;
    client_id?: string;
    InvoiceId?: string;
    Email?: string;
-   Date?: Date;
+   date?: Date;
    Billed?: number;
-   Status?: string;
+   status?: string;
    bankDetails: IbankDetails;
-   _id?: string;
+   _id: string;
    __v: number;
-   subtotalofamount : number;
-   totalamountoftax : number ;
-   totalamount : number
+   subtotalofamount: number;
+   totalamountoftax: number;
+   totalamount: number;
+   table?: IColumnTable;
 }
 
 export interface IInvoiceClass {
@@ -32,6 +34,18 @@ export interface IInvoiceClass {
    date: string
 }
 
+export interface IColumnTable {
+   type: string,
+   fieldName: string,
+   hidden: boolean,
+   default: boolean,
+   custom: boolean,
+   delete: boolean,
+   tax: boolean,
+   sortOrder: number,
+   label: string,
+   readonly: boolean
+}
 export interface IbankDetails {
    accountHolderName: string,
    accountNumber: string,

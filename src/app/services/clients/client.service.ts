@@ -2,52 +2,44 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import endpoints from 'src/app/endpoints';
 import { HttpClient } from '@angular/common/http';
-import { IClients } from 'src/app/types/clients';
 import { TAXES } from 'src/app/types/taxes';
-import { Client } from 'src/app/types/client/client.dto';
+import { IClient, IClientPayload } from 'src/app/types/client/client.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  // pagination
   public totalNumberOfClient: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
   private _limit: number = 10;
-  private _searchQuery! : string;
-  // pagination
-
-  private _clients: Client[] = [];
-  private clientsSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
-  private _addClientFromInvoice: EventEmitter<Client> = new EventEmitter<Client>();
+  private _searchQuery!: string;
+  private _clients: IClient[] = [];
+  private clientsSubject: BehaviorSubject<IClient[]> = new BehaviorSubject<IClient[]>([]);
+  private _addClientFromInvoice: EventEmitter<IClient> = new EventEmitter<IClient>();
   private _taxName: EventEmitter<TAXES> = new EventEmitter<TAXES>();
-
-
 
   constructor(public http: HttpClient) { }
 
-  set clients(value: Client[]) {
-    this._clients = value;
-  }
-  get clients(): Client[] {
-    return this._clients;
-  }
-
-  addClient(data: any) {
+  addClient(data: IClient) {
     this._clients.push(data);
     this.sendClients();
   }
 
-  updateClient(data: any, ClientId: number) {
+  updateClient(data: IClient, ClientId: number) {
     const clientData = [...this._clients];
     clientData.splice(ClientId, 1, data);
     this._clients = clientData;
     this.sendClients();
-
   }
 
 
-  // <-- pagination
+  set clients(value: IClient[]) {
+    this._clients = value;
+  }
+  get clients(): IClient[] {
+    return this._clients;
+  }
+
   set page(value: number) {
     this._page = value;
   }
@@ -70,30 +62,27 @@ export class ClientService {
   get limit(): number {
     return this._limit;
   }
-  // pagination -->
 
 
-
-
-  addClientToServer(payload: any): Observable<any> {
-    return this.http.post(endpoints.CLIENTS.ADD, payload);
+  addClientToServer(payload: IClientPayload): Observable<IClient> {
+    return this.http.post<IClient>(endpoints.CLIENTS.ADD, payload);
   }
 
-  getAllClients(page: number = 1, limit: number = 12 , searchQuery : string): Observable<any> { //pagination
-    return this.http.get<{ clients: Client[], totalCount: number, totalPages: number }>(endpoints.CLIENTS.GETALL(page, limit, searchQuery));
+  getAllClients(page: number = 1, limit: number = 12, searchQuery: string): Observable<{ clients: IClient[], totalCount: number, totalPages: number }> {
+    return this.http.get<{ clients: IClient[], totalCount: number, totalPages: number }>(endpoints.CLIENTS.GETALL(page, limit, searchQuery));
   }
 
-  getClient(ClientId: string): Observable<Client> {
-    return this.http.get<Client>(endpoints.CLIENTS.GET(ClientId));
+  getClient(ClientId: string): Observable<IClient> {
+    return this.http.get<IClient>(endpoints.CLIENTS.GET(ClientId));
   }
-  updateClientReq(ClientId: string, data: any) {
-    return this.http.put<Client>(endpoints.CLIENTS.UPDATE(ClientId), data);
+  updateClientReq(ClientId: string, data: IClientPayload) {
+    return this.http.put<IClient>(endpoints.CLIENTS.UPDATE(ClientId), data);
   }
   sendClients() {
     this.clientsSubject.next(this._clients);
   }
 
-  recieveClients(): Observable<Client[]> {
+  recieveClients(): Observable<IClient[]> {
     return this.clientsSubject.asObservable();
   }
 
@@ -102,25 +91,25 @@ export class ClientService {
   }
 
 
-  updateListAndSendClientData(data: Client) {
-    const clients: Client[] = [...this.clients];
-    const indexOfClient = clients.findIndex((v: Client) => v._id === data._id);
+  updateListAndSendClientData(data: IClient) {
+    const clients: IClient[] = [...this.clients];
+    const indexOfClient = clients.findIndex((v: IClient) => v._id === data._id);
     if (indexOfClient !== -1) {
       clients.splice(indexOfClient, 1, data);
     }
     this.sendClientDetails(data);
-    this._clients = clients as Client[];
+    this._clients = clients as IClient[];
     this.sendClients();
   }
 
   getAll() {
     try {
-      this.getAllClients(this.page, this.limit, this.searchQuery).subscribe(  // pagination
+      this.getAllClients(this.page, this.limit, this.searchQuery).subscribe(
         res => {
-          this._clients = res.clients as Client[];
+          this._clients = res.clients as IClient[];
           this.sendClients();
-          this.totalNumberOfClient.next(res.totalCount); 
-          this.sendClients();   // pagination
+          this.totalNumberOfClient.next(res.totalCount);
+          this.sendClients();
         },
         err => {
           console.error('Error while fetching pages:', err);
@@ -128,16 +117,16 @@ export class ClientService {
       );
     } catch (e) {
       console.error(e);
-      this._clients = []; // pagination
+      this._clients = [];
       this.sendClients();
     }
   }
 
-  recieveClientData(): Observable<Client> {
+  recieveClientData(): Observable<IClient> {
     return this._addClientFromInvoice.asObservable()
   }
 
-  sendClientDetails(data: Client): void {
+  sendClientDetails(data: IClient): void {
     this._addClientFromInvoice.emit(data);
   }
 

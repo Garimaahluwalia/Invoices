@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { AppComponent } from 'src/app/app.component';
 import { NotifierService } from 'angular-notifier';
-import { UserLogin } from 'src/app/types/userLogin';
+import { ITokens, UserLogin } from 'src/app/types/userLogin';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,12 +34,9 @@ export class LoginComponent {
 
 
   submit(f: NgForm) {
-    const username = f.value.username;
-    const password = f.value.password;
-
-    this.loginService.login({ username: f.value.username, password: f.value.password }).subscribe((res: UserLogin) => {
-      console.log(res);
-      this.loginService.updateLoginUser(res);
+    const { username, password} = f.value;
+    this.loginService.login<ITokens>({ username, password }).subscribe((res) => {
+      this.loginService.updateToken(res);
       this.route.navigate(['/main-invoice']);
       this.notifier.show({
         type: 'success',

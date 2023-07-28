@@ -13,7 +13,6 @@ import { ISignUp } from 'src/app/types/signup';
 })
 export class SignupComponent implements OnInit {
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
-  // @ViewChild(SignupDirective, { static: false }) SignupDirective!: SignupDirective;
 
   signupData!: ISignUp;
   email !: string;

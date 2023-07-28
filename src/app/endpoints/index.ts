@@ -5,7 +5,7 @@ const endpoints = {
   SIGNUP: `${environment.BASE_URL}/signupx`,
   CHECKEMAIL: `${environment.BASE_URL}/check-email`,
   CHECKUSERNAME: `${environment.BASE_URL}/check-username`,
-  RESET_PASSWORD: `${environment.BASE_URL}/forgot-password`,
+  FORGOT_PASSWORD: `${environment.BASE_URL}/forgot-password`,
   LOGOUT: `${environment.BASE_URL}/logout`,
   DASHBOARD: `${environment.BASE_URL}/dashboard`,
 

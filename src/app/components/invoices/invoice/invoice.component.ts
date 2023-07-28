@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { ORDER } from 'src/app/types/order';
 import { NotifierService } from 'angular-notifier';
+import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 
 
 declare var $: any;
@@ -26,12 +27,12 @@ export class InvoiceComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   @ViewChild('selectUnselectSingle', { static: true }) selectUnselectSingle!: ElementRef;
   public isActiveSideBar: Boolean = false;
-  public currentPage = 1;  //pagination
-  public itemsPerPage = 10; //pagination
-  public totalItems = 15;   //pagination
+  public currentPage = 1;  
+  public itemsPerPage = 10; 
+  public totalItems = 15;   
 
 
-  public invoices: any[] = [];
+  public invoices: IInvoice[] = [];
   public invoiceId: string | undefined
   public InvoiceNumber!: number;
   public showDropdown: boolean = false;
@@ -49,6 +50,8 @@ export class InvoiceComponent implements OnInit {
   public isSearchFocused: boolean = false;
   public defaultDateRange!: string;
   private readonly notifier!: NotifierService;
+
+  
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -84,16 +87,13 @@ export class InvoiceComponent implements OnInit {
     });
 
 
-    // <-- pagination 
     this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
       this.totalItems = data;
     });
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
-      // console.log(this.invoices, "INVOICES")
     });
-    // pagination --> 
   }
 
 
@@ -115,8 +115,7 @@ export class InvoiceComponent implements OnInit {
   deletebulkInvoices(ids: string[]) {
     this.invoiceService.bulkDelete(ids).subscribe(
       () => {
-        // console.log('Bulk delete successfull!');
-        this.invoices = this.invoices.filter(item => !ids.includes(item._id));
+        this.invoices = this.invoices.filter(item => !ids.includes(item._id as string));
         this.checkedItems = {};
         this.isButtonEnabled = false;
       },
@@ -166,7 +165,6 @@ export class InvoiceComponent implements OnInit {
     );
   }
 
-  //pagination
   onPageChange(page: number) {
     this.currentPage = page;
     this.invoiceService.page = page;
@@ -182,7 +180,7 @@ export class InvoiceComponent implements OnInit {
   }
 
 
-  updateStatus(details: any, status: string) {
+  updateStatus(details: any, Status: string) {
     this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.invoiceactions, {
         status: true,
@@ -226,12 +224,12 @@ export class InvoiceComponent implements OnInit {
   }
 
   checkItem(event: any, itemId: string) {
-    const checked: boolean = event.target.checked;  // Checked will be true or false 
+    const checked: boolean = event.target.checked;  
     this.checkedItems[itemId] = checked;
 
-    const ObjectValues = Object.values(this.checkedItems);  // Returns Array
+    const ObjectValues = Object.values(this.checkedItems);  
 
-    const isAnyChecked = ObjectValues.some(v => v === true);  // Return true or false
+    const isAnyChecked = ObjectValues.some(v => v === true); 
 
     if (this.invoices.length === ObjectValues.length) {
       const isAllchecked = ObjectValues.every(v => v === true);
@@ -273,12 +271,12 @@ export class InvoiceComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe({
         next: (response: any) => {
-          const blob = new Blob([response.body], { type: 'application/zip' }); // Create a blob using response
-          const url = window.URL.createObjectURL(blob); // Create URL from that blob
+          const blob = new Blob([response.body], { type: 'application/zip' }); 
+          const url = window.URL.createObjectURL(blob); 
 
           let downloadLink = document.createElement('a');
           downloadLink.href = url;
-          downloadLink.setAttribute('download', `invoices.zip`); // Downloaded file name
+          downloadLink.setAttribute('download', `invoices.zip`); 
           document.body.appendChild(downloadLink);
           downloadLink.click();
           setTimeout(() => {

@@ -2,7 +2,7 @@ export interface IUserLoginDetails {
     username: string,
     password: string
 }
-export interface UserLogin{
+export interface UserLogin {
     name: string;
     email: string;
     role:string;
@@ -13,3 +13,9 @@ export interface UserLogin{
     token:string
     access_token?:string
 }
+
+export interface ITokens {
+    access_token: string,
+    refresh_token: string
+  }
+

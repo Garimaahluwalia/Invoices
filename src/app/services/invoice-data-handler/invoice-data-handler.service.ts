@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ICompany, IInvoice, IInvoiceClass, IProducts, IbankDetails } from './invoice-data-handler.dto';
 import { TAXES } from 'src/app/types/taxes';
+import { IClient } from 'src/app/types/client/client.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class InvoiceDataHandlerService implements IInvoice {
   public invoiceNo!: IInvoiceClass;
   private _company!: ICompany;
   public _products!: IProducts[];
-  public _id?: string;
+  public _id!: string;
   public _invoiceId?: string;
   public Email?: string;
-  public Client?: string;
+  public client!: IClient;
   public Date?: Date;
   public Billed?: number;
   public _bankDetails!: IbankDetails;

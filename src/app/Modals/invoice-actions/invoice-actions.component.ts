@@ -12,6 +12,8 @@ import { ModalEvents } from 'src/app/types/modal';
   templateUrl: './invoice-actions.component.html',
   styleUrls: ['./invoice-actions.component.css']
 })
+
+
 export class invoiceactionsComponent implements OnInit {
   @ViewChild("closeDeleteModalButton", { static: false }) private closeDeleteModalButton!: ElementRef;
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
@@ -22,14 +24,14 @@ export class invoiceactionsComponent implements OnInit {
     public route: ActivatedRoute,
     public invoiceService: InvoiceService,
     public notifierService: NotifierService) {
-      this.notifier = notifierService
-     }
- 
+    this.notifier = notifierService
+  }
+
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
-  public invoiceId: any;
-  public status: any;
-  public confirmationMessage: any;
+  public invoiceId!: string;
+  public status!: string;
+  public confirmationMessage!: string;
 
 
   ngAfterViewInit(): void {

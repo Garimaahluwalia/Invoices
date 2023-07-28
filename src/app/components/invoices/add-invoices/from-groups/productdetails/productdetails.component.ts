@@ -41,7 +41,7 @@ export class ProductdetailsComponent implements OnInit {
   public selectedTaxRateValue: number = 0;
   public currencies = CURRENCY; // Currency
   public inputcurrency: any;  // currency
-  public taxamount: any;
+  public taxamount!: number;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public readonly FieldTypes = FieldType;
   public fields: Field[] = [
@@ -171,8 +171,24 @@ export class ProductdetailsComponent implements OnInit {
       this.onProductValueChange(index, this.selectedTaxRateValue);
     });
   }
+  
+  addNewLine() {
+    const obj: any = {};
+    for (const field of this.fields) {
+      obj[field.fieldName] = "";
+    }
+    this.productRows.push(obj);
+    const newIndex = this.productRows.length - 1;
+    this.onProductValueChange(newIndex);
+  }
 
+  addFields() {
+    this.addFieldModal.openModal();
+  }
 
+  handleSaveEvent(fields: Field[]) {
+    this.fields = fields;
+  }
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
@@ -185,18 +201,7 @@ export class ProductdetailsComponent implements OnInit {
 
   addDescriptionDefault() {
     this.showDescriptionBoxOpen = !this.showDescriptionBoxOpen;
-  }
-
-  addNewLine() {
-    const obj: any = {};
-    for (const field of this.fields) {
-      obj[field.fieldName] = "";
-    }
-    this.productRows.push(obj);
-    const newIndex = this.productRows.length - 1;
-    this.onProductValueChange(newIndex);
-  }
-
+  } 
 
   addDescription(index: number) {
     const row = this.productRows[index];
@@ -215,10 +220,6 @@ export class ProductdetailsComponent implements OnInit {
     }
     this.addinvoiceService.sendProductChanges(rows);
   }
-
-
-
-
 
   onProductValueChange(i: number, taxRateChange?: number) {
     const row = this.productRows[i];
@@ -240,10 +241,8 @@ export class ProductdetailsComponent implements OnInit {
       row.rate = '0';
       row.total = '0';
     }
-
     this.addinvoiceService.sendProductChanges(this.productRows);
   }
-
 
 
   public onEditorChange(description: NgModel, value: string) {
@@ -251,11 +250,4 @@ export class ProductdetailsComponent implements OnInit {
 
   }
 
-  addFields() {
-    this.addFieldModal.openModal();
-  }
-
-  handleSaveEvent(fields: Field[]) {
-    this.fields = fields;
-  }
 }

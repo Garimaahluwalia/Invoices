@@ -18,11 +18,11 @@ import { take } from 'rxjs';
 export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
   public Invoices!: IInvoice;
-  public taxesType: any
+  public taxesType!: String;
   public ProductData: any
   private readonly notifier!: NotifierService;
   public invoiceId: string | null = null;
-  public updatedInvoiceNumber: any;
+  public updatedInvoiceNumber!: number;
   public updateInvoiceData: any;
   public download: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
@@ -74,7 +74,6 @@ export class AddInvoicesComponent implements OnInit {
           ...formData,
           "invoice": {
             "invoiceNo": res.invoiceNo,
-
           }
         }
       }
@@ -156,6 +155,7 @@ export class AddInvoicesComponent implements OnInit {
   getTaxes() {
     this.clientService.recieveTaxName().subscribe((res) => {
       this.taxesType = res;
+      console.log(this.taxesType, "TAXES TYPES")
     });
   }
 

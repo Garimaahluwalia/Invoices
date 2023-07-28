@@ -4,7 +4,7 @@ import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { IClients, IClientsResponse } from 'src/app/types/clients';
+import { IClient } from 'src/app/types/client/client.dto';
 import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
 @Component({
@@ -14,7 +14,7 @@ import { ModalEvents } from 'src/app/types/modal';
 })
 export class ClientComponent implements OnInit {
   public showModal = false;
-  public clients: any[] = [];
+  public clients: IClient[] = [];
   public inputsDisabled = false;
   public searchQuery: string = '';
   public isSearchFocused: boolean = false;
@@ -33,7 +33,7 @@ export class ClientComponent implements OnInit {
     this.itemsPerPage = this.clientService.limit;  //pagination
     this.clientService.getAll();
 
-    this.clientService.recieveClients().subscribe((data: any) => {
+    this.clientService.recieveClients().subscribe((data: IClient[]) => {
       this.clients = data;
     });
 
@@ -81,7 +81,6 @@ export class ClientComponent implements OnInit {
 
   DeleteClients(_id: string) {
     this.clientService.deleteClients(_id).subscribe((res) => {
-      // this.deleteService.selectedId = null;
       this.clientService.getAll();
     }, err => {
       console.error(err);

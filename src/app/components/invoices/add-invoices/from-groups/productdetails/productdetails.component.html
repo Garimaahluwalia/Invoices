@@ -67,25 +67,25 @@
               <ng-template #addOtherFields>
                 <td class="text-end">
                   <div *ngIf="details.type === FieldTypes.TEXT">
-                    <input type="text" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                    <input type="text"  [name]="details.fieldName"
                       [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>
                 
                   <div *ngIf="details.type === FieldTypes.NUMBER">
-                    <input type="number" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                    <input type="number"  [name]="details.fieldName"
                       [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>
                 
                   <div *ngIf="details.type === FieldTypes.CURRENCY">
-                    <input type="number" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                    <input type="number"  [name]="details.fieldName"
                       [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>
 
                   <div *ngIf="details.type === FieldTypes.DATE">
-                    <input type="date" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                    <input type="date" [name]="details.fieldName"
                       [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>

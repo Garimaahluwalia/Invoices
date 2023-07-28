@@ -9,12 +9,9 @@ import { CURRENCY, DEFAULTCURRENCY } from 'src/app/types/currency';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { IPrices, IProductRows } from 'src/app/types/product';
 
-interface IPrices {
-  subtotal: number,
-  rate: number,
-  total: number
-}
+
 @Component({
   selector: 'app-paymentdetails',
   templateUrl: './paymentdetails.component.html',
@@ -23,29 +20,29 @@ interface IPrices {
 
 })
 export class PaymentdetailsComponent implements OnInit {
-  public amount: any;
-  public tax: any;
-  public rate: any;
-  public total: any;
+  public amount!: number;
+  public tax!: number;
+  public rate!: number;
+  public total!: number;
   public defaultCurrency: string = DEFAULTCURRENCY.symbol;
   public currency: string = this.defaultCurrency;
-  public taxAmountData: any;
-  public totalAmount: any;
-  public totalrate: any;
+  public taxAmountData!: number;
+  public totalAmount!: number;
+  public totalrate!: number;
   public productRows: any[] = [];
-  public totalTotalAmount: any;
-  public AmountInWords: any;
+  public totalTotalAmount!: number;
+  public AmountInWords!: string;
   public totalAmountInWords!: string;
-  public totalOfProduct: any = {
+  public totalOfProduct: IPrices = {
     subtotal: 0,
     rate: 0,
     total: 0
   };
-  public totalOfAmountFromProduct: any;
-  public taxamount: any;
-  public currencies = CURRENCY; // Currency
+  public totalOfAmountFromProduct!: number;
+  public taxamount!: number;
+  public currencies = CURRENCY; 
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public totalInWords: any;
+  public totalInWords!: string;
 
   constructor(public clientService: ClientService,
     public addinvoiceService: AddInvoicesService,
@@ -57,6 +54,7 @@ export class PaymentdetailsComponent implements OnInit {
 
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
       this.productRows = res;
+      console.log(this.productRows, "PRODUCT ROWS")
       if (res.length > 0) {
         const firstElement = res[0];
         this.amount = firstElement.amount;
@@ -100,7 +98,6 @@ export class PaymentdetailsComponent implements OnInit {
 
 
     this.addinvoiceService.receiveCurrency().subscribe((currency: string) => {
-      /* this.currency = res; */
       const currencyDetails = this.currencies.find((v) => v.code === currency);
       if (currencyDetails) {
         this.currency = currencyDetails?.symbol;

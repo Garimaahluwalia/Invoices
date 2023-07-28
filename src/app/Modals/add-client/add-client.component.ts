@@ -2,12 +2,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDe
 import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { IClients } from 'src/app/types/clients';
 import { ModalEvents } from 'src/app/types/modal';
 import axios from 'axios';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
-import { Client } from 'src/app/types/client/client.dto';
+import { IClient, IClientPayload } from 'src/app/types/client/client.dto';
 
 @Component({
   selector: 'app-add-client',
@@ -18,7 +17,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   @ViewChild('openModalButton', { static: false }) private openModalButton!: ElementRef<HTMLButtonElement>;
   @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef<HTMLButtonElement>;
 
-  countries: { name: string, code: string }[] = [];
+  public countries: { name: string, code: string }[] = [];
   public country!: string;
   public name !: string;
   public email!: string;
@@ -39,7 +38,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public disabledInput: boolean = false;
   private readonly notifier!: NotifierService;
-  public invoiceID : any;
+  public invoiceID! : string;
 
 
 
@@ -59,7 +58,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
-      const { status, data, invoice, disabled } = res;
+      const { status, data} = res;
       this.data = data;
       this.invoice = data?.invoice || false;
       this.disabledInput = data?.disabled || false;
@@ -71,7 +70,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.name = data?.name || '';
       this.email = data?.email || '';
       this.phoneNumber = data?.phoneNumber || '';
-     
       this.country = data?.country || '';
       this.state = data?.state || '';
       this.city = data?.city || '';
@@ -93,7 +91,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   fetchCountries() {
     axios.get('https://restcountries.com/v2/all')
       .then(response => {
-        this.countries = response.data.map((country: { name: any; alpha2Code: any; }) => ({
+        this.countries = response.data.map((country: { name: string; alpha2Code: string; }) => ({
           name: country.name,
           code: country.alpha2Code
         }));
@@ -104,7 +102,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
   openModal() {
- 
     try {
       this.openModalButton?.nativeElement?.click();
     } catch (e) {
@@ -146,11 +143,20 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
-    let newData = {
-      name: this.name, email: this.email, phoneNumber: this.phoneNumber, address: address, gstin: this.gstin, pan: this.pan,
-      country: this.country, state: this.state, city: this.city, zipcode: this.zipcode, street: this.street, emailadress: this.emailadress, phone: this.phone,
+    let newData: IClientPayload = {
+      name: this.name,
+      email: this.email,
+      phoneNumber: this.phoneNumber,
+      address: address,
+      gstin: this.gstin,
+      pan: this.pan,
+      country: this.country,
+      state: this.state,
+      city: this.city, 
+      zipcode: parseInt(this.zipcode),
+      street: this.street,
     }
-     console.log(newData, "NewData")
+    
     if (this.data?.edit) {
       this.updateClient(newData);
       this.notifier.show({
@@ -176,8 +182,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateClient(newData: any) {
-    this.clientService.updateClientReq(this.data.clientId, newData).subscribe((res:Client) => {
+  updateClient(newData: IClientPayload) {
+    this.clientService.updateClientReq(this.data.clientId, newData).subscribe((res:IClient) => {
       this.clientService.updateListAndSendClientData(res);
       this.closeModal();
     }, err => {
@@ -186,8 +192,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
     })
   }
 
-  addClient(newData: any) {
-    this.clientService.addClientToServer(newData).subscribe((res: Client) => {
+  addClient(newData: IClientPayload) {
+    this.clientService.addClientToServer(newData).subscribe((res: IClient) => {
       this.clientService.getAll();
       this.clientService.sendClientDetails(res);
       this.closeModal();

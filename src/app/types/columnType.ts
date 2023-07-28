@@ -26,13 +26,12 @@ export class Field {
     public tax!: boolean;
     public label?: string;
     public readonly?: boolean;
-    static type: any;
-    static fieldName: any;
-    static sortOrder: any;
-    static tax: any;
-    static label: any;
-    static readonly: any;
-    static columnType: any;
+    static fieldName: string;
+    static sortOrder: number;
+    static tax: number;
+    static label: string;
+    static readonly: boolean;
+    static columnType: string;
 
     constructor(type: FieldType, fieldName: string, sortOrder: number, tax: boolean = false, deleteable: boolean = true, custom: boolean = true, label?: string, readonly: boolean = false) {
         this.type = type;

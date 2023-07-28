@@ -5,7 +5,7 @@ import { ClientService } from 'src/app/services/clients/client.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents } from 'src/app/types/modal';
 import { takeUntil, ReplaySubject } from "rxjs";
-import { Client } from 'src/app/types/client/client.dto';
+import { IClient } from 'src/app/types/client/client.dto';
 
 @Component({
   selector: 'app-client-details',
@@ -18,8 +18,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() public duplicateInvoice: boolean = false;
 
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public clients: Client[] = [];
-  public selectedClient: Client | null = null;
+  public clients: IClient[] = [];
+  public selectedClient: IClient | null = null;
   public clientId: string | null | undefined = null;
 
   constructor(
@@ -45,7 +45,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onClientChange() {
-    const client: Client | undefined = this.clients.find((client) => client._id === this.clientId);
+    const client: IClient | undefined = this.clients.find((client) => client._id === this.clientId);
     if (client) {
       this.selectedClient = client || null;
     }
@@ -71,7 +71,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
       route = ["add-invoice", this.invoiceId, "add-client", clientId]
     }
     this.router?.navigate(route, options).then(() => {
-      const data: { [key: string]: string | number | boolean } = { invoice: true, edit: true, clientId: this.clientId as string, ...(this.selectedClient as Client) } as unknown as { [key: string]: string | number | boolean };
+      const data: { [key: string]: string | number | boolean } = { invoice: true, edit: true, clientId: this.clientId as string, ...(this.selectedClient as IClient) } as unknown as { [key: string]: string | number | boolean };
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: data });
     });
   }
