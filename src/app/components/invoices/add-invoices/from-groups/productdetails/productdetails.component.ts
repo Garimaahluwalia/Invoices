@@ -9,9 +9,8 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import { ModalEvents } from 'src/app/types/modal';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { COLUMNTYPE, Field } from 'src/app/types/columnType';
+import { Field, FieldType } from 'src/app/types/columnType';
 import { AddFieldsComponent } from 'src/app/modals/add-fields/add-fields.component';
 
 
@@ -44,10 +43,10 @@ export class ProductdetailsComponent implements OnInit {
   public inputcurrency: any;  // currency
   public taxamount: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  
+  public readonly FieldTypes = FieldType;
   public fields: Field[] = [
     {
-      "type": "TEXT",
+      "type": FieldType.TEXT,
       "fieldName": "item",
       "label": "Item",
       "hidden": false,
@@ -57,10 +56,9 @@ export class ProductdetailsComponent implements OnInit {
       "delete": false,
       "tax": false,
       "readonly": false,
-      "columnType": COLUMNTYPE.TEXT
     },
     {
-      "type": "TEXT",
+      "type": FieldType.TEXT,
       "fieldName": "HSN_SAC",
       "label": "HSN_SAC",
       "hidden": false,
@@ -70,10 +68,9 @@ export class ProductdetailsComponent implements OnInit {
       "delete": false,
       "tax": false,
       "readonly": false,
-      "columnType": COLUMNTYPE.TEXT
     },
     {
-      "type": "NUMBER",
+      "type": FieldType.NUMBER,
       "fieldName": "amount",
       "label": "Amount",
       "hidden": false,
@@ -83,14 +80,13 @@ export class ProductdetailsComponent implements OnInit {
       "delete": false,
       "tax": false,
       "readonly": false,
-      "columnType": COLUMNTYPE.TEXT
     },
   ]
 
 
   public TaxFields: Field[] = [
     {
-      "type": "NUMBER",
+      "type": FieldType.NUMBER,
       "fieldName": "rate",
       "label": "Taxamount",
       "hidden": false,
@@ -100,10 +96,9 @@ export class ProductdetailsComponent implements OnInit {
       "delete": false,
       "tax": true,
       "readonly": true,
-      "columnType": COLUMNTYPE.TEXT
     },
     {
-      "type": "NUMBER",
+      "type": FieldType.NUMBER,
       "fieldName": "total",
       "label": "Total",
       "hidden": false,
@@ -113,7 +108,6 @@ export class ProductdetailsComponent implements OnInit {
       "delete": false,
       "tax": true,
       "readonly": true,
-      "columnType": COLUMNTYPE.TEXT
     }
   ]
 
@@ -168,7 +162,7 @@ export class ProductdetailsComponent implements OnInit {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
     this.fields = this.fields.filter(v => !v.tax);
     if (this.selectedTaxRate !== "NONE") {
-      const field: Field = new Field("NUMBER", "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
+      const field: Field = new Field(FieldType.NUMBER, "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
       this.fields = [...this.fields, field, ...this.TaxFields];
     }
 
@@ -263,6 +257,5 @@ export class ProductdetailsComponent implements OnInit {
 
   handleSaveEvent(fields: Field[]) {
     this.fields = fields;
-    console.log(fields, "FIELDS");
   }
 }

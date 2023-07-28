@@ -34,7 +34,7 @@
   <div class="card-body p-0 mt-3" ngModelGroup="products">
     <div class="table-responsive br-8">
       <table class="invoice-table table table-borderless table-nowrap mb-0">
-        <thead class="align-middle items-chart">
+        <thead class="align-middle items-chart productRow">
           <tr class="table-active">
             <ng-container *ngFor="let details of fields">
               <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
@@ -66,8 +66,26 @@
               </td>
               <ng-template #addOtherFields>
                 <td class="text-end">
-                  <div>
-                    <input [type]="details.type" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                  <div *ngIf="details.type === FieldTypes.TEXT">
+                    <input type="text" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                  </div>
+                
+                  <div *ngIf="details.type === FieldTypes.NUMBER">
+                    <input type="number" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                  </div>
+                
+                  <div *ngIf="details.type === FieldTypes.CURRENCY">
+                    <input type="number" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
+                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                  </div>
+
+                  <div *ngIf="details.type === FieldTypes.DATE">
+                    <input type="date" [(ngModel)]="row[details.fieldName]" [name]="details.fieldName"
                       [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>

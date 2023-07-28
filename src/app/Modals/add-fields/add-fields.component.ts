@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReplaySubject, takeUntil } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { COLUMNTYPE, Field } from 'src/app/types/columnType';
+import { Field, FieldType } from 'src/app/types/columnType';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -19,7 +19,7 @@ export class AddFieldsComponent implements OnInit {
 
   @Output() onSave = new EventEmitter<Field[]>();
 
-  public columnType: any[] = Object.values(COLUMNTYPE);
+  public FieldTpes: string[] = Object.values(FieldType);
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public show: boolean[] = [];
@@ -42,7 +42,7 @@ export class AddFieldsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.fields, "FIELDS")
+    
   }
 
 
@@ -64,8 +64,13 @@ export class AddFieldsComponent implements OnInit {
 
 
   addcolumns() {
-    const field: Field = new Field('TEXT', "Column 1", 2, false, this.selectedColumnType);
+    const field: Field = new Field(FieldType.TEXT, "Column 1", 2, false, this.selectedColumnType);
     this.fields.splice(1, 0, field);
+  }
+
+  onColumnChange(event: any) {
+    this.selectedColumnType = event.target.value;
+    console.log(this.selectedColumnType, "COLUMN TYPE")
   }
 
   deleteField(index: number) {
@@ -77,6 +82,20 @@ export class AddFieldsComponent implements OnInit {
   }
 
   saveChanges() {
+    const payload =
+    {
+      "type": "Text",
+      "fieldName": "MyField",
+      "hidden": false,
+      "default": false,
+      "custom": true,
+      "delete": false,
+      "tax": true,
+      "sortOrder": 1,
+      "label": "My Label",
+      "readonly": true
+    }
+    console.log(payload, "payload")
     this.onSave.emit(this.fields);
     this.closeModal();
   }
@@ -87,16 +106,11 @@ export class AddFieldsComponent implements OnInit {
     moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
   }
 
+
   onItemChange(i: number, item: Field) {
     if (item.custom) {
       item.fieldName = item.label as string;
     }
   }
-
-  onColumnChange(event: any) {
-    this.selectedColumnType = event.target.value;
-    console.log(this.selectedColumnType, "COLUMN TYPE")
-  }
-
 
 }

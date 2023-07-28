@@ -46,7 +46,7 @@ const routes: Routes = [
             path: INVOICES.INVOICE_ACTIONS,
             component: invoiceactionsComponent
           },
-       
+
         ]
       },
       {
@@ -69,13 +69,11 @@ const routes: Routes = [
       },
     ]
   },
-
   {
-    path: ROUTELINKS.MAINLAYOUT,
-    component: MainComponent,
-
+    path: ROUTELINKS.LOGIN,
+    component: LoginComponent,
+    canActivate: [LoginGuard]
   },
-
   {
     path: INVOICES.ADD_INVOICE,
     component: AddInvoicesComponent,
@@ -88,11 +86,14 @@ const routes: Routes = [
         path: CLIENTS.UPDATE_CLIENT,
         component: AddClientComponent
       },
-    
-
-
     ]
   },
+  {
+    path: ROUTELINKS.MAINLAYOUT,
+    component: MainComponent,
+
+  },
+
   {
     path: INVOICES.UPDATE_INVOICE,
     component: AddInvoicesComponent,
@@ -144,11 +145,6 @@ const routes: Routes = [
     component: InvoiceListDetailsComponent
   },
   {
-    path: ROUTELINKS.LOGIN,
-    component: LoginComponent,
-    canActivate: [LoginGuard]
-  },
-  {
     path: ROUTELINKS.SIGNUP,
     component: SignupComponent
   },
@@ -156,7 +152,6 @@ const routes: Routes = [
     path: ROUTELINKS.RESET_PASSWORD,
     component: ResetPasswordComponent
   }
-
 ];
 
 @NgModule({

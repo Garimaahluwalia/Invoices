@@ -299,15 +299,9 @@ export class InvoiceComponent implements OnInit {
           }, 5000);
         },
         error: (error) => {
-          // handle error
           console.log(error);
         }
       });
-  }
-
-
-  opened(){
-    alert("Hello")
   }
 
 

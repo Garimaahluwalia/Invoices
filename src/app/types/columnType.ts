@@ -1,12 +1,10 @@
-export enum COLUMNTYPE {
-    TEXT = "TEXT",
-    CURRENCY = "CURRENCY",
-    NUMBER = "NUMBER",
-    FORMULA = "FORMULA",
-    DATE = "DATE"
-}
 
-export type FieldType = "TEXT" | "NUMBER"
+export enum FieldType {
+    TEXT = "TEXT",
+    NUMBER = "NUMBER",
+    CURRENCY = "CURRENCY",
+    DATE = "DATE",
+}
 
 export interface IField {
     type: FieldType;
@@ -28,9 +26,15 @@ export class Field {
     public tax!: boolean;
     public label?: string;
     public readonly?: boolean;
-    public columnType?: COLUMNTYPE
+    static type: any;
+    static fieldName: any;
+    static sortOrder: any;
+    static tax: any;
+    static label: any;
+    static readonly: any;
+    static columnType: any;
 
-    constructor(type: FieldType, fieldName: string, sortOrder: number, tax: boolean = false, deleteable: boolean = true, custom: boolean = true, label?: string, readonly: boolean = false, columnType?: COLUMNTYPE) {
+    constructor(type: FieldType, fieldName: string, sortOrder: number, tax: boolean = false, deleteable: boolean = true, custom: boolean = true, label?: string, readonly: boolean = false) {
         this.type = type;
         this.fieldName = fieldName;
         this.hidden = false;
@@ -41,6 +45,5 @@ export class Field {
         this.sortOrder = sortOrder;
         this.label = label ? label : fieldName;
         this.readonly = readonly;
-        this.columnType = columnType;
     }
 }
