@@ -22,6 +22,18 @@ export interface IUserProfile {
 }
 
 
+export interface userProfilepayload {
+  accountDetails: IAccountDetails;
+  address: string,
+  email: string,
+  gstIn: string,
+  mobile: string,
+  name: string,
+  pan: string,
+  registeredOn: string
+}
+
+
 
 
 

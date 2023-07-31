@@ -30,7 +30,7 @@ export interface IInvoice {
 }
 
 export interface IInvoiceClass {
-   invoiceNo: string;
+   invoiceNumber: string;
    date: string
 }
 

@@ -21,7 +21,7 @@ const endpoints = {
     UPDATE_STATUS: (InvoiceId: string) => `${environment.BASE_URL}/status/${InvoiceId}`,
     DOWNLOAD_INVOICE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/getInvoicePdf/${InvoiceId}`,
     CHECK_INVOICENUMBER: (InvoiceNumber: string, InvoiceId: string) => `${environment.BASE_URL}/invoice-number/${InvoiceNumber}/${InvoiceId}`,
-    DUPLICATE_INVOICE: (InvoiceId: any) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
+    DUPLICATE_INVOICE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     BULK_DELETE: `${environment.BASE_URL}/invoice/bulkDelete`,
     BULK_DOWNLOAD_AS_PDF : (InvoiceId: string[]) =>  `${environment.BASE_URL}/invoice/getPDFzip/${InvoiceId.join(",")}`
   },

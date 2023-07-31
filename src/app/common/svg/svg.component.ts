@@ -11,7 +11,7 @@ export class SvgComponent {
   @Input() height: number = 20;
   @Input() width: number = 20;
   
-  @Output() OnSVGClick: EventEmitter<any> = new EventEmitter();
+  @Output() OnSVGClick: EventEmitter<boolean> = new EventEmitter();
 
   onClick() {
     this.OnSVGClick.emit(true);

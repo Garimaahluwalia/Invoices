@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { SignupService } from 'src/app/services/auth/signup.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { ISignUp } from 'src/app/types/signup';
 
 @Component({
@@ -14,33 +13,28 @@ import { ISignUp } from 'src/app/types/signup';
 export class SignupComponent implements OnInit {
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
 
-  signupData!: ISignUp;
-  email !: string;
-  username !: string;
-  password!: string;
-  showPassword: boolean = false;
+  public signupData!: ISignUp;
+  public email !: string;
+  public username !: string;
+  public password!: string;
+  public showPassword: boolean = false;
   private readonly notifier!: NotifierService;
-  ngOnInit(): void {
-
-  }
 
   constructor(public signupService: SignupService,
     public route: Router, public router: ActivatedRoute,
     public notifierService: NotifierService,
-    private formBuilder: FormBuilder) {
+ ) {
     this.notifier = notifierService;
   }
 
+  ngOnInit(): void { }
 
   submit(f: NgForm) {
-
     this.username = f.value.username,
       this.email = f.value.email,
       this.password = f.value.password
 
-
-
-    this.signupService.signUp({ username: this.username, email: this.email, password: this.password }).subscribe((res: any) => {
+    this.signupService.signUp({ username: this.username, email: this.email, password: this.password }).subscribe((res: ISignUp) => {
       this.signupData = res;
       this.signupForm.reset();
       this.notifier.notify('success', 'signup successfully ');

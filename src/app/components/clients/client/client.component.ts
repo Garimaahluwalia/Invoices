@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
-import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { IClient } from 'src/app/types/client/client.dto';
-import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
 @Component({
   selector: 'app-client',
@@ -18,19 +16,17 @@ export class ClientComponent implements OnInit {
   public inputsDisabled = false;
   public searchQuery: string = '';
   public isSearchFocused: boolean = false;
-  
-  public currentPage = 1;  //pagination
-  public itemsPerPage = 2; //pagination
-  public totalItems = 15;   //pagination
+  public currentPage = 1;
+  public itemsPerPage = 2;
+  public totalItems = 15;
 
   constructor(public clientService: ClientService,
     public router: Router,
     public modalService: ModalService,
-    public deleteService: DeleteService,
     public invoiceService: InvoiceService) { }
 
   ngOnInit(): void {
-    this.itemsPerPage = this.clientService.limit;  //pagination
+    this.itemsPerPage = this.clientService.limit;
     this.clientService.getAll();
 
     this.clientService.recieveClients().subscribe((data: IClient[]) => {
@@ -55,8 +51,9 @@ export class ClientComponent implements OnInit {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true });
     });
   }
-  updateClient(details: any) {
-    console.log(details, " updatedData")
+
+
+  updateClient(details: IClient) {
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details } })
     })
@@ -64,29 +61,11 @@ export class ClientComponent implements OnInit {
 
 
 
-  ViewClient(details: any) {
+  viewClient(details: IClient) {
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: false, disabled: true, ...details } })
     })
   }
-
-
-
-  DeleteClient(details: any) {
-    this.router.navigate(["clients", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.CLIENTS } });
-    })
-  }
-
-
-  DeleteClients(_id: string) {
-    this.clientService.deleteClients(_id).subscribe((res) => {
-      this.clientService.getAll();
-    }, err => {
-      console.error(err);
-    });
-  }
-
 
   //pagination
   onPageChange(page: number) {
@@ -95,9 +74,23 @@ export class ClientComponent implements OnInit {
     this.clientService.getAll();
   }
 
-
-  handleSearch(){
-  this.clientService.searchQuery = this.searchQuery;
+  handleSearch() {
+    this.clientService.searchQuery = this.searchQuery;
     this.clientService.getAll();
   }
+
+  // deleteClient(details: IClient) {
+  //   this.router.navigate(["clients", "delete", details._id]).then(() => {
+  //     this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.CLIENTS } });
+  //   })
+  // }
+
+
+  // deleteClients(_id: string) {
+  //   this.clientService.deleteClients(_id).subscribe((res) => {
+  //     this.clientService.getAll();
+  //   }, err => {
+  //     console.error(err);
+  //   });
+  // }
 }

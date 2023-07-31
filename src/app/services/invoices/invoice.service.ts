@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { IInvoice, IInvoiceResponse } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { IInvoice, IInvoiceClass, IInvoiceResponse, IProducts } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { AddInvoicesService } from './add-invoices.service';
@@ -27,8 +27,8 @@ export class InvoiceService {
   public invoiceNumber: string | null = null;
   private _forupdateinvoicedata: IInvoice | null = null;
   public invoiceEmitter: EventEmitter<any> = new EventEmitter<any>()
-  public _updateStatus: EventEmitter<any> = new EventEmitter<any>()
-  public productRows: IProductRows[] = [];
+  public _updateStatus: EventEmitter<string> = new EventEmitter<string>()
+  public productRows: IProducts[] = [];
   public currency!: number;
   public amount!: number;
   public tax!: number;
@@ -56,16 +56,18 @@ export class InvoiceService {
   set startDate(value: string) {
     this._startDate = value;
   }
+
   get startDate(): string {
     return this._startDate;
   }
+
   set endDate(value: string) {
     this._endDate = value;
   }
+
   get endDate(): string {
     return this._endDate;
   }
-
 
   set searchQuery(value: string) {
     this._searchQuery = value;
@@ -77,6 +79,7 @@ export class InvoiceService {
   set sortOrder(value: string) {
     this._sortOrder = value;
   }
+
   get sortOrder(): string {
     return this._sortOrder;
   }
@@ -84,14 +87,14 @@ export class InvoiceService {
   set sortField(value: string) {
     this._sortField = value;
   }
+
   get sortField(): string {
     return this._sortField;
   }
-
-
   set page(value: number) {
     this._page = value;
   }
+
   get page(): number {
     return this._page;
   }
@@ -104,7 +107,6 @@ export class InvoiceService {
     return this._limit;
   }
 
-
   set forupdateinvoicedata(value: IInvoice | null) {
     this._forupdateinvoicedata = value;
   }
@@ -115,22 +117,11 @@ export class InvoiceService {
 
   set productDataSubject(value: any) {
     this._productDataSubject = value;
+    console.log(this._productDataSubject, "PRODUCT DATA SUBJECT")
   }
 
   get productDataSubject() {
     return this._productDataSubject;
-  }
-
-  async getInvoiceforUpdateAndEmit() {
-    try {
-      const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
-      this.forupdateinvoicedata = rs;
-      this.productRows = rs.product;
-      console.log(this.productRows, "PRODUCT ROWS")
-      this.invoiceEmitter.emit(this.forupdateinvoicedata);
-    } catch (e) {
-      console.error(e);
-    }
   }
 
   set invoices(value: IInvoice[]) {
@@ -141,12 +132,23 @@ export class InvoiceService {
     return this._invoices;
   }
 
+  async getInvoiceforUpdateAndEmit() {
+    try {
+      const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
+      this.forupdateinvoicedata = rs;
+      this.productRows = rs.products;
+      console.log(this.productRows, "PRODUCT ROWS")
+      this.invoiceEmitter.emit(this.forupdateinvoicedata);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
   addInvoice(data: IInvoice) {
     this._invoices.push(data);
     this.sendInvoices();
   }
-
-
 
   updateClient(data: IInvoice, invoiceId: number) {
     const invoiceData = [...this._invoices];
@@ -154,40 +156,35 @@ export class InvoiceService {
     this._invoices = invoiceData;
     this.sendInvoices();
   }
-
-  getInvoiceNumber(): Observable<string[]> {
-    return this.http.get<string[]>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
+  
+  getInvoiceNumber(): Observable<IInvoiceClass> {
+    return this.http.get<IInvoiceClass>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
   }
 
 
-
-  checkInvoiceNumber(InvoiceNumber: string, InvoiceId: string): Observable<any> {
-    return this.http.get(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(InvoiceNumber, InvoiceId));
+  checkInvoiceNumber(InvoiceNumber: string, InvoiceId: string): Observable<{ [key: string]: boolean | string }> {
+    return this.http.get<{ [key: string]: boolean | string }>(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(InvoiceNumber, InvoiceId));
   }
 
-
-
-
-  getInvoice(invoiceId: string): Observable<any> {
-    return this.http.get<string>(endpoints.INVOICES_LIST.GET(invoiceId));
+  getInvoice(invoiceId: string): Observable<IInvoice> {
+    return this.http.get<IInvoice>(endpoints.INVOICES_LIST.GET(invoiceId));
   }
 
   bulkDelete(ids: string[]) {
     return this.http.post(endpoints.INVOICES_LIST.BULK_DELETE, { ids });
   }
 
-
-  bulkDownloadAsPDF(invoiceId: string[]): Observable<any> {
-    return this.http.get<string[]>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(invoiceId), {
+  bulkDownloadAsPDF(invoiceId: string[]): Observable<HttpResponse<Blob>> {
+    return this.http.get<Blob>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(invoiceId), {
       observe: 'response',
       responseType: 'blob' as 'json'
     });
   }
 
-  downloadInvoice(invoiceId: string): Observable<any> {
-    return this.http.get(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
+  downloadInvoice(invoiceId: string): Observable<HttpResponse<Blob>> {
+    return this.http.get<Blob>(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(invoiceId), {
       observe: 'response',
-      responseType: "blob"
+      responseType: "blob" as 'json'
     })
   }
 
@@ -195,7 +192,7 @@ export class InvoiceService {
     return this.http.delete(endpoints.INVOICES_LIST.DELETE(invoiceId));
   }
 
-  updateInvoice(invoiceId: string, data: { [key: string]: any }) {
+  updateInvoice(invoiceId: string, data: { [key: string]: string }) {
     return this.http.put(endpoints.INVOICES_LIST.UPDATE(invoiceId), data);
   }
 
@@ -238,11 +235,11 @@ export class InvoiceService {
     }
   }
 
-  sendStatus(data: any) {
+  sendStatus(data: string) {
     this._updateStatus.emit(data);
   }
 
-  receiveStatus(): Observable<any> {
+  receiveStatus(): Observable<string> {
     return this._updateStatus.asObservable();
   }
 

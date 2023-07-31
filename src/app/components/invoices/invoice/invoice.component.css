@@ -133,7 +133,7 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
   border: #E31E24 !important;
 }
 
-input.datepicker{
+input.datepicker {
   display: block;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.37rem 0.7rem;
@@ -154,4 +154,27 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
   background-color: #E31E24 !important;
   border: #E31E24 !important;
   color: white !important;
+}
+
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner .8s linear infinite;
 }

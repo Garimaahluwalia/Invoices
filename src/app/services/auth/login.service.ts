@@ -39,8 +39,8 @@ export class LoginService {
     return this.http.post<IUserLoginDetails>(endpoints.LOGIN, payload);
   }
 
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post<any>(endpoints.FORGOT_PASSWORD, {
+  forgotPassword(email: { [k: string]: string }): Observable<{ [k: string]: string }> {
+    return this.http.post<{ [k: string]: string }>(endpoints.FORGOT_PASSWORD, {
       email
     });
   }
@@ -55,8 +55,8 @@ export class LoginService {
     localStorage.setItem(AUTHORIZATION_TOKEN, tokens.access_token);
   }
 
-  userLogout(token: string): Observable<any> {
-    return this.http.post(endpoints.LOGOUT, token);
+  userLogout(token: string): Observable<{ [k: string]: string }> {
+    return this.http.post<{ [k: string]: string }>(endpoints.LOGOUT, token);
 
   }
   removeUserSession() {

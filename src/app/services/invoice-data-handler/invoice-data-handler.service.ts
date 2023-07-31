@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICompany, IInvoice, IInvoiceClass, IProducts, IbankDetails } from './invoice-data-handler.dto';
+import { IColumnTable, ICompany, IInvoice, IInvoiceClass, IProducts, IbankDetails } from './invoice-data-handler.dto';
 import { TAXES } from 'src/app/types/taxes';
 import { IClient } from 'src/app/types/client/client.dto';
 
@@ -26,6 +26,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   public _subtotalofamount!: number;
   public _totalamountoftax!: number;
   public _totalamount!: number;
+  public table?: IColumnTable;
   constructor() { }
 
 
@@ -61,9 +62,9 @@ export class InvoiceDataHandlerService implements IInvoice {
   }
 
 
-  setInvoice({ invoiceNo, date }: IInvoiceClass) {
+  setInvoice({ invoiceNumber, date }: IInvoiceClass) {
     this.invoiceNo = {
-      invoiceNo: invoiceNo,
+      invoiceNumber: invoiceNumber,
       date: date
     };
   }
@@ -170,7 +171,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   getPayload() {
 
     return {
-      "invoiceNo": this.invoiceNo.invoiceNo,
+      "invoiceNo": this.invoiceNo.invoiceNumber,
       "company": this._company,
       "tax": this._tax,
       "currency": this._currency,

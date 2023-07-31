@@ -27,11 +27,9 @@ export class InvoiceComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   @ViewChild('selectUnselectSingle', { static: true }) selectUnselectSingle!: ElementRef;
   public isActiveSideBar: Boolean = false;
-  public currentPage = 1;  
-  public itemsPerPage = 10; 
-  public totalItems = 15;   
-
-
+  public currentPage = 1;
+  public itemsPerPage = 10;
+  public totalItems = 15;
   public invoices: IInvoice[] = [];
   public invoiceId: string | undefined
   public InvoiceNumber!: number;
@@ -39,8 +37,6 @@ export class InvoiceComponent implements OnInit {
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;
   public readonly statuses: string[] = Object.values(STATUS);
-
-
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
   public readonly ORDER = ORDER;
@@ -49,9 +45,10 @@ export class InvoiceComponent implements OnInit {
   public endDate: any;
   public isSearchFocused: boolean = false;
   public defaultDateRange!: string;
+  public loading = false;
   private readonly notifier!: NotifierService;
 
-  
+
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -100,11 +97,11 @@ export class InvoiceComponent implements OnInit {
   ngAfterViewInit() {
     $('input[name="daterange"]').daterangepicker({
       opens: 'left'
-    }, (start: any, end: any, label: any) => {
+    }, (start: any, end: any) => {
       this.dateRangePicker(start, end);
     });
   }
-  
+
   dateRangePicker(start: any, end: any) {
     this.invoiceService.startDate = start._d;
     this.invoiceService.endDate = end._d;
@@ -118,8 +115,8 @@ export class InvoiceComponent implements OnInit {
         this.invoices = this.invoices.filter(item => !ids.includes(item._id as string));
         this.checkedItems = {};
         this.isButtonEnabled = false;
+        this.loadInvoices();
       },
-
       (error) => {
         console.error('Bulk delete failed:', error);
       }
@@ -180,7 +177,7 @@ export class InvoiceComponent implements OnInit {
   }
 
 
-  updateStatus(details: any, Status: string) {
+  updateStatus(details: any, Status: any) {
     this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.invoiceactions, {
         status: true,
@@ -193,10 +190,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
+
 
   duplicateInvoice(details: any) {
     this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate" } })
@@ -224,12 +218,12 @@ export class InvoiceComponent implements OnInit {
   }
 
   checkItem(event: any, itemId: string) {
-    const checked: boolean = event.target.checked;  
+    const checked: boolean = event.target.checked;
     this.checkedItems[itemId] = checked;
 
-    const ObjectValues = Object.values(this.checkedItems);  
+    const ObjectValues = Object.values(this.checkedItems);
 
-    const isAnyChecked = ObjectValues.some(v => v === true); 
+    const isAnyChecked = ObjectValues.some(v => v === true);
 
     if (this.invoices.length === ObjectValues.length) {
       const isAllchecked = ObjectValues.every(v => v === true);
@@ -261,6 +255,7 @@ export class InvoiceComponent implements OnInit {
 
 
   bulkPDFDownload() {
+    this.loading = true;
     const bulkItems: string[] = [];
     for (const key in this.checkedItems) {
       if (this.checkedItems.hasOwnProperty(key) && this.checkedItems[key]) {
@@ -271,14 +266,15 @@ export class InvoiceComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe({
         next: (response: any) => {
-          const blob = new Blob([response.body], { type: 'application/zip' }); 
-          const url = window.URL.createObjectURL(blob); 
+          const blob = new Blob([response.body], { type: 'application/zip' });
+          const url = window.URL.createObjectURL(blob);
 
           let downloadLink = document.createElement('a');
           downloadLink.href = url;
-          downloadLink.setAttribute('download', `invoices.zip`); 
+          downloadLink.setAttribute('download', `invoices.zip`);
           document.body.appendChild(downloadLink);
           downloadLink.click();
+          this.loading = false;
           setTimeout(() => {
             downloadLink.remove();
             window.URL.revokeObjectURL(url);
@@ -302,6 +298,9 @@ export class InvoiceComponent implements OnInit {
       });
   }
 
-
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 }
 

@@ -18,6 +18,11 @@ export class invoiceactionsComponent implements OnInit {
   @ViewChild("closeDeleteModalButton", { static: false }) private closeDeleteModalButton!: ElementRef;
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
   private readonly notifier!: NotifierService;
+  public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
+  public data :any;
+  public invoiceId!: string;
+  public status!: any;
+  public confirmationMessage!: string;
 
   constructor(public modalService: ModalService,
     public router: Router,
@@ -27,11 +32,11 @@ export class invoiceactionsComponent implements OnInit {
     this.notifier = notifierService
   }
 
-  public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
-  public data: any;
-  public invoiceId!: string;
-  public status!: string;
-  public confirmationMessage!: string;
+
+
+  ngOnInit(): void {
+
+  }
 
 
   ngAfterViewInit(): void {
@@ -51,9 +56,7 @@ export class invoiceactionsComponent implements OnInit {
     }));
   }
 
-  ngOnInit(): void {
 
-  }
 
   closeModal() {
     this.destroyed.next(true);
@@ -77,8 +80,11 @@ export class invoiceactionsComponent implements OnInit {
     this.closeModal();
   }
 
+
   no() {
     this.closeModal();
   }
+
+
 }
 

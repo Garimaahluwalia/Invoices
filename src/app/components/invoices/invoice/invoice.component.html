@@ -28,7 +28,9 @@
                                     *ngIf="isButtonEnabled" (click)="bulkdelete()">
                                     Bulk Delete</button>
 
-                                <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
+                                <button type="button"
+                                    class="btn btn-info save-cstn-btn bulk-invoice mr-2 mat-raised-button"
+                                    color="primary" [class.spinner]="loading" [disabled]="loading"
                                     *ngIf="isButtonEnabled" (click)="bulkPDFDownload()">
                                     Bulk PDF</button>
                                 <a href="/add-invoice" class="btn btn-primary-outline "><i class="las la-plus me-1"></i>

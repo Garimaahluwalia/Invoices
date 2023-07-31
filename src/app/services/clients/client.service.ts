@@ -130,8 +130,8 @@ export class ClientService {
     this._addClientFromInvoice.emit(data);
   }
 
-  checkPhonenumberExist(payload: { [k: string]: string }): Observable<any> {
-    return this.http.post(endpoints.CLIENTS.CHECKPHONENUMBER, payload);
+  checkPhonenumberExist(payload: { [k: string]: string }): Observable<{ [k: string]: string }> {
+    return this.http.post<{ [k: string]: string }>(endpoints.CLIENTS.CHECKPHONENUMBER, payload);
   }
 
   sendTaxName(data: TAXES): void {

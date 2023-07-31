@@ -12,13 +12,16 @@ export const INVOICES = {
     UPDATE_INVOICE: "add-invoice/:id",
     VIEW_INVOICE_LIST: "view-invoice-list/:id",
     INVOICE_THEME: "invoice-theme",
-    MAIN_INVOICES: "main-invoice",
+    DASHBOARD: "dashboard",
     INVOICE_ACTION: "invoice-actions",
     INVOICE_ACTIONS: "invoice-actions/:id",
 }
 
+export const PROFILE = {
+    PROFILE : "profile"
+}
+
 export const CLIENTS = {
-    PROFILE: "profile",
     CLIENTS: "clients",
     ADD_CLIENTS: "add-client",
     UPDATE_CLIENT: "add-client/:id",

@@ -8,8 +8,6 @@ import { Observable } from "rxjs";
 })
 
 export class LoginGuard {
-
-
     constructor(private router: Router) { }
 
     public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {

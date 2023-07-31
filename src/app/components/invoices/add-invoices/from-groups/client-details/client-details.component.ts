@@ -6,13 +6,18 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents } from 'src/app/types/modal';
 import { takeUntil, ReplaySubject } from "rxjs";
 import { IClient } from 'src/app/types/client/client.dto';
-
+interface Options {
+  queryParams?: {
+    duplicateInvoice?: string;
+  };
+}
 @Component({
   selector: 'app-client-details',
   templateUrl: './client-details.component.html',
   styleUrls: ['./client-details.component.css'],
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
+
 export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() public invoiceId: string | null = null;
   @Input() public duplicateInvoice: boolean = false;
@@ -28,21 +33,19 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
     public clientService: ClientService
   ) { }
 
-  ngOnInit(): void {
-    this.clientService.getAll();
-    this.subscriptions();
-  }
-
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
-
   ngOnChanges({ duplicateInvoice }: SimpleChanges): void {
     if (!duplicateInvoice?.firstChange) {
       this.duplicateInvoice = duplicateInvoice?.currentValue;
     }
   }
+
+
+  ngOnInit(): void {
+    this.clientService.getAll();
+    this.subscriptions();
+  }
+
+
 
   onClientChange() {
     const client: IClient | undefined = this.clients.find((client) => client._id === this.clientId);
@@ -52,7 +55,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   addClients() {
-    let options: { [key: string]: any } = {};
+    let options: Options = {};
     if (this.duplicateInvoice) {
       options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
     }
@@ -62,11 +65,11 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   updateClient(clientId: string | null | undefined) {
-    let options: { [key: string]: any } = {};
+    let options: Options = {};
     if (this.duplicateInvoice) {
       options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
     }
-    let route: any[] = ["add-invoice", "add-client", clientId]
+    let route = ["add-invoice", "add-client", clientId]
     if (this.invoiceId) {
       route = ["add-invoice", this.invoiceId, "add-client", clientId]
     }
@@ -78,7 +81,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
 
   subscriptions() {
-    this.clientService.recieveClients().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
+    this.clientService.recieveClients().pipe(takeUntil(this.destroyed)).subscribe((data: IClient[]) => {
       this.clients = data;
     });
 
@@ -89,5 +92,10 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 
 }

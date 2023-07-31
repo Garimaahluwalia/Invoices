@@ -1,6 +1,10 @@
+
+
 export interface IClient {
+    _id: string;
     name: string;
     email: string;
+    user_id: string;
     phoneNumber: string;
     address: string;
     country: string;
@@ -8,12 +12,12 @@ export interface IClient {
     city: string;
     zipcode: string;
     street: string;
-    gstin?: string;
-    pan?: string;
-    _id?: string;
-    createdAt?: Date;
-}
-
+    gstin: string;
+    pan: string;
+    createdAt: string;
+    __v: number;
+  }
+  
 export interface IClientPayload {
     address: string;
     city: string;

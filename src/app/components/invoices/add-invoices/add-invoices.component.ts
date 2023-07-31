@@ -10,6 +10,7 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 import { take } from 'rxjs';
+import { IProductRows } from 'src/app/types/product';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -18,16 +19,15 @@ import { take } from 'rxjs';
 export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
   public Invoices!: IInvoice;
-  public taxesType!: String;
-  public ProductData: any
+  public taxType!: String;
+  public ProductData!: any;
   private readonly notifier!: NotifierService;
   public invoiceId: string | null = null;
-  public updatedInvoiceNumber!: number;
+  public updatedInvoiceNumber!: string;
   public updateInvoiceData: any;
-  public download: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public status: any;
-  public currency: any;
+  public status!: any;
+  public currency!: string;
   public duplicateInvoice: boolean = false;
 
   constructor(
@@ -45,8 +45,6 @@ export class AddInvoicesComponent implements OnInit {
   ngOnInit(): void {
     this.getTaxes();
     this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false; 
-    
-
     this.invoiceId = this.route.snapshot?.params?.["id"];
     this.invoiceService.invoiceNumber = this.invoiceId;
 
@@ -154,8 +152,7 @@ export class AddInvoicesComponent implements OnInit {
 
   getTaxes() {
     this.clientService.recieveTaxName().subscribe((res) => {
-      this.taxesType = res;
-      console.log(this.taxesType, "TAXES TYPES")
+      this.taxType = res;
     });
   }
 

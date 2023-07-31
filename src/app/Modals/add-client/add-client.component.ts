@@ -25,7 +25,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   public address!: string;
   public gstin!: string;
   public pan!: string;
-  public data: any;
+  public data!: { [k: string]: string };
   public state!: string;
   public city!: string;
   public zipcode!: string;
@@ -38,7 +38,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public disabledInput: boolean = false;
   private readonly notifier!: NotifierService;
-  public invoiceID! : string;
+  public invoiceID!: string;
 
 
 
@@ -58,7 +58,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
-      const { status, data} = res;
+      const { status, data } = res;
       this.data = data;
       this.invoice = data?.invoice || false;
       this.disabledInput = data?.disabled || false;
@@ -120,7 +120,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       if (this.router.url.includes("clients")) {
         this.router.navigate(["clients"]);
       } else if (this.router.url.includes("add-invoice")) {
-        if (this.router.url.includes(this.data?._id)) {
+        if (this.router.url.includes(this.data?.['_id'])) {
         } else {
           this.router.navigate(["add-invoice"]).then(() => {
             this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: false });
@@ -129,14 +129,14 @@ export class AddClientComponent implements OnInit, OnDestroy {
       }
     }
   }
-  
+
 
   setData() {
-    if (this.data?.edit) {
-      this.name = this.data.name;
-      this.email = this.data.email;
-      this.phoneNumber = this.data.phoneNumber;
-      this.address = this.data.address;
+    if (this.data?.['edit']) {
+      this.name = this.data['name'];
+      this.email = this.data['email'];
+      this.phoneNumber = this.data['phoneNumber'];
+      this.address = this.data['address'];
       this.gstin = this.gstin;
       this.pan = this.pan;
     }
@@ -152,17 +152,17 @@ export class AddClientComponent implements OnInit, OnDestroy {
       pan: this.pan,
       country: this.country,
       state: this.state,
-      city: this.city, 
+      city: this.city,
       zipcode: parseInt(this.zipcode),
       street: this.street,
     }
-    
-    if (this.data?.edit) {
+
+    if (this.data?.['edit']) {
       this.updateClient(newData);
       this.notifier.show({
         type: 'success',
         message: 'Client updated successfully',
-        id: 'THAT_NOTIFICATION_ID', 
+        id: 'THAT_NOTIFICATION_ID',
       });
       setTimeout(() => {
         this.notifier.hide('THAT_NOTIFICATION_ID');
@@ -174,7 +174,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.notifier.show({
         type: 'success',
         message: 'Client added successfully',
-        id: 'THAT_NOTIFICATION_ID', 
+        id: 'THAT_NOTIFICATION_ID',
       });
       setTimeout(() => {
         this.notifier.hide('THAT_NOTIFICATION_ID');
@@ -183,7 +183,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
   updateClient(newData: IClientPayload) {
-    this.clientService.updateClientReq(this.data.clientId, newData).subscribe((res:IClient) => {
+    this.clientService.updateClientReq(this.data['clientId'], newData).subscribe((res: IClient) => {
       this.clientService.updateListAndSendClientData(res);
       this.closeModal();
     }, err => {
@@ -197,7 +197,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.clientService.getAll();
       this.clientService.sendClientDetails(res);
       this.closeModal();
-    }, (err: any) => {
+    }, (err: IClient) => {
       console.error(err);
       this.closeModal();
     })

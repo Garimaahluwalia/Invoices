@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LoginGuard } from './guards/login.guard';
-import { CLIENTS, INVOICES, ROUTELINKS } from './constants/routes';
+import { CLIENTS, INVOICES, PROFILE, ROUTELINKS } from './constants/routes';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { MainComponent } from './components/layout/main/main.component';
 import { AuthService } from './services/auth/auth.service';
@@ -14,7 +14,7 @@ import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './modals/add-client/add-client.component';
 import { DeleteComponent } from './modals/delete/delete.component';
 import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component';
-import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
+import { dashboardComponent } from './components/invoices/dashboard/dashboard.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
@@ -28,11 +28,11 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: MainInvoiceComponent
+        component: dashboardComponent
       },
       {
-        path: INVOICES.MAIN_INVOICES,
-        component: MainInvoiceComponent
+        path: INVOICES.DASHBOARD,
+        component: dashboardComponent
       },
       {
         path: INVOICES.INVOICE,
@@ -111,7 +111,7 @@ const routes: Routes = [
   },
 
   {
-    path: CLIENTS.PROFILE,
+    path: PROFILE.PROFILE,
     component: MainComponent,
     children: [{
       path: "",
@@ -137,8 +137,8 @@ const routes: Routes = [
     component: ClientDetailsComponent
   },
   {
-    path: INVOICES.MAIN_INVOICES,
-    component: MainInvoiceComponent
+    path: INVOICES.DASHBOARD,
+    component: dashboardComponent
   },
   {
     path: INVOICES.VIEW_INVOICE_LIST,

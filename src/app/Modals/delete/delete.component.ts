@@ -16,7 +16,7 @@ export class DeleteComponent {
   @ViewChild("closeDeleteModalButton", { static: false }) private closeDeleteModalButton!: ElementRef;
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
 
-  public data: any;
+  public data!: { [k: string]: string };
   public bulkItems: string[] = [];
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   private readonly notifier!: NotifierService;
@@ -25,12 +25,12 @@ export class DeleteComponent {
     public deleteService: DeleteService,
     public router: Router,
     public notifierService: NotifierService) {
-      this.notifier = notifierService;
-     }
+    this.notifier = notifierService;
+  }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.Delete).pipe(takeUntil(this.destroyed)).subscribe((res => {
-      const { data, status,  } = res;
+      const { data, status, } = res;
       this.data = data, status;
       this.bulkItems = data?.bulkItems || null;
       if (status || data) {
@@ -61,26 +61,26 @@ export class DeleteComponent {
 
 
   yes() {
-    const event = this.data.event as DeleteEvents;
+    const event = this.data['event'] as DeleteEvents;
     this.closeModal();
     this.notifier.show({
       type: 'success',
       message: 'Deleted successfully',
-      id: 'THAT_NOTIFICATION_ID', 
+      id: 'THAT_NOTIFICATION_ID',
     });
     setTimeout(() => {
       this.notifier.hide('THAT_NOTIFICATION_ID');
     }, 2000);
-  let type = "single";
-  if(this.bulkItems?.length > 0) {
-    type = "multi";
-  }
-    this.deleteService.sendEvent({ type, id: this.data.id, bulkItems: this.bulkItems});
+    let type = "single";
+    if (this.bulkItems?.length > 0) {
+      type = "multi";
+    }
+    this.deleteService.sendEvent({ type, id: this.data['id'], bulkItems: this.bulkItems });
   }
 
 
   no() {
-    const event = this.data.event as DeleteEvents;
+    const event = this.data['event'] as DeleteEvents;
     this.closeModal();
     this.deleteService.sendEvent(null);
   }

@@ -3,13 +3,14 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import endpoints from 'src/app/endpoints';
 import { TAXES } from 'src/app/types/taxes';
+import { IProductRows } from 'src/app/types/product';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AddInvoicesService {
-  private _productRowsChanges: EventEmitter<any[]> = new EventEmitter<any[]>();
+  private _productRowsChanges: EventEmitter<IProductRows[]> = new EventEmitter<IProductRows[]>();
   public invoiceData: any;
   private _selectedTax: TAXES = TAXES.GST;
   private _currency: EventEmitter<string> = new EventEmitter<string>();
@@ -18,11 +19,11 @@ export class AddInvoicesService {
   public invoiceListData = [];
 
 
-  sendProductChanges(data: any[]): void {
+  sendProductChanges(data: IProductRows[]): void {
     this._productRowsChanges.emit(data);
   }
 
-  recieveProductRows(): Observable<any> {
+  recieveProductRows(): Observable<IProductRows[]> {
     return this._productRowsChanges.asObservable();
   }
 
@@ -57,15 +58,15 @@ export class AddInvoicesService {
     this._currency.emit(data);
   }
 
-  receiveCurrency(): Observable<any> {
+  receiveCurrency(): Observable<string> {
     return this._currency.asObservable();
   }
 
-  sendTaxRate(data: any) {
+  sendTaxRate(data: string[]) {
     this._calculateTaxRate.emit(data);
   }
 
-  receiveTaxRate(): Observable<any> {
+  receiveTaxRate(): Observable<string[]> {
     return this._calculateTaxRate.asObservable();
   }
 

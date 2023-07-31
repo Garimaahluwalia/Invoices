@@ -69,6 +69,7 @@ export class InvoiceListDetailsComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
         this.data = res;
+        
         this.products = res.products;
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;

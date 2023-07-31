@@ -4,7 +4,6 @@ import { ReplaySubject } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Field, FieldType } from 'src/app/types/columnType';
 import { ClientService } from 'src/app/services/clients/client.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-add-fields',
@@ -23,6 +22,7 @@ export class AddFieldsComponent implements OnInit {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public show: boolean[] = [];
   public selectedColumnType: any;
+  public draggedItemIndex!: number;
 
   constructor(
     public router: Router,
@@ -30,8 +30,6 @@ export class AddFieldsComponent implements OnInit {
     private __ref: ChangeDetectorRef,
     public clientService: ClientService
   ) { }
-
-
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['fields'].currentValue && !changes?.['fields'].firstChange) {
@@ -43,6 +41,33 @@ export class AddFieldsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //  DRAG AND DROP STARTS HERE 
+
+  dragStart(event: any, index: number) {
+    event.dataTransfer.setData('text/plain', index);
+    this.draggedItemIndex = index;
+  }
+
+  dragOver(event: any, index: number) {
+    event.preventDefault();
+    if (this.draggedItemIndex === index) {
+      return;
+    }
+    let temp = this.fields[this.draggedItemIndex];
+    this.fields[this.draggedItemIndex] = this.fields[index];
+    this.fields[index] = temp;
+    this.draggedItemIndex = index;
+  }
+
+  drop(event: any, index: number) {
+    event.preventDefault();
+  }
+
+  // DRAG AND DROP ENDS HERE 
+
+
+
+
 
   openModal() {
     this.openAddFields?.nativeElement?.click();
@@ -53,13 +78,6 @@ export class AddFieldsComponent implements OnInit {
     this.closeAddFields?.nativeElement.click();
     this.router.navigate(["add-invoice"]);
   }
-
-
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
-
 
   addcolumns() {
     const field: Field = new Field(FieldType.TEXT, "Column 1", 2, false, this.selectedColumnType);
@@ -83,12 +101,7 @@ export class AddFieldsComponent implements OnInit {
     this.onSave.emit(this.fields);
     console.log(this.fields, "Fields")
     this.closeModal();
-  } 
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
   }
-
 
   onItemChange(i: number, item: Field) {
     if (item.custom) {
@@ -96,4 +109,8 @@ export class AddFieldsComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 }

@@ -6,7 +6,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { InvoiceComponent } from './components/invoices/invoice/invoice.component';
 import { MainComponent } from './components/layout/main/main.component';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
@@ -19,8 +19,8 @@ import { EmailDirective } from './directives/email.directive';
 import { UsernameDirective } from './directives/username.directive';
 import { InvoicedataComponent } from './components/invoices/add-invoices/from-groups/invoicedata/invoicedata.component';
 import { CompanyaddressComponent } from './components/invoices/add-invoices/from-groups/companyaddress/companyaddress.component';
-import { ProductdetailsComponent } from './components/invoices/add-invoices/from-groups/productdetails/productdetails.component'; 
-import { PaymentdetailsComponent } from './components/invoices/add-invoices/from-groups/paymentdetails/paymentdetails.component'; 
+import { ProductdetailsComponent } from './components/invoices/add-invoices/from-groups/productdetails/productdetails.component';
+import { PaymentdetailsComponent } from './components/invoices/add-invoices/from-groups/paymentdetails/paymentdetails.component';
 import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
 import { AuthInterceptor } from './interceptors/intercept';
 import { CommonModule } from '@angular/common';
@@ -28,10 +28,10 @@ import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './modals/add-client/add-client.component';
 import { DeleteComponent } from './modals/delete/delete.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component'; 
+import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PhonenumberDirective } from './directives/phonenumber.directive';
-import { MainInvoiceComponent } from './components/invoices/main-invoice/main-invoice.component';
+import { dashboardComponent } from './components/invoices/dashboard/dashboard.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { DatePipe } from '@angular/common';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
@@ -105,7 +105,7 @@ const customNotifierOptions: NotifierOptions = {
     DeleteComponent,
     ClientDetailsComponent,
     PhonenumberDirective,
-    MainInvoiceComponent,
+  dashboardComponent,
     ProfileComponent,
     invoiceactionsComponent,
     InvoiceNumberDirective,

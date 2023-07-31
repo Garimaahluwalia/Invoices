@@ -33,7 +33,14 @@ export class Field {
     static readonly: boolean;
     static columnType: string;
 
-    constructor(type: FieldType, fieldName: string, sortOrder: number, tax: boolean = false, deleteable: boolean = true, custom: boolean = true, label?: string, readonly: boolean = false) {
+    constructor(type: FieldType,
+        fieldName: string,
+        sortOrder: number,
+        tax: boolean = false,
+        deleteable: boolean = true,
+        custom: boolean = true,
+        label?: string,
+        readonly: boolean = false) {
         this.type = type;
         this.fieldName = fieldName;
         this.hidden = false;

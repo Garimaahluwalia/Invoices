@@ -12,21 +12,17 @@ import { ITokens, UserLogin } from 'src/app/types/userLogin';
 })
 export class LoginComponent {
   @ViewChild('loginForm', { static: false }) loginForm!: NgForm;
-  show = false;
-  userlogin!: UserLogin;
-  showPassword: boolean = false;
+  public show = false;
+  public userlogin!: UserLogin;
+  public showPassword: boolean = false;
   private readonly notifier!: NotifierService;
- 
+
   constructor(public route: Router,
     public loginService: LoginService,
-    public appcomponent: AppComponent,
+    public appComponent: AppComponent,
     public notifierService: NotifierService) {
     this.notifier = notifierService;
   }
-
-
-  ngOnInit(): void { }
-
 
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -34,14 +30,14 @@ export class LoginComponent {
 
 
   submit(f: NgForm) {
-    const { username, password} = f.value;
+    const { username, password } = f.value;
     this.loginService.login<ITokens>({ username, password }).subscribe((res) => {
       this.loginService.updateToken(res);
-      this.route.navigate(['/main-invoice']);
+      this.route.navigate(['/dashboard']);
       this.notifier.show({
         type: 'success',
         message: 'login successfully',
-        id: 'THAT_NOTIFICATION_ID', 
+        id: 'THAT_NOTIFICATION_ID',
       });
       setTimeout(() => {
         this.notifier.hide('THAT_NOTIFICATION_ID');

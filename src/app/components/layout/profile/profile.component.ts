@@ -4,7 +4,7 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { ProfileService } from 'src/app/services/profile.service';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
-import { IUserProfile } from 'src/app/types/profile';
+import { IUserProfile, userProfilepayload } from 'src/app/types/profile';
 
 @Component({
   selector: 'app-profile',
@@ -39,17 +39,19 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
-
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
   }
 
   saveProfile() {
-    const payload = {
+    const payload: userProfilepayload = {
+      accountDetails: {
+        accHolderName: this.userProfile.accountDetails.accHolderName,
+        bankName: this.userProfile.accountDetails.bankName,
+        branchName: this.userProfile.accountDetails.branchName,
+        accountNumber: this.userProfile.accountDetails.accountNumber,
+        ifscCode: this.userProfile.accountDetails.ifscCode
+      },
       name: this.userProfile.name,
       email: this.userProfile.email,
       mobile: this.userProfile.mobile,
@@ -57,17 +59,10 @@ export class ProfileComponent implements OnInit {
       gstIn: this.userProfile.gstIn,
       pan: this.userProfile.pan,
       address: this.userProfile.address,
-      accountDetails: {
-        accHolderName: this.userProfile.accountDetails.accHolderName,
-        bankName: this.userProfile.accountDetails.bankName,
-        branchName: this.userProfile.accountDetails.branchName,
-        accountNumber: this.userProfile.accountDetails.accountNumber,
-        ifscCode: this.userProfile.accountDetails.ifscCode
-      }
+
     };
     this.profileService.updateProfile(payload).pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
-        console.log(response, "profileupdate")
         this.isEditMode = false;
         this.notifier.show({
           type: 'success',
@@ -85,9 +80,8 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-
-  onFileSelected(event: any) {
-    const file: FileList = event.target.files;
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files;
     if (file && file.length > 0) {
       const fileToUpload: File = file[0];
       this.profileImage = URL.createObjectURL(fileToUpload)
@@ -98,9 +92,11 @@ export class ProfileComponent implements OnInit {
   }
 
 
+
+
   uploadProfilePhoto(file: FormData) {
     this.profileService.uploadProfilePhoto(file).pipe(takeUntil(this.destroyed)).subscribe(
-      (response: any) => {
+      (response: FormData) => {
         this.notifier.show({
           type: 'success',
           message: 'Profile Photo updated successfully',
@@ -123,6 +119,11 @@ export class ProfileComponent implements OnInit {
 
   triggerButtonClick() {
     this.mobileNav.nativeElement.click();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
   }
 
 }

@@ -34,6 +34,8 @@
   <div class="card-body p-0 mt-3" ngModelGroup="products">
     <div class="table-responsive br-8">
       <table class="invoice-table table table-borderless table-nowrap mb-0">
+
+        <!-- TABLE HEAD STARTS -->
         <thead class="align-middle items-chart productRow">
           <tr class="table-active">
             <ng-container *ngFor="let details of fields">
@@ -41,17 +43,19 @@
             </ng-container>
           </tr>
         </thead>
+        <!-- TABLE HEAD ENDS -->
+
         <tbody id="newlink">
           <tr *ngFor="let row of productRows; let i = index" class="product" [ngModelGroup]="'item' + i.toString()">
             <ng-container *ngFor="let details of fields; let first = first;">
+
               <td class="text-start" *ngIf="first; else addOtherFields">
                 <div class="mb-2">
                   <input type="text" ngModel name="name" [(ngModel)]="row[details.fieldName]"
-                    class="form-control bg-light border-0" placeholder="Item Name" required />
-                  <div class="invalid-feedback">
-                    Please enter a product name
-                  </div>
+                    class="form-control bg-light border-0" placeholder="Item Name" required
+                    (ngModelChange)="onProductValueChange(i)" />
                 </div>
+                <!-- Description starts -->
                 <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
                   <i class="fa-regular fa-square-plus mr-1"></i> Add Description
                 </button>
@@ -62,31 +66,34 @@
                     (change)="onEditorChange(description, row.description)"
                     (ready)="onEditorChange(description, row.description)"> </ckeditor>
                 </div>
+                <!-- Description ends -->
 
               </td>
+
+
               <ng-template #addOtherFields>
                 <td class="text-end">
                   <div *ngIf="details.type === FieldTypes.TEXT">
-                    <input type="text"  [name]="details.fieldName"
-                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                    <input type="text" [name]="details.fieldName" [readonly]="details.readonly" *ngIf="!details.hidden"
+                      (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>
-                
+
                   <div *ngIf="details.type === FieldTypes.NUMBER">
-                    <input type="number"  [name]="details.fieldName"
-                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                    <input type="number" [name]="details.fieldName" [readonly]="details.readonly"
+                      (ngModelChange)="onProductValueChange(i)" *ngIf="!details.hidden"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>
-                
+
                   <div *ngIf="details.type === FieldTypes.CURRENCY">
-                    <input type="number"  [name]="details.fieldName"
-                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                    <input type="number" [name]="details.fieldName" [readonly]="details.readonly"
+                      (ngModelChange)="onProductValueChange(i)" *ngIf="!details.hidden"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>
 
                   <div *ngIf="details.type === FieldTypes.DATE">
-                    <input type="date" [name]="details.fieldName"
-                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                    <input type="date" [name]="details.fieldName" [readonly]="details.readonly" *ngIf="!details.hidden"
+                      (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                   </div>
                 </td>

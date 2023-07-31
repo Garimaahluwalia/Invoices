@@ -6,6 +6,6 @@ export interface IDashboardCounts {
 }
 
 
-export interface IMainInvoiceComponent {
+export interface IdashboardComponent {
     dashboardCount: IDashboardCounts | null;
 }

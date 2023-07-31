@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Field, FieldType } from 'src/app/types/columnType';
 import { AddFieldsComponent } from 'src/app/modals/add-fields/add-fields.component';
+import { IProducts } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
+import { IProductRows } from 'src/app/types/product';
 
 
 
@@ -29,9 +31,9 @@ export class ProductdetailsComponent implements OnInit {
   public taxes: string[] = Object.values(TAXES);
   public rate!: number;
   public amount!: number;
-  public HSN_SAC: any;
-  public name!: "";
-  public description!: "";
+  public HSN_SAC!: string;
+  public name!: string;
+  public description!: string;
   public editor: any = ClassicEditor;
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
@@ -122,6 +124,7 @@ export class ProductdetailsComponent implements OnInit {
   ngOnInit(): void {
     this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.productRows = res;
+      console.log(this.productRows, "ReceiveProductRows")
     });
 
     if (this.productRows.length > 0) {
@@ -139,6 +142,7 @@ export class ProductdetailsComponent implements OnInit {
 
     this.addinvoiceService.getTaxAmount().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.taxAmountData = res;
+      console.log(this.taxAmountData, "TAXAMOUNTDATAS")
       this.onProductValueChange(0);
     });
 
@@ -171,7 +175,7 @@ export class ProductdetailsComponent implements OnInit {
       this.onProductValueChange(index, this.selectedTaxRateValue);
     });
   }
-  
+
   addNewLine() {
     const obj: any = {};
     for (const field of this.fields) {
@@ -189,10 +193,7 @@ export class ProductdetailsComponent implements OnInit {
   handleSaveEvent(fields: Field[]) {
     this.fields = fields;
   }
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
+
 
   currencyChange(event: any) {
     this.selectedCurrency = event.target.value;
@@ -201,7 +202,7 @@ export class ProductdetailsComponent implements OnInit {
 
   addDescriptionDefault() {
     this.showDescriptionBoxOpen = !this.showDescriptionBoxOpen;
-  } 
+  }
 
   addDescription(index: number) {
     const row = this.productRows[index];
@@ -223,6 +224,7 @@ export class ProductdetailsComponent implements OnInit {
 
   onProductValueChange(i: number, taxRateChange?: number) {
     const row = this.productRows[i];
+    console.log(row, "onproductvalueChange")
     if (this.selectedTaxRate !== TAXES.NONE) {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
       const selectedAmount = Number(row.amount || 0);
@@ -248,6 +250,11 @@ export class ProductdetailsComponent implements OnInit {
   public onEditorChange(description: NgModel, value: string) {
     description.control.setValue(value);
 
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
   }
 
 }

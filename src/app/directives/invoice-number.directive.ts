@@ -17,7 +17,7 @@ import { InvoiceService } from '../services/invoices/invoice.service';
   ]
 })
 export class InvoiceNumberDirective {
-  @Input() public invoiceId: any;
+  @Input() public invoiceId!: string;
   constructor(public invoiceService : InvoiceService) { }
 
 
@@ -25,7 +25,7 @@ export class InvoiceNumberDirective {
     const value = control.value;
     if (value && value.trim() !== "") {
       return this.invoiceService.checkInvoiceNumber(value, this.invoiceId ).pipe(
-        map((res: any) => {
+        map((res: { [key: string]: boolean | string }) => {
           if (res && !res?.['data']) {
             return { isExists: true };
           } else {

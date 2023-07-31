@@ -15,7 +15,6 @@ import { catchError, map, of } from 'rxjs';
   ]
 })
 export class EmailDirective {
-
   constructor(public signupService: SignupService) { }
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {

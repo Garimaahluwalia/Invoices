@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import endpoints from '../endpoints';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IUserProfile } from '../types/profile';
+import { Observable } from 'rxjs';
+import { IUserProfile, userProfilepayload } from '../types/profile';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProfileService {
   public _userProfile: IUserProfile[] = [];
+
   constructor(private http: HttpClient) { }
 
   set userProfile(value: IUserProfile[]) {
@@ -18,16 +20,15 @@ export class ProfileService {
     return this._userProfile;
   }
 
-  uploadProfilePhoto(file: FormData): Observable<any> {
-    console.log(endpoints.PROFILE.UPLOAD_PROFILE, file)
-    return this.http.post<any>(endpoints.PROFILE.UPLOAD_PROFILE, file);
+  uploadProfilePhoto(file: FormData): Observable<FormData> {
+    return this.http.post<FormData>(endpoints.PROFILE.UPLOAD_PROFILE, file);
   }
 
   getProfile(): Observable<IUserProfile> {
     return this.http.get<IUserProfile>(endpoints.PROFILE.ADD);
   }
 
-  updateProfile(updatedProfile: any) {
+  updateProfile(updatedProfile: userProfilepayload) {
     return this.http.put(endpoints.PROFILE.UPDATE, updatedProfile);
   }
 }
