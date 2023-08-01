@@ -81,48 +81,6 @@
             </table>
           </div>
         </div>
-        <!-- <div class="row">
-          <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="drageable" *ngFor="let details of fields; let i = index;"  cdkDrag>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3 d-flex align-items-center">
-                    <i cdkDragHandle class="fa-solid fa-grip-vertical me-2" style="cursor: grab;"></i>
-                     <input type="text" class="form-control column-name" (change)="onItemChange(i, details)"
-                      [(ngModel)]="details.label" [ngModelOptions]="{standalone: true}" placeholder={{details.label}}>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3 position-relative">
-                    <select [(ngModel)]="details.type" [ngModelOptions]="{standalone: true}" [disabled]="details.custom === false"
-                      class="form-control type form-control-sm taxes-edit selector-currency"
-                      (click)="onColumnChange($event)">
-                      <option *ngFor="let fieldType of FieldTpes" [value]="fieldType">{{fieldType}}</option>
-                    </select>
-                    <div class="position-absolute top-50 end-0 translate-middle-y">
-                      <a *ngIf="i !== 0" (click)="togglePassword(details)" class="eye-b me-2" >
-                        <i class="{{details.hidden ? 'fas fa-eye-slash' : 'fas fa-eye'}} black-color" style="cursor: pointer" ></i>
-                      </a>
-                      <i class="fa-solid fa-trash" *ngIf="details.delete !== false" (click)="deleteField(i)" style="cursor: pointer;"></i>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row highlight-row">
-            <table class="invoice-table table table-borderless table-nowrap mb-0" style="padding: 20px;">
-              <thead class="align-middle items-chart">
-                <tr class="table-active">
-                  <ng-container *ngFor="let details of fields">
-                    <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
-                  </ng-container>
-                </tr>
-              </thead>
-            </table>
-          </div>
-        </div> -->
 
         <div class="modal-footer pt-2 pb-0">
           <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>

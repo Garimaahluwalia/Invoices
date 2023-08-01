@@ -32,7 +32,7 @@ export class InvoiceComponent implements OnInit {
   public totalItems = 15;
   public invoices: IInvoice[] = [];
   public invoiceId: string | undefined
-  public InvoiceNumber!: number;
+  // public InvoiceNumber!: number;
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;

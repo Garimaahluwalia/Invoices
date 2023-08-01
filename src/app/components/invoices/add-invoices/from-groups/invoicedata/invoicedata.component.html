@@ -10,7 +10,7 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="invoicenoInput">Invoice No</label>
-                        <input name="invoiceNo" ngModel type="text" class="form-control bg-light border-0" #invoicenNumberValidation="ngModel"
+                        <input name="InvoiceNumber" ngModel type="text" class="form-control bg-light border-0" #invoicenNumberValidation="ngModel"
                             id="invoicenoInput" [(ngModel)]="InvoiceNumber" [invoiceId]="invoiceId" placeholder="Invoice No" appInvoiceNumber>
                     </div>
                     <div *ngIf="invoicenNumberValidation.invalid && (invoicenNumberValidation.dirty || invoicenNumberValidation.touched)">

@@ -54,7 +54,6 @@ export class PaymentdetailsComponent implements OnInit {
 
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
       this.productRows = res;
-      console.log(this.productRows, "PRODUCT ROWS")
       if (res.length > 0) {
         const firstElement = res[0];
         this.amount = firstElement.amount;

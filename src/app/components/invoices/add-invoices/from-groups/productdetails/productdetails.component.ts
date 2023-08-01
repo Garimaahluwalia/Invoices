@@ -34,6 +34,7 @@ export class ProductdetailsComponent implements OnInit {
   public HSN_SAC!: string;
   public name!: string;
   public description!: string;
+  public total!: string;
   public editor: any = ClassicEditor;
   public showDescriptionBoxOpen: boolean = false;
   public productRows: any[] = [];
@@ -46,6 +47,7 @@ export class ProductdetailsComponent implements OnInit {
   public taxamount!: number;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public readonly FieldTypes = FieldType;
+
   public fields: Field[] = [
     {
       "type": FieldType.TEXT,
@@ -124,7 +126,6 @@ export class ProductdetailsComponent implements OnInit {
   ngOnInit(): void {
     this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.productRows = res;
-      console.log(this.productRows, "ReceiveProductRows")
     });
 
     if (this.productRows.length > 0) {
@@ -142,7 +143,6 @@ export class ProductdetailsComponent implements OnInit {
 
     this.addinvoiceService.getTaxAmount().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.taxAmountData = res;
-      console.log(this.taxAmountData, "TAXAMOUNTDATAS")
       this.onProductValueChange(0);
     });
 
@@ -224,7 +224,6 @@ export class ProductdetailsComponent implements OnInit {
 
   onProductValueChange(i: number, taxRateChange?: number) {
     const row = this.productRows[i];
-    console.log(row, "onproductvalueChange")
     if (this.selectedTaxRate !== TAXES.NONE) {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
       const selectedAmount = Number(row.amount || 0);

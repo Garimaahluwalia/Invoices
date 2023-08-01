@@ -109,6 +109,7 @@ export class AddInvoicesComponent implements OnInit {
 
 
   addInvoice(payload: any) {
+  console.log(payload, "PAYLOAD")
     this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
         this.Invoices = res;
