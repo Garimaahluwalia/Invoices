@@ -33,7 +33,8 @@ export class Field {
     static readonly: boolean;
     static columnType: string;
 
-    constructor(type: FieldType,
+    constructor(
+        type: FieldType,
         fieldName: string,
         sortOrder: number,
         tax: boolean = false,

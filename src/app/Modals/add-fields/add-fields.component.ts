@@ -80,7 +80,7 @@ export class AddFieldsComponent implements OnInit {
   }
 
   addcolumns() {
-    const field: Field = new Field(FieldType.TEXT, "Column 1", 2, false, this.selectedColumnType);
+    const field: Field = new Field(FieldType.TEXT, this.makeKey(), 2, false, true, true, "Column 1");
     this.fields.splice(1, 0, field);
   }
 
@@ -105,12 +105,24 @@ export class AddFieldsComponent implements OnInit {
 
   onItemChange(i: number, item: Field) {
     if (item.custom) {
-      item.fieldName = item.label as string;
+      // item.fieldName = item.label as string;
     }
   }
 
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
+  }
+
+  makeKey(length: number = 5) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
   }
 }
