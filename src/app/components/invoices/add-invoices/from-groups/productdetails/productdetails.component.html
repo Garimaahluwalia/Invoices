@@ -73,9 +73,10 @@
 
               <ng-template #addOtherFields>
                 <td class="text-end">
-                  <div *ngIf="details.type === FieldTypes.TEXT">
+                  <div *ngIf="details.type === FieldTypes.TEXT" >
                     <input type="text" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
-                      [readonly]="details.readonly" *ngIf="!details.hidden" (ngModelChange)="onProductValueChange(i)"
+                      [readonly]="details.readonly" *ngIf="!details
+                      .hidden" (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
 
                   </div>
