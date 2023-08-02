@@ -138,6 +138,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
     if (this.selectedTaxRate !== "NONE") {
       const field: Field = new Field(FieldType.NUMBER, "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
       this.fields = [...this.fields, field, ...this.TaxFields];
+      console.log(this.fields)
     }
     this.invoiceDataHandlerService.table = this.fields;
 
