@@ -16,7 +16,6 @@ import { IClient, IClientPayload } from 'src/app/types/client/client.dto';
 export class AddClientComponent implements OnInit, OnDestroy {
   @ViewChild('openModalButton', { static: false }) private openModalButton!: ElementRef<HTMLButtonElement>;
   @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef<HTMLButtonElement>;
-
   public countries: { name: string, code: string }[] = [];
   public country!: string;
   public name !: string;
@@ -117,6 +116,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       if (this.router.url.includes("clients")) {
         this.router.navigate(["clients"]);
       } else if (this.router.url.includes("add-invoice")) {
+        this.router.navigate(["add-invoice"])
         if (this.router.url.includes(this.data?.['_id'])) {
         } else {
           this.router.navigate(["add-invoice"]).then(() => {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReplaySubject, takeUntil } from 'rxjs';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -19,6 +20,7 @@ export class ClientComponent implements OnInit {
   public currentPage = 1;
   public itemsPerPage = 2;
   public totalItems = 15;
+  private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
 
   constructor(public clientService: ClientService,
     public router: Router,
@@ -29,7 +31,7 @@ export class ClientComponent implements OnInit {
     this.itemsPerPage = this.clientService.limit;
     this.clientService.getAll();
 
-    this.clientService.recieveClients().subscribe((data: IClient[]) => {
+    this.clientService.recieveClients().pipe(takeUntil(this.destroyed)).subscribe((data: IClient[]) => {
       this.clients = data;
     });
 
@@ -78,7 +80,11 @@ export class ClientComponent implements OnInit {
     this.clientService.searchQuery = this.searchQuery;
     this.clientService.getAll();
   }
-
+  
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
   // deleteClient(details: IClient) {
   //   this.router.navigate(["clients", "delete", details._id]).then(() => {
   //     this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.CLIENTS } });
