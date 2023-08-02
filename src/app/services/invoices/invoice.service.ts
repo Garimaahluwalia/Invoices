@@ -118,7 +118,6 @@ export class InvoiceService {
 
   set productDataSubject(value: any) {
     this._productDataSubject = value;
-    console.log(this._productDataSubject, "PRODUCT DATA SUBJECT")
   }
 
   get productDataSubject() {
@@ -136,6 +135,7 @@ export class InvoiceService {
   async getInvoiceforUpdateAndEmit() {
     try {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceId as string));
+      console.log(rs , "RESPONSE OF EMITTER")
       this.forupdateinvoicedata = rs;
       this.productRows = rs.products;
       console.log(this.productRows, "PRODUCT ROWS")

@@ -18,7 +18,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   public Date?: Date;
   public Billed?: number;
   public _bankDetails!: IbankDetails;
-  public _Status?: string;
+  public _status?: string;
   public __v!: number;
   private _tax!: TAXES;
   public _currency!: string;
@@ -65,10 +65,11 @@ export class InvoiceDataHandlerService implements IInvoice {
   }
 
   set status(value: string | undefined) {
-    this._Status = value;
+    this._status = value;
+    console.log(this._status, "Status")
   }
   get status(): string | undefined {
-    return this._Status;
+    return this._status;
   }
 
 
@@ -178,6 +179,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   }
 
   getPayload() {
+    console.log(this, "GETPAYLOAD")
     return {
       "invoiceNo": this.invoiceNo.invoiceNumber,
       "company": this._company,
@@ -190,7 +192,7 @@ export class InvoiceDataHandlerService implements IInvoice {
       "subtotalofamount": this._subtotalofamount,
       "totalamountoftax": this._totalamountoftax,
       "totalamount": this._totalamount,
-      "status": this._Status,
+      "status": this._status,
       "table": this._table
     };
   }

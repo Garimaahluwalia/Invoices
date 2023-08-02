@@ -77,7 +77,7 @@ export class AddFieldsComponent implements OnInit {
 
   closeModal() {
     this.closeAddFields?.nativeElement.click();
-    this.router.navigate(["add-invoice"]);
+    /* this.router.navigate(["add-invoice"]); */
   }
 
   addcolumns() {

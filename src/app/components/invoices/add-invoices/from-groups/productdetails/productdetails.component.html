@@ -40,7 +40,7 @@
           <tr class="table-active">
             <!-- {{ fields | json }} -->
             <ng-container *ngFor="let details of fields">
-              <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
+              <th scope="" class="width-40">{{details.label}}</th>
             </ng-container>
           </tr>
         </thead>
@@ -49,60 +49,58 @@
         <tbody id="newlink">
           <tr *ngFor="let row of productRows; let i = index" class="product" [ngModelGroup]="'item' + i.toString()">
             <ng-container *ngFor="let details of fields; let first = first;">
-
-              <td class="text-start" *ngIf="first; else addOtherFields">
-                <div class="mb-2">
-                  <input type="text" ngModel name="name" [(ngModel)]="row[details.fieldName]" *ngIf="!details.hidden"
-                    class="form-control bg-light border-0" placeholder="Item Name" required
-                    (ngModelChange)="onProductValueChange(i)" />
-                </div>
-
-
-                <!-- Description starts -->
-                <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
-                  <i class="fa-regular fa-square-plus mr-1"></i> Add Description
-                </button>
-                <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
-                  <textarea #description="ngModel" ngModel name="description"
-                    class="d-none">{{row.description}}</textarea>
-                  <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
-                    (change)="onEditorChange(description, row.description)"
-                    (ready)="onEditorChange(description, row.description)"> </ckeditor>
-                </div>
-                <!-- Description ends -->
-
-              </td>
-
-
-              <ng-template #addOtherFields>
-                <td class="text-end">
-                  <div *ngIf="details.type === FieldTypes.TEXT">
-                    <input type="text" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
-                      [readonly]="details.readonly" *ngIf="!details.hidden" (ngModelChange)="onProductValueChange(i)"
-                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
-
+              <ng-container *ngIf="!details.hidden">
+                <td class="text-start" *ngIf="first; else addOtherFields">
+                  <div class="mb-2">
+                    <input type="text" ngModel name="item" [(ngModel)]="row[details.fieldName]"
+                      class="form-control bg-light border-0" placeholder="Item Name" required
+                      (ngModelChange)="onProductValueChange(i)" />
                   </div>
-
-                  <div *ngIf="details.type === FieldTypes.NUMBER">
-                    <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
-                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)" *ngIf="!details.hidden"
-                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                  <!-- Description starts -->
+                  <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
+                    <i class="fa-regular fa-square-plus mr-1"></i> Add Description
+                  </button>
+                  <div *ngIf="row.showDescriptionBox || row.description" class="descriptionbox">
+                    <textarea #description="ngModel" ngModel name="description"
+                      class="d-none">{{row.description}}</textarea>
+                    <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
+                      (change)="onEditorChange(description, row.description)"
+                      (ready)="onEditorChange(description, row.description)"> </ckeditor>
                   </div>
+                  <!-- Description ends -->
 
-                  <div *ngIf="details.type === FieldTypes.CURRENCY">
-                    <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
-                      [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)" *ngIf="!details.hidden"
-                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
-                  </div>
-
-                  <div *ngIf="details.type === FieldTypes.DATE">
-                    <input type="date" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
-                      [readonly]="details.readonly" *ngIf="!details.hidden" (ngModelChange)="onProductValueChange(i)"
-                      class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
-                  </div>
                 </td>
-              </ng-template>
-              
+                <ng-template #addOtherFields>
+                  <td class="text-end">
+                    <ng-container [ngSwitch]="details.type">
+                      <div *ngSwitchCase="FieldTypes.TEXT">
+                        <input type="text" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
+                          [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                          class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+
+                      </div>
+
+                      <div *ngSwitchCase="FieldTypes.NUMBER">
+                        <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
+                          [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                          class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                      </div>
+
+                      <div *ngSwitchCase="FieldTypes.CURRENCY">
+                        <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
+                          [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                          class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                      </div>
+
+                      <div *ngSwitchCase="FieldTypes.DATE">
+                        <input type="date" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
+                          [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
+                          class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
+                      </div>
+                    </ng-container>
+                  </td>
+                </ng-template>
+              </ng-container>
             </ng-container>
 
 
