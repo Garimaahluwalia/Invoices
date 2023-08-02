@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { IColumnTable, ICompany, IInvoice, IInvoiceClass, IProducts, IbankDetails } from './invoice-data-handler.dto';
+import { ICompany, IInvoice, IInvoiceClass, IProducts, IbankDetails } from './invoice-data-handler.dto';
 import { TAXES } from 'src/app/types/taxes';
 import { IClient } from 'src/app/types/client/client.dto';
+import { Field, IField } from 'src/app/types/columnType';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceDataHandlerService implements IInvoice {
-
   public invoiceNo!: IInvoiceClass;
   private _company!: ICompany;
   public _products!: IProducts[];
@@ -26,8 +26,18 @@ export class InvoiceDataHandlerService implements IInvoice {
   public _subtotalofamount!: number;
   public _totalamountoftax!: number;
   public _totalamount!: number;
-  public table?: IColumnTable;
+  public _table!: Field[];
   constructor() { }
+
+
+
+  set table(value: Field[]) {
+    this._table = value;
+  }
+
+  get table(): Field[] {
+    return this._table;
+  }
 
 
 
@@ -167,9 +177,7 @@ export class InvoiceDataHandlerService implements IInvoice {
     this.status = values['status'] as string;
   }
 
-
   getPayload() {
-     console.log(this, "GETPAYLOAD")
     return {
       "invoiceNo": this.invoiceNo.invoiceNumber,
       "company": this._company,
@@ -183,6 +191,7 @@ export class InvoiceDataHandlerService implements IInvoice {
       "totalamountoftax": this._totalamountoftax,
       "totalamount": this._totalamount,
       "status": this._Status,
+      "table": this._table
     };
   }
 }

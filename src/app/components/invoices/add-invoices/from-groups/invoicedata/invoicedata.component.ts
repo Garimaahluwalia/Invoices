@@ -15,11 +15,11 @@ import { IInvoiceClass } from 'src/app/services/invoice-data-handler/invoice-dat
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class InvoicedataComponent implements OnInit, OnChanges {
-  @Input() invoice!: { [key: string]: string | number }
+  /* @Input() invoice!: { [key: string]: string | number } */
   @Input() duplicateInvoice: boolean = false;
   @Input() invoiceId!: any;
+  @Input() public invoiceNumber: string | null = null;
   public defaultDate!: string;
-  public InvoiceNumber!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public invoiceImage!: string;
 
@@ -29,12 +29,15 @@ export class InvoicedataComponent implements OnInit, OnChanges {
     public profileService: ProfileService
   ) { }
 
-  ngOnChanges({ duplicateInvoice }: SimpleChanges): void {
+  ngOnChanges({ duplicateInvoice, invoiceNumber }: SimpleChanges): void {
     if (!duplicateInvoice?.firstChange) {
       this.duplicateInvoice = duplicateInvoice?.currentValue;
       if (this.duplicateInvoice) {
         this.getInvoiceNumber();
       }
+    }
+    if (!invoiceNumber?.firstChange) {
+      this.invoiceNumber = invoiceNumber?.currentValue;
     }
   }
 
@@ -42,7 +45,7 @@ export class InvoicedataComponent implements OnInit, OnChanges {
     const currentDate = new Date();
     this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd') as string;
 
-    if (!this.invoiceService.invoiceNumber || this.duplicateInvoice) {
+    if (!this.invoiceService.invoiceId || this.duplicateInvoice) {
       this.getInvoiceNumber();
     }
 
@@ -59,7 +62,7 @@ export class InvoicedataComponent implements OnInit, OnChanges {
 
   getInvoiceNumber() {
     this.invoiceService.getInvoiceNumber().pipe(takeUntil(this.destroyed)).subscribe((res: IInvoiceClass) => {
-      this.InvoiceNumber = res.invoiceNumber;
+      this.invoiceNumber = res.invoiceNumber;
     });
   }
 

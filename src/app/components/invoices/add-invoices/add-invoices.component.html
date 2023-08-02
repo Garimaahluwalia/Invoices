@@ -15,7 +15,7 @@
                     (ngSubmit)="submit(InvoiceForm)">
                     <div class="row">
                         <div class="col-md-12">
-                            <app-invoicedata [invoiceId]="invoiceId" [duplicateInvoice]="duplicateInvoice"></app-invoicedata>
+                            <app-invoicedata [invoiceId]="invoiceId" [invoiceNumber]="invoiceNumber" [duplicateInvoice]="duplicateInvoice"></app-invoicedata>
                         </div>
                     </div>
                     <div class="row">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="card-body px-0">
-                        <app-productdetails></app-productdetails>
+                        <app-productdetails [fields]="fields"></app-productdetails>
                         <app-paymentdetails></app-paymentdetails>
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
                             <button type="submit" class="btn btn-info save-cstn-btn save-button"

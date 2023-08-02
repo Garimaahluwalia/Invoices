@@ -1,4 +1,3 @@
-
 export enum FieldType {
     TEXT = "TEXT",
     NUMBER = "NUMBER",
@@ -13,6 +12,11 @@ export interface IField {
     default: boolean;
     sortOrder: number;
     custom: boolean;
+    delete: boolean;
+    tax: boolean;
+    label: string;
+    readonly: boolean;
+    columnType: string;
 }
 
 export class Field {

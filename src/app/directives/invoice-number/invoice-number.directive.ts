@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
-import { InvoiceService } from '../services/invoices/invoice.service';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
 @Directive({
   selector: '[appInvoiceNumber] [ngModel]',
@@ -17,7 +17,7 @@ import { InvoiceService } from '../services/invoices/invoice.service';
   ]
 })
 export class InvoiceNumberDirective {
-  @Input() public invoiceId!: string;
+  @Input() public invoiceId: string | null = null;
   constructor(public invoiceService : InvoiceService) { }
 
 

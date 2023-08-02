@@ -35,7 +35,7 @@ import { dashboardComponent } from './components/invoices/dashboard/dashboard.co
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { DatePipe } from '@angular/common';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
-import { InvoiceNumberDirective } from './directives/invoice-number.directive';
+import { InvoiceNumberDirective } from './directives/invoice-number/invoice-number.directive';
 import { SvgComponent } from './common/svg/svg.component';
 import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';

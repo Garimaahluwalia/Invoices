@@ -38,6 +38,7 @@
         <!-- TABLE HEAD STARTS -->
         <thead class="align-middle items-chart productRow">
           <tr class="table-active">
+            <!-- {{ fields | json }} -->
             <ng-container *ngFor="let details of fields">
               <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
             </ng-container>
@@ -51,10 +52,12 @@
 
               <td class="text-start" *ngIf="first; else addOtherFields">
                 <div class="mb-2">
-                  <input type="text" ngModel name="name" [(ngModel)]="row[details.fieldName]"
+                  <input type="text" ngModel name="name" [(ngModel)]="row[details.fieldName]" *ngIf="!details.hidden"
                     class="form-control bg-light border-0" placeholder="Item Name" required
                     (ngModelChange)="onProductValueChange(i)" />
                 </div>
+
+
                 <!-- Description starts -->
                 <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
                   <i class="fa-regular fa-square-plus mr-1"></i> Add Description
@@ -73,7 +76,7 @@
 
               <ng-template #addOtherFields>
                 <td class="text-end">
-                  <div *ngIf="details.type === FieldTypes.TEXT" >
+                  <div *ngIf="details.type === FieldTypes.TEXT">
                     <input type="text" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                       [readonly]="details.readonly" *ngIf="!details.hidden" (ngModelChange)="onProductValueChange(i)"
                       class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
@@ -99,6 +102,7 @@
                   </div>
                 </td>
               </ng-template>
+              
             </ng-container>
 
 

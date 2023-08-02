@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 import { take } from 'rxjs';
 import { IProductRows } from 'src/app/types/product';
+import { Field, FieldType } from 'src/app/types/columnType';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -18,18 +19,55 @@ import { IProductRows } from 'src/app/types/product';
 })
 export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
+  public invoiceNumber: string | null = null;
   public Invoices!: IInvoice;
   public taxType!: String;
   public ProductData!: any;
   private readonly notifier!: NotifierService;
   public invoiceId: string | null = null;
-  public updatedInvoiceNumber!: string;
   public updateInvoiceData: any;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status!: any;
   public currency!: string;
   public duplicateInvoice: boolean = false;
-
+  public fields: Field[] = [
+    {
+      "type": FieldType.TEXT,
+      "fieldName": "item",
+      "label": "Item",
+      "hidden": false,
+      "default": true,
+      "sortOrder": 1,
+      "custom": false,
+      "delete": false,
+      "tax": false,
+      "readonly": false,
+    },
+    {
+      "type": FieldType.TEXT,
+      "fieldName": "HSN_SAC",
+      "label": "HSN_SAC",
+      "hidden": false,
+      "default": true,
+      "sortOrder": 3,
+      "custom": false,
+      "delete": false,
+      "tax": false,
+      "readonly": false,
+    },
+    {
+      "type": FieldType.NUMBER,
+      "fieldName": "amount",
+      "label": "Amount",
+      "hidden": false,
+      "default": true,
+      "sortOrder": 3,
+      "custom": false,
+      "delete": false,
+      "tax": false,
+      "readonly": false,
+    },
+  ]
   constructor(
     public addInvoiceService: AddInvoicesService,
     public route: ActivatedRoute,
@@ -44,18 +82,23 @@ export class AddInvoicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTaxes();
-    this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false; 
+    this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false;
     this.invoiceId = this.route.snapshot?.params?.["id"];
-    this.invoiceService.invoiceNumber = this.invoiceId;
+    this.invoiceService.invoiceId = this.invoiceId;
 
     if (this.invoiceId) {
       this.invoiceService.getInvoiceforUpdateAndEmit();
     }
 
     this.invoiceService.invoiceEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      this.updatedInvoiceNumber = res.invoiceNo;
+      // console.log(res, "Table field Response")
+      this.fields = res.table as Field[];
+      // console.log(this.fields, "table fields")
+      this.invoiceNumber = res.invoiceNo;
+      this.invoiceService.invoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
       this.status = res.status;
+      console.log(this.status, "status")
       this.currency = res.currency;
       this.addInvoiceService.sendProductChanges(res.products);
       if (!this.duplicateInvoice) {
@@ -109,7 +152,7 @@ export class AddInvoicesComponent implements OnInit {
 
 
   addInvoice(payload: any) {
-  console.log(payload, "PAYLOAD")
+    console.log(payload, "PAYLOAD")
     this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
         this.Invoices = res;

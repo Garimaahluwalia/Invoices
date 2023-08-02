@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild, Input } from '@angular/core';
 import { ControlContainer, NgForm, NgModel } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ClientService } from 'src/app/services/clients/client.service';
@@ -14,6 +14,7 @@ import { Field, FieldType } from 'src/app/types/columnType';
 import { AddFieldsComponent } from 'src/app/modals/add-fields/add-fields.component';
 import { IProducts } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { IProductRows } from 'src/app/types/product';
+import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 
 
 
@@ -24,7 +25,8 @@ import { IProductRows } from 'src/app/types/product';
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 
 })
-export class ProductdetailsComponent implements OnInit {
+export class ProductdetailsComponent implements OnInit, OnChanges {
+  @Input() public fields: Field[] = [];
   @ViewChild(AddFieldsComponent) public addFieldModal!: AddFieldsComponent
   public defaultDateRange!: string;
   public showTaxHeaders: boolean = true;
@@ -47,45 +49,6 @@ export class ProductdetailsComponent implements OnInit {
   public taxamount!: number;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public readonly FieldTypes = FieldType;
-
-  public fields: Field[] = [
-    {
-      "type": FieldType.TEXT,
-      "fieldName": "item",
-      "label": "Item",
-      "hidden": false,
-      "default": true,
-      "sortOrder": 1,
-      "custom": false,
-      "delete": false,
-      "tax": false,
-      "readonly": false,
-    },
-    {
-      "type": FieldType.TEXT,
-      "fieldName": "HSN_SAC",
-      "label": "HSN_SAC",
-      "hidden": false,
-      "default": true,
-      "sortOrder": 3,
-      "custom": false,
-      "delete": false,
-      "tax": false,
-      "readonly": false,
-    },
-    {
-      "type": FieldType.NUMBER,
-      "fieldName": "amount",
-      "label": "Amount",
-      "hidden": false,
-      "default": true,
-      "sortOrder": 3,
-      "custom": false,
-      "delete": false,
-      "tax": false,
-      "readonly": false,
-    },
-  ]
 
 
   public TaxFields: Field[] = [
@@ -119,11 +82,18 @@ export class ProductdetailsComponent implements OnInit {
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService,
     public router: Router,
-    public modalService: ModalService
+    public modalService: ModalService,
+    public invoiceDataHandlerService: InvoiceDataHandlerService
   ) { }
 
-
+  ngOnChanges(changes: SimpleChanges): void {
+      if(changes['fields'] && changes['fields'].currentValue && changes['fields'].firstChange) {
+        console.log(changes);
+        this.fields = changes['fields'].currentValue as unknown as Field[];
+      }
+  }
   ngOnInit(): void {
+    this.invoiceDataHandlerService.table = this.fields;
     this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.productRows = res;
     });
@@ -191,8 +161,12 @@ export class ProductdetailsComponent implements OnInit {
   }
 
   handleSaveEvent(fields: Field[]) {
+    console.log("Received fields:", fields);
     this.fields = fields;
-  }
+    this.invoiceDataHandlerService.table = fields;
+    console.log("Stored fields in service:", this.invoiceDataHandlerService.table);
+}
+
 
 
   currencyChange(event: any) {

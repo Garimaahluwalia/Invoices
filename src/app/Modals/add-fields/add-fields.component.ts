@@ -23,7 +23,8 @@ export class AddFieldsComponent implements OnInit {
   public show: boolean[] = [];
   public selectedColumnType: any;
   public draggedItemIndex!: number;
-
+  
+  
   constructor(
     public router: Router,
     public modalService: ModalService,

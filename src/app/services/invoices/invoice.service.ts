@@ -13,6 +13,7 @@ import endpoints from 'src/app/endpoints';
 })
 
 export class InvoiceService {
+  public invoiceId: string | null = null;
   public totalNumberOfInvoices: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _page: number = 1;
   private _limit: number = 10;
@@ -134,7 +135,7 @@ export class InvoiceService {
 
   async getInvoiceforUpdateAndEmit() {
     try {
-      const rs = await lastValueFrom(this.getInvoice(this.invoiceNumber as string));
+      const rs = await lastValueFrom(this.getInvoice(this.invoiceId as string));
       this.forupdateinvoicedata = rs;
       this.productRows = rs.products;
       console.log(this.productRows, "PRODUCT ROWS")
@@ -162,8 +163,8 @@ export class InvoiceService {
   }
 
 
-  checkInvoiceNumber(InvoiceNumber: string, InvoiceId: string): Observable<{ [key: string]: boolean | string }> {
-    return this.http.get<{ [key: string]: boolean | string }>(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(InvoiceNumber, InvoiceId));
+  checkInvoiceNumber(invoiceNumber: string, invoiceId: string | null): Observable<{ [key: string]: boolean | string }> {
+    return this.http.get<{ [key: string]: boolean | string }>(endpoints.INVOICES_LIST.CHECK_INVOICENUMBER(invoiceNumber, invoiceId));
   }
 
   getInvoice(invoiceId: string): Observable<IInvoice> {

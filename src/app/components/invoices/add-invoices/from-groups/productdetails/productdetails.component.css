@@ -18,10 +18,11 @@
 
 
 
-table thead .table-active{
-    --in-table-accent-bg: #e12026 !important; 
+table thead .table-active {
+    --in-table-accent-bg: #e12026 !important;
     background-color: #e12026 !important;
 }
+
 .items-chart tr th {
     color: #fff;
     font-size: 16px;
@@ -67,38 +68,45 @@ table thead .table-active{
 .cstn-description i {
     color: #e12026;
 }
-.product-removal  i{
- font-size: 20px;
+
+.product-removal i {
+    font-size: 20px;
 }
-.add-new-line{
+
+.add-new-line {
     padding: 14px 50px;
     font-size: 18px;
     background-color: #f2f2f2;
     border: 1px dashed #b1afaf !important;
     margin-top: 40px;
 }
+
 .width-60 {
     width: 60%;
-  }
+}
+
 .width-40 {
     width: 40%;
-  }
-  
-  .width-10 {
-    width: 10%;
-  }
- .list-width{
-    width: 100px;
- }
+}
 
- th.width-40 {
+.width-10 {
+    width: 10%;
+}
+
+.list-width {
+    width: 100px;
+}
+
+th.width-40 {
     background-color: var(--highlight-color) !important;
     border-color: var(--highlight-color) !important;
 }
+
 th.width-10 {
     background-color: var(--highlight-color) !important;
     border-color: var(--highlight-color) !important;
 }
+
 th {
     background-color: var(--highlight-color) !important;
     border-color: var(--highlight-color) !important;
@@ -112,10 +120,21 @@ button.btn.btn-primary {
     border: var(--bs-border-width) solid var(--bs-border-color);
 }
 
-button.btn.btn-primary{
+button.btn.btn-primary {
     background-color: white !important;
     color: black;
     font-size: 16px;
     padding: 9px 13px 7px;
     border: var(--bs-border-width) solid var(--bs-border-color) !important;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allows the items to wrap as needed */
+}
+
+.item {
+    flex: 1 0 auto;
+    /* Allows your items to flex */
 }

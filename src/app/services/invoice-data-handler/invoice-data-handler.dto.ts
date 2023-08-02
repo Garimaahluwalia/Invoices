@@ -1,4 +1,5 @@
 import { IClient } from "src/app/types/client/client.dto";
+import { Field, IField } from "src/app/types/columnType";
 import { TAXES } from "src/app/types/taxes";
 
 export interface IInvoiceResponse {
@@ -26,7 +27,7 @@ export interface IInvoice {
    subtotalofamount: number;
    totalamountoftax: number;
    totalamount: number;
-   table?: IColumnTable;
+   table?: Field[];
 }
 
 export interface IInvoiceClass {
@@ -34,18 +35,7 @@ export interface IInvoiceClass {
    date: string
 }
 
-export interface IColumnTable {
-   type: string,
-   fieldName: string,
-   hidden: boolean,
-   default: boolean,
-   custom: boolean,
-   delete: boolean,
-   tax: boolean,
-   sortOrder: number,
-   label: string,
-   readonly: boolean
-}
+
 export interface IbankDetails {
    accountHolderName: string,
    accountNumber: string,
