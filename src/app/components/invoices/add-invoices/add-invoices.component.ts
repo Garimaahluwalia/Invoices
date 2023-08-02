@@ -95,8 +95,8 @@ export class AddInvoicesComponent implements OnInit {
       this.invoiceNumber = res.invoiceNo;
       this.invoiceService.invoiceNumber = res.invoiceNo;
       this.ProductData = res.products;
+      console.log(this.ProductData, "PRODUCTDATA")
       this.status = res.status;
-      console.log(this.status, "status")
       this.currency = res.currency;
       this.addInvoiceService.sendProductChanges(res.products);
       if (!this.duplicateInvoice) {
