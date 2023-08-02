@@ -15,16 +15,14 @@ export class AddFieldsComponent implements OnInit {
   @ViewChild('openAddFields', { static: false }) private openAddFields!: ElementRef<HTMLButtonElement>;
   @ViewChild('closeAddFields', { static: false }) private closeAddFields!: ElementRef<HTMLButtonElement>;
   @Input() fields: Field[] = [];
-
   @Output() onSave = new EventEmitter<Field[]>();
-
   public FieldTpes: string[] = Object.values(FieldType);
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public show: boolean[] = [];
   public selectedColumnType: any;
   public draggedItemIndex!: number;
-  
-  
+
+
   constructor(
     public router: Router,
     public modalService: ModalService,
@@ -43,7 +41,6 @@ export class AddFieldsComponent implements OnInit {
   }
 
   //  DRAG AND DROP STARTS HERE 
-
   dragStart(event: any, index: number) {
     event.dataTransfer.setData('text/plain', index);
     this.draggedItemIndex = index;
@@ -63,11 +60,7 @@ export class AddFieldsComponent implements OnInit {
   drop(event: any, index: number) {
     event.preventDefault();
   }
-
   // DRAG AND DROP ENDS HERE 
-
-
-
 
 
   openModal() {
@@ -77,7 +70,6 @@ export class AddFieldsComponent implements OnInit {
 
   closeModal() {
     this.closeAddFields?.nativeElement.click();
-    /* this.router.navigate(["add-invoice"]); */
   }
 
   addcolumns() {
@@ -110,11 +102,6 @@ export class AddFieldsComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
-
   makeKey(length: number = 5) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -126,4 +113,11 @@ export class AddFieldsComponent implements OnInit {
     }
     return result;
   }
+
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
+
 }

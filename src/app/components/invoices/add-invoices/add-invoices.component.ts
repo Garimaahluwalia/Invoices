@@ -83,6 +83,7 @@ export class AddInvoicesComponent implements OnInit {
   ngOnInit(): void {
     this.getTaxes();
     this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false;
+    console.log(this.duplicateInvoice, "DUPLICATE INVOICE DATA")
     this.invoiceId = this.route.snapshot?.params?.["id"];
     this.invoiceService.invoiceId = this.invoiceId;
 
@@ -116,7 +117,6 @@ export class AddInvoicesComponent implements OnInit {
           }
         }
       }
-
       this.InvoiceForm.form?.patchValue(formData);
     });
   }
