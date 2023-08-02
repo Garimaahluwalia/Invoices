@@ -83,10 +83,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
 
 
-  ngOnDestroy() {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
+
 
   fetchCountries() {
     axios.get('https://restcountries.com/v2/all')
@@ -201,5 +198,11 @@ export class AddClientComponent implements OnInit, OnDestroy {
       console.error(err);
       this.closeModal();
     })
+  }
+
+
+  ngOnDestroy() {
+    this.destroyed.next(true);
+    this.destroyed.complete();
   }
 }

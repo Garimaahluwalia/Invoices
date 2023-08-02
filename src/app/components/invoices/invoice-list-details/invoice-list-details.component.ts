@@ -21,13 +21,13 @@ export class InvoiceListDetailsComponent implements OnInit {
   public description: any | null = null;
   public download!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public products : any[] = [];
+  public products: any[] = [];
   public totalAmountInWords!: number;
-  public subtotalofamount! : number;
-  public totalamount! : number;
-  public totalInWords! : string;
-  public invoiceImage! : string;
-   private readonly notifier!: NotifierService;
+  public subtotalofamount!: number;
+  public totalamount!: number;
+  public totalInWords!: string;
+  public invoiceImage!: string;
+  private readonly notifier!: NotifierService;
 
 
   constructor(
@@ -57,31 +57,28 @@ export class InvoiceListDetailsComponent implements OnInit {
       }
     );
 
-    
+
   }
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
+
 
   getInvoiceById() {
     this.invoiceService.getInvoice(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
         this.data = res;
-        
+
         this.products = res.products;
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;
         this.totalInWords = '';
-          if (this.totalamount === 0) {
-            this.totalInWords = numberToWords(this.subtotalofamount.toString());
-          } else {
-            this.totalInWords = numberToWords(this.totalamount.toString());
-          }
+        if (this.totalamount === 0) {
+          this.totalInWords = numberToWords(this.subtotalofamount.toString());
+        } else {
+          this.totalInWords = numberToWords(this.totalamount.toString());
+        }
       });
-    
-    
+
+
   }
 
   downloadInvoice() {
@@ -116,4 +113,8 @@ export class InvoiceListDetailsComponent implements OnInit {
       });
   }
 
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 }
