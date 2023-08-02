@@ -135,10 +135,8 @@ export class InvoiceService {
   async getInvoiceforUpdateAndEmit() {
     try {
       const rs = await lastValueFrom(this.getInvoice(this.invoiceId as string));
-      console.log(rs , "RESPONSE OF EMITTER")
       this.forupdateinvoicedata = rs;
       this.productRows = rs.products;
-      console.log(this.productRows, "PRODUCT ROWS")
       this.invoiceEmitter.emit(this.forupdateinvoicedata);
     } catch (e) {
       console.error(e);
@@ -157,7 +155,7 @@ export class InvoiceService {
     this._invoices = invoiceData;
     this.sendInvoices();
   }
-  
+
   getInvoiceNumber(): Observable<IInvoiceClass> {
     return this.http.get<IInvoiceClass>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
   }

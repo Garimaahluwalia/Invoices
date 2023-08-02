@@ -28,6 +28,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public totalInWords!: string;
   public invoiceImage!: string;
   private readonly notifier!: NotifierService;
+  table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
 
 
   constructor(
@@ -65,8 +66,9 @@ export class InvoiceListDetailsComponent implements OnInit {
     this.invoiceService.getInvoice(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
+        this.table = res.table;
+        console.log(this.table , "table data ")
         this.data = res;
-
         this.products = res.products;
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;

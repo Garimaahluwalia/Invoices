@@ -138,6 +138,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.pan = this.pan;
     }
   }
+
+
   saveChanges() {
     let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
     let newData: IClientPayload = {
@@ -180,7 +182,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
   updateClient(newData: IClientPayload) {
-    this.clientService.updateClientReq(this.data['clientId'], newData).subscribe((res: IClient) => {
+    this.clientService.updateClientReq(this.data['clientId'], newData).pipe(takeUntil(this.destroyed)).subscribe((res: IClient) => {
       this.clientService.updateListAndSendClientData(res);
       this.closeModal();
     }, err => {
@@ -190,7 +192,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
   }
 
   addClient(newData: IClientPayload) {
-    this.clientService.addClientToServer(newData).subscribe((res: IClient) => {
+    this.clientService.addClientToServer(newData).pipe(takeUntil(this.destroyed)).subscribe((res: IClient) => {
       this.clientService.getAll();
       this.clientService.sendClientDetails(res);
       this.closeModal();

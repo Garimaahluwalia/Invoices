@@ -16,6 +16,7 @@ export class AddFieldsComponent implements OnInit {
   @ViewChild('closeAddFields', { static: false }) private closeAddFields!: ElementRef<HTMLButtonElement>;
   @Input() fields: Field[] = [];
   @Output() onSave = new EventEmitter<Field[]>();
+  
   public FieldTpes: string[] = Object.values(FieldType);
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public show: boolean[] = [];

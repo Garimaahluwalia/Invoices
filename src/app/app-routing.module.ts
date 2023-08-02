@@ -17,7 +17,6 @@ import { ClientDetailsComponent } from './components/invoices/add-invoices/from-
 import { dashboardComponent } from './components/invoices/dashboard/dashboard.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
-import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
 
 
 const routes: Routes = [

@@ -40,7 +40,7 @@ export class PaymentdetailsComponent implements OnInit {
   };
   public totalOfAmountFromProduct!: number;
   public taxamount!: number;
-  public currencies = CURRENCY; 
+  public currencies = CURRENCY;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public totalInWords!: string;
 
@@ -49,7 +49,7 @@ export class PaymentdetailsComponent implements OnInit {
     public invoiceService: InvoiceService,
     public invoiceDataHandlerService: InvoiceDataHandlerService,
     private __ref: ChangeDetectorRef
-    ) { }
+  ) { }
   ngOnInit(): void {
 
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
@@ -102,12 +102,6 @@ export class PaymentdetailsComponent implements OnInit {
         this.currency = currencyDetails?.symbol;
       }
     });
-
-
-  }
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
   }
 
   public Bankdetails: IbankDetails = {
@@ -116,6 +110,11 @@ export class PaymentdetailsComponent implements OnInit {
     "ifscCode": "ICICINBBCTS",
     "swiftCode": "9898BHBZA23",
     "bank": "ICICI Bank Ltd.",
-  };
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 
 }

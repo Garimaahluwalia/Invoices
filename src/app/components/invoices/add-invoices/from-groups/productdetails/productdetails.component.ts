@@ -139,6 +139,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
       const field: Field = new Field(FieldType.NUMBER, "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
       this.fields = [...this.fields, field, ...this.TaxFields];
     }
+    this.invoiceDataHandlerService.table = this.fields;
 
     this.clientService.sendTaxName(this.selectedTaxRate);
     this.productRows.forEach((row, index) => {

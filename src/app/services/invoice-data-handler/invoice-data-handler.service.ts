@@ -27,6 +27,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   public _totalamountoftax!: number;
   public _totalamount!: number;
   public _table!: Field[];
+  
   constructor() { }
 
 
@@ -44,6 +45,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   set subtotalofamount(value: number) {
     this._subtotalofamount = value;
   }
+
   get subtotalofamount(): number {
     return this._subtotalofamount;
   }
@@ -52,6 +54,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   set totalamountoftax(value: number) {
     this._totalamountoftax = value;
   }
+
   get totalamountoftax(): number {
     return this._totalamountoftax;
   }
@@ -60,14 +63,15 @@ export class InvoiceDataHandlerService implements IInvoice {
   set totalamount(value: number) {
     this._totalamount = value;
   }
+
   get totalamount(): number {
     return this._totalamount;
   }
 
   set status(value: string | undefined) {
     this._status = value;
-    console.log(this._status, "Status")
   }
+
   get status(): string | undefined {
     return this._status;
   }
@@ -79,6 +83,7 @@ export class InvoiceDataHandlerService implements IInvoice {
       date: date
     };
   }
+
   setbankDetails({ accountHolderName, accountNumber, ifscCode, swiftCode, bank }: IbankDetails) {
     this.bankDetails = {
       accountHolderName: accountHolderName,
@@ -121,9 +126,8 @@ export class InvoiceDataHandlerService implements IInvoice {
 
   set tax(value: TAXES) {
     this._tax = value;
-
-
   }
+
   get tax(): TAXES {
     return this._tax;
   }
@@ -144,7 +148,6 @@ export class InvoiceDataHandlerService implements IInvoice {
 
 
   setProducts(products: any) {
-
     const product: IProducts[] = [];
     if (products && typeof products === 'object') {
       const keys = Object.keys(products);
@@ -154,7 +157,6 @@ export class InvoiceDataHandlerService implements IInvoice {
       }
     }
     this._products = product;
-
   }
 
 
