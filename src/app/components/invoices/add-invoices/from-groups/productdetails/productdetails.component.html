@@ -40,7 +40,6 @@
         <!-- TABLE HEAD STARTS -->
         <thead class="align-middle items-chart productRow">
           <tr class="table-active">
-            <!-- {{ fields | json }} -->
             <ng-container *ngFor="let details of fields">
               <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
             </ng-container>

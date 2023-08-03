@@ -4,7 +4,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { IClient } from 'src/app/types/client/client.dto';
+import { ClientRouterModalAction, IClient } from 'src/app/types/client/client.dto';
 import { ModalEvents } from 'src/app/types/modal';
 @Component({
   selector: 'app-client',
@@ -50,14 +50,14 @@ export class ClientComponent implements OnInit {
 
   addClient() {
     this.router.navigate(["clients", "add-client"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true });
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { action: ClientRouterModalAction.Client} });
     });
   }
 
 
   updateClient(details: IClient) {
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details } })
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: true, clientId: details._id, ...details, action: ClientRouterModalAction.Client } });
     })
   }
 

@@ -10,14 +10,18 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="invoicenoInput">Invoice No</label>
-                        <input name="invoiceNumber" ngModel type="text" class="form-control bg-light border-0" #invoicenNumberValidation="ngModel"
-                            id="invoicenoInput" [(ngModel)]="invoiceNumber" [invoiceId]="invoiceNumber" placeholder="Invoice No" appInvoiceNumber>
+                        <input name="invoiceNumber" ngModel type="text" class="form-control bg-light border-0"
+                            #invoicenNumberValidation="ngModel" id="invoicenoInput" [(ngModel)]="invoiceNumber"
+                            [invoiceId]="invoiceNumber" placeholder="Invoice No" appInvoiceNumber>
                     </div>
-                    <div *ngIf="invoicenNumberValidation.invalid && (invoicenNumberValidation.dirty || invoicenNumberValidation.touched)">
-                        <div *ngIf="invoicenNumberValidation.errors?.['required']" class="text-danger">Invoice is required.
+                    <div
+                        *ngIf="invoicenNumberValidation.invalid && (invoicenNumberValidation.dirty || invoicenNumberValidation.touched)">
+                        <div *ngIf="invoicenNumberValidation.errors?.['required']" class="text-danger">Invoice is
+                            required.
                         </div>
-                      
-                        <div *ngIf="invoicenNumberValidation.errors?.['isExists']" class="text-danger alreadyExist">Invoice already
+
+                        <div *ngIf="invoicenNumberValidation.errors?.['isExists']" class="text-danger alreadyExist">
+                            Invoice already
                             exists.
                         </div>
                     </div>
@@ -27,7 +31,7 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="date-field">Date</label>
-                        <input type="date" [(ngModel)]="defaultDate"
+                        <input type="date" [(ngModel)]="defaultDate" style="cursor: pointer;"
                             class="form-control bg-light border-0 flatpickr-input position-relative" id="date-field"
                             data-provider="flatpickr" data-time="true" placeholder="Select Date-time" name="date">
                     </div>

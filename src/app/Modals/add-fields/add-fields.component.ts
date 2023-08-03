@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Event, Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Field, FieldType } from 'src/app/types/columnType';
@@ -20,7 +20,7 @@ export class AddFieldsComponent implements OnInit {
   public FieldTypes: string[] = Object.values(FieldType);
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public show: boolean[] = [];
-  public selectedColumnType: any;
+  public selectedColumnType!: string;
   public draggedItemIndex!: number;
 
 
@@ -83,7 +83,7 @@ export class AddFieldsComponent implements OnInit {
   }
 
   onColumnChange(event: any) {
-    this.selectedColumnType = event.target.value;
+    this.selectedColumnType = (<HTMLSelectElement>event.target).value;
     console.log(this.selectedColumnType, "COLUMN TYPE")
   }
 

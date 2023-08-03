@@ -12,8 +12,6 @@ import { Router } from '@angular/router';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Field, FieldType } from 'src/app/types/columnType';
 import { AddFieldsComponent } from 'src/app/modals/add-fields/add-fields.component';
-import { IProducts } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
-import { IProductRows } from 'src/app/types/product';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 
 
@@ -42,10 +40,10 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
   public productRows: any[] = [];
   public taxAmountData: any;
   public selectedTaxRate: TAXES = TAXES.NONE;
-  public selectedCurrency: any = DEFAULTCURRENCY.code;  // Currency 
+  public selectedCurrency: string = DEFAULTCURRENCY.code;  // Currency 
   public selectedTaxRateValue: number = 0;
-  public currencies = CURRENCY; // Currency
-  public inputcurrency: any;  // currency
+  public currencies = CURRENCY;
+  public inputcurrency: any;
   public taxamount!: number;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public readonly FieldTypes = FieldType;
@@ -87,9 +85,9 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['fields'] && changes['fields'].currentValue && changes['fields'].firstChange) {
-      console.log(changes);
+    if (changes['fields'] && changes['fields'].currentValue && !changes['fields'].firstChange) {
       this.fields = changes['fields'].currentValue as unknown as Field[];
+      this.invoiceDataHandlerService.table = this.fields;
     }
   }
   ngOnInit(): void {
@@ -163,10 +161,8 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
   }
 
   handleSaveEvent(fields: Field[]) {
-    console.log("Received fields:", fields);
     this.fields = fields;
     this.invoiceDataHandlerService.table = fields;
-    console.log("Stored fields in service:", this.invoiceDataHandlerService.table);
   }
 
 
@@ -189,7 +185,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
   }
 
 
-  removeRow(rowIndex: any) {
+  removeRow(rowIndex: number) {
     const rows = [...this.productRows];
     if (rows.length > 1) {
       rows.splice(rowIndex, 1);
@@ -200,7 +196,6 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
 
   onProductValueChange(i: number, taxRateChange?: number) {
     const row = this.productRows[i];
-    console.log(row, "ROW DATA")
     if (this.selectedTaxRate !== TAXES.NONE) {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
       const selectedAmount = Number(row.amount || 0);

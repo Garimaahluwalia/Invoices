@@ -8,7 +8,6 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { CURRENCY, DEFAULTCURRENCY } from 'src/app/types/currency';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
-import { ChangeDetectorRef } from '@angular/core';
 import { IPrices, IProductRows } from 'src/app/types/product';
 
 
@@ -48,7 +47,6 @@ export class PaymentdetailsComponent implements OnInit {
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService,
     public invoiceDataHandlerService: InvoiceDataHandlerService,
-    private __ref: ChangeDetectorRef
   ) { }
   ngOnInit(): void {
 

@@ -20,9 +20,9 @@ import { Field, FieldType } from 'src/app/types/columnType';
 export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
   public invoiceNumber: string | null = null;
-  public Invoices!: IInvoice;
-  public taxType!: String;
-  public ProductData!: any;
+  public invoices!: IInvoice;
+  public taxType!: string;
+  public productData!: IProductRows;
   private readonly notifier!: NotifierService;
   public invoiceId: string | null = null;
   public updateInvoiceData: any;
@@ -80,6 +80,7 @@ export class AddInvoicesComponent implements OnInit {
       "readonly": false,
     },
   ]
+
   constructor(
     public addInvoiceService: AddInvoicesService,
     public route: ActivatedRoute,
@@ -104,10 +105,9 @@ export class AddInvoicesComponent implements OnInit {
 
     this.invoiceService.invoiceEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
       this.fields = res.table as Field[];
-      console.log(this.fields, "Fields Data")
       this.invoiceNumber = res.invoiceNo;
       this.invoiceService.invoiceNumber = res.invoiceNo;
-      this.ProductData = res.products;
+      this.productData = res.products;
       this.status = res.status;
       this.currency = res.currency;
       this.addInvoiceService.sendProductChanges(res.products);
@@ -164,7 +164,7 @@ export class AddInvoicesComponent implements OnInit {
     console.log(payload, "PAYLOAD")
     this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
-        this.Invoices = res;
+        this.invoices = res;
         this.router.navigateByUrl("/invoice");
         this.notifier.show({
           type: 'success',
@@ -184,7 +184,7 @@ export class AddInvoicesComponent implements OnInit {
   updateInvoice(invoiceId: string, payload: { [key: string]: any }) {
     this.invoiceService.updateInvoice(invoiceId, payload).pipe(take(1)).subscribe(
       (res: any) => {
-        this.Invoices = res;
+        this.invoices = res;
         this.router.navigateByUrl("/invoice");
         this.notifier.show({
           type: 'success',

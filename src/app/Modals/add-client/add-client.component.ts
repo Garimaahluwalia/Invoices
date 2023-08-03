@@ -6,7 +6,7 @@ import { ModalEvents } from 'src/app/types/modal';
 import axios from 'axios';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
-import { IClient, IClientPayload } from 'src/app/types/client/client.dto';
+import { ClientRouterModalAction, IClient, IClientPayload } from 'src/app/types/client/client.dto';
 
 @Component({
   selector: 'app-add-client',
@@ -33,12 +33,11 @@ export class AddClientComponent implements OnInit, OnDestroy {
   public phone!: number;
   public _id!: string;
   public user_id!: string;
-  private invoice: boolean = false;
+  private invoiceId: string | null = null;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public disabledInput: boolean = false;
   private readonly notifier!: NotifierService;
-  public invoiceID!: string;
-
+  public action: ClientRouterModalAction = ClientRouterModalAction.Client;
 
 
   constructor(public router: Router,
@@ -59,7 +58,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
     this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
       const { status, data } = res;
       this.data = data;
-      this.invoice = data?.invoice || false;
+      this.action = data?.action as ClientRouterModalAction;
+      this.invoiceId = data?.invoiceId || null;
       this.disabledInput = data?.disabled || false;
       if (status) {
         this.openModal();
@@ -113,16 +113,18 @@ export class AddClientComponent implements OnInit, OnDestroy {
     } catch (e) {
       console.error(e);
     } finally {
-      if (this.router.url.includes("clients")) {
-        this.router.navigate(["clients"]);
-      } else if (this.router.url.includes("add-invoice")) {
-        this.router.navigate(["add-invoice"])
-        if (this.router.url.includes(this.data?.['_id'])) {
-        } else {
-          this.router.navigate(["add-invoice"]).then(() => {
-            this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: false });
-          });
-        }
+      
+      console.log(this.action);
+      switch (this.action) {
+        case ClientRouterModalAction.Client:
+          this.router.navigate(["clients"]);
+          break;
+        case ClientRouterModalAction.AddInvoice:
+          this.router.navigate(["add-invoice"]);
+          break;
+        case ClientRouterModalAction.EditInvoice:
+          this.router.navigate(["add-invoice", this.invoiceId ]);
+          break;
       }
     }
   }

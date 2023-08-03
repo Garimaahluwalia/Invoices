@@ -4,10 +4,10 @@
     </div>
     <div class="form-group">
         <select name="client_id" [(ngModel)]="clientId" (ngModelChange)="onClientChange()"
-        class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1">
-        <option disabled [ngValue]="null">Select a client</option>
-        <option *ngFor="let details of clients" [ngValue]="details._id">{{ details.name }}</option>
-      </select>
+            class="form-control company-name-bill selector-height-35" id="exampleFormControlSelect1">
+            <option disabled [ngValue]="null">Select a client</option>
+            <option *ngFor="let details of clients" [ngValue]="details._id">{{ details.name }}</option>
+        </select>
     </div>
 
     <div class="card mb-2" *ngIf="selectedClient">
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div [class.d-none]="!clientId" (click)="updateClient(clientId)" class="client-edit">
-        <i class="fa-solid fa-pen-to-square"></i>
+        <i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i>
         <span></span>
     </div>
 

@@ -28,8 +28,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public totalInWords!: string;
   public invoiceImage!: string;
   private readonly notifier!: NotifierService;
-  table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
-
+  public table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
 
   constructor(
     public invoiceService: InvoiceService,
@@ -57,8 +56,6 @@ export class InvoiceListDetailsComponent implements OnInit {
         console.error('Profile update failed:', error);
       }
     );
-
-
   }
 
 
@@ -68,8 +65,8 @@ export class InvoiceListDetailsComponent implements OnInit {
       .subscribe((res) => {
         this.table = res.table;
         this.data = res;
+        console.log(this.data, "get invoice Data ")
         this.products = res.products;
-        console.log(this.products, "PRODUCTS DATA");
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;
         this.totalInWords = '';

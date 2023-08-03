@@ -5,7 +5,7 @@ import { ClientService } from 'src/app/services/clients/client.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents } from 'src/app/types/modal';
 import { takeUntil, ReplaySubject } from "rxjs";
-import { IClient } from 'src/app/types/client/client.dto';
+import { ClientRouterModalAction, IClient } from 'src/app/types/client/client.dto';
 interface Options {
   queryParams?: {
     duplicateInvoice?: string;
@@ -60,7 +60,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
       options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
     }
     this.router.navigate(["add-invoice", "add-client"], options).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true } });
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true, invoiceId: this.invoiceId as string, action: this.invoiceId ? ClientRouterModalAction.EditInvoice : ClientRouterModalAction.AddInvoice, } });
     });
   }
 
@@ -74,8 +74,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
       route = ["add-invoice", this.invoiceId, "add-client", clientId]
     }
     this.router?.navigate(route, options).then(() => {
-      const data: { [key: string]: string | number | boolean } = { invoice: true, edit: true, clientId: this.clientId as string, ...(this.selectedClient as IClient) } as unknown as { [key: string]: string | number | boolean };
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: data });
+      const data: { [key: string]: string | number | boolean } = { invoiceId: this.invoiceId, action: this.invoiceId ? ClientRouterModalAction.EditInvoice : ClientRouterModalAction.AddInvoice, invoice: true, edit: true, clientId: this.clientId as string, ...(this.selectedClient as IClient) } as unknown as { [key: string]: string | number | boolean };
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: data, });
     });
   }
 

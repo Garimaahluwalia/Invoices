@@ -15,9 +15,8 @@ import { IInvoiceClass } from 'src/app/services/invoice-data-handler/invoice-dat
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class InvoicedataComponent implements OnInit, OnChanges {
-  /* @Input() invoice!: { [key: string]: string | number } */
   @Input() duplicateInvoice: boolean = false;
-  @Input() invoiceId!: any;
+  @Input() invoiceId: string | null = null;
   @Input() public invoiceNumber: string | null = null;
   public defaultDate!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);

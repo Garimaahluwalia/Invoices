@@ -16,7 +16,7 @@
                                     </div>
                                     <div class="d-flex align-items-center ml-5">
                                         <label class="date-range">Select Date Range</label>
-                                        <input type="text" name="daterange"
+                                        <input type="text" name="daterange" style="cursor: pointer;"
                                             (change)="dateRangePicker(startDate , endDate)" class="datepicker"
                                             [value]="defaultDateRange" />
                                     </div>
@@ -46,7 +46,7 @@
                                         <th>
                                             <!-- Select-unselect-all-items -->
                                             <input type="checkbox" #selectUnselectSingle
-                                                (change)="selectUnselectAllItems($event)">
+                                                (change)="selectUnselectAllItems($event)" style="cursor: pointer;">
                                         </th>
                                         <th scope="col">Date
                                             <span class="sort-icon">
@@ -93,7 +93,8 @@
                                             <td>
                                                 <input type="checkbox" #selectUnselectItems
                                                     (change)="checkItem($event, details._id)"
-                                                    [checked]="checkedItems[details._id]" [value]="details._id">
+                                                    [checked]="checkedItems[details._id]" [value]="details._id"
+                                                    style="cursor: pointer;">
                                             </td>
                                             <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
                                             <td data-label="Invoice ID">
@@ -126,7 +127,7 @@
                                                         <svg [ngClass]="{ 'disabled': details.status === 'PAID' || details.status === 'CANCELLED'  }"
                                                             (click)="updateStatus(details, status.PAID)" width="24"
                                                             height="24" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 d="M8.125 1.25C6.30164 1.25 4.55295 1.97433 3.26364 3.26364C1.97433 4.55295 1.25 6.30164 1.25 8.125C1.25 9.94836 1.97433 11.697 3.26364 12.9864C4.55295 14.2757 6.30164 15 8.125 15C8.75934 15.0026 9.39077 14.9142 10 14.7375V14.6875C10 13.4443 10.4939 12.252 11.3729 11.3729C12.252 10.4939 13.4443 10 14.6875 10H14.7375C14.9142 9.39077 15.0026 8.75934 15 8.125C14.9988 6.30199 14.2741 4.55398 12.9851 3.26492C11.696 1.97586 9.94801 1.25116 8.125 1.25ZM8.125 7.5C8.56677 7.49916 8.99457 7.6547 9.33265 7.93906C9.67073 8.22342 9.89726 8.61826 9.97212 9.05364C10.047 9.48902 9.96533 9.93684 9.74165 10.3178C9.51797 10.6987 9.16668 10.9882 8.75 11.135V11.4581C8.75 11.6239 8.68415 11.7829 8.56694 11.9001C8.44973 12.0173 8.29076 12.0831 8.125 12.0831C7.95924 12.0831 7.80027 12.0173 7.68306 11.9001C7.56585 11.7829 7.5 11.6239 7.5 11.4581V11.135C7.13568 11.0062 6.82006 10.768 6.5963 10.4529C6.37255 10.1379 6.2516 9.76141 6.25 9.375C6.25 9.20924 6.31585 9.05027 6.43306 8.93306C6.55027 8.81585 6.70924 8.75 6.875 8.75C7.04076 8.75 7.19973 8.81585 7.31694 8.93306C7.43415 9.05027 7.5 9.20924 7.5 9.375C7.5 9.49861 7.53666 9.61945 7.60533 9.72223C7.67401 9.82501 7.77162 9.90512 7.88582 9.95242C8.00003 9.99973 8.12569 10.0121 8.24693 9.98799C8.36817 9.96388 8.47953 9.90435 8.56694 9.81694C8.65435 9.72953 8.71388 9.61817 8.73799 9.49693C8.76211 9.37569 8.74973 9.25003 8.70242 9.13582C8.65512 9.02162 8.57501 8.92401 8.47223 8.85533C8.36945 8.78666 8.24861 8.75 8.125 8.75C7.68323 8.75084 7.25543 8.5953 6.91735 8.31094C6.57927 8.02658 6.35274 7.63174 6.27788 7.19636C6.20302 6.76098 6.28467 6.31316 6.50835 5.93221C6.73203 5.55126 7.08332 5.26176 7.5 5.115V4.79187C7.5 4.62611 7.56585 4.46714 7.68306 4.34993C7.80027 4.23272 7.95924 4.16687 8.125 4.16687C8.29076 4.16687 8.44973 4.23272 8.56694 4.34993C8.68415 4.46714 8.75 4.62611 8.75 4.79187V5.115C9.11432 5.2438 9.42994 5.48202 9.6537 5.79706C9.87745 6.11211 9.9984 6.48859 10 6.875C10 7.04076 9.93415 7.19973 9.81694 7.31694C9.69973 7.43415 9.54076 7.5 9.375 7.5C9.20924 7.5 9.05027 7.43415 8.93306 7.31694C8.81585 7.19973 8.75 7.04076 8.75 6.875C8.75 6.75139 8.71334 6.63055 8.64467 6.52777C8.57599 6.42499 8.47838 6.34488 8.36418 6.29758C8.24997 6.25027 8.12431 6.23789 8.00307 6.26201C7.88183 6.28612 7.77047 6.34565 7.68306 6.43306C7.59565 6.52047 7.53612 6.63183 7.51201 6.75307C7.48789 6.87431 7.50027 6.99997 7.54758 7.11418C7.59488 7.22838 7.67499 7.32599 7.77777 7.39467C7.88055 7.46334 8.00139 7.5 8.125 7.5Z"
                                                                 fill="black" />
@@ -169,18 +170,19 @@
                                                                 aria-labelledby="dropdownMenuLink1">
                                                                 <li class="list-inline-item " data-bs-toggle="tooltip"
                                                                     data-bs-trigger="hover" data-bs-placement="top"
-                                                                    title="Cancel">
+                                                                    title="Cancel" style="cursor: pointer;"
+                                                                    (click)="updateStatus(details, status.CANCELLED)">
                                                                     <a class="btn btn-soft-danger btn-sm d-inline-block"
-                                                                        (click)="updateStatus(details, status.CANCELLED)"
                                                                         [ngClass]="{ 'disabled': details.status === 'CANCELLED'  }">
                                                                         <span>Cancel</span>
                                                                     </a>
                                                                 </li>
                                                                 <li class="list-inline-item" data-bs-toggle="tooltip"
                                                                     data-bs-trigger="hover" data-bs-placement="top"
-                                                                    title="Remove">
-                                                                    <a class="btn btn-soft-danger btn-sm d-inline-block"
-                                                                        (click)="DeleteInvoice(details)">
+                                                                    style="cursor: pointer;" title="Remove"
+                                                                    (click)="DeleteInvoice(details)">
+                                                                    <a
+                                                                        class="btn btn-soft-danger btn-sm d-inline-block">
                                                                         <span>Delete</span>
                                                                     </a>
                                                                 </li>

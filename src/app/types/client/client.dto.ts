@@ -31,3 +31,9 @@ export interface IClientPayload {
     street: string;
     zipcode: number
 }
+
+export enum ClientRouterModalAction {
+  Client = "Client",
+  AddInvoice = "AddInvoice",
+  EditInvoice = "EditInvoice"
+}

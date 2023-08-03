@@ -30,6 +30,10 @@
         <label for="column-type" class="form-label column-type">Column Type</label>
 
 
+
+        <ng-container>
+
+        </ng-container>
         <div class="row">
           <div class="example-list">
             <div class="drageable" *ngFor="let details of fields; let i = index;"
@@ -41,25 +45,31 @@
 
                 <div class="col-md-6">
                   <div class="mb-3 d-flex align-items-center">
-                    <i class="fa-solid fa-grip-vertical me-2 drageable" style="cursor: grab;"
-                      *ngIf="details.fieldName != 'item'"></i>
-                    <input type="text" class="form-control column-name" (change)="onItemChange(i, details)"
-                      [(ngModel)]="details.label" [ngModelOptions]="{standalone: true}" placeholder={{details.label}}>
+                    <i class="fa-solid fa-grip-vertical me-2 drageable"
+                      *ngIf="details.fieldName != 'item' && details.fieldName != 'description'"
+                      style="cursor: grab;"></i>
+
+                    <input *ngIf="details.fieldName != 'description'" type="text" class="form-control column-name"
+                      (change)="onItemChange(i, details)" [(ngModel)]="details.label"
+                      [ngModelOptions]="{standalone: true}" placeholder={{details.label}}>
+
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3 position-relative">
                     <select [(ngModel)]="details.type" [ngModelOptions]="{standalone: true}"
-                      [disabled]="details.custom === false"
+                      [disabled]="details.custom === false" *ngIf="details.fieldName != 'description'"
                       class="form-control type form-control-sm taxes-edit selector-currency"
                       (click)="onColumnChange($event)">
                       <option *ngFor="let fieldType of FieldTypes" [value]="fieldType">{{fieldType}}</option>
                     </select>
                     <div class="position-absolute top-50 end-0 translate-middle-y">
-                      <a *ngIf="i !== 0" (click)="togglePassword(details)" class="eye-b me-2">
+                      <a *ngIf="i !== 0 && details.fieldName != 'item' && details.fieldName != 'description'"
+                        (click)="togglePassword(details)" class="eye-b me-2">
                         <i class="{{details.hidden ? 'fas fa-eye-slash' : 'fas fa-eye'}} black-color"
                           style="cursor: pointer"></i>
                       </a>
+
                       <i class="fa-solid fa-trash" *ngIf="details.delete !== false" (click)="deleteField(i)"
                         style="cursor: pointer;"></i>
                     </div>
