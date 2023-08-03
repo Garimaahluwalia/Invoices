@@ -67,6 +67,18 @@ export class AddInvoicesComponent implements OnInit {
       "tax": false,
       "readonly": false,
     },
+    {
+      "type": FieldType.TEXT,
+      "fieldName": "description",
+      "label": "Description",
+      "hidden": true,
+      "default": false,
+      "sortOrder": 3,
+      "custom": true,
+      "delete": false,
+      "tax": false,
+      "readonly": false,
+    },
   ]
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -83,7 +95,6 @@ export class AddInvoicesComponent implements OnInit {
   ngOnInit(): void {
     this.getTaxes();
     this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false;
-    console.log(this.duplicateInvoice, "DUPLICATE INVOICE DATA")
     this.invoiceId = this.route.snapshot?.params?.["id"];
     this.invoiceService.invoiceId = this.invoiceId;
 
@@ -92,8 +103,8 @@ export class AddInvoicesComponent implements OnInit {
     }
 
     this.invoiceService.invoiceEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      console.log(res, "INVOICE EMITTER RESPONSE")
       this.fields = res.table as Field[];
+      console.log(this.fields, "Fields Data")
       this.invoiceNumber = res.invoiceNo;
       this.invoiceService.invoiceNumber = res.invoiceNo;
       this.ProductData = res.products;

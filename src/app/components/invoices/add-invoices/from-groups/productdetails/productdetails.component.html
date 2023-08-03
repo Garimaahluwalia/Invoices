@@ -36,13 +36,13 @@
       <table class="invoice-table table table-borderless table-nowrap mb-0">
 
 
-      
+
         <!-- TABLE HEAD STARTS -->
         <thead class="align-middle items-chart productRow">
           <tr class="table-active">
             <!-- {{ fields | json }} -->
             <ng-container *ngFor="let details of fields">
-              <th scope="" class="width-40">{{details.label}}</th>
+              <th scope="" class="width-40" *ngIf="!details.hidden">{{details.label}}</th>
             </ng-container>
           </tr>
         </thead>
@@ -58,6 +58,8 @@
                       class="form-control bg-light border-0" placeholder="Item Name" required
                       (ngModelChange)="onProductValueChange(i)" />
                   </div>
+
+
                   <!-- Description starts -->
                   <button class="btn cstn-description my-2" type="button" (click)="addDescription(i)">
                     <i class="fa-regular fa-square-plus mr-1"></i> Add Description
@@ -67,7 +69,8 @@
                       class="d-none">{{row.description}}</textarea>
                     <ckeditor [editor]="editor" [(ngModel)]="row.description" [ngModelOptions]="{standalone: true}"
                       (change)="onEditorChange(description, row.description)"
-                      (ready)="onEditorChange(description, row.description)"> </ckeditor>
+                      (ready)="onEditorChange(description, row.description)" (ngModelChange)="onProductValueChange(i)">
+                    </ckeditor>
                   </div>
                   <!-- Description ends -->
 

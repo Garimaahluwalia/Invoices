@@ -87,10 +87,10 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-      if(changes['fields'] && changes['fields'].currentValue && changes['fields'].firstChange) {
-        console.log(changes);
-        this.fields = changes['fields'].currentValue as unknown as Field[];
-      }
+    if (changes['fields'] && changes['fields'].currentValue && changes['fields'].firstChange) {
+      console.log(changes);
+      this.fields = changes['fields'].currentValue as unknown as Field[];
+    }
   }
   ngOnInit(): void {
     this.invoiceDataHandlerService.table = this.fields;
@@ -167,7 +167,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
     this.fields = fields;
     this.invoiceDataHandlerService.table = fields;
     console.log("Stored fields in service:", this.invoiceDataHandlerService.table);
-}
+  }
 
 
 
@@ -200,6 +200,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
 
   onProductValueChange(i: number, taxRateChange?: number) {
     const row = this.productRows[i];
+    console.log(row, "ROW DATA")
     if (this.selectedTaxRate !== TAXES.NONE) {
       row.taxamount = taxRateChange ? taxRateChange : row.taxamount;
       const selectedAmount = Number(row.amount || 0);

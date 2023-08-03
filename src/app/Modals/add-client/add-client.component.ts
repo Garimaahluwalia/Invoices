@@ -207,4 +207,5 @@ export class AddClientComponent implements OnInit, OnDestroy {
     this.destroyed.next(true);
     this.destroyed.complete();
   }
+
 }

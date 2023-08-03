@@ -6,8 +6,8 @@
       <div class="modal-header modal-head pb-3">
         <button type="button" class="close" (click)="closeModal()">
           <i class="fa-sharp fa-regular fa-circle-xmark"></i>
-
         </button>
+
         <button type="button" #closeAddFields class="d-none btn-close" data-bs-dismiss="modal" aria-label="Close">
           <i class="fa-sharp fa-regular fa-circle-xmark"></i>
         </button>
@@ -53,7 +53,7 @@
                       [disabled]="details.custom === false"
                       class="form-control type form-control-sm taxes-edit selector-currency"
                       (click)="onColumnChange($event)">
-                      <option *ngFor="let fieldType of FieldTpes" [value]="fieldType">{{fieldType}}</option>
+                      <option *ngFor="let fieldType of FieldTypes" [value]="fieldType">{{fieldType}}</option>
                     </select>
                     <div class="position-absolute top-50 end-0 translate-middle-y">
                       <a *ngIf="i !== 0" (click)="togglePassword(details)" class="eye-b me-2">

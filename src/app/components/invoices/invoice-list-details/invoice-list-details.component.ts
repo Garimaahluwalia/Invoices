@@ -67,9 +67,9 @@ export class InvoiceListDetailsComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
         this.table = res.table;
-        console.log(this.table , "table data ")
         this.data = res;
         this.products = res.products;
+        console.log(this.products, "PRODUCTS DATA");
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;
         this.totalInWords = '';
@@ -79,9 +79,8 @@ export class InvoiceListDetailsComponent implements OnInit {
           this.totalInWords = numberToWords(this.totalamount.toString());
         }
       });
-
-
   }
+
 
   downloadInvoice() {
     this.invoiceService.downloadInvoice(this._id)

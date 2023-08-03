@@ -16,8 +16,8 @@ export class AddFieldsComponent implements OnInit {
   @ViewChild('closeAddFields', { static: false }) private closeAddFields!: ElementRef<HTMLButtonElement>;
   @Input() fields: Field[] = [];
   @Output() onSave = new EventEmitter<Field[]>();
-  
-  public FieldTpes: string[] = Object.values(FieldType);
+
+  public FieldTypes: string[] = Object.values(FieldType);
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public show: boolean[] = [];
   public selectedColumnType: any;
@@ -31,6 +31,7 @@ export class AddFieldsComponent implements OnInit {
     public clientService: ClientService
   ) { }
 
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['fields'].currentValue && !changes?.['fields'].firstChange) {
       this.fields = changes['fields'].currentValue;
@@ -39,7 +40,10 @@ export class AddFieldsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
+
+
 
   //  DRAG AND DROP STARTS HERE 
   dragStart(event: any, index: number) {
