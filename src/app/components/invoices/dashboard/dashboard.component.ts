@@ -22,6 +22,7 @@ export class dashboardComponent implements IdashboardComponent, OnInit {
   ngOnInit() {
     this.loginService.getDashboardCounts().pipe(takeUntil(this.destroyed)).subscribe((res:IDashboardCounts) => {
       this.dashboardCount = res;
+      console.log(this.dashboardCount, "Dashboard")
     })
   }
   ngOnDestroy(): void {

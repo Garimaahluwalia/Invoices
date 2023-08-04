@@ -1,43 +1,59 @@
-.page-content{
+.page-content {
     background-color: #FCFCFC;
-    background:url("/assets/images/blog-bg-home1.webp");
+    background: url("/assets/images/blog-bg-home1.webp");
     height: 100vh;
     width: 100%;
     background-repeat: no-repeat;
-background-size: cover;
+    background-size: cover;
 }
-.avatar-title{
-background-color:transparent;
-border-radius: 5px;
+
+.avatar-title {
+    background-color: transparent;
+    border-radius: 5px;
 }
-.invoice-card .card-body{
+
+.invoice-card .card-body {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
 }
-.invoice-card .card-body .avatar-title i{
+
+.invoice-card .card-body .avatar-title i {
     color: #fff !important;
 }
+
 .invoice-card .card-body .badge {
     background-color: #000 !important;
     border-radius: 5px !important;
-    margin-right:10px !important;
+    margin-right: 10px !important;
 }
-.invoice-card .avatar-title svg{
+
+.invoice-card .avatar-title svg {
     fill: #e31e24;
 }
-.invoice-card p{
-    font-size: 26px ;
+
+.invoice-card p {
+    font-size: 26px;
     padding-left: 21px;
     color: #000 !important;
     font-weight: 700 !important;
     text-transform: capitalize !important;
 }
-.invoice-card .invoice-count{
+
+.invoice-card .invoice-count {
     font-size: 50px !important;
     line-height: 50px;
 }
+
 .text-muted {
-    color: #0b0b0e!important;
+    color: #0b0b0e !important;
+}
+
+.totalclients {
+    font-weight: 700;
+    font-size: 18px !important;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 40px !important;
 }

@@ -3,6 +3,7 @@ export interface IDashboardCounts {
     invoiceCount:       number;
     paidInvoiceCount:   number;
     unpaidInvoiceCount: number;
+    cancelledInvoiceCount : number;
 }
 
 

@@ -178,3 +178,9 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
   border-top-color: #000000;
   animation: spinner .8s linear infinite;
 }
+
+.paid-icon:hover {
+  background-color: #ffdad5 !important;
+  padding: 1px;
+  border-radius: 2px;
+}

@@ -97,10 +97,9 @@
                       </div>
 
                       <div *ngSwitchCase="FieldTypes.DATE">
-                        <input type="text" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
+                        <input type="date" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
-
                       </div>
                     </ng-container>
                   </td>

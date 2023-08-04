@@ -149,7 +149,7 @@
                                     <th
                                         style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none;font-weight: 400; padding: 5px 10px 10px 10px;">
                                     </th>
-                                    <ng-container *ngFor="let column of data.table">
+                                    <ng-container *ngFor="let column of data?.table">
                                         <th *ngIf="column.fieldName !== 'description'"
                                             [ngStyle]="{'width': column.default ? '35%' : '15%', 'text-align': 'left', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
 

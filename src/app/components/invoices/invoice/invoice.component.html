@@ -126,7 +126,8 @@
                                             <td data-label="Action" class="action-items">
                                                 <ul class="list-inline hstack  mb-0">
                                                     <li>
-                                                        <svg [ngClass]="{ 'disabled': details.status === 'PAID' || details.status === 'CANCELLED'  }"
+                                                        <svg class="paid-icon"
+                                                            [ngClass]="{ 'disabled': details.status === 'PAID' || details.status === 'CANCELLED'  }"
                                                             (click)="updateStatus(details, status.PAID)" width="24"
                                                             height="24" viewBox="0 0 20 20" fill="none"
                                                             style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg">
