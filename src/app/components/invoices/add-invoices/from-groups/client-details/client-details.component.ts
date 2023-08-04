@@ -54,17 +54,31 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  getAction(): ClientRouterModalAction {
+    let action: ClientRouterModalAction = ClientRouterModalAction.AddInvoice;
+    console.log(this.duplicateInvoice)
+    switch (true) {
+      case this.duplicateInvoice:
+        action = ClientRouterModalAction.DuplicateInvoice;
+        break;
+      case this.invoiceId !== null:
+        action = ClientRouterModalAction.EditInvoice;
+        break;
+    }
+    return action;
+  }
+
   addClients() {
     let options: Options = {};
     if (this.duplicateInvoice) {
       options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
     }
-    let route = ["add-invoice" , "add-client" ]
-    if(this.invoiceId){
-      route = ["add-invoice" , this.invoiceId , "add-client"]
+    let route = ["add-invoice", "add-client"]
+    if (this.invoiceId) {
+      route = ["add-invoice", this.invoiceId, "add-client"]
     }
     this.router.navigate(route, options).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true, invoiceId: this.invoiceId as string, action: this.invoiceId ? ClientRouterModalAction.EditInvoice : ClientRouterModalAction.DuplicateInvoice, } });
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true, invoiceId: this.invoiceId as string, action: this.getAction() } });
     });
   }
 
@@ -78,7 +92,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
       route = ["add-invoice", this.invoiceId, "add-client", clientId]
     }
     this.router?.navigate(route, options).then(() => {
-      const data: { [key: string]: string | number | boolean } = { invoiceId: this.invoiceId, action: this.invoiceId ? ClientRouterModalAction.EditInvoice : ClientRouterModalAction.AddInvoice, invoice: true, edit: true, clientId: this.clientId as string, ...(this.selectedClient as IClient) } as unknown as { [key: string]: string | number | boolean };
+      const data: { [key: string]: string | number | boolean } = { invoiceId: this.invoiceId, action: this.getAction(), invoice: true, edit: true, clientId: this.clientId as string, ...(this.selectedClient as IClient) } as unknown as { [key: string]: string | number | boolean };
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: data, });
     });
   }

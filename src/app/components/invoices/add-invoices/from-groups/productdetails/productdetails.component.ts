@@ -118,14 +118,16 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
 
 
     this.addinvoiceService.receiveCurrency().pipe(takeUntil(this.destroyed)).subscribe((res: string) => {
-      this.inputcurrency = res;
-      const currency = this.currencies.find(currency => currency.code === this.inputcurrency);
+     
+      const currency = this.currencies.find(currency => currency.code === res);
       this.inputcurrency = currency?.symbol;
     });
 
     if (!this.inputcurrency || this.inputcurrency === '') {
       this.inputcurrency = this.selectedCurrency;
-      console.log(this.inputcurrency)
+  
+      const currency = this.currencies.find(currency => currency.code === this.selectedCurrency);
+      this.inputcurrency = currency?.symbol;
     }
   }
 

@@ -8,6 +8,7 @@ import { IInvoice, IProducts } from 'src/app/services/invoice-data-handler/invoi
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { CURRENCY } from 'src/app/types/currency';
 import { IProductRows } from 'src/app/types/product';
 
 @Component({
@@ -30,6 +31,8 @@ export class InvoiceListDetailsComponent implements OnInit {
   public invoiceImage!: string;
   private readonly notifier!: NotifierService;
   public table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
+  public inputcurrency: any;
+  public currencies = CURRENCY;
 
   constructor(
     public invoiceService: InvoiceService,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DatePipe } from '@angular/common';
@@ -25,26 +25,32 @@ export class InvoicedataComponent implements OnInit, OnChanges {
   constructor(
     public invoiceService: InvoiceService,
     private datePipe: DatePipe,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    public __ref: ChangeDetectorRef
   ) { }
 
   ngOnChanges({ duplicateInvoice, invoiceNumber }: SimpleChanges): void {
+    console.log(invoiceNumber);
     if (!duplicateInvoice?.firstChange) {
       this.duplicateInvoice = duplicateInvoice?.currentValue;
       if (this.duplicateInvoice) {
         this.getInvoiceNumber();
       }
     }
-    if (!invoiceNumber?.firstChange) {
+    /* if (!invoiceNumber?.firstChange) {
       this.invoiceNumber = invoiceNumber?.currentValue;
-    }
+    } */
   }
 
   ngOnInit(): void {
     const currentDate = new Date();
     this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd') as string;
-
-    if (!this.invoiceService.invoiceId || this.duplicateInvoice) {
+    
+    console.log(this.invoiceService.invoiceId , this.duplicateInvoice)
+    if (this.invoiceService.invoiceId && this.duplicateInvoice) {
+      this.getInvoiceNumber();
+    }
+    if (!this.invoiceService.invoiceId){
       this.getInvoiceNumber();
     }
 
@@ -61,7 +67,9 @@ export class InvoicedataComponent implements OnInit, OnChanges {
 
   getInvoiceNumber() {
     this.invoiceService.getInvoiceNumber().pipe(takeUntil(this.destroyed)).subscribe((res: IInvoiceClass) => {
+      console.log("API Called", res.invoiceNumber);
       this.invoiceNumber = res.invoiceNumber;
+      this.__ref.detectChanges();
     });
   }
 

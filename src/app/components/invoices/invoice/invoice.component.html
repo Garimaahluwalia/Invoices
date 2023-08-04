@@ -8,19 +8,20 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <div class="form-outline">
+                                    <div class="form-outline flex-item">
                                         <input type="search" id="form1" class="form-control invoice-search"
                                             [(ngModel)]="searchQuery" (ngModelChange)="handleSearch()"
                                             (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
                                             placeholder="Search for Result" (keyup)="handleSearch()" />
                                     </div>
-                                    <div class="d-flex align-items-center ml-5">
+                                    <div class="d-flex align-items-center ml-5 flex-item">
                                         <label class="date-range">Select Date Range</label>
                                         <input type="text" name="daterange" style="cursor: pointer;"
                                             (change)="dateRangePicker(startDate , endDate)" class="datepicker"
                                             [value]="defaultDateRange" />
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-md-6 text-right">
                                 <ng-container *ngIf="this.checkedCount !== 1">
