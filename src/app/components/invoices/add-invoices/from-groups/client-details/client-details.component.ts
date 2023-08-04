@@ -36,6 +36,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges({ duplicateInvoice }: SimpleChanges): void {
     if (!duplicateInvoice?.firstChange) {
       this.duplicateInvoice = duplicateInvoice?.currentValue;
+      console.log(this.duplicateInvoice, "Duplicate Invoice")
     }
   }
 

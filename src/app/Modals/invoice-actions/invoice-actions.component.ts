@@ -19,7 +19,7 @@ export class invoiceactionsComponent implements OnInit {
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
   private readonly notifier!: NotifierService;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
-  public data :any;
+  public data! :{ [k: string]: string };
   public invoiceId!: string;
   public status!: any;
   public confirmationMessage!: string;

@@ -181,7 +181,6 @@ export class InvoiceDataHandlerService implements IInvoice {
   }
 
   getPayload() {
-    console.log(this, "GETPAYLOAD")
     return {
       "invoiceNo": this.invoiceNo.invoiceNumber,
       "company": this._company,

@@ -8,7 +8,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { CURRENCY, DEFAULTCURRENCY } from 'src/app/types/currency';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
-import { IPrices, IProductRows } from 'src/app/types/product';
+import { IPrices } from 'src/app/types/product';
 
 
 @Component({

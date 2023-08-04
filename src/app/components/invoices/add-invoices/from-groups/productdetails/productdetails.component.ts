@@ -115,7 +115,6 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
     });
 
 
-    // currency
 
 
     this.addinvoiceService.receiveCurrency().pipe(takeUntil(this.destroyed)).subscribe((res: string) => {

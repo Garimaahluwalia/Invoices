@@ -32,7 +32,6 @@ export class InvoiceComponent implements OnInit {
   public totalItems = 15;
   public invoices: IInvoice[] = [];
   public invoiceId: string | undefined
-  // public InvoiceNumber!: number;
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;
@@ -63,7 +62,7 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.itemsPerPage = this.invoiceService.limit;  //pagination
+    this.itemsPerPage = this.invoiceService.limit;
     this.loadInvoices();
 
     this.deleteService.recieveDeleteEvent()?.subscribe(res => {
@@ -139,17 +138,10 @@ export class InvoiceComponent implements OnInit {
     return formattedDate || '';
   }
 
-
-
-  deleteinvoice(details: any) {
-    this.router.navigate(["invoice", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id } });
-    })
-  }
-
-  updateInvoice(details: any) {
+  updateInvoice(details: IInvoice) {
     this.router.navigate(["/add-invoice", details._id]);
   }
+
 
   deleteInvoice(_id: string) {
     this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
@@ -170,14 +162,15 @@ export class InvoiceComponent implements OnInit {
     this.selectUnselectSingle.nativeElement.checked = false;
   }
 
-  DeleteInvoice(details: any) {
+  deleteInvoices(details: IInvoice) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id } });
     })
   }
 
 
-  updateStatus(details: any, status: any) {
+  updateStatus(details: IInvoice, status: string) {
+    console.log(status, "updateStatus details ")
     this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.invoiceactions, {
         status: true,
@@ -192,7 +185,7 @@ export class InvoiceComponent implements OnInit {
 
 
 
-  duplicateInvoice(details: any) {
+  duplicateInvoice(details: IInvoice) {
     this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate" } })
   }
 

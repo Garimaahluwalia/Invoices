@@ -150,27 +150,12 @@
                                         style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none;font-weight: 400; padding: 5px 10px 10px 10px;">
                                     </th>
                                     <ng-container *ngFor="let column of data.table">
-                                        <th  *ngIf="column.fieldName !== 'description'"
-                                        [ngStyle]="{'width': column.default ? '35%' : '15%', 'text-align': 'left', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
-                                        
-                                        {{column.label}}
-                                    </th>
-                                    </ng-container>
+                                        <th *ngIf="column.fieldName !== 'description'"
+                                            [ngStyle]="{'width': column.default ? '35%' : '15%', 'text-align': 'left', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
 
-                                    <!-- <ng-container *ngIf="data?.tax !== 'NONE'">
-                                        <th
-                                            style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                            {{ data?.tax }}
+                                            {{column.label }}
                                         </th>
-                                        <th
-                                            style="width: 10%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                            Rate
-                                        </th>
-                                        <th
-                                            style="width: 15%; border: 1px solid #f3a4a4; border-bottom: none; border-left: none; font-weight: 400; padding: 5px 10px 10px 10px;">
-                                            Total
-                                        </th>
-                                    </ng-container> -->
+                                    </ng-container>
                                 </tr>
                             </thead>
 
@@ -182,24 +167,14 @@
                                         {{ i + 1 }}.
                                     </td>
                                     <ng-container *ngFor="let details of table">
-
-                                        <td class="description"
-                                            *ngIf="details.fieldName !== 'description'"
+                                        <td class="description" *ngIf="details.fieldName !== 'description'"
                                             style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
                                             {{product[details.fieldName]}}
                                             <br>
-
-                                            <span *ngIf="details.fieldName === 'item'" style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
+                                            <span *ngIf="details.fieldName === 'item'"
+                                                style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
                                                 [innerHTML]="product.description"></span>
                                         </td>
-                                        <!-- <td
-                                            style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; border-left: none; padding: 10px 10px 10px 10px;">
-                                            {{ product}}
-                                        </td>
-                                        <td
-                                            style="border-bottom: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
-                                            {{ product.amount }}
-                                        </td> -->
                                     </ng-container>
                                 </tr>
                             </tbody>

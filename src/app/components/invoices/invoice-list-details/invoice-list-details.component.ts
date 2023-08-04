@@ -65,7 +65,6 @@ export class InvoiceListDetailsComponent implements OnInit {
       .subscribe((res) => {
         this.table = res.table;
         this.data = res;
-        console.log(this.data, "get invoice Data ")
         this.products = res.products;
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;
