@@ -59,9 +59,9 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
     if (this.duplicateInvoice) {
       options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
     }
-    let route = ["add-invoice", "add-client", this.invoiceId]
-    if (this.invoiceId) {
-      route = ["add-invoice", this.invoiceId, "add-client", this.invoiceId]
+    let route = ["add-invoice" , "add-client" ]
+    if(this.invoiceId){
+      route = ["add-invoice" , this.invoiceId , "add-client"]
     }
     this.router.navigate(route, options).then(() => {
       this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { invoice: true, invoiceId: this.invoiceId as string, action: this.invoiceId ? ClientRouterModalAction.EditInvoice : ClientRouterModalAction.DuplicateInvoice, } });

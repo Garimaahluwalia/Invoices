@@ -78,23 +78,27 @@
                   <td class="text-end">
                     <ng-container [ngSwitch]="details.type">
                       <div *ngSwitchCase="FieldTypes.TEXT" class="input-icon-container">
-                        <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
+                        <span *ngIf="details.fieldName == 'taxamount'" class="input-icon">%</span>
+                        <span *ngIf="['amount', 'rate' , 'total'].includes(details.fieldName)" class="input-icon"
+                          [innerHTML]="this.inputcurrency"></span>
                         <input type="text" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price input-field" placeholder="0.00" />
                       </div>
 
-
-
                       <div *ngSwitchCase="FieldTypes.NUMBER" class="input-icon-container">
-                        <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
+                        <span *ngIf="details.fieldName == 'taxamount'" class="input-icon">%</span>
+                        <span *ngIf="['amount', 'rate' , 'total' , 'CURRENCY'].includes(details.fieldName)"
+                          class="input-icon" [innerHTML]="this.inputcurrency"></span>
                         <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                       </div>
 
                       <div *ngSwitchCase="FieldTypes.CURRENCY" class="input-icon-container">
-                        <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
+                        <span *ngIf="details.fieldName == 'taxamount'" class="input-icon">%</span>
+                        <span *ngIf="['amount', 'rate' , 'total' , 'CURRENCY'].includes(details.fieldName)"
+                          class="input-icon" [innerHTML]="this.inputcurrency"></span>
                         <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
@@ -108,6 +112,8 @@
                     </ng-container>
                   </td>
                 </ng-template>
+
+
               </ng-container>
             </ng-container>
 

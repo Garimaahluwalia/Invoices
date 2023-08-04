@@ -6,6 +6,6 @@ export enum ModalEvents {
 }
 
 export interface IEventResponse {
-    status: boolean;
-    data?: { [key: string]: string | number | boolean }
+  status: boolean;
+  data?: { [key: string]: string | number | boolean }
 }

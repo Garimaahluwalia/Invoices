@@ -152,7 +152,6 @@
                                     <ng-container *ngFor="let column of data?.table">
                                         <th *ngIf="column.fieldName !== 'description'"
                                             [ngStyle]="{'width': column.default ? '35%' : '15%', 'text-align': 'left', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
-
                                             {{column.label }}
                                         </th>
                                     </ng-container>
