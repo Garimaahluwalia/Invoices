@@ -46,6 +46,7 @@ export class InvoiceComponent implements OnInit {
   public defaultDateRange!: string;
   public loading = false;
   private readonly notifier!: NotifierService;
+  public checkedCount!: number;
 
 
   constructor(
@@ -215,8 +216,8 @@ export class InvoiceComponent implements OnInit {
     this.checkedItems[itemId] = checked;
 
     const ObjectValues = Object.values(this.checkedItems);
-
     const isAnyChecked = ObjectValues.some(v => v === true);
+    this.checkedCount = ObjectValues.filter(v => v === true).length;
 
     if (this.invoices.length === ObjectValues.length) {
       const isAllchecked = ObjectValues.every(v => v === true);
@@ -224,6 +225,7 @@ export class InvoiceComponent implements OnInit {
     }
     this.isButtonEnabled = isAnyChecked;
   }
+
 
   sortingOrder(sortField: any, sortOrder: ORDER) {
     this.invoiceService.sortField = sortField;

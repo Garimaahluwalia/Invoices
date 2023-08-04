@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="name" id="name" class="form-control" [(ngModel)]="name" name="name"
-                                #nameValidation="ngModel" minlength="4" maxlength="20" appUsername required
+                                #nameValidation="ngModel" minlength="4" maxlength="50" appUsername required
                                 [readonly]="disabledInput">
                             <div *ngIf="nameValidation.errors?.['required']" class="text-danger">Name is required.
                             </div>

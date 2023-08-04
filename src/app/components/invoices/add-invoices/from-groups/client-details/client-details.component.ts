@@ -21,7 +21,6 @@ interface Options {
 export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() public invoiceId: string | null = null;
   @Input() public duplicateInvoice: boolean = false;
-
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public clients: IClient[] = [];
   public selectedClient: IClient | null = null;

@@ -35,11 +35,9 @@ export class ClientComponent implements OnInit {
       this.clients = data;
     });
 
-    // <-- pagination 
     this.clientService.totalNumberOfClient.subscribe((data: number) => {
       this.totalItems = data;
     });
-    // pagination --> 
 
   }
 

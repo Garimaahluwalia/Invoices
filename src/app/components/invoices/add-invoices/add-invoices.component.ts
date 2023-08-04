@@ -25,9 +25,9 @@ export class AddInvoicesComponent implements OnInit {
   public productData!: IProductRows;
   private readonly notifier!: NotifierService;
   public invoiceId: string | null = null;
-  public updateInvoiceData: any;
+  public updateInvoiceData!: IInvoice;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public status!: any;
+  public status!: string;
   public currency!: string;
   public duplicateInvoice: boolean = false;
   public fields: Field[] = [

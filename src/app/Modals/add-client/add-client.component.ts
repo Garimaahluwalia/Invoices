@@ -113,8 +113,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
     } catch (e) {
       console.error(e);
     } finally {
-      
-      console.log(this.action);
       switch (this.action) {
         case ClientRouterModalAction.Client:
           this.router.navigate(["clients"]);
@@ -123,8 +121,10 @@ export class AddClientComponent implements OnInit, OnDestroy {
           this.router.navigate(["add-invoice"]);
           break;
         case ClientRouterModalAction.EditInvoice:
-          this.router.navigate(["add-invoice", this.invoiceId ]);
+          this.router.navigate(["add-invoice", this.invoiceId]);
           break;
+        case ClientRouterModalAction.DuplicateInvoice:
+          this.router.navigate(["add-invoice", this.invoiceId], { queryParams: { duplicateInvoice: "duplicate" } })
       }
     }
   }
