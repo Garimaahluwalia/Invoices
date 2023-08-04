@@ -72,7 +72,7 @@ export class invoiceactionsComponent implements OnInit {
 
 
   yes() {
-    this.invoiceService.updateInvoiceStatus(this.invoiceId, this.status).subscribe((res: any) => {
+    this.invoiceService.updateInvoiceStatus(this.invoiceId, this.status).pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
       this.invoiceService.statusUpdate(this.invoiceId, this.status);
     }, (error: any) => {
       console.error(error, "Error occurred while updating invoice status")
@@ -86,5 +86,9 @@ export class invoiceactionsComponent implements OnInit {
   }
 
 
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 }
 

@@ -4,10 +4,11 @@ import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { numberToWords } from 'src/app/common/numberToWords';
 import { ClientService } from 'src/app/services/clients/client.service';
-import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
+import { IInvoice, IProducts } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { IProductRows } from 'src/app/types/product';
 
 @Component({
   selector: 'app-invoice-list-details',

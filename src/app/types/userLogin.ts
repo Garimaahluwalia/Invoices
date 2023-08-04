@@ -5,17 +5,17 @@ export interface IUserLoginDetails {
 export interface UserLogin {
     name: string;
     email: string;
-    role:string;
+    role: string;
     timezone: string;
-    image:string;
-    created:string;
-    updated:string;
-    token:string
-    access_token?:string
+    image: string;
+    created: string;
+    updated: string;
+    token: string
+    access_token?: string
 }
 
 export interface ITokens {
     access_token: string,
     refresh_token: string
-  }
+}
 

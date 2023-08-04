@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import endpoints from 'src/app/endpoints';
 import { TAXES } from 'src/app/types/taxes';
 import { IProductRows } from 'src/app/types/product';
+import { IInvoice } from '../invoice-data-handler/invoice-data-handler.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,10 @@ import { IProductRows } from 'src/app/types/product';
 
 export class AddInvoicesService {
   private _productRowsChanges: EventEmitter<IProductRows[]> = new EventEmitter<IProductRows[]>();
-  public invoiceData: any;
   private _selectedTax: TAXES = TAXES.GST;
   private _currency: EventEmitter<string> = new EventEmitter<string>();
   private _calculateTaxRate: EventEmitter<any[]> = new EventEmitter<any[]>();
   constructor(public http: HttpClient) { }
-  public invoiceListData = [];
 
 
   sendProductChanges(data: IProductRows[]): void {
@@ -36,7 +35,7 @@ export class AddInvoicesService {
     this._selectedTax = tax;
   }
 
-  public addInvoice(payload: any): Observable<any> {
+  public addInvoice(payload: IInvoice): Observable<any> {
     return this.http.post<any>(endpoints.ADD_INVOICES.ADD, payload);
   }
 
