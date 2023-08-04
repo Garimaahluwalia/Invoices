@@ -138,3 +138,21 @@ button.btn.btn-primary {
     flex: 1 0 auto;
     /* Allows your items to flex */
 }
+
+.input-icon-container {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    top: 11px;
+    left: -14px;
+}
+
+.input-field {
+    padding-left: 20px;
+}
+
+.descriptionbox {
+    width: 200%;
+}

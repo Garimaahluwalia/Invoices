@@ -125,6 +125,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
 
     if (!this.inputcurrency || this.inputcurrency === '') {
       this.inputcurrency = this.selectedCurrency;
+      console.log(this.inputcurrency)
     }
   }
 

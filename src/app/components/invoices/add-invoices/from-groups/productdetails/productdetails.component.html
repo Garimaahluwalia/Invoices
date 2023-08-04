@@ -77,20 +77,24 @@
                 <ng-template #addOtherFields>
                   <td class="text-end">
                     <ng-container [ngSwitch]="details.type">
-                      <div *ngSwitchCase="FieldTypes.TEXT">
+                      <div *ngSwitchCase="FieldTypes.TEXT" class="input-icon-container">
+                        <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
                         <input type="text" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
-                          class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
-
+                          class="form-control bg-light border-0 product-line-price input-field" placeholder="0.00" />
                       </div>
 
-                      <div *ngSwitchCase="FieldTypes.NUMBER">
+
+
+                      <div *ngSwitchCase="FieldTypes.NUMBER" class="input-icon-container">
+                        <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
                         <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                       </div>
 
-                      <div *ngSwitchCase="FieldTypes.CURRENCY">
+                      <div *ngSwitchCase="FieldTypes.CURRENCY" class="input-icon-container">
+                        <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
                         <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
