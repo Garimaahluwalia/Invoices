@@ -105,6 +105,7 @@ export class AddInvoicesComponent implements OnInit {
 
     this.invoiceService.invoiceEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
       this.fields = res.table as Field[];
+      console.log(this.fields, "INVOICE EMITTER FIELDS")
       this.invoiceNumber = res.invoiceNo;
       this.invoiceService.invoiceNumber = res.invoiceNo;
       this.productData = res.products;

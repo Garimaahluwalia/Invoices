@@ -13,6 +13,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { Field, FieldType } from 'src/app/types/columnType';
 import { AddFieldsComponent } from 'src/app/modals/add-fields/add-fields.component';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -77,6 +78,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
   ]
 
   constructor(public clientService: ClientService,
+    public datePipe: DatePipe,
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService,
     public router: Router,
@@ -118,14 +120,14 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
 
 
     this.addinvoiceService.receiveCurrency().pipe(takeUntil(this.destroyed)).subscribe((res: string) => {
-     
+
       const currency = this.currencies.find(currency => currency.code === res);
       this.inputcurrency = currency?.symbol;
     });
 
     if (!this.inputcurrency || this.inputcurrency === '') {
       this.inputcurrency = this.selectedCurrency;
-  
+
       const currency = this.currencies.find(currency => currency.code === this.selectedCurrency);
       this.inputcurrency = currency?.symbol;
     }
@@ -138,7 +140,6 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
     if (this.selectedTaxRate !== "NONE") {
       const field: Field = new Field(FieldType.NUMBER, "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
       this.fields = [...this.fields, field, ...this.TaxFields];
-      console.log(this.fields)
     }
     this.invoiceDataHandlerService.table = this.fields;
 

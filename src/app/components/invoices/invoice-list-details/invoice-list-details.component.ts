@@ -10,6 +10,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { CURRENCY } from 'src/app/types/currency';
 import { IProductRows } from 'src/app/types/product';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -42,10 +43,12 @@ export class InvoiceListDetailsComponent implements OnInit {
     public addinvoiceService: AddInvoicesService,
     public profileService: ProfileService,
     public notifierService: NotifierService,
+    public datePipe: DatePipe
   ) { this.notifier = notifierService; }
 
 
   ngOnInit(): void {
+
     this.router.params.subscribe(params => {
       this._id = params['id'];
       this.getInvoiceById();

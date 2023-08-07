@@ -45,12 +45,12 @@ export class InvoicedataComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     const currentDate = new Date();
     this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd') as string;
-    
-    console.log(this.invoiceService.invoiceId , this.duplicateInvoice)
+
+    console.log(this.invoiceService.invoiceId, this.duplicateInvoice)
     if (this.invoiceService.invoiceId && this.duplicateInvoice) {
       this.getInvoiceNumber();
     }
-    if (!this.invoiceService.invoiceId){
+    if (!this.invoiceService.invoiceId) {
       this.getInvoiceNumber();
     }
 
@@ -67,7 +67,6 @@ export class InvoicedataComponent implements OnInit, OnChanges {
 
   getInvoiceNumber() {
     this.invoiceService.getInvoiceNumber().pipe(takeUntil(this.destroyed)).subscribe((res: IInvoiceClass) => {
-      console.log("API Called", res.invoiceNumber);
       this.invoiceNumber = res.invoiceNumber;
       this.__ref.detectChanges();
     });

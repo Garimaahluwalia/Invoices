@@ -86,8 +86,8 @@
                           class="form-control bg-light border-0 product-line-price input-field" placeholder="0.00" />
                       </div>
 
-                      <div *ngSwitchCase="FieldTypes.NUMBER" class="input-icon-container">
-                        <span *ngIf="details.fieldName == 'taxamount'" class="input-icon">%</span>
+                      <div *ngSwitchCase="FieldTypes.NUMBER" class="input-icon-container input-percentage">
+                        <span *ngIf="details.fieldName == 'taxamount'" class="input-icon percentage">%</span>
                         <span *ngIf="['amount', 'rate' , 'total' , 'CURRENCY'].includes(details.fieldName)"
                           class="input-icon" [innerHTML]="this.inputcurrency"></span>
                         <input type="number" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
@@ -104,7 +104,7 @@
                       </div>
 
                       <div *ngSwitchCase="FieldTypes.DATE">
-                        <input type="date" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
+                        <input type="DATE" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]" [ngModel]="datePipe.transform(row[details.fieldName], 'yyyy-MM-dd')"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                       </div>

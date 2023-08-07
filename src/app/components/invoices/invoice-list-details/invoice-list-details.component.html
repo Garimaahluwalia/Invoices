@@ -168,7 +168,8 @@
                                     <ng-container *ngFor="let details of table">
                                         <td class="description" *ngIf="details.fieldName !== 'description'"
                                             style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
-                                            {{product[details.fieldName]}}
+                                            {{ details.type === 'DATE' ? (datePipe.transform(product[details.fieldName],
+                                            'MM-dd-yyyy')) : product[details.fieldName] }}
                                             <br>
                                             <span *ngIf="details.fieldName === 'item'"
                                                 style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
