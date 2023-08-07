@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef, SimpleChange } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DatePipe } from '@angular/common';
@@ -17,7 +17,7 @@ import { IInvoiceClass } from 'src/app/services/invoice-data-handler/invoice-dat
 export class InvoicedataComponent implements OnInit, OnChanges {
   @Input() duplicateInvoice: boolean = false;
   @Input() invoiceId: string | null = null;
-  @Input() public invoiceNumber: string | null = null;
+  @Input() public invoiceNo: string | null = null;
   public defaultDate!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public invoiceImage!: string;
@@ -29,30 +29,21 @@ export class InvoicedataComponent implements OnInit, OnChanges {
     public __ref: ChangeDetectorRef
   ) { }
 
-  ngOnChanges({ duplicateInvoice, invoiceNumber }: SimpleChanges): void {
-    console.log(invoiceNumber);
-    if (!duplicateInvoice?.firstChange) {
+  ngOnChanges({ duplicateInvoice, invoiceNo }: SimpleChanges): void {
+    if (!duplicateInvoice?.firstChange && duplicateInvoice?.currentValue !== undefined) {
       this.duplicateInvoice = duplicateInvoice?.currentValue;
-      if (this.duplicateInvoice) {
-        this.getInvoiceNumber();
-      }
     }
-    /* if (!invoiceNumber?.firstChange) {
-      this.invoiceNumber = invoiceNumber?.currentValue;
-    } */
+    if (!invoiceNo?.firstChange && invoiceNo.currentValue) {
+      this.invoiceNo = invoiceNo?.currentValue
+    }
+    this.getInvoiceNumber();
   }
+
+
 
   ngOnInit(): void {
     const currentDate = new Date();
     this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd') as string;
-
-    console.log(this.invoiceService.invoiceId, this.duplicateInvoice)
-    if (this.invoiceService.invoiceId && this.duplicateInvoice) {
-      this.getInvoiceNumber();
-    }
-    if (!this.invoiceService.invoiceId) {
-      this.getInvoiceNumber();
-    }
 
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
@@ -62,19 +53,32 @@ export class InvoicedataComponent implements OnInit, OnChanges {
         console.error('Profile update failed:', error);
       }
     );
-
+    this.getInvoiceNumber();
   }
 
   getInvoiceNumber() {
-    this.invoiceService.getInvoiceNumber().pipe(takeUntil(this.destroyed)).subscribe((res: IInvoiceClass) => {
-      this.invoiceNumber = res.invoiceNumber;
-      this.__ref.detectChanges();
-    });
+    switch (true) {
+      case this.invoiceService.invoiceId && this.duplicateInvoice:
+        this.getInvoiceNumberData();
+        break;
+      case !this.invoiceService.invoiceId:
+        this.getInvoiceNumberData();
+        break;
+      default:
+        break;
+    }
   }
 
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
+  }
+
+  getInvoiceNumberData() {
+      this.invoiceService.getInvoiceNumber().pipe(takeUntil(this.destroyed)).subscribe((res: IInvoiceClass) => {
+        this.invoiceNo = res.invoiceNumber;
+        this.__ref.detectChanges();
+      });
   }
 
 }

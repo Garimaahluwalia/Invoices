@@ -4,7 +4,7 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { ProfileService } from 'src/app/services/profile.service';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
-import { IUserProfile, userProfilepayload } from 'src/app/types/profile';
+import { IUserProfile, UserProfile, userProfilepayload } from 'src/app/types/profile';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   public isActiveSideBar: Boolean = false;
   public isEditMode = false;
-  public userProfile!: IUserProfile;
+  public userProfile: UserProfile = new UserProfile();
   public profilePhoto!: string;
   public selectedFile!: File;
   public profileImage!: string;

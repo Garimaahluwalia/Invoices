@@ -11,8 +11,8 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <label for="invoicenoInput">Invoice No</label>
                         <input name="invoiceNumber" ngModel type="text" class="form-control bg-light border-0"
-                            #invoicenNumberValidation="ngModel" id="invoicenoInput" [(ngModel)]="invoiceNumber"
-                            [invoiceId]="invoiceNumber" placeholder="Invoice No" appInvoiceNumber>
+                            #invoicenNumberValidation="ngModel" id="invoicenoInput" [(ngModel)]="invoiceNo"
+                            [invoiceId]="invoiceNo" placeholder="Invoice No" appInvoiceNumber>
                     </div>
                     <div
                         *ngIf="invoicenNumberValidation.invalid && (invoicenNumberValidation.dirty || invoicenNumberValidation.touched)">

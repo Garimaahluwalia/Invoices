@@ -61,13 +61,13 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
       case this.duplicateInvoice:
         action = ClientRouterModalAction.DuplicateInvoice;
         break;
-      case this.invoiceId !== null:
+      case this.invoiceId !== undefined && this.invoiceId !== null:
         action = ClientRouterModalAction.EditInvoice;
         break;
     }
     return action;
   }
-
+  
   addClients() {
     let options: Options = {};
     if (this.duplicateInvoice) {
