@@ -92,6 +92,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
       this.invoiceDataHandlerService.table = this.fields;
     }
   }
+
   ngOnInit(): void {
     this.invoiceDataHandlerService.table = this.fields;
     this.addinvoiceService.recieveProductRows().pipe(takeUntil(this.destroyed)).subscribe((res: any) => {
@@ -130,6 +131,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
 
       const currency = this.currencies.find(currency => currency.code === this.selectedCurrency);
       this.inputcurrency = currency?.symbol;
+    
     }
   }
 

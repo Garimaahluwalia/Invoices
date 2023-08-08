@@ -5,8 +5,11 @@
         <div class="view-button"> <button type="button" routerLink="/invoice"
                 class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house view"></i>
                 Home</button></div>
-        <div class="btn btn-primary print-cstn-btn downloadInvoice" (click)="downloadInvoice()" ><i
-                class="ri-download-2-line align-bottom me-1"></i> Download Invoice</div>
+        <button class="btn btn-primary print-cstn-btn downloadInvoice" (click)=" downloadInvoice()"
+        [class.spinner]="loading" [disabled]="loading">
+            <i class="ri-download-2-line align-bottom me-1"></i> Download Invoice
+        </button>
+
     </div>
 
 
@@ -166,11 +169,17 @@
                                         {{ i + 1 }}.
                                     </td>
                                     <ng-container *ngFor="let details of table">
-                                        <td class="description" *ngIf="details.fieldName !== 'description'"
+
+                                        <td class="description input-percentage" *ngIf="details.fieldName !== 'description'"
                                             style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
                                             {{ details.type === 'DATE' ? (datePipe.transform(product[details.fieldName],
                                             'MM-dd-yyyy')) : product[details.fieldName] }}
                                             <br>
+                                            <span *ngIf="details.fieldName == 'taxamount'" class="input-icon percentage">%</span>
+                                            <span *ngIf="['amount', 'rate' , 'total' , 'CURRENCY'].includes(details.fieldName)"
+                                            class="input-icon" [innerHTML]="data.currency"></span>
+
+
                                             <span *ngIf="details.fieldName === 'item'"
                                                 style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
                                                 [innerHTML]="product.description"></span>

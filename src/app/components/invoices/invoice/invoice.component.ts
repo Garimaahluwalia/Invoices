@@ -171,7 +171,6 @@ export class InvoiceComponent implements OnInit {
 
 
   updateStatus(details: IInvoice, status: string) {
-    console.log(status, "updateStatus details ")
     this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.invoiceactions, {
         status: true,

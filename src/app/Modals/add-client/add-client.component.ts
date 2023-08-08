@@ -57,7 +57,6 @@ export class AddClientComponent implements OnInit, OnDestroy {
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.AddorUpdateClient).pipe(takeUntil(this.destroyed)).subscribe(res => {
       const { status, data } = res;
-      console.log(res, "add-client")
       this.data = data;
       this.action = data?.action as ClientRouterModalAction;
       this.invoiceId = data?.invoiceId || null;

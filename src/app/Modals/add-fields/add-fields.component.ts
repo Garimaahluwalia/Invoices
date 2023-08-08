@@ -84,7 +84,6 @@ export class AddFieldsComponent implements OnInit {
 
   onColumnChange(event: any) {
     this.selectedColumnType = (<HTMLSelectElement>event.target).value;
-    console.log(this.selectedColumnType, "COLUMN TYPE")
   }
 
   deleteField(index: number) {
@@ -97,7 +96,6 @@ export class AddFieldsComponent implements OnInit {
 
   saveChanges() {
     this.onSave.emit(this.fields);
-    console.log(this.fields, "Fields")
     this.closeModal();
   }
 

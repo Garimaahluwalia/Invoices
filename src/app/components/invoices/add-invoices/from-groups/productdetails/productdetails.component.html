@@ -6,7 +6,7 @@
       <div class="d-flex align-items-center">
         <label class="mb-0 mr-3">Tax</label>
         <select [(ngModel)]="selectedTaxRate" class="form-control form-control-sm taxes-edit selector-currency"
-          name="tax" (change)="onTaxRateChange()">
+          name="tax" (change)="onTaxRateChange()" style="cursor: pointer;">
           <option *ngFor="let tax of taxes" [value]="tax">{{tax}}</option>
         </select>
       </div>
@@ -17,7 +17,8 @@
       <!-- CURRENCY  -->
       <div class="d-flex align-items-center ml-5">
         <label class="mb-0 mr-3">Currency</label>
-        <select class="form-control" name="currency" [(ngModel)]="selectedCurrency" (change)="currencyChange($event)">
+        <select class="form-control" name="currency" [(ngModel)]="selectedCurrency" (change)="currencyChange($event)"
+          style="cursor: pointer;">
           <option disabled selected>Select a currency</option>
           <option *ngFor="let currency of currencies" [value]="currency.code">
             {{ currency.name }} ({{ currency.code }}) - {{ currency.symbol }}
@@ -104,7 +105,8 @@
                       </div>
 
                       <div *ngSwitchCase="FieldTypes.DATE">
-                        <input type="DATE" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]" [ngModel]="datePipe.transform(row[details.fieldName], 'yyyy-MM-dd')"
+                        <input type="DATE" [name]="details.fieldName" [(ngModel)]="row[details.fieldName]"
+                          [ngModel]="datePipe.transform(row[details.fieldName], 'yyyy-MM-dd')"
                           [readonly]="details.readonly" (ngModelChange)="onProductValueChange(i)"
                           class="form-control bg-light border-0 product-line-price" placeholder="0.00" />
                       </div>

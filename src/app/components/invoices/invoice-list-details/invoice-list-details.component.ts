@@ -34,7 +34,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
   public inputcurrency: any;
   public currencies = CURRENCY;
-
+  public loading = false;
   constructor(
     public invoiceService: InvoiceService,
     public route: Router,
@@ -63,6 +63,14 @@ export class InvoiceListDetailsComponent implements OnInit {
         console.error('Profile update failed:', error);
       }
     );
+
+
+
+
+
+
+
+
   }
 
 
@@ -72,7 +80,9 @@ export class InvoiceListDetailsComponent implements OnInit {
       .subscribe((res) => {
         this.table = res.table;
         this.data = res;
+        console.log(this.data, "Get invoices")
         this.products = res.products;
+      
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;
         this.totalInWords = '';
@@ -86,6 +96,7 @@ export class InvoiceListDetailsComponent implements OnInit {
 
 
   downloadInvoice() {
+    this.loading = true;
     this.invoiceService.downloadInvoice(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe({
@@ -110,6 +121,7 @@ export class InvoiceListDetailsComponent implements OnInit {
             message: 'Invoice downloaded successfully',
             id: 'THAT_NOTIFICATION_ID',
           });
+          this.loading = false;
           setTimeout(() => {
             this.notifier.hide('THAT_NOTIFICATION_ID');
           }, 2000);
