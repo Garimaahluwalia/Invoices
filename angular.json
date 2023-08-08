@@ -25,7 +25,7 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/app-assets"
             ],
             "styles": [
               "src/styles.css",
@@ -67,6 +67,7 @@
               "outputHashing": "all"
             },
             "invoice": {
+              "baseHref": "/app/",
               "optimization": {
                 "scripts": true,
                 "styles": {

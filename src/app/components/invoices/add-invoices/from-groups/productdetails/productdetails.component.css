@@ -159,9 +159,10 @@ button.btn.btn-primary {
 
 .input-percentage {
     position: relative;
+    width: 100px
 }
 
 .percentage {
     position: absolute;
-    left: 20px
+    left: 35px
 }
