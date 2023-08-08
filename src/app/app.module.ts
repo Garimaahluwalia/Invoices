@@ -39,6 +39,7 @@ import { InvoiceNumberDirective } from './directives/invoice-number/invoice-numb
 import { SvgComponent } from './common/svg/svg.component';
 import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { APP_BASE_HREF } from '@angular/common';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -132,6 +133,7 @@ const customNotifierOptions: NotifierOptions = {
       useClass: AuthInterceptor,
       multi: true
     },
+    {provide: APP_BASE_HREF, useValue: '/app/'}
   ],
   bootstrap: [AppComponent]
 })

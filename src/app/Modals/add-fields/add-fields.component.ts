@@ -31,6 +31,7 @@ export class AddFieldsComponent implements OnInit {
     public clientService: ClientService
   ) { }
 
+  
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['fields'].currentValue && !changes?.['fields'].firstChange) {
@@ -38,11 +39,17 @@ export class AddFieldsComponent implements OnInit {
       this.__ref.detectChanges();
     }
   }
+  
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
 
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
 
 
   //  DRAG AND DROP STARTS HERE 
@@ -118,9 +125,6 @@ export class AddFieldsComponent implements OnInit {
   }
 
 
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
+  
 
 }

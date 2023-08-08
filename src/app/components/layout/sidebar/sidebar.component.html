@@ -33,10 +33,10 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="index.html">
+                    <a class="nav-link menu-link" [routerLink]="['/']">
                         <i class="las la-house-damage"></i> <span data-key="t-dashboard">Dashboard</span>
                     </a>
-                    <a class="nav-link menu-link" href="/profile">
+                    <a class="nav-link menu-link" [routerLink]="['/profile']">
                         <i class="las la-user"></i> <span data-key="t-dashboard">Profile</span>
                     </a>
                 </li>
@@ -53,18 +53,18 @@
                             <li class="nav-item">
                             <li class="nav-item">
                              
-                                <a class="nav-link menu-link" href="/invoice">
+                                <a class="nav-link menu-link" [routerLink]="['/invoice']">
                                     <i class="fa-solid fa-file-invoice"></i> <span data-key="t-invoice">Invoice</span>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link menu-link" href="/add-invoice">
+                                <a class="nav-link menu-link" [routerLink]="['/add-invoice']">
                                     <i class="fa-sharp fa-solid fa-circle-plus"></i> <span data-key="t-add-invoice">Add-Invoice</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link menu-link" href="/clients">
+                                <a class="nav-link menu-link" [routerLink]="['/clients']">
                                     <i class="fa-solid fa-users"></i> <span data-key="t-clients">Clients</span>
                                 </a>
                             </li>

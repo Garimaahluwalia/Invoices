@@ -18,7 +18,6 @@ import { dashboardComponent } from './components/invoices/dashboard/dashboard.co
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 
-
 const routes: Routes = [
   {
     path: "",

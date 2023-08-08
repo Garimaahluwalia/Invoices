@@ -309,5 +309,10 @@ export class InvoiceComponent implements OnInit {
     this.destroyed.next(true);
     this.destroyed.complete();
   }
+
+  openInvoice() {
+    this.router.navigate(["/add-invoice"]);
+  }
+  
 }
 
