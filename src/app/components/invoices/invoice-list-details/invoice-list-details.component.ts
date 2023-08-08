@@ -34,6 +34,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
   public inputcurrency: any;
   public currencies = CURRENCY;
+  public currencyData: any;
   public loading = false;
   constructor(
     public invoiceService: InvoiceService,
@@ -80,9 +81,13 @@ export class InvoiceListDetailsComponent implements OnInit {
       .subscribe((res) => {
         this.table = res.table;
         this.data = res;
-        console.log(this.data, "Get invoices")
         this.products = res.products;
-      
+
+
+        const currency = this.currencies.find(currency => currency.code === this.data.currency);
+        this.currencyData = currency?.symbol;
+
+
         this.subtotalofamount = this.data.subtotalofamount;
         this.totalamount = this.data.totalamount;
         this.totalInWords = '';

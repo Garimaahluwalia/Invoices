@@ -24,7 +24,7 @@
 
                             </div>
                             <div class="col-md-6 text-right">
-                                <ng-container *ngIf="this.checkedCount && this.selectedCount !== 1">
+                                <ng-container *ngIf="this.checkedCount !== 1 ">
                                     <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
                                         *ngIf="isButtonEnabled" (click)="bulkdelete()">
                                         Bulk Delete</button>

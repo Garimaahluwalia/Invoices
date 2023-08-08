@@ -173,19 +173,20 @@
                                         <td class="description input-percentage"
                                             *ngIf="details.fieldName !== 'description'"
                                             style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
-                                            {{ details.type === 'DATE' ? (datePipe.transform(product[details.fieldName],
-                                            'MM-dd-yyyy')) : product[details.fieldName] }}
-                                            <br>
-                                            <span *ngIf="details.fieldName == 'taxamount'"
-                                                class="input-icon percentage">%</span>
-                                            <span
-                                                *ngIf="['amount', 'rate' , 'total' , 'CURRENCY'].includes(details.fieldName)"
-                                                class="input-icon" [innerHTML]="data.currency"></span>
+                                            <ng-container [ngSwitch]="true">
+                                                <ng-container *ngSwitchCase="details.type === 'DATE'">{{datePipe.transform(product[details.fieldName],'MM-dd-yyyy')}}</ng-container>
+                                                <ng-container *ngSwitchCase="details.fieldName == 'taxamount'">{{product[details.fieldName]}}%</ng-container>
+                                                <ng-container *ngSwitchCase="['amount', 'rate' , 'total' , 'CURRENCY'].includes(details.fieldName)">{{currencyData}}{{product[details.fieldName]}}</ng-container>
+                                                <ng-container *ngSwitchCase="details.fieldName === 'item'">
+                                                    {{product[details.fieldName]}}
+                                                    <span style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
+                                                    [innerHTML]="product.description"></span>
+                                                </ng-container>
+                                                <ng-container *ngSwitchDefault> {{product[details.fieldName]}}</ng-container>
 
-
-                                            <span *ngIf="details.fieldName === 'item'"
-                                                style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
-                                                [innerHTML]="product.description"></span>
+                                            </ng-container>
+                                            
+                                           
                                         </td>
                                     </ng-container>
                                 </tr>
@@ -194,7 +195,7 @@
                         </table>
                     </td>
                 </tr>
-                <tr>
+                <tr> 
                     <td>
                         <table style="width: 100%; padding-bottom: 50px; border-spacing: 0px;">
                             <tbody>
@@ -213,14 +214,18 @@
                                         <div style="padding-bottom: 15px; float: left; width: 100%;">
                                             <span
                                                 style="font-size: 17px; font-weight: 700; color: #979393; float: left; padding-left: 10px;">Amount</span>
+
                                             <span
-                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data?.subtotalofamount}}</span>
+                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}
+                                                {{data?.subtotalofamount}}</span>
+
                                         </div>
                                         <div style="padding-bottom: 10px; float: left; width: 100%;">
                                             <span *ngIf="data?.tax !== 'NONE'"
                                                 style="font-size: 17px; font-weight: 700; color: #979393; float: left; padding-left: 10px;">{{data?.tax}}</span>
                                             <span *ngIf="data?.tax !== 'NONE'"
-                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{data?.totalamountoftax}}</span>
+                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}
+                                                {{data?.totalamountoftax}}</span>
                                         </div>
                                         <div
                                             style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
@@ -229,14 +234,14 @@
                                                 ({{data?.currency}})</span>
 
                                             <span
-                                                style="font-size: 17px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{
+                                                style="font-size: 17px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}{{
                                                 data?.totalamount !== 0 ? data?.totalamount : data?.subtotalofamount
                                                 }}</span>
                                         </div>
                                         <div style="padding-top: 30px; float: left; width: 100%;">
                                             <p
                                                 style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
-                                                Total (in words) : {{this.totalInWords}}
+                                                Total (in words) : {{totalInWords}}
                                             </p>
                                             <p
                                                 style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">

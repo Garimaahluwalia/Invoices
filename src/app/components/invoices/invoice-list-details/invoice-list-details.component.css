@@ -84,7 +84,7 @@ i.fa-solid.fa-house {
 .input-icon {
     position: absolute;
     top: 10px;
-    left: -32px;
+    left: 1px;
 }
 
 .input-field {
@@ -101,5 +101,6 @@ i.fa-solid.fa-house {
 
 .percentage {
     position: absolute;
-    left: 20px
+    left: 31px;
+    top: 10px
 }
