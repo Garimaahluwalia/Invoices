@@ -47,6 +47,7 @@ export class InvoiceComponent implements OnInit {
   public loading = false;
   private readonly notifier!: NotifierService;
   public checkedCount!: number;
+  public selectedCount!: number;
 
 
   constructor(
@@ -237,6 +238,16 @@ export class InvoiceComponent implements OnInit {
     this.loadInvoices();
   }
 
+  getSelectedItemsCount(): number {
+    let count = 0;
+    for (let key in this.checkedItems) {
+      if (this.checkedItems[key]) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   selectUnselectAllItems(event: any) {
     const checked = event.target.checked;
     this.isButtonEnabled = checked;
@@ -244,6 +255,8 @@ export class InvoiceComponent implements OnInit {
       this.checkedItems[element.nativeElement.value] = checked;
       element.nativeElement.checked = checked as any;
     });
+   this.selectedCount = this.getSelectedItemsCount();
+    console.log(`Number of selected items: ${this.selectedCount}`);
   }
 
 
