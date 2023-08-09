@@ -19,12 +19,11 @@ export class ProfileComponent implements OnInit {
   public userProfile: UserProfile = new UserProfile();
   public profilePhoto!: string;
   public selectedFile!: File;
-  public profileImage: string = 'src\assets\images\mcode-m.png';
+  public profileImage: string = '\assets\images\mcode-m.png';
   public Image!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   private readonly notifier!: NotifierService;
-
-
+ 
   constructor(
     public profileService: ProfileService,
     public notifierService: NotifierService,
@@ -37,7 +36,7 @@ export class ProfileComponent implements OnInit {
     this.loaderService.ShowLoader();
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: IUserProfile) => {
       this.userProfile = res;
-      this.profileImage = res.photoUrl
+      this.profileImage = res.photoUrl ? res.photoUrl : this.profileImage;
       this.loaderService.HideLoader();
     });
   }

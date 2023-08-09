@@ -90,8 +90,8 @@
               "outputHashing": "all",
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.invoice.ts",
-                  "with": "src/environments/environment.development.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.invoice.ts"
                 }
               ]
             },
@@ -120,6 +120,9 @@
             },
             "development": {
               "browserTarget": "my-app:build:development"
+            },
+            "invoice": {
+              "browserTarget": "my-app:build:invoice"
             }
           },
           "defaultConfiguration": "development"

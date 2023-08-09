@@ -7,6 +7,7 @@ import { AddInvoicesService } from './add-invoices.service';
 import { CURRENCY } from 'src/app/types/currency';
 import { IProductRows } from 'src/app/types/product';
 import endpoints from 'src/app/endpoints';
+import { LoaderService } from '../loader/loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,8 @@ export class InvoiceService {
   public currencies = CURRENCY;
 
   constructor(private http: HttpClient,
-    public addinvoiceService: AddInvoicesService) { }
+    public addinvoiceService: AddInvoicesService,
+    public loaderService: LoaderService) { }
 
   statusUpdate(invoiceId: string, status: string) {
     const foundInvoice = this._invoices.find((invoice) => invoice._id === invoiceId);
@@ -216,14 +218,17 @@ export class InvoiceService {
   }
 
   getAll() {
+    this.loaderService.ShowLoader();
     try {
       this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate).subscribe(
         (res) => {
           this._invoices = res.invoices;
           this.totalNumberOfInvoices.next(res.totalCount);
           this.sendInvoices();
+          this.loaderService.HideLoader();
         },
         err => {
+          this.loaderService.HideLoader();
           console.error('Error while fetching pages:', err)
         }
       )
@@ -231,6 +236,8 @@ export class InvoiceService {
       console.error(e);
       this._invoices = [];
       this.sendInvoices();
+      this.loaderService.HideLoader();
+
     }
   }
 

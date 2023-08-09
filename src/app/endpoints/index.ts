@@ -1,4 +1,4 @@
-import { environment } from "src/environments/environment.development";
+import { environment } from "src/environments/environment";
 
 const endpoints = {
   LOGIN: `${environment.BASE_URL}/login`,

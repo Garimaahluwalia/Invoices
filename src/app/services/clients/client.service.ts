@@ -4,6 +4,7 @@ import endpoints from 'src/app/endpoints';
 import { HttpClient } from '@angular/common/http';
 import { TAXES } from 'src/app/types/taxes';
 import { IClient, IClientPayload } from 'src/app/types/client/client.dto';
+import { LoaderService } from '../loader/loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class ClientService {
   private _addClientFromInvoice: EventEmitter<IClient> = new EventEmitter<IClient>();
   private _taxName: EventEmitter<TAXES> = new EventEmitter<TAXES>();
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,
+    public loadService: LoaderService) { }
 
   addClient(data: IClient) {
     this._clients.push(data);
@@ -103,6 +105,7 @@ export class ClientService {
   }
 
   getAll() {
+    this.loadService.ShowLoader();
     try {
       this.getAllClients(this.page, this.limit, this.searchQuery).subscribe(
         res => {
@@ -110,8 +113,10 @@ export class ClientService {
           this.sendClients();
           this.totalNumberOfClient.next(res.totalCount);
           this.sendClients();
+          this.loadService.HideLoader();
         },
         err => {
+          this.loadService.HideLoader();
           console.error('Error while fetching pages:', err);
         }
       );
@@ -119,6 +124,7 @@ export class ClientService {
       console.error(e);
       this._clients = [];
       this.sendClients();
+      this.loadService.HideLoader();
     }
   }
 

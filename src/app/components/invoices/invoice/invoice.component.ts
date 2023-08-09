@@ -14,6 +14,7 @@ import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { ORDER } from 'src/app/types/order';
 import { NotifierService } from 'angular-notifier';
 import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 
 declare var $: any;
@@ -58,7 +59,8 @@ export class InvoiceComponent implements OnInit {
     public modalService: ModalService,
     public clientService: ClientService,
     public sidebarService: SidebarService,
-    public notifierService: NotifierService,) {
+    public notifierService: NotifierService,
+    public loadService: LoaderService) {
     this.notifier = notifierService;
   }
 
@@ -255,7 +257,7 @@ export class InvoiceComponent implements OnInit {
       this.checkedItems[element.nativeElement.value] = checked;
       element.nativeElement.checked = checked as any;
     });
-   this.selectedCount = this.getSelectedItemsCount();
+    this.selectedCount = this.getSelectedItemsCount();
     console.log(`Number of selected items: ${this.selectedCount}`);
   }
 
@@ -313,6 +315,6 @@ export class InvoiceComponent implements OnInit {
   openInvoice() {
     this.router.navigate(["/add-invoice"]);
   }
-  
+
 }
 
