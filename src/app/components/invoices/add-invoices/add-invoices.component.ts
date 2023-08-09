@@ -164,28 +164,29 @@ export class AddInvoicesComponent implements OnInit {
 
 
   addInvoice(payload: any) {
+    this.loaderService.ShowLoader();
     this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
-        this.loaderService.ShowLoader();
         this.invoices = res;
+        this.loaderService.HideLoader();
         this.router.navigateByUrl("/invoice");
         this.notifier.show({
           type: 'success',
           message: 'Invoice saved successfully',
           id: 'THAT_NOTIFICATION_ID',
         });
-        this.loaderService.HideLoader();
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);
       },
       (error: any) => {
+        this.loaderService.HideLoader();
         this.notifier.show({
           type: 'error',
           message: 'something went wrong',
           id: 'THAT_NOTIFICATION_ID',
         });
-        this.loaderService.HideLoader();
+
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);
@@ -195,29 +196,29 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   updateInvoice(invoiceId: string, payload: { [key: string]: any }) {
+    this.loaderService.ShowLoader();
     this.invoiceService.updateInvoice(invoiceId, payload).pipe(take(1)).subscribe(
       (res: any) => {
-        this.loaderService.ShowLoader();
         this.invoices = res;
+        this.loaderService.HideLoader();
         this.router.navigateByUrl("/invoice");
         this.notifier.show({
           type: 'success',
           message: 'Invoice updated successfully',
           id: 'THAT_NOTIFICATION_ID',
         });
-        this.loaderService.HideLoader();
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);
       },
       (error: any) => {
+        this.loaderService.HideLoader();
         console.error(error);
         this.notifier.show({
           type: 'error',
           message: 'something went wrong',
           id: 'THAT_NOTIFICATION_ID',
         });
-        this.loaderService.HideLoader();
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);

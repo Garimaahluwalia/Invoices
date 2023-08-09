@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ClientRouterModalAction, IClient } from 'src/app/types/client/client.dto';
 import { ModalEvents } from 'src/app/types/modal';
@@ -25,7 +26,8 @@ export class ClientComponent implements OnInit {
   constructor(public clientService: ClientService,
     public router: Router,
     public modalService: ModalService,
-    public invoiceService: InvoiceService) { }
+    public invoiceService: InvoiceService,
+    public loaderService : LoaderService) { }
 
   ngOnInit(): void {
     this.itemsPerPage = this.clientService.limit;

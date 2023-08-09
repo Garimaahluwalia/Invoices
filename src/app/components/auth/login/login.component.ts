@@ -35,6 +35,7 @@ export class LoginComponent {
     const { username, password } = f.value;
     this.loginService.login<ITokens>({ username, password }).subscribe((res) => {
       this.loginService.updateToken(res);
+      this.loaderService.HideLoader();
       this.route.navigate(['/dashboard']);
       this.notifier.show({
         type: 'success',
@@ -42,7 +43,7 @@ export class LoginComponent {
         id: 'THAT_NOTIFICATION_ID',
 
       });
-      this.loaderService.HideLoader();
+
       setTimeout(() => {
         this.notifier.hide('THAT_NOTIFICATION_ID');
       }, 2000);

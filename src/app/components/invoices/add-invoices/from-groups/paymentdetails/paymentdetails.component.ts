@@ -9,6 +9,7 @@ import { CURRENCY, DEFAULTCURRENCY } from 'src/app/types/currency';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler/invoice-data-handler.service';
 import { IPrices } from 'src/app/types/product';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 
 @Component({
@@ -47,10 +48,12 @@ export class PaymentdetailsComponent implements OnInit {
     public addinvoiceService: AddInvoicesService,
     public invoiceService: InvoiceService,
     public invoiceDataHandlerService: InvoiceDataHandlerService,
+    public loaderService : LoaderService
   ) { }
   ngOnInit(): void {
-
+   
     this.addinvoiceService.recieveProductRows().subscribe((res: any[]) => {
+     
       this.productRows = res;
       if (res.length > 0) {
         const firstElement = res[0];
@@ -90,6 +93,7 @@ export class PaymentdetailsComponent implements OnInit {
           this.invoiceDataHandlerService.totalamount = 0;
         }
       }
+    
     });
 
 

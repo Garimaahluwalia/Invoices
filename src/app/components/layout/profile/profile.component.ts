@@ -34,8 +34,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loaderService.ShowLoader();
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: IUserProfile) => {
-      this.loaderService.ShowLoader();
       this.userProfile = res;
       this.profileImage = res.photoUrl
       this.loaderService.HideLoader();
@@ -99,20 +99,22 @@ export class ProfileComponent implements OnInit {
 
 
   uploadProfilePhoto(file: FormData) {
+    this.loaderService.ShowLoader();
     this.profileService.uploadProfilePhoto(file).pipe(takeUntil(this.destroyed)).subscribe(
       (response: FormData) => {
-        this.loaderService.ShowLoader();
+        this.loaderService.HideLoader();
         this.notifier.show({
           type: 'success',
           message: 'Profile Photo updated successfully',
           id: 'THAT_NOTIFICATION_ID',
         });
-        this.loaderService.HideLoader();
+       
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);
       },
       (error) => {
+        this.loaderService.HideLoader();
         console.error('Upload error:', error);
       }
     );
