@@ -179,7 +179,7 @@
                                                 <ng-container *ngSwitchCase="['amount', 'rate' , 'total' , 'CURRENCY'].includes(details.fieldName)">{{currencyData}}{{product[details.fieldName]}}</ng-container>
                                                 <ng-container *ngSwitchCase="details.fieldName === 'item'">
                                                     {{product[details.fieldName]}}
-                                                    <span style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;"
+                                                    <span class="descriptions" 
                                                     [innerHTML]="product.description"></span>
                                                 </ng-container>
                                                 <ng-container *ngSwitchDefault> {{product[details.fieldName]}}</ng-container>

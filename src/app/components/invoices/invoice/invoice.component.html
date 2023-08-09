@@ -36,7 +36,8 @@
                                         Bulk PDF</button>
                                 </ng-container>
 
-                                <a (click)="openInvoice()" class="btn btn-primary-outline "><i class="las la-plus me-1"></i>
+                                <a (click)="openInvoice()" class="btn btn-primary-outline "><i
+                                        class="las la-plus me-1"></i>
                                     Add
                                     Invoices</a>
                             </div>
@@ -176,7 +177,8 @@
                                                                     data-bs-trigger="hover" data-bs-placement="top"
                                                                     title="Cancel" style="cursor: pointer;"
                                                                     (click)="updateStatus(details, status.CANCELLED)">
-                                                                    <a class="btn btn-soft-danger btn-sm d-inline-block"
+                                                                    <a href="javascript:void(0)"
+                                                                        class="btn btn-soft-danger btn-sm d-inline-block"
                                                                         [ngClass]="{ 'disabled': details.status === 'CANCELLED'  }">
                                                                         <span>Cancel</span>
                                                                     </a>
@@ -185,7 +187,7 @@
                                                                     data-bs-trigger="hover" data-bs-placement="top"
                                                                     style="cursor: pointer;" title="Remove"
                                                                     (click)="deleteInvoices(details)">
-                                                                    <a
+                                                                    <a href="javascript:void(0)"
                                                                         class="btn btn-soft-danger btn-sm d-inline-block">
                                                                         <span>Delete</span>
                                                                     </a>

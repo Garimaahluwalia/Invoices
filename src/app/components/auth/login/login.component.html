@@ -42,7 +42,7 @@
                                                                 class="form-control form-control-sm" name="password"
                                                                 #password="ngModel" ngModel>
 
-                                                            <a (click)="togglePassword()" class="eye-b">
+                                                            <a href="javascript:void(0)" (click)="togglePassword()" class="eye-b">
                                                                 <i
                                                                     class="{{showPassword ? 'fas fa-eye'  : 'fas fa-eye-slash' }}"></i>
                                                             </a>
@@ -53,7 +53,7 @@
                                                         <input class="form-check-input" type="checkbox"
                                                             id="remember-check">
                                                         <div class="float-end">
-                                                            <a href="/reset-password"
+                                                            <a href="javascript:void(0)" routerLink="/reset-password"
                                                                 class="text-muted text-decoration-underline fs-14">Forgot
                                                                 your password?</a>
                                                         </div>
@@ -63,7 +63,7 @@
                                                     </div>
                                                     <div class="mt-2">
                                                         <button class="btn btn-primary w-100" type="submit"
-                                                            [disabled]="loginForm.invalid" >Log In</button>
+                                                            [disabled]="loginForm.invalid">Log In</button>
                                                     </div>
                                                 </form>
                                             </div>

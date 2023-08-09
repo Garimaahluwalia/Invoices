@@ -258,7 +258,6 @@ export class InvoiceComponent implements OnInit {
       element.nativeElement.checked = checked as any;
     });
     this.selectedCount = this.getSelectedItemsCount();
-    console.log(`Number of selected items: ${this.selectedCount}`);
   }
 
 

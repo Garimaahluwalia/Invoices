@@ -104,3 +104,10 @@ i.fa-solid.fa-house {
     left: 31px;
     top: 10px
 }
+
+.descriptions {
+    font-size: 15px;
+    font-weight: 500;
+    color: #979393;
+    margin: 0;
+}
