@@ -1,7 +1,8 @@
 export const environment = {
-    production: false,
+    production: true,
     config: {
-        BASE_URL: 'http://localhost:3000/invoice-api'
+        BASE_URL: 'https://invoice.mcodeinfosoft.work/invoice'
+
     }
 };
 

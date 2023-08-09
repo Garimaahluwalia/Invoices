@@ -12,6 +12,7 @@ import { InvoiceDataHandlerService } from 'src/app/services/invoice-data-handler
 import { take } from 'rxjs';
 import { IProductRows } from 'src/app/types/product';
 import { Field, FieldType } from 'src/app/types/columnType';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -88,7 +89,8 @@ export class AddInvoicesComponent implements OnInit {
     public clientService: ClientService,
     public invoiceService: InvoiceService,
     public router: Router,
-    public invoiceDataHandler: InvoiceDataHandlerService
+    public invoiceDataHandler: InvoiceDataHandlerService,
+    public loaderService: LoaderService
   ) {
     this.notifier = notifierService;
   }
@@ -110,7 +112,7 @@ export class AddInvoicesComponent implements OnInit {
       this.productData = res.products;
       this.status = res.status;
       this.currency = res.currency;
-      console.log(this.currency , "CURRENCy")
+      console.log(this.currency, "CURRENCy")
       this.addInvoiceService.sendProductChanges(res.products);
       if (!this.duplicateInvoice) {
         this.clientService.sendClientDetails(res.client);
@@ -164,6 +166,7 @@ export class AddInvoicesComponent implements OnInit {
   addInvoice(payload: any) {
     this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
+        this.loaderService.ShowLoader();
         this.invoices = res;
         this.router.navigateByUrl("/invoice");
         this.notifier.show({
@@ -171,11 +174,21 @@ export class AddInvoicesComponent implements OnInit {
           message: 'Invoice saved successfully',
           id: 'THAT_NOTIFICATION_ID',
         });
+        this.loaderService.HideLoader();
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);
       },
       (error: any) => {
+        this.notifier.show({
+          type: 'error',
+          message: 'something went wrong',
+          id: 'THAT_NOTIFICATION_ID',
+        });
+        this.loaderService.HideLoader();
+        setTimeout(() => {
+          this.notifier.hide('THAT_NOTIFICATION_ID');
+        }, 2000);
         console.error(error);
       }
     );
@@ -184,6 +197,7 @@ export class AddInvoicesComponent implements OnInit {
   updateInvoice(invoiceId: string, payload: { [key: string]: any }) {
     this.invoiceService.updateInvoice(invoiceId, payload).pipe(take(1)).subscribe(
       (res: any) => {
+        this.loaderService.ShowLoader();
         this.invoices = res;
         this.router.navigateByUrl("/invoice");
         this.notifier.show({
@@ -191,12 +205,22 @@ export class AddInvoicesComponent implements OnInit {
           message: 'Invoice updated successfully',
           id: 'THAT_NOTIFICATION_ID',
         });
+        this.loaderService.HideLoader();
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);
       },
       (error: any) => {
         console.error(error);
+        this.notifier.show({
+          type: 'error',
+          message: 'something went wrong',
+          id: 'THAT_NOTIFICATION_ID',
+        });
+        this.loaderService.HideLoader();
+        setTimeout(() => {
+          this.notifier.hide('THAT_NOTIFICATION_ID');
+        }, 2000);
       }
     );
   }

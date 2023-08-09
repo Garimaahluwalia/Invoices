@@ -11,6 +11,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { CURRENCY } from 'src/app/types/currency';
 import { IProductRows } from 'src/app/types/product';
 import { DatePipe } from '@angular/common';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -44,12 +45,12 @@ export class InvoiceListDetailsComponent implements OnInit {
     public addinvoiceService: AddInvoicesService,
     public profileService: ProfileService,
     public notifierService: NotifierService,
+    public loaderService: LoaderService,
     public datePipe: DatePipe
   ) { this.notifier = notifierService; }
 
 
   ngOnInit(): void {
-
     this.router.params.subscribe(params => {
       this._id = params['id'];
       this.getInvoiceById();
@@ -64,26 +65,18 @@ export class InvoiceListDetailsComponent implements OnInit {
         console.error('Profile update failed:', error);
       }
     );
-
-
-
-
-
-
-
-
   }
 
 
   getInvoiceById() {
+    this.loaderService.ShowLoader();
     this.invoiceService.getInvoice(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
+        this.loaderService.HideLoader();
         this.table = res.table;
         this.data = res;
         this.products = res.products;
-
-
         const currency = this.currencies.find(currency => currency.code === this.data.currency);
         this.currencyData = currency?.symbol;
 

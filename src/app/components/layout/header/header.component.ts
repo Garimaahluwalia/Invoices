@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { AUTHORIZATION_TOKEN } from 'src/app/constants';
 import { LoginService } from 'src/app/services/auth/login.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class HeaderComponent implements OnInit {
   constructor(public loginService: LoginService,
     public router: Router,
     public sidebarService: SidebarService,
-    public notifierService: NotifierService
+    public notifierService: NotifierService,
+    public loaderService : LoaderService
   ) { this.notifier = notifierService; }
 
 
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.loaderService.ShowLoader();
     const token = AUTHORIZATION_TOKEN;
     this.loginService.userLogout(token).pipe(takeUntil(this.destroyed)).subscribe(
       () => {
@@ -41,6 +44,7 @@ export class HeaderComponent implements OnInit {
           message: 'logout successfully',
           id: 'THAT_NOTIFICATION_ID',
         });
+        this.loaderService.HideLoader();
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);

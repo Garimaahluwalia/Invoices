@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { IUserProfile, UserProfile, userProfilepayload } from 'src/app/types/profile';
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
   public userProfile: UserProfile = new UserProfile();
   public profilePhoto!: string;
   public selectedFile!: File;
-  public profileImage!: string;
+  public profileImage: string = 'src\assets\images\mcode-m.png';
   public Image!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   private readonly notifier!: NotifierService;
@@ -27,14 +28,17 @@ export class ProfileComponent implements OnInit {
   constructor(
     public profileService: ProfileService,
     public notifierService: NotifierService,
-    public sidebarService: SidebarService) {
+    public sidebarService: SidebarService,
+    public loaderService : LoaderService) {
     this.notifier = notifierService;
   }
 
   ngOnInit(): void {
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe((res: IUserProfile) => {
+      this.loaderService.ShowLoader();
       this.userProfile = res;
       this.profileImage = res.photoUrl
+      this.loaderService.HideLoader();
     });
   }
 
@@ -97,11 +101,13 @@ export class ProfileComponent implements OnInit {
   uploadProfilePhoto(file: FormData) {
     this.profileService.uploadProfilePhoto(file).pipe(takeUntil(this.destroyed)).subscribe(
       (response: FormData) => {
+        this.loaderService.ShowLoader();
         this.notifier.show({
           type: 'success',
           message: 'Profile Photo updated successfully',
           id: 'THAT_NOTIFICATION_ID',
         });
+        this.loaderService.HideLoader();
         setTimeout(() => {
           this.notifier.hide('THAT_NOTIFICATION_ID');
         }, 2000);

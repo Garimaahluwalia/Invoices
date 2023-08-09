@@ -48,7 +48,7 @@ export class ClientComponent implements OnInit {
 
   addClient() {
     this.router.navigate(["clients", "add-client"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { action: ClientRouterModalAction.Client} });
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { action: ClientRouterModalAction.Client } });
     });
   }
 
@@ -67,6 +67,19 @@ export class ClientComponent implements OnInit {
     })
   }
 
+
+
+  handleSearch() {
+    this.clientService.searchQuery = this.searchQuery;
+    this.clientService.getAll();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
+
+
   //pagination
   onPageChange(page: number) {
     this.currentPage = page;
@@ -74,15 +87,7 @@ export class ClientComponent implements OnInit {
     this.clientService.getAll();
   }
 
-  handleSearch() {
-    this.clientService.searchQuery = this.searchQuery;
-    this.clientService.getAll();
-  }
-  
-  ngOnDestroy(): void {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-  }
+
   // deleteClient(details: IClient) {
   //   this.router.navigate(["clients", "delete", details._id]).then(() => {
   //     this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, event: DeleteEvents.CLIENTS } });

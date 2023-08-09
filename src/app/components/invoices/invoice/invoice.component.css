@@ -146,7 +146,7 @@ input.datepicker {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  /* margin-left: 15px; */
+  margin-left: 20px;
   margin-bottom: 4px;
 }
 
