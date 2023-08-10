@@ -169,7 +169,7 @@ export class AddInvoicesComponent implements OnInit {
       (res: any) => {
         this.invoices = res;
         this.loaderService.HideLoader();
-        this.router.navigateByUrl("/invoice");
+        this.router.navigateByUrl("/save-invoice-page");
         this.notifier.show({
           type: 'success',
           message: 'Invoice saved successfully',

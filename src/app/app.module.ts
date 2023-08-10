@@ -38,10 +38,10 @@ import { invoiceactionsComponent } from './modals/invoice-actions/invoice-action
 import { InvoiceNumberDirective } from './directives/invoice-number/invoice-number.directive';
 import { SvgComponent } from './common/svg/svg.component';
 import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoaderComponent } from './common/loader/loader.component';
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
+import { SaveInvoicePageComponent } from './components/invoices/save-invoice-page/save-invoice-page.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -108,7 +108,7 @@ const customNotifierOptions: NotifierOptions = {
     DeleteComponent,
     ClientDetailsComponent,
     PhonenumberDirective,
-  dashboardComponent,
+    dashboardComponent,
     ProfileComponent,
     invoiceactionsComponent,
     InvoiceNumberDirective,
@@ -116,6 +116,7 @@ const customNotifierOptions: NotifierOptions = {
     AddFieldsComponent,
     LoaderComponent,
     AddRecordPaymentComponent,
+    SaveInvoicePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -128,7 +129,6 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     CKEditorModule,
     AppRoutingModule,
-    DragDropModule
   ],
   providers: [
     DatePipe,
@@ -137,7 +137,7 @@ const customNotifierOptions: NotifierOptions = {
       useClass: AuthInterceptor,
       multi: true
     },
-    {provide: APP_BASE_HREF, useValue: '/app/'}
+    { provide: APP_BASE_HREF, useValue: '/app/' }
   ],
   bootstrap: [AppComponent]
 })

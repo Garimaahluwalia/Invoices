@@ -15,11 +15,11 @@ export const INVOICES = {
     DASHBOARD: "dashboard",
     INVOICE_ACTION: "invoice-actions",
     INVOICE_ACTIONS: "invoice-actions/:id",
-    RECORD_PAYMENT : "record-payment"
+    SAVE_INVOICE_PAGE: "save-invoice-page"
 }
 
 export const PROFILE = {
-    PROFILE : "profile"
+    PROFILE: "profile"
 }
 
 export const CLIENTS = {

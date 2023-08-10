@@ -28,8 +28,6 @@ export class ModalService {
       case ModalEvents.BulkDelete:
         this._bulkDelete.next(data || defaultStatus);
         break;
-      case ModalEvents.RecordPayment:
-        this._recordPayment.next(data || defaultStatus);
     }
   }
 
@@ -43,8 +41,6 @@ export class ModalService {
         return this._invoiceactions.asObservable();
       case ModalEvents.BulkDelete:
         return this._bulkDelete.asObservable();
-      case ModalEvents.RecordPayment:
-        return this._recordPayment.asObservable();
     }
   }
 

@@ -1,4 +1,4 @@
-<button type="button" #openModalButton class="btn btn-primary d-none" data-bs-toggle="modal"
+<button type="button" #openRecordModal class="btn btn-primary d-none" data-bs-toggle="modal"
     data-bs-target="#addUpdate">Add</button>
 <div class="modal" id="addUpdate" aria-labelledby="addUpdateLabel">
     <div class="modal-dialog modal-lg">
@@ -9,7 +9,7 @@
                     <i class="fa-sharp fa-regular fa-circle-xmark"></i>
 
                 </button>
-                <button type="button" #closeModalButton class="d-none btn-close" data-bs-dismiss="modal"
+                <button type="button" #closeRecordModal class="d-none btn-close" data-bs-dismiss="modal"
                     aria-label="Close">
                     <i class="fa-sharp fa-regular fa-circle-xmark"></i>
                 </button>
@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="name" id="name" class="form-control" name="name" minlength="4" maxlength="50"
-                                appUsername required>
+                                >
 
                         </div>
                     </div>

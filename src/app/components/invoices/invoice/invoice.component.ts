@@ -15,7 +15,8 @@ import { ORDER } from 'src/app/types/order';
 import { NotifierService } from 'angular-notifier';
 import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { LoaderService } from 'src/app/services/loader/loader.service';
-
+import { ClientRouterModalAction } from 'src/app/types/client/client.dto';
+import { AddRecordPaymentComponent } from 'src/app/modals/add-record-payment/add-record-payment.component';
 
 declare var $: any;
 @Component({
@@ -27,6 +28,9 @@ export class InvoiceComponent implements OnInit {
   @ViewChildren("selectUnselectItems") elements?: QueryList<ElementRef<HTMLInputElement>>
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   @ViewChild('selectUnselectSingle', { static: true }) selectUnselectSingle!: ElementRef;
+   
+  @ViewChild(AddRecordPaymentComponent) public addRecordPaymentModal!: AddRecordPaymentComponent
+
   public isActiveSideBar: Boolean = false;
   public currentPage = 1;
   public itemsPerPage = 10;
@@ -49,7 +53,8 @@ export class InvoiceComponent implements OnInit {
   private readonly notifier!: NotifierService;
   public checkedCount!: number;
   public selectedCount!: number;
-  public selectedStatus!: string;
+  public selectedStatus: any[] = [];
+
 
 
   constructor(
@@ -67,7 +72,6 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.selectedStatus, "STATUS SELECTED")
     this.itemsPerPage = this.invoiceService.limit;
     this.loadInvoices();
 
@@ -98,6 +102,9 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
+  recordPayment(){
+    this.addRecordPaymentModal.openModal();
+  }
 
   ngAfterViewInit() {
     $('input[name="daterange"]').daterangepicker({
@@ -188,14 +195,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  recordPayment(details: IInvoice) {
-    this.router.navigate(["invoice", "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, {
-        status: true,
-
-      })
-    })
-  }
+  
 
 
   duplicateInvoice(details: IInvoice) {

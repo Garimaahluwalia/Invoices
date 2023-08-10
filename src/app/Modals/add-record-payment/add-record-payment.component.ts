@@ -9,31 +9,18 @@ import { ModalEvents } from 'src/app/types/modal';
   styleUrls: ['./add-record-payment.component.css']
 })
 export class AddRecordPaymentComponent {
-  @ViewChild('openModalButton', { static: false }) private openModalButton!: ElementRef<HTMLButtonElement>;
-  @ViewChild('closeModalButton', { static: false }) private closeModalButton!: ElementRef<HTMLButtonElement>;
-  data: any;
-
-
-  constructor(public modalService: ModalService) { }
-
-  ngAfterViewInit(): void {
-    this.modalService.recieveEvent(ModalEvents.RecordPayment).subscribe(res => {
-      const { status, data } = res;
-      this.data = data;
-    });
-  }
-
+  @ViewChild('openRecordModal', { static: false }) private openRecordModal!: ElementRef<HTMLButtonElement>;
+  @ViewChild('closeRecordModal', { static: false }) private closeRecordModal!: ElementRef<HTMLButtonElement>;
 
 
   openModal() {
-    this.openModalButton?.nativeElement?.click();
+    this.openRecordModal?.nativeElement?.click();
   }
-
   closeModal() {
-    this.closeModalButton?.nativeElement.click();
+    this.closeRecordModal?.nativeElement.click();
   }
 
   saveChanges() {
-    this.closeModal();
+
   }
 }

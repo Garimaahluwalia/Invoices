@@ -18,6 +18,7 @@ import { dashboardComponent } from './components/invoices/dashboard/dashboard.co
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
+import { SaveInvoicePageComponent } from './components/invoices/save-invoice-page/save-invoice-page.component';
 
 const routes: Routes = [
   {
@@ -45,10 +46,7 @@ const routes: Routes = [
             path: INVOICES.INVOICE_ACTIONS,
             component: invoiceactionsComponent
           },
-          {
-            path: INVOICES.RECORD_PAYMENT,
-            component: AddRecordPaymentComponent
-          }
+         
 
         ]
       },
@@ -135,10 +133,6 @@ const routes: Routes = [
     component: invoiceactionsComponent
   },
   {
-    path: INVOICES.RECORD_PAYMENT,
-    component: AddRecordPaymentComponent
-  },
-  {
     path: CLIENTS.CLIENT_DETAILS,
     component: ClientDetailsComponent
   },
@@ -157,6 +151,10 @@ const routes: Routes = [
   {
     path: ROUTELINKS.RESET_PASSWORD,
     component: ResetPasswordComponent
+  },
+  {
+    path: INVOICES.SAVE_INVOICE_PAGE,
+    component: SaveInvoicePageComponent
   }
 ];
 
