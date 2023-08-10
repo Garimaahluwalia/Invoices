@@ -15,6 +15,7 @@ export const INVOICES = {
     DASHBOARD: "dashboard",
     INVOICE_ACTION: "invoice-actions",
     INVOICE_ACTIONS: "invoice-actions/:id",
+    RECORD_PAYMENT : "record-payment"
 }
 
 export const PROFILE = {

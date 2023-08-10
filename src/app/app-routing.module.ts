@@ -17,6 +17,7 @@ import { ClientDetailsComponent } from './components/invoices/add-invoices/from-
 import { dashboardComponent } from './components/invoices/dashboard/dashboard.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
+import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
             path: INVOICES.INVOICE_ACTIONS,
             component: invoiceactionsComponent
           },
+          {
+            path: INVOICES.RECORD_PAYMENT,
+            component: AddRecordPaymentComponent
+          }
 
         ]
       },
@@ -129,7 +134,10 @@ const routes: Routes = [
     path: INVOICES.INVOICE_ACTION,
     component: invoiceactionsComponent
   },
-
+  {
+    path: INVOICES.RECORD_PAYMENT,
+    component: AddRecordPaymentComponent
+  },
   {
     path: CLIENTS.CLIENT_DETAILS,
     component: ClientDetailsComponent

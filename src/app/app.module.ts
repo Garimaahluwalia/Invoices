@@ -41,6 +41,7 @@ import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoaderComponent } from './common/loader/loader.component';
+import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -114,6 +115,7 @@ const customNotifierOptions: NotifierOptions = {
     SvgComponent,
     AddFieldsComponent,
     LoaderComponent,
+    AddRecordPaymentComponent,
   ],
   imports: [
     BrowserModule,

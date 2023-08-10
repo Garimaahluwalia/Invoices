@@ -49,7 +49,8 @@ export class InvoiceComponent implements OnInit {
   private readonly notifier!: NotifierService;
   public checkedCount!: number;
   public selectedCount!: number;
-  
+  public selectedStatus!: string;
+
 
   constructor(
     private datePipe: DatePipe,
@@ -66,6 +67,7 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.selectedStatus, "STATUS SELECTED")
     this.itemsPerPage = this.invoiceService.limit;
     this.loadInvoices();
 
@@ -186,6 +188,14 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
+  recordPayment(details: IInvoice) {
+    this.router.navigate(["invoice", "record-payment"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.RecordPayment, {
+        status: true,
+
+      })
+    })
+  }
 
 
   duplicateInvoice(details: IInvoice) {
@@ -314,6 +324,10 @@ export class InvoiceComponent implements OnInit {
 
   openInvoice() {
     this.router.navigate(["/add-invoice"]);
+  }
+
+  onStatusChange() {
+    console.log(this.selectedStatus, "SELECTED STATUS")
   }
 
 }

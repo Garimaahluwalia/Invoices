@@ -3,6 +3,7 @@ export enum ModalEvents {
   Delete = "Delete",
   invoiceactions = "invoiceactions",
   BulkDelete = "BulkDelete",
+  RecordPayment = "RecordPayment"
 }
 
 export interface IEventResponse {
