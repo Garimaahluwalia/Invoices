@@ -36,5 +36,6 @@ export enum ClientRouterModalAction {
   Client = "Client",
   AddInvoice = "AddInvoice",
   EditInvoice = "EditInvoice",
+  ViewInvoice = "ViewInvoice",
   DuplicateInvoice = "DuplicateInvoice"
 }

@@ -114,6 +114,9 @@ export class AddClientComponent implements OnInit, OnDestroy {
       console.error(e);
     } finally {
       switch (this.action) {
+        case ClientRouterModalAction.ViewInvoice:
+          this.router.navigate(["clients"]);
+          break;
         case ClientRouterModalAction.Client:
           this.router.navigate(["clients"]);
           break;
@@ -157,6 +160,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       zipcode: parseInt(this.zipcode),
       street: this.street,
     }
+    console.log(newData, "update clients")
 
     if (this.data?.['edit']) {
       this.updateClient(newData);

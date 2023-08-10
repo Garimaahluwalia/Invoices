@@ -49,7 +49,7 @@ export class InvoiceComponent implements OnInit {
   private readonly notifier!: NotifierService;
   public checkedCount!: number;
   public selectedCount!: number;
-
+  
 
   constructor(
     private datePipe: DatePipe,
@@ -258,6 +258,7 @@ export class InvoiceComponent implements OnInit {
       element.nativeElement.checked = checked as any;
     });
     this.selectedCount = this.getSelectedItemsCount();
+    console.log(this.selectedCount, "SELECTED COUNT")
   }
 
 

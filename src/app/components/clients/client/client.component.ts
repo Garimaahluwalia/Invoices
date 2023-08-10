@@ -27,7 +27,7 @@ export class ClientComponent implements OnInit {
     public router: Router,
     public modalService: ModalService,
     public invoiceService: InvoiceService,
-    public loaderService : LoaderService) { }
+    public loaderService: LoaderService) { }
 
   ngOnInit(): void {
     this.itemsPerPage = this.clientService.limit;
@@ -65,7 +65,7 @@ export class ClientComponent implements OnInit {
 
   viewClient(details: IClient) {
     this.router.navigate(["clients", "add-client", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: false, disabled: true, ...details } })
+      this.modalService.sendEvent(ModalEvents.AddorUpdateClient, { status: true, data: { edit: false, disabled: true, ...details, action: ClientRouterModalAction.Client} })
     })
   }
 
