@@ -8,6 +8,7 @@
     font-size: 12px;
     transition: background-color 0.3s;
     width: 80px;
+    margin: 31px 37px
 }
 
 .boxes {
@@ -18,4 +19,27 @@
 
 .summary-accordion {
     margin-bottom: 20px;
+}
+
+.invoice-container {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #e5e5e5;
+    padding: 20px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.details {
+    margin-bottom: 20px;
+}
+
+.amount {
+    font-weight: bold;
+    color: green;
 }

@@ -41,4 +41,10 @@ export class AddSentEmailComponent {
   saveChanges() {
 
   }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
+
 }

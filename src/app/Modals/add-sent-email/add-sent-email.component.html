@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header modal-head pb-3">
-                <h1 class="modal-title fs-5" id="addUpdateLabel">Clients</h1>
+                <h1 class="modal-title fs-5" id="addUpdateLabel">Send Email</h1>
                 <button type="button" class="close" (click)="closeModal()">
                     <i class="fa-sharp fa-regular fa-circle-xmark"></i>
 
@@ -18,93 +18,69 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="name" id="name" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">email</label>
-                            <input type="text" id="email" class="form-control" name="email">
+                        <div class="mb-3 d-flex">
+                            <label for="from" class="form-label mr-3 flex-shrink-0">From</label>
+                            <input type="text" id="from" class="form-control flex-grow-1">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="mb-3 d-flex">
+                            <label for="client-name" class="form-label mr-3 flex-shrink-0">Client's name</label>
+                            <input type="text" id="client-name" class="form-control flex-grow-1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3 d-flex">
+                            <label for="client-email" class="form-label mr-3 flex-shrink-0">Client's Email</label>
+                            <input type="text" id="client-email" class="form-control flex-grow-1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3 d-flex">
+                            <label for="cc" class="form-label mr-3 flex-shrink-0">CC</label>
+                            <input type="text" id="cc" class="form-control flex-grow-1">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
 
                         <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" id="phoneNumber" class="form-control" name="phoneNumber">
-                        </div>
-                    </div>
-                    <div class="modal-header pt-0">
-                        <h1 class="modal-title fs-5" id="addUpdateLabel">Address</h1>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="country" class="form-label">Select Country</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="state" class="form-label">State</label>
-                                    <input type="text" id="state" class="form-control">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="city" class="form-label">city</label>
-                                    <input type="text" id="city" class="form-control" placeholder="City Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="zipcode" class="form-label">PostalCode/ZipCode</label>
-                                    <input type="number" id="zipcode" class="form-control">
-
-                                </div>
-                            </div>
+                            <label for="email-subject" class="form-label">Email Subject</label>
+                            <input type="text" id="email-subject" class="form-control" name="email-subject">
                         </div>
 
                         <div class="mb-3">
-                            <label for="street" class="form-label">Street Address</label>
-                            <input type="text" id="street" class="form-control">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-control" name="message" rows="10" placeholder="Hi Namit Arora,
+                        
+                        Please find attached invoice #A00016. Due Date is Sep 07, 2023.
+                        
+                        Invoice No: #A00016
+                        Invoice Date: Aug 11, 2023
+                        Billed To: Namit Arora
+                        Due Date: Sep 07, 2023
+                        Due Amount: ₹1.10
+                        
+                        Thank you for your business.
+                        
+                        Regards,
+                        Chetan Chauhan"></textarea>
                         </div>
+                        
                     </div>
-                    <div class="modal-header pt-0">
-                        <h1 class="modal-title fs-5" id="addUpdateLabel">Tax Information</h1>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="GSTIN" class="form-label">GSTIN</label>
-                                <input type="text" id="GSTIN" name="gstin" class="form-control"
-                                    placeholder="Enter GSTIN">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="PAN" class="form-label">PAN</label>
-                                <input type="text" id="zipcode" class="form-control">
-
-                            </div>
-                        </div>
-                    </div>
-
-
-
                     <div class="modal-footer pt-2 pb-0">
-                        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-                        <button type="button" class="btn btn-primary add-client" (click)="saveChanges()">Save
-                            changes</button>
+                        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                        <button type="button" class="btn btn-primary add-client" (click)="saveChanges()">Send
+                            email</button>
                     </div>
                 </div>
             </div>
