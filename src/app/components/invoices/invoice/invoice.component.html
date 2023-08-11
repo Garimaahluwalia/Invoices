@@ -23,11 +23,15 @@
                                     <div class="form-outline flex-item ">
                                         <div class="d-flex align-items-center ">
                                             <label class="mb-0 mr-3">Status</label>
-                                            <select [(ngModel)]="selectedStatus" name="status"
-                                                (click)="onStatusChange()" class="selectStatus">
-                                                <option *ngFor="let status of statuses" [value]="status">{{ status }}
-                                                </option>
-                                            </select>
+                                            <div class="custom-dropdown" (click)="toggleDropdowns()">
+                                                {{getSelectedItemsText()}}
+                                                <div *ngIf="isDropdownOpen" class="dropdown-items">
+                                                  <div *ngFor="let status of statuses" (click)="toggleStatusSelection(status)">
+                                                    <input type="checkbox" [checked]="isSelected(status)" />
+                                                    {{status}}
+                                                  </div>
+                                                </div>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>

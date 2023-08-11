@@ -44,7 +44,7 @@ import { AddRecordPaymentComponent } from './modals/add-record-payment/add-recor
 import { SaveInvoicePageComponent } from './components/invoices/invoice/save-invoice-page/save-invoice-page.component';
 import { MultiselectDropdownComponent } from './common/multiselect-dropdown/multiselect-dropdown.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
-import { InvoiceSummaryComponent } from './components/invoices/invoice/invoice-summary/invoice-summary.component';
+import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {

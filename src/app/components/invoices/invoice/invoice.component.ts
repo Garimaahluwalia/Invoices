@@ -53,7 +53,8 @@ export class InvoiceComponent implements OnInit {
   public checkedCount!: number;
   public selectedCount!: number;
   public selectedStatus: any[] = [];
-
+  selectedStatuses: string[] = [];
+  isDropdownOpen: boolean = false;
 
 
   constructor(
@@ -101,6 +102,27 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
+  toggleDropdowns(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+  
+  toggleStatusSelection(status: string): void {
+    if (this.isSelected(status)) {
+      this.selectedStatuses = this.selectedStatuses.filter(s => s !== status);
+    } else {
+      this.selectedStatuses.push(status);
+    }
+  }
+  
+  isSelected(status: string): boolean {
+    return this.selectedStatuses.includes(status);
+  }
+  
+  getSelectedItemsText(): string {
+    if (this.selectedStatuses.length === 0) return 'Select Statuses';
+    return this.selectedStatuses.join(', ');
+  }
+  
 
 
   ngAfterViewInit() {

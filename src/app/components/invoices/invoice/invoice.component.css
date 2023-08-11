@@ -236,3 +236,28 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
   margin-left: 20px;
   margin-bottom: 4px;
 }
+
+.custom-dropdown {
+  position: relative;
+  width: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-items {
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  top: 100%;
+  z-index: 1;
+  background-color: white;
+}
+
+.dropdown-items div {
+  padding: 5px;
+}
+
+.dropdown-items div:hover {
+  background-color: #f6f6f6;
+}
