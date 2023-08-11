@@ -19,6 +19,7 @@ import { ProfileComponent } from './components/layout/profile/profile.component'
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
 import { SaveInvoicePageComponent } from './components/invoices/save-invoice-page/save-invoice-page.component';
+import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
 
 const routes: Routes = [
   {
@@ -46,8 +47,10 @@ const routes: Routes = [
             path: INVOICES.INVOICE_ACTIONS,
             component: invoiceactionsComponent
           },
-         
-
+          {
+            path: INVOICES.SENT_INVOICE_EMAIL,
+            component: AddSentEmailComponent
+          }
         ]
       },
       {
@@ -155,6 +158,10 @@ const routes: Routes = [
   {
     path: INVOICES.SAVE_INVOICE_PAGE,
     component: SaveInvoicePageComponent
+  },
+  {
+    path: INVOICES.INVOICE_EMAIL,
+    component: AddSentEmailComponent
   }
 ];
 

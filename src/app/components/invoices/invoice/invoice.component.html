@@ -30,14 +30,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!-- <div class="d-flex align-items-center">
-                                        <label class="mb-0 mr-3">Tax</label>
-                                        <select [(ngModel)]="selectedTaxRate" class="form-control form-control-sm taxes-edit selector-currency"
-                                          name="tax" (change)="onTaxRateChange()" style="cursor: pointer;">
-                                          <option *ngFor="let tax of taxes" [value]="tax">{{tax}}</option>
-                                        </select>
-                                      </div> -->
                                 </div>
 
                             </div>
@@ -255,7 +247,7 @@
                                                                     <li class="list-inline-item"
                                                                         data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                                         data-bs-placement="top" style="cursor: pointer;"
-                                                                        title="Sent Email">
+                                                                        title="Sent Email" (click)="sentEmail(details)">
                                                                         <a href="javascript:void(0)"
                                                                             class="btn btn-soft-danger btn-sm d-inline-block">
                                                                             <span>email invoice</span>

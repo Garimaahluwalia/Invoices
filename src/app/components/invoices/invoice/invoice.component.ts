@@ -28,7 +28,7 @@ export class InvoiceComponent implements OnInit {
   @ViewChildren("selectUnselectItems") elements?: QueryList<ElementRef<HTMLInputElement>>
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   @ViewChild('selectUnselectSingle', { static: true }) selectUnselectSingle!: ElementRef;
-   
+
   @ViewChild(AddRecordPaymentComponent) public addRecordPaymentModal!: AddRecordPaymentComponent
 
   public isActiveSideBar: Boolean = false;
@@ -102,7 +102,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  recordPayment(){
+  recordPayment() {
     this.addRecordPaymentModal.openModal();
   }
 
@@ -195,7 +195,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  
+
 
 
   duplicateInvoice(details: IInvoice) {
@@ -328,6 +328,12 @@ export class InvoiceComponent implements OnInit {
 
   onStatusChange() {
     console.log(this.selectedStatus, "SELECTED STATUS")
+  }
+
+  sentEmail(details:IInvoice) {
+    this.router.navigate(["invoice", "invoice-emails", details._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id } });
+    });
   }
 
 }

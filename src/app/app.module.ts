@@ -42,6 +42,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { LoaderComponent } from './common/loader/loader.component';
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
 import { SaveInvoicePageComponent } from './components/invoices/save-invoice-page/save-invoice-page.component';
+import { MultiselectDropdownComponent } from './common/multiselect-dropdown/multiselect-dropdown.component';
+import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -117,6 +119,8 @@ const customNotifierOptions: NotifierOptions = {
     LoaderComponent,
     AddRecordPaymentComponent,
     SaveInvoicePageComponent,
+    MultiselectDropdownComponent,
+    AddSentEmailComponent,
   ],
   imports: [
     BrowserModule,
