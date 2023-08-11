@@ -16,7 +16,6 @@ export const INVOICES = {
     INVOICE_ACTION: "invoice-actions",
     INVOICE_ACTIONS: "invoice-actions/:id",
     SAVE_INVOICE_PAGE: "save-invoice-page",
-    INVOICE_EMAIL: "invoice-email",
     SENT_INVOICE_EMAIL: "invoice-email/:id"
 }
 

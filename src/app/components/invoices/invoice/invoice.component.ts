@@ -335,6 +335,7 @@ export class InvoiceComponent implements OnInit {
       this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id } });
     });
   }
+  
 
 }
 

@@ -159,10 +159,6 @@ const routes: Routes = [
     path: INVOICES.SAVE_INVOICE_PAGE,
     component: SaveInvoicePageComponent
   },
-  {
-    path: INVOICES.INVOICE_EMAIL,
-    component: AddSentEmailComponent
-  }
 ];
 
 @NgModule({
