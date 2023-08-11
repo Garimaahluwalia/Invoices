@@ -169,10 +169,13 @@ export class AddInvoicesComponent implements OnInit {
     this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
         this.invoices = res;
-        this.invoiceIDforsave = res._id
-        console.log(this.invoices, "INVOICES")
+        this.invoiceIDforsave = res.savedInvoice._id;
         this.loaderService.HideLoader();
-        this.router.navigate(["/save-invoice-page"])
+        if (this.invoiceIDforsave) {
+          this.router.navigate(["/save-invoice-page", this.invoiceIDforsave]);
+        } else {
+          console.error("Invoice ID is undefined!");
+        }
         this.notifier.show({
           type: 'success',
           message: 'Invoice saved successfully',

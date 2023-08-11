@@ -59,12 +59,14 @@
 
                             <div class="container">
                                 <div class="row">
-                                   
-                                    <div class="accordion invc-summ" id="accordion" role="tablist" aria-multiselectable="true">
+
+                                    <div class="accordion invc-summ" id="accordion" role="tablist"
+                                        aria-multiselectable="true">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="flush-headingOne">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
-                                                Invoice Summary
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                                    aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+                                                    Invoice Summary
                                                 </a>
                                                 <!-- <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
@@ -72,58 +74,250 @@
                                                     Invoice Summary
                                                 </button> -->
                                             </h2>
-                                            <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
-                                            <div class="accordion-body">
-                                                <div>
-                                                   <div class="invoice_summ">
-                                                    <div class="inc-icon">
-                                                        <div class="inc-icon-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 19.857"><path id="invoices" fill="#2e9eff" d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z" transform="translate(-383 -381)"></path></svg></div>
-                                                    </div> 
-                                                    <div class="invc_detail pt-1">
-                                                        <div class="d-flex"><h5 class="pr-1">Invoices</h5><svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.96155 9V14M9.96155 6V7M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#516173" stroke-miterlimit="10" stroke-linejoin="round"></path></svg>
-                                                        </div>
-                                                        <p>2</p></div>
-                                                </div>
-                                                    <h5>Invoices Amount</h5>
-                                                    <span>200</span>
-                                                    <h5>Amount Due</h5>
-                                                    <span>300</span>
-                                                    <h4>
-                                                        Payment Received
-                                                    </h4>
-                                                    <span>300</span>
-                                                    <h4>Tax Amount</h4>
-                                                    <span>900</span>
-                                                    <h4>TDS Amount</h4>
-                                                    <span>900</span>
-                                                    <h4>Transation Charge</h4>
-                                                    <span>900</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                            <!-- <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                                aria-labelledby="flush-headingOne" data-bs-parent="#flush-collapseOne">
+                                            <div id="collapseOne" class="collapse" role="tabpanel"
+                                                aria-labelledby="headingOne" aria-expanded="false">
                                                 <div class="accordion-body">
                                                     <div>
-                                                        <h5>Invoices</h5>
-                                                        <span>2</span>
-                                                        <h5>Invoices Amount</h5>
-                                                        <span>200</span>
-                                                        <h5>Amount Due</h5>
-                                                        <span>300</span>
-                                                        <h4>
-                                                            Payment Received
-                                                        </h4>
-                                                        <span>300</span>
-                                                        <h4>Tax Amount</h4>
-                                                        <span>900</span>
-                                                        <h4>TDS Amount</h4>
-                                                        <span>900</span>
-                                                        <h4>Transation Charge</h4>
-                                                        <span>900</span>
+                                                        <div class="row">
+                                                            <div class="invoice_summ">
+                                                                <div class="inc-icon">
+                                                                    <div class="inc-icon-img"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 18 19.857">
+                                                                            <path id="invoices" fill="#2e9eff"
+                                                                                d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
+                                                                                transform="translate(-383 -381)"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="invc_detail pt-1">
+                                                                    <div class="d-flex">
+                                                                        <h5 class="pr-1">Invoice</h5>
+                                                                    </div>
+                                                                    <p>232</p>
+                                                                </div>
+                                                                <div class="inc-icon">
+                                                                    <div class="inc-icon-img"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 18 19.857">
+                                                                            <path id="invoices" fill="#2e9eff"
+                                                                                d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
+                                                                                transform="translate(-383 -381)"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="invc_detail pt-1">
+                                                                    <div class="d-flex">
+                                                                        <h5 class="pr-1">Invoice Amount</h5>
+                                                                    </div>
+                                                                    <p>$1212</p>
+
+
+                                                                </div>
+                                                                <div class="inc-icon">
+                                                                    <div class="inc-icon-img"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 20 21">
+                                                                            <g id="amount-due"
+                                                                                transform="translate(-707.865 -666.5)">
+                                                                                <rect id="Rectangle_920"
+                                                                                    data-name="Rectangle 920"
+                                                                                    height="20"
+                                                                                    transform="translate(707.865 667)"
+                                                                                    fill="#fff" opacity="0"></rect>
+                                                                                <g id="Group_1803"
+                                                                                    data-name="Group 1803"
+                                                                                    transform="translate(369.72 376.666)">
+                                                                                    <path id="Subtraction_9"
+                                                                                        data-name="Subtraction 9"
+                                                                                        d="M15,20H3a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0H15a3,3,0,0,1,3,3V17A3,3,0,0,1,15,20ZM4.39,12.848l-1.475.346a2.612,2.612,0,0,0,2.269,2.32V16.7H6.41V15.494A2.267,2.267,0,0,0,8.356,13.28a2.237,2.237,0,0,0-2-2.2l-.931-.211c-.4-.092-.627-.323-.627-.634,0-.346.28-.718.895-.718a1,1,0,0,1,1.089.921l1.484-.412a2.387,2.387,0,0,0-1.854-1.9V6.895H5.184v1.2a2.328,2.328,0,0,0-2.02,2.3A2.2,2.2,0,0,0,5.091,12.5l.959.239c.435.1.655.311.655.633,0,.419-.367.7-.914.7A1.3,1.3,0,0,1,4.39,12.848Zm9-4.173a.647.647,0,0,0-.456.183.719.719,0,0,0-.186.475.609.609,0,0,0,.05.251.732.732,0,0,0,.136.222.637.637,0,0,0,.913,0,.732.732,0,0,0,.136-.222.623.623,0,0,0,.049-.251.715.715,0,0,0-.185-.475A.644.644,0,0,0,13.387,8.675Zm0-6.242c-.019,0-.039,0-.059,0a.9.9,0,0,0-.818.969l.233,3.705a.658.658,0,0,0,.6.624l.043,0a.656.656,0,0,0,.64-.626L14.262,3.4a.872.872,0,0,0,0-.119A.893.893,0,0,0,13.389,2.433Z"
+                                                                                        transform="translate(339.146 290.334)"
+                                                                                        fill="#1aaa3a"
+                                                                                        stroke="rgba(0,0,0,0)"
+                                                                                        stroke-miterlimit="10"
+                                                                                        stroke-width="1"></path>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="invc_detail pt-1">
+                                                                    <div class="d-flex">
+                                                                        <h5 class="pr-1">Amount Due</h5>
+                                                                    </div>
+                                                                    <p>$232</p>
+                                                                </div>
+
+                                                                <div class="inc-icon">
+                                                                    <div class="inc-icon-img"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 20 20">
+                                                                            <g id="payment-received"
+                                                                                transform="translate(-705.865 -664)">
+                                                                                <g id="payment-received-2"
+                                                                                    data-name="payment-received"
+                                                                                    transform="translate(705.865 664)">
+                                                                                    <rect id="Rectangle_919"
+                                                                                        data-name="Rectangle 919"
+                                                                                        width="19.612" height="19.612"
+                                                                                        transform="translate(0.097 0.097)"
+                                                                                        fill="#fff" opacity="0"></rect>
+                                                                                    <path id="Path_1688"
+                                                                                        data-name="Path 1688"
+                                                                                        d="M530.993,256.3h0a5.039,5.039,0,0,0-5.039,5.039h0a5.039,5.039,0,0,0,5.039,5.038h0a5.039,5.039,0,0,0,5.038-5.038h0A5.039,5.039,0,0,0,530.993,256.3Zm.487,7.271v.732h-.773v-.718a1.61,1.61,0,0,1-1.423-1.4l.927-.207a.794.794,0,0,0,.879.738c.336,0,.578-.161.578-.423,0-.2-.149-.323-.416-.384l-.6-.141c-.752-.18-1.215-.637-1.215-1.276a1.425,1.425,0,0,1,1.268-1.389v-.726h.773v.746a1.458,1.458,0,0,1,1.167,1.148l-.932.249a.624.624,0,0,0-.685-.558c-.376,0-.564.222-.564.437,0,.182.134.322.4.382l.584.127c.9.2,1.255.725,1.255,1.33A1.382,1.382,0,0,1,531.48,263.567Z"
+                                                                                        transform="translate(-520.466 -256.296)"
+                                                                                        fill="#1aaa3a"></path>
+                                                                                    <path id="Path_1689"
+                                                                                        data-name="Path 1689"
+                                                                                        d="M540.809,266.717a1.036,1.036,0,0,0-1.416-.385l-4.279,2.5c-.013.025-.029.047-.044.071.015-.024.031-.046.044-.071a.98.98,0,0,0,.1-.252,1.052,1.052,0,0,0-.733-1.286l-3.269-.586a5.426,5.426,0,0,1-1.42-.545,5.785,5.785,0,0,0-5.218-.021,2.59,2.59,0,0,1-.446.177,5.964,5.964,0,0,1-1.787.26h-1.4v4.892h2.1a4.046,4.046,0,0,1,.626.048l8.424,1.3a.693.693,0,0,0,.469-.084l7.859-4.588A1.057,1.057,0,0,0,540.809,266.717Zm-6.508,2.635.019,0-.038,0h.019Zm.1-.013-.024,0h.009Zm.036-.008.019,0-.053.011Zm-.064.013-.03,0,.019,0Zm-.154.011h0Zm.237-.028.007,0a.609.609,0,0,0,.064-.018l.048-.017.018-.007a.461.461,0,0,0,.054-.024h0a1.018,1.018,0,0,0,.364-.28A1.025,1.025,0,0,1,534.456,269.327Zm.607-.415a.7.7,0,0,1-.043.058A.7.7,0,0,0,535.063,268.912Z"
+                                                                                        transform="translate(-520.948 -252.832)"
+                                                                                        fill="#1aaa3a"></path>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="invc_detail pt-1">
+                                                                    <div class="d-flex">
+                                                                        <h5 class="pr-1">Payment Received</h5>
+                                                                    </div>
+                                                                    <p>$232</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row second invoice-row">
+                                                            <div class="invoice_summ">
+                                                                <div class="inc-icon">
+                                                                    <div class="inc-icon-img"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            height="20" viewBox="0 0 20.725 20">
+                                                                            <g id="tax"
+                                                                                transform="translate(-707.615 -667)">
+                                                                                <g id="Group_1779"
+                                                                                    data-name="Group 1779"
+                                                                                    transform="translate(213.72 411.716)">
+                                                                                    <path id="Path_1693"
+                                                                                        data-name="Path 1693"
+                                                                                        d="M496.187,263.395h-2.042V262h5.662v1.395h-2.044v5.763h-1.576Z"
+                                                                                        transform="translate(0)"
+                                                                                        fill="#f29e00" stroke="#f29e00"
+                                                                                        stroke-width="0.5"></path>
+                                                                                    <path id="Path_1694"
+                                                                                        data-name="Path 1694"
+                                                                                        d="M500.518,262h1.305l3.114,7.158h-1.78l-.617-1.517H499.76l-.6,1.517h-1.739Zm.606,2.082-.868,2.225H502Z"
+                                                                                        transform="translate(1.715)"
+                                                                                        fill="#f29e00" stroke="#f29e00"
+                                                                                        stroke-width="0.5"></path>
+                                                                                    <path id="Path_1695"
+                                                                                        data-name="Path 1695"
+                                                                                        d="M504.991,265.417,502.626,262h1.981l1.527,2.507L507.6,262h1.911l-2.316,3.387,2.589,3.771H507.8l-1.75-2.881-1.7,2.881h-1.87Z"
+                                                                                        transform="translate(4.36)"
+                                                                                        fill="#f29e00" stroke="#f29e00"
+                                                                                        stroke-width="0.5"></path>
+                                                                                </g>
+                                                                                <rect id="Rectangle_923"
+                                                                                    data-name="Rectangle 923" width="20"
+                                                                                    height="20"
+                                                                                    transform="translate(707.865 667)"
+                                                                                    fill="#fff" opacity="0"></rect>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="invc_detail pt-1">
+                                                                    <div class="d-flex">
+                                                                        <h5 class="pr-1">Tax Amount</h5>
+                                                                    </div>
+                                                                    <p>$122</p>
+                                                                </div>
+
+                                                                <div class="inc-icon">
+                                                                    <div class="inc-icon-img"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 20 20">
+                                                                            <g id="transaction-charges"
+                                                                                transform="translate(-707.865 -667)">
+                                                                                <rect id="Rectangle_924"
+                                                                                    data-name="Rectangle 924" width="20"
+                                                                                    height="20"
+                                                                                    transform="translate(707.865 667)"
+                                                                                    fill="#fff" opacity="0"></rect>
+                                                                                <g id="Group_1780"
+                                                                                    data-name="Group 1780"
+                                                                                    transform="translate(494.471 226.632)">
+                                                                                    <path id="Path_1696"
+                                                                                        data-name="Path 1696"
+                                                                                        d="M7.29,8.069V0H2.715V8.069H0l5,5.9,5-5.9Z"
+                                                                                        transform="translate(223.399 457.339) rotate(180)"
+                                                                                        fill="#f29e00"></path>
+                                                                                    <path id="Path_1697"
+                                                                                        data-name="Path 1697"
+                                                                                        d="M10,5.9,5,0,0,5.9H2.715v8.069H7.29V5.9Z"
+                                                                                        transform="translate(233.394 457.368) rotate(180)"
+                                                                                        fill="#f29e00"></path>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="invc_detail pt-1">
+                                                                    <div class="d-flex">
+                                                                        <h5 class="pr-1">Transaction Charge</h5>
+                                                                    </div>
+                                                                    <p>$989</p>
+                                                                </div>
+
+                                                                <div class="inc-icon">
+                                                                    <div class="inc-icon-img"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            height="20" viewBox="0 0 20.725 20">
+                                                                            <g id="tax"
+                                                                                transform="translate(-707.615 -667)">
+                                                                                <g id="Group_1779"
+                                                                                    data-name="Group 1779"
+                                                                                    transform="translate(213.72 411.716)">
+                                                                                    <path id="Path_1693"
+                                                                                        data-name="Path 1693"
+                                                                                        d="M496.187,263.395h-2.042V262h5.662v1.395h-2.044v5.763h-1.576Z"
+                                                                                        transform="translate(0)"
+                                                                                        fill="#f29e00" stroke="#f29e00"
+                                                                                        stroke-width="0.5"></path>
+                                                                                    <path id="Path_1694"
+                                                                                        data-name="Path 1694"
+                                                                                        d="M500.518,262h1.305l3.114,7.158h-1.78l-.617-1.517H499.76l-.6,1.517h-1.739Zm.606,2.082-.868,2.225H502Z"
+                                                                                        transform="translate(1.715)"
+                                                                                        fill="#f29e00" stroke="#f29e00"
+                                                                                        stroke-width="0.5"></path>
+                                                                                    <path id="Path_1695"
+                                                                                        data-name="Path 1695"
+                                                                                        d="M504.991,265.417,502.626,262h1.981l1.527,2.507L507.6,262h1.911l-2.316,3.387,2.589,3.771H507.8l-1.75-2.881-1.7,2.881h-1.87Z"
+                                                                                        transform="translate(4.36)"
+                                                                                        fill="#f29e00" stroke="#f29e00"
+                                                                                        stroke-width="0.5"></path>
+                                                                                </g>
+                                                                                <rect id="Rectangle_923"
+                                                                                    data-name="Rectangle 923" width="20"
+                                                                                    height="20"
+                                                                                    transform="translate(707.865 667)"
+                                                                                    fill="#fff" opacity="0"></rect>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="invc_detail pt-1">
+                                                                    <div class="d-flex">
+                                                                        <h5 class="pr-1">TDS Amount</h5>
+                                                                    </div>
+                                                                    <p>$932</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

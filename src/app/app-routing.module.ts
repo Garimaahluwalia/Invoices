@@ -52,8 +52,8 @@ const routes: Routes = [
             component: AddSentEmailComponent
           },
           {
-            path : INVOICES.RECORD_PAYMENTS,
-            component : AddRecordPaymentComponent
+            path: INVOICES.RECORD_PAYMENTS,
+            component: AddRecordPaymentComponent
           }
         ]
       },
@@ -161,13 +161,16 @@ const routes: Routes = [
   },
   {
     path: INVOICES.SAVE_INVOICE_PAGE,
-    component: SaveInvoicePageComponent
+    component: SaveInvoicePageComponent,
+    children: [{
+      path: INVOICES.SENT_INVOICE_EMAIL,
+      component: AddSentEmailComponent
+    }]
   },
   {
-    path : INVOICES.RECORD_PAYMENT,
-    component : AddRecordPaymentComponent
-  }
- 
+    path: INVOICES.RECORD_PAYMENT,
+    component: AddRecordPaymentComponent
+  },
 ];
 
 @NgModule({
