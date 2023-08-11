@@ -81,6 +81,7 @@ export class AddInvoicesComponent implements OnInit {
       "readonly": false,
     },
   ]
+  invoiceIDforsave: any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -168,8 +169,10 @@ export class AddInvoicesComponent implements OnInit {
     this.addInvoiceService.addInvoice(payload).pipe(take(1)).subscribe(
       (res: any) => {
         this.invoices = res;
+        this.invoiceIDforsave = res._id
+        console.log(this.invoices, "INVOICES")
         this.loaderService.HideLoader();
-        this.router.navigateByUrl("/save-invoice-page");
+        this.router.navigate(["/save-invoice-page"])
         this.notifier.show({
           type: 'success',
           message: 'Invoice saved successfully',

@@ -261,3 +261,38 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
 .dropdown-items div:hover {
   background-color: #f6f6f6;
 }
+.invc-summ a{
+  font-size: 18px;
+    color: #000;
+    padding: 10px;
+}
+.invc-summ .accordion-item{
+  border: 0;
+}
+.invc-summ .accordion-item h2{
+  margin-bottom:15px;
+}
+
+/*----invoice summary----*/
+.invoice_summ{
+  display: flex;
+  gap: 15px;
+}
+.invoice_summ .inc-icon svg{
+  height:30px;
+  width: 30px;
+  margin-right: 0px;
+}
+.invc_detail h5{
+margin-bottom: 0px;
+font-size: 16px;
+}
+.invc_detail p{
+  font-size: 19px;
+    color: #000;
+}
+.inc-icon-img{
+  background-color: rgba(46, 158, 255, 0.1);
+  border-radius:80px;
+  padding: 10px;
+}

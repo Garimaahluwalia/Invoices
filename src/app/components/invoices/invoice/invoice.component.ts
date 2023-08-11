@@ -105,7 +105,7 @@ export class InvoiceComponent implements OnInit {
   toggleDropdowns(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
-  
+
   toggleStatusSelection(status: string): void {
     if (this.isSelected(status)) {
       this.selectedStatuses = this.selectedStatuses.filter(s => s !== status);
@@ -113,16 +113,16 @@ export class InvoiceComponent implements OnInit {
       this.selectedStatuses.push(status);
     }
   }
-  
+
   isSelected(status: string): boolean {
     return this.selectedStatuses.includes(status);
   }
-  
+
   getSelectedItemsText(): string {
     if (this.selectedStatuses.length === 0) return 'Select Statuses';
     return this.selectedStatuses.join(', ');
   }
-  
+
 
 
   ngAfterViewInit() {
@@ -354,6 +354,7 @@ export class InvoiceComponent implements OnInit {
       this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id } });
     });
   }
+
   recordPayment(details: IInvoice) {
     this.router.navigate(["invoice", "record-payment", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id } });

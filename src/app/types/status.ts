@@ -1,5 +1,6 @@
 export enum STATUS {
-    DRAFT = 'DRAFT',
+    // DRAFT = 'DRAFT',
+    ALL = 'ALL',
     SENT = 'SENT',
     CANCELLED = 'CANCELLED',
     PAID = 'PAID',
