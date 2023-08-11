@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents } from 'src/app/types/modal';
@@ -15,7 +16,8 @@ export class AddSentEmailComponent {
   public data: any;
 
 
-  constructor(public modalService: ModalService) { }
+  constructor(public modalService: ModalService,
+    public router : Router) { }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.SentInvoiceEmail).pipe(takeUntil(this.destroyed)).subscribe((res => {
@@ -36,6 +38,8 @@ export class AddSentEmailComponent {
 
   closeModal() {
     this.closeModalButton?.nativeElement?.click();
+    this.router.navigate(["invoice"])
+
   }
 
   saveChanges() {

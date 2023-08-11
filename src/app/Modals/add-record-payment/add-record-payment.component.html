@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header modal-head pb-3">
-                <h1 class="modal-title fs-5" id="addUpdateLabel">Clients</h1>
+                <h1 class="modal-title fs-5" id="addUpdateLabel">Record Payment</h1>
                 <button type="button" class="close" (click)="closeModal()">
                     <i class="fa-sharp fa-regular fa-circle-xmark"></i>
 
@@ -15,13 +15,36 @@
                 </button>
             </div>
 
+            <div class="container">
+                <div class="invoice-detail">
+                    <span>Invoice No</span>
+                    <span>A00016</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span>Billed To</span>
+                    <span>Namit Arora</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span>Taxable Amount</span>
+                    <span>₹1</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span>Invoice Total</span>
+                    <span>₹1.10</span>
+                </div>
+            </div>
+
+
+            <!-- 
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="name" id="name" class="form-control" name="name" minlength="4" maxlength="50"
-                                >
+                            <input type="name" id="name" class="form-control" name="name" minlength="4" maxlength="50">
 
                         </div>
                     </div>
@@ -123,5 +146,5 @@
                             changes</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>

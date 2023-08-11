@@ -29,7 +29,6 @@ export class InvoiceComponent implements OnInit {
   @ViewChild('mobileNav', { static: true }) mobileNav!: ElementRef;
   @ViewChild('selectUnselectSingle', { static: true }) selectUnselectSingle!: ElementRef;
 
-  @ViewChild(AddRecordPaymentComponent) public addRecordPaymentModal!: AddRecordPaymentComponent
 
   public isActiveSideBar: Boolean = false;
   public currentPage = 1;
@@ -102,9 +101,7 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  recordPayment() {
-    this.addRecordPaymentModal.openModal();
-  }
+
 
   ngAfterViewInit() {
     $('input[name="daterange"]').daterangepicker({
@@ -330,12 +327,17 @@ export class InvoiceComponent implements OnInit {
     console.log(this.selectedStatus, "SELECTED STATUS")
   }
 
-  sentEmail(details:IInvoice) {
+  sentEmail(details: IInvoice) {
     this.router.navigate(["invoice", "invoice-email", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id } });
     });
   }
-  
+  recordPayment(details: IInvoice) {
+    this.router.navigate(["invoice", "record-payment", details._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id } });
+    });
+  }
+
 
 }
 

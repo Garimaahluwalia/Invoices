@@ -21,7 +21,7 @@ import { InvoicedataComponent } from './components/invoices/add-invoices/from-gr
 import { CompanyaddressComponent } from './components/invoices/add-invoices/from-groups/companyaddress/companyaddress.component';
 import { ProductdetailsComponent } from './components/invoices/add-invoices/from-groups/productdetails/productdetails.component';
 import { PaymentdetailsComponent } from './components/invoices/add-invoices/from-groups/paymentdetails/paymentdetails.component';
-import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
+import { InvoiceListDetailsComponent } from './components/invoices/invoice/invoice-list-details/invoice-list-details.component';
 import { AuthInterceptor } from './interceptors/intercept';
 import { CommonModule } from '@angular/common';
 import { ClientComponent } from './components/clients/client/client.component';
@@ -41,9 +41,10 @@ import { AddFieldsComponent } from './modals/add-fields/add-fields.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoaderComponent } from './common/loader/loader.component';
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
-import { SaveInvoicePageComponent } from './components/invoices/save-invoice-page/save-invoice-page.component';
+import { SaveInvoicePageComponent } from './components/invoices/invoice/save-invoice-page/save-invoice-page.component';
 import { MultiselectDropdownComponent } from './common/multiselect-dropdown/multiselect-dropdown.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
+import { InvoiceSummaryComponent } from './components/invoices/invoice/invoice-summary/invoice-summary.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -121,6 +122,7 @@ const customNotifierOptions: NotifierOptions = {
     SaveInvoicePageComponent,
     MultiselectDropdownComponent,
     AddSentEmailComponent,
+    InvoiceSummaryComponent,
   ],
   imports: [
     BrowserModule,

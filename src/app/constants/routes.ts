@@ -17,7 +17,9 @@ export const INVOICES = {
     INVOICE_ACTIONS: "invoice-actions/:id",
     SAVE_INVOICE_PAGE: "save-invoice-page",
     INVOICE_EMAIL: "invoice-email",
-    SENT_INVOICE_EMAIL: "invoice-email/:id"
+    SENT_INVOICE_EMAIL: "invoice-email/:id",
+    RECORD_PAYMENT: "record-payment",
+    RECORD_PAYMENTS: "record-payment/:id"
 }
 
 export const PROFILE = {

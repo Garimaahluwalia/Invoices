@@ -9,7 +9,7 @@ import { AuthService } from './services/auth/auth.service';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { InvoiceComponent } from './components/invoices/invoice/invoice.component';
 import { AddInvoicesComponent } from './components/invoices/add-invoices/add-invoices.component';
-import { InvoiceListDetailsComponent } from './components/invoices/invoice-list-details/invoice-list-details.component';
+import { InvoiceListDetailsComponent } from './components/invoices/invoice/invoice-list-details/invoice-list-details.component';
 import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './modals/add-client/add-client.component';
 import { DeleteComponent } from './modals/delete/delete.component';
@@ -18,7 +18,7 @@ import { dashboardComponent } from './components/invoices/dashboard/dashboard.co
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
-import { SaveInvoicePageComponent } from './components/invoices/save-invoice-page/save-invoice-page.component';
+import { SaveInvoicePageComponent } from './components/invoices/invoice/save-invoice-page/save-invoice-page.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
 
 const routes: Routes = [
@@ -50,6 +50,10 @@ const routes: Routes = [
           {
             path: INVOICES.SENT_INVOICE_EMAIL,
             component: AddSentEmailComponent
+          },
+          {
+            path : INVOICES.RECORD_PAYMENTS,
+            component : AddRecordPaymentComponent
           }
         ]
       },
@@ -159,6 +163,10 @@ const routes: Routes = [
     path: INVOICES.SAVE_INVOICE_PAGE,
     component: SaveInvoicePageComponent
   },
+  {
+    path : INVOICES.RECORD_PAYMENT,
+    component : AddRecordPaymentComponent
+  }
  
 ];
 
