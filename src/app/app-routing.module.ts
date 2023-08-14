@@ -173,7 +173,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: INVOICES.RECORD_PAYMENT,
+    path: INVOICES.RECORD_PAYMENTS,
     component: AddRecordPaymentComponent
   },
 ];
