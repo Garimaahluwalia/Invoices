@@ -14,16 +14,19 @@ export class AddSentEmailComponent {
   @ViewChild("closeModalButton", { static: false }) private closeModalButton!: ElementRef;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
-
-
+  public from: any;
+  public clientName: any;
+  public clientEmail: any;
+  public cc: any
+  public emailSubject: any;
+  public message: any;
   constructor(public modalService: ModalService,
-    public router : Router) { }
+    public router: Router) { }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.SentInvoiceEmail).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status, } = res;
       this.data = data, status;
-      console.log(this.data, "DATA LOADED")
       if (status || data) {
         this.openModal();
       } else {
@@ -37,8 +40,14 @@ export class AddSentEmailComponent {
   }
 
   closeModal() {
-    this.closeModalButton?.nativeElement?.click();
-    this.router.navigate(["invoice"])
+    this.closeModalButton.nativeElement.click();
+    if (this.router.url.includes("save-invoice-page")) {
+      this.router.navigate(["save-invoice-page"]);
+    } else if (this.router.url.includes("invoice")) {
+      this.router.navigate(["invoice"]).then(() => {
+        this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: false })
+      });
+    }
 
   }
 

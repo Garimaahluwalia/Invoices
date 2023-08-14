@@ -17,6 +17,7 @@ import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-han
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ClientRouterModalAction } from 'src/app/types/client/client.dto';
 import { AddRecordPaymentComponent } from 'src/app/modals/add-record-payment/add-record-payment.component';
+import { IInvoiceSummaryTotal, InvoiceSummaryTotal } from 'src/app/types/invoiceSummaryTotal';
 
 declare var $: any;
 @Component({
@@ -54,7 +55,8 @@ export class InvoiceComponent implements OnInit {
   public selectedCount!: number;
   public selectedStatus: any[] = [];
   public selectedStatuses: string[] = [STATUS.ALL];
-  isDropdownOpen: boolean = false;
+  public isDropdownOpen: boolean = false;
+  public invoiceSummaryTotal: InvoiceSummaryTotal = new InvoiceSummaryTotal();
 
 
   constructor(
@@ -379,6 +381,12 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
+
+  summaryTotal() {
+    this.invoiceService.getInvoiceSummaryTotal().subscribe((res: IInvoiceSummaryTotal) => {
+      this.invoiceSummaryTotal.updateData(res);
+    })
+  }
 
 }
 

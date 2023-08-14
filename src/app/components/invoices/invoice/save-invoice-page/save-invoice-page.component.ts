@@ -51,7 +51,6 @@ export class SaveInvoicePageComponent implements OnInit {
     public modalService: ModalService
   ) { this.notifier = notifierService; }
 
-
   ngOnInit(): void {
     this.router.params.subscribe(params => {
       this._id = params['id'];

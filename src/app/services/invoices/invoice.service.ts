@@ -8,6 +8,10 @@ import { CURRENCY } from 'src/app/types/currency';
 import { IProductRows } from 'src/app/types/product';
 import endpoints from 'src/app/endpoints';
 import { LoaderService } from '../loader/loader.service';
+import { IInvoiceSummaryTotal } from 'src/app/types/invoiceSummaryTotal';
+import { IInvoiceSummary } from 'src/app/types/invoice-summary';
+import { IEmailInvoice } from 'src/app/types/email-invoice';
+import { IRecordPayment } from 'src/app/types/recordPayments';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +27,7 @@ export class InvoiceService {
   private _searchQuery!: string;
   private _startDate!: string;
   private _endDate!: string;
+  public _status!: string;
   private _invoices: IInvoice[] = [];
   private invoicesSubject: BehaviorSubject<IInvoice[]> = new BehaviorSubject<IInvoice[]>([]);
   private _productDataSubject = new BehaviorSubject<any[]>([]);
@@ -56,6 +61,15 @@ export class InvoiceService {
     }
   }
 
+  set status(value: string) {
+    this._status = value;
+  }
+
+  get status(): string {
+    return this._status;
+  }
+
+
   set startDate(value: string) {
     this._startDate = value;
   }
@@ -63,6 +77,7 @@ export class InvoiceService {
   get startDate(): string {
     return this._startDate;
   }
+
 
   set endDate(value: string) {
     this._endDate = value;
@@ -213,14 +228,14 @@ export class InvoiceService {
     return this.invoicesSubject.asObservable();
   }
 
-  getAllInvoice(page: number = 1, limit: number = 10, order: string, field: string, searchQuery: string, startDate: string, endDate: string): Observable<IInvoiceResponse> {
+  getAllInvoice(page: number = 1, limit: number = 10, order: string, field: string, searchQuery: string, startDate: string, endDate: string, status: string): Observable<IInvoiceResponse> {
     return this.http.get<IInvoiceResponse>(endpoints.INVOICES_LIST.GETALL(page, limit, order, field, searchQuery, startDate, endDate));
   }
 
   getAll() {
     this.loaderService.ShowLoader();
     try {
-      this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate).subscribe(
+      this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate, this.status).subscribe(
         (res) => {
           this._invoices = res.invoices;
           this.totalNumberOfInvoices.next(res.totalCount);
@@ -249,4 +264,19 @@ export class InvoiceService {
     return this._updateStatus.asObservable();
   }
 
-}
+  getInvoiceSummaryTotal(): Observable<IInvoiceSummaryTotal> {
+    return this.http.get<IInvoiceSummaryTotal>(endpoints.INVOICES_LIST.INVOICE_SUMMARY_TOTAL)
+  }
+
+  getInvoiceSummary(): Observable<IInvoiceSummary> {
+    return this.http.get<IInvoiceSummary>(endpoints.INVOICES_LIST.INVOICE_SUMMARY)
+  }
+
+  sendInvoiceEmail(payload: IEmailInvoice): Observable<any> {
+    return this.http.post<any>(endpoints.INVOICES_LIST.EMAIL_INVOICE, payload);
+  }
+
+  sendRecordPayment(payload: IRecordPayment): Observable<any> {
+    return this.http.post<any>(endpoints.INVOICES_LIST.RECORD_PAYMENT, payload);
+  }
+}  

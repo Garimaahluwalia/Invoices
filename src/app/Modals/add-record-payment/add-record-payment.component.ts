@@ -14,15 +14,15 @@ export class AddRecordPaymentComponent {
   @ViewChild('closeRecordModal', { static: false }) private closeRecordModal!: ElementRef<HTMLButtonElement>;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
-
-  constructor(public modalService: ModalService, public router : Router) { }
+  public invoiceId: string | null = null;
+  constructor(public modalService: ModalService, public router: Router) { }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
-      const { data, status, } = res;
+      const { data, status } = res;
+      this.invoiceId = data.id;
       this.data = data, status;
-      console.log(this.data, "DATA LOADED")
-      if (status || data) {
+      if (status) {
         this.openModal();
       } else {
         this.closeModal();
@@ -33,12 +33,24 @@ export class AddRecordPaymentComponent {
   openModal() {
     this.openRecordModal?.nativeElement?.click();
   }
+
   closeModal() {
-    this.closeRecordModal?.nativeElement.click();
-    this.router.navigate(["invoice"])
+    this.closeRecordModal.nativeElement.click();
+    if (this.router.url.includes("save-invoice-page")) {
+      this.router.navigate(["save-invoice-page"]);
+    } else if (this.router.url.includes("invoice")) {
+      this.router.navigate(["invoice"]).then(() => {
+        this.modalService.sendEvent(ModalEvents.RecordPayment, { status: false })
+      });
+    }
   }
 
   saveChanges() {
 
   }
+  ngOnDestroy() {
+    this.destroyed.next(true);
+    this.destroyed.complete();
+  }
+
 }
