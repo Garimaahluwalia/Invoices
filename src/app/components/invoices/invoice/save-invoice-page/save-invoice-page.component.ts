@@ -103,7 +103,7 @@ export class SaveInvoicePageComponent implements OnInit {
 
   emailInvoice(data: IInvoice) {
     console.log(data, "email invoice")
-    this.route.navigate(["save-invoice-page", this._id, "invoice-email", data._id]).then(() => {
+    this.route.navigate(["save-invoice-page", this._id, "invoice-email"]).then(() => {
       this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id } });
     });
   }
@@ -147,7 +147,7 @@ export class SaveInvoicePageComponent implements OnInit {
   }
 
   recordPayment(data: IInvoice) {
-    this.route.navigate(["save-invoice-page", "record-payment", data._id]).then(() => {
+    this.route.navigate(["save-invoice-page", this._id, "record-payment"]).then(() => {
       this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id } });
     });
   }

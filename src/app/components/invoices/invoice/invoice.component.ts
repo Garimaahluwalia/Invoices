@@ -368,13 +368,13 @@ export class InvoiceComponent implements OnInit {
   }
 
   sentEmail(details: IInvoice) {
-    this.router.navigate(["invoice", "invoice-email", details._id]).then(() => {
+    this.router.navigate(["invoice", "invoice-email"]).then(() => {
       this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id } });
     });
   }
 
   recordPayment(details: IInvoice) {
-    this.router.navigate(["invoice", "record-payment", details._id]).then(() => {
+    this.router.navigate(["invoice", "record-payment"]).then(() => {
       this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id } });
     });
   }
