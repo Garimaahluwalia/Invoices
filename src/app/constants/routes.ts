@@ -15,15 +15,8 @@ export const INVOICES = {
     DASHBOARD: "dashboard",
     INVOICE_ACTION: "invoice-actions",
     INVOICE_ACTIONS: "invoice-actions/:id",
-<<<<<<< HEAD
     SENT_INVOICE_EMAIL: "invoice-email",
     RECORD_PAYMENTS: "record-payment",
-=======
-    INVOICE_EMAIL: "invoice-email",
-    // SENT_INVOICE_EMAIL: "invoice-email/:id",
-    RECORD_PAYMENT: "record-payment",
-    // RECORD_PAYMENTS: "record-payment/:id",
->>>>>>> 7b0c58077ee3908394786443b599f8df30bf6ac0
     SAVE_INVOICE_PAGE: "save-invoice-page/:id",
 }
 

@@ -163,11 +163,11 @@ const routes: Routes = [
     path: INVOICES.SAVE_INVOICE_PAGE,
     component: SaveInvoicePageComponent,
     children: [{
-      path: INVOICES.INVOICE_EMAIL,
+      path: INVOICES.SENT_INVOICE_EMAIL,
       component: AddSentEmailComponent
     },
     {
-      path: INVOICES.RECORD_PAYMENT,
+      path: INVOICES.RECORD_PAYMENTS,
       component: AddRecordPaymentComponent
     }
     ]
@@ -176,6 +176,10 @@ const routes: Routes = [
     path: INVOICES.RECORD_PAYMENTS,
     component: AddRecordPaymentComponent
   },
+  {
+    path: INVOICES.SENT_INVOICE_EMAIL,
+    component: AddSentEmailComponent
+  }
 ];
 
 @NgModule({
