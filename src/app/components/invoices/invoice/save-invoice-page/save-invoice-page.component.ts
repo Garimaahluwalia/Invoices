@@ -141,6 +141,7 @@ export class SaveInvoicePageComponent implements OnInit {
         }
       });
   }
+
   createAnotherInvoice() {
     this.route.navigate(["add-invoice"])
   }
@@ -150,4 +151,5 @@ export class SaveInvoicePageComponent implements OnInit {
       this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id } });
     });
   }
+
 }

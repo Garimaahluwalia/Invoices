@@ -167,10 +167,10 @@ const routes: Routes = [
       component: AddSentEmailComponent
     },
     {
-      path : INVOICES.RECORD_PAYMENTS,
-      component : AddRecordPaymentComponent
+      path: INVOICES.RECORD_PAYMENTS,
+      component: AddRecordPaymentComponent
     }
-  ]
+    ]
   },
   {
     path: INVOICES.RECORD_PAYMENT,
