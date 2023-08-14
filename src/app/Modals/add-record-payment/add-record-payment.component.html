@@ -14,86 +14,116 @@
                     <i class="fa-sharp fa-regular fa-circle-xmark"></i>
                 </button>
             </div>
-
             <div class="container">
-                <div class="invoice-detail">
-                    <span>Invoice No</span>
-                    <span>A00016</span>
+                <div class="container invoices-det">
+                    <div class="invoice-detail">
+                        <span>Invoice No</span>
+                        <span>A00016</span>
+                    </div>
+
+                    <div class="invoice-detail">
+                        <span>Billed To</span>
+                        <span>Namit Arora</span>
+                    </div>
+
+                    <div class="invoice-detail">
+                        <span>Taxable Amount</span>
+                        <span>₹1</span>
+                    </div>
+
+                    <div class="invoice-detail">
+                        <span>Invoice Total</span>
+                        <span>₹1.10</span>
+                    </div>
                 </div>
 
-                <div class="invoice-detail">
-                    <span>Billed To</span>
-                    <span>Namit Arora</span>
-                </div>
+                <div class="container">
+                    <div class="payment-detail">
+                        <label for="amountReceived">Amount Received (A)</label>
+                        <div class="input-group amount-inputs mb-3">
+                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <input type="text" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
 
-                <div class="invoice-detail">
-                    <span>Taxable Amount</span>
-                    <span>₹1</span>
-                </div>
+                    <div class="payment-detail">
+                        <label for="amountReceivedUsd">Amount Received in USD</label>
+                        <div class="input-group amount-inputs mb-3">
+                            <span class="input-group-text" id="basic-addon1">$</span>
+                            <input type="text" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
 
-                <div class="invoice-detail">
-                    <span>Invoice Total</span>
-                    <span>₹1.10</span>
+                    <div class="payment-detail">
+                        <label>Exchange Rate</label>
+                        <span>1 USD = 82.644628 INR</span>
+                        <div>
+                            <i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i>
+                            <span>edit</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-detail">
+                        <label for="transactionCharge">Transaction Charge (B)</label>
+                        <div class="input-group amount-inputs mb-3">
+                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <input type="text" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+
+                    <div class="payment-detail">
+                        <label for="tdsWithheld">TDS %</label>
+                        <div class="input-group amount-inputs mb-3">
+                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <input type="text" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="payment-detail">
+                        <label for="tdsWithheld">TDS withheld (C)</label>
+                        <div class="input-group amount-inputs mb-3">
+                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <input type="text" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+
+                    <div class="payment-detail">
+                        <label for="amountToSettle">Amount to Settle (A+B+C)</label>
+                        <div class="input-group amount-inputs mb-3">
+                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <input type="text" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+
+
+                    <div class="payment-detail mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Payment Date</label>
+                        <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    </div>
+
+                    <div class="payment-detail mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Payment Method</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    </div>
+
+                    <div class="payment-detail mb-3">
+                        <div class="input-group amount-inputs">
+                            <label for="exampleFormControlInput1" class="form-label">Additional notes</label>
+                            <span class="input-group-text">With textarea</span>
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="container">
-                <div class="payment-detail">
-                    <label for="amountReceived">Amount Received (A)</label>
-                    <span>₹</span>
-                    <input type="text" id="amountReceived" value="1.1">
-                </div>
 
-                <div class="payment-detail">
-                    <label for="amountReceivedUsd">Amount Received in USD</label>
-                    <span>$</span>
-                    <input type="text" id="amountReceivedUsd" value="0.013">
-                </div>
 
-                <div class="payment-detail">
-                    <label>Exchange Rate</label>
-                    <span>1 USD = 82.644628 INR</span>
-                    <button>Edit</button>
-                </div>
 
-                <div class="payment-detail">
-                    <label for="transactionCharge">Transaction Charge (B)</label>
-                    <span>₹</span>
-                    <input type="text" id="transactionCharge" value="0">
-                </div>
-
-                <div class="payment-detail">
-                    <label for="tds">TDS (%)</label>
-                    <input type="text" id="tds" value="0">
-                </div>
-
-                <div class="payment-detail">
-                    <label for="tdsWithheld">TDS withheld (C)</label>
-                    <span>₹</span>
-                    <input type="text" id="tdsWithheld" value="0">
-                </div>
-
-                <div class="payment-detail">
-                    <label for="amountToSettle">Amount to Settle (A+B+C)</label>
-                    <span>₹</span>
-                    <input type="text" id="amountToSettle" value="1.1">
-                </div>
-
-                <div class="payment-detail">
-                    <label for="paymentDate">Payment Date</label>
-                    <input type="text" id="paymentDate" value="Aug 11, 2023">
-                </div>
-
-                <div class="payment-detail">
-                    <label for="paymentMethod">Payment Method</label>
-                    <input type="text" id="paymentMethod" value="Account Transfer">
-                </div>
-
-                <div class="payment-detail">
-                    <label for="additionalNotes">Additional Notes</label>
-                    <input type="text" id="additionalNotes">
-                </div>
-            </div>
             <div class="modal-footer pt-2 pb-0">
                 <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
                 <button type="button" class="btn btn-primary add-client" (click)="saveChanges()">Save

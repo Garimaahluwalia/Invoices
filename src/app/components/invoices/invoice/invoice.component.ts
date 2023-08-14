@@ -53,7 +53,7 @@ export class InvoiceComponent implements OnInit {
   public checkedCount!: number;
   public selectedCount!: number;
   public selectedStatus: any[] = [];
-  selectedStatuses: string[] = [];
+  public selectedStatuses: string[] = [STATUS.ALL];
   isDropdownOpen: boolean = false;
 
 
@@ -107,12 +107,30 @@ export class InvoiceComponent implements OnInit {
   }
 
   toggleStatusSelection(status: string): void {
-    if (this.isSelected(status)) {
-      this.selectedStatuses = this.selectedStatuses.filter(s => s !== status);
+    if (status === STATUS.ALL) {
+      if (this.isSelected(STATUS.ALL)) {
+        this.selectedStatuses = [];
+      } else {
+        this.selectedStatuses = [STATUS.ALL];
+      }
     } else {
-      this.selectedStatuses.push(status);
+      if (this.isSelected(status)) {
+        const index = this.selectedStatuses.indexOf(status);
+        this.selectedStatuses.splice(index, 1);
+      } else {
+        this.selectedStatuses.push(status);
+      }
+
+      // Always deselect "ALL" if any other status is selected or deselected
+      const allIndex = this.selectedStatuses.indexOf(STATUS.ALL);
+      if (allIndex !== -1) {
+        this.selectedStatuses.splice(allIndex, 1);
+      }
     }
   }
+
+
+
 
   isSelected(status: string): boolean {
     return this.selectedStatuses.includes(status);

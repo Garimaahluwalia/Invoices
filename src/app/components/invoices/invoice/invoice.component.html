@@ -26,8 +26,7 @@
                                             <div class="custom-dropdown" (click)="toggleDropdowns()">
                                                 {{getSelectedItemsText()}}
                                                 <div *ngIf="isDropdownOpen" class="dropdown-items">
-                                                    <div *ngFor="let status of statuses"
-                                                        (click)="toggleStatusSelection(status)">
+                                                    <div *ngFor="let status of statuses" (click)="toggleStatusSelection(status)">
                                                         <input type="checkbox" [checked]="isSelected(status)" />
                                                         {{status}}
                                                     </div>

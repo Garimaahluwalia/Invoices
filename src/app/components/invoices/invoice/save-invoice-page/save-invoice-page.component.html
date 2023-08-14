@@ -3,10 +3,10 @@
         <div class=" boxes">
             <div>
                 <div class="edit">
-                    <div (click)="editInvoice()"><i class="fa-solid fa-pencil"></i></div>
+                    <div (click)="updateInvoice(data)"><i class="fa-solid fa-pencil"></i></div>
                     <p class="mb-0"> Edit</p>
                 </div>
-                <div class="edit">
+                <div class="edit" (click)="recordPayment(data)">
                     <div><i class="fa-solid fa-money-bill-wave"></i></div>
                     <p class="mb-0"> Record Payment</p>
                 </div>
@@ -19,25 +19,24 @@
                         print
                     </p>
                 </div>
-                <div class="edit">
+                <div class="edit" (click)="downloadInvoice()">
                     <div><i class="fa-solid fa-download"></i></div>
                     <p class="mb-0">
                         Download
                     </p>
                 </div>
-                <div class="edit">
+                <div class="edit" (click)="emailInvoice(data)">
                     <div><i class="fa-solid fa-envelope"></i></div>
                     <p class="mb-0">
                         email invoice
                     </p>
                 </div>
             </div>
-
         </div>
-
+        <span (click)="createAnotherInvoice()"> <a class="btn btn-primary">
+                <i class="las la-plus me-1"></i>
+                Create another invoice</a></span>
     </div>
-
-
     <app-invoice-summary></app-invoice-summary>
 
 
@@ -360,5 +359,40 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="container inc-summ-edits">
+        <div class=" boxes">
+            <div>
+                <div class="edit">
+                    <div (click)="updateInvoice(data)"><i class="fa-solid fa-pencil"></i></div>
+                    <p class="mb-0"> Edit</p>
+                </div>
+                <div class="edit" (click)="recordPayment(data)">
+                    <div><i class="fa-solid fa-money-bill-wave"></i></div>
+                    <p class="mb-0"> Record Payment</p>
+                </div>
+            </div>
+            <div>
+
+                <div class="edit">
+                    <div><i class="fa-solid fa-print"></i></div>
+                    <p class="mb-0">
+                        print
+                    </p>
+                </div>
+                <div class="edit" (click)="downloadInvoice()">
+                    <div><i class="fa-solid fa-download"></i></div>
+                    <p class="mb-0">
+                        Download
+                    </p>
+                </div>
+                <div class="edit" (click)="emailInvoice(data)">
+                    <div><i class="fa-solid fa-envelope"></i></div>
+                    <p class="mb-0">
+                        email invoice
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

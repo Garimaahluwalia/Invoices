@@ -165,7 +165,12 @@ const routes: Routes = [
     children: [{
       path: INVOICES.SENT_INVOICE_EMAIL,
       component: AddSentEmailComponent
-    }]
+    },
+    {
+      path : INVOICES.RECORD_PAYMENTS,
+      component : AddRecordPaymentComponent
+    }
+  ]
   },
   {
     path: INVOICES.RECORD_PAYMENT,

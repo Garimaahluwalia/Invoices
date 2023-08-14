@@ -95,12 +95,59 @@ export class SaveInvoicePageComponent implements OnInit {
       });
   }
 
-  editInvoice() {
-
+  updateInvoice(details: IInvoice) {
+    this.route.navigate(["/add-invoice", details._id]);
   }
-  // sendEmail(details: IInvoice) {
-  //   this.route.navigate(["save-invoice-page", "invoice-email", details._id]).then(() => {
-  //     this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id } });
-  //   });
-  // }
+
+
+
+  emailInvoice(data: IInvoice) {
+    console.log(data, "email invoice")
+    this.route.navigate(["save-invoice-page", this._id, "invoice-email", data._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id } });
+    });
+  }
+
+  downloadInvoice() {
+    this.loading = true;
+    this.invoiceService.downloadInvoice(this._id)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe({
+        next: (response: any) => {
+          let dataType = response.type;
+          let binaryData = [];
+          binaryData.push(response.body);
+          let downloadLink = document.createElement('a');
+          const URI = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+          downloadLink.href = URI;
+          downloadLink.setAttribute('download', `invoice_${this._id}.pdf`);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          setTimeout(() => {
+            downloadLink.remove();
+            window.URL.revokeObjectURL(URI);
+          }, 1000);
+        },
+        complete: () => {
+          this.notifier.show({
+            type: 'success',
+            message: 'Invoice downloaded successfully',
+            id: 'THAT_NOTIFICATION_ID',
+          });
+          this.loading = false;
+          setTimeout(() => {
+            this.notifier.hide('THAT_NOTIFICATION_ID');
+          }, 2000);
+        }
+      });
+  }
+  createAnotherInvoice() {
+    this.route.navigate(["add-invoice"])
+  }
+
+  recordPayment(data: IInvoice) {
+    this.route.navigate(["save-invoice-page", "record-payment", data._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id } });
+    });
+  }
 }
