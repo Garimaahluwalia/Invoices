@@ -163,11 +163,11 @@ const routes: Routes = [
     path: INVOICES.SAVE_INVOICE_PAGE,
     component: SaveInvoicePageComponent,
     children: [{
-      path: INVOICES.SENT_INVOICE_EMAIL,
+      path: INVOICES.INVOICE_EMAIL,
       component: AddSentEmailComponent
     },
     {
-      path: INVOICES.RECORD_PAYMENTS,
+      path: INVOICES.RECORD_PAYMENT,
       component: AddRecordPaymentComponent
     }
     ]
