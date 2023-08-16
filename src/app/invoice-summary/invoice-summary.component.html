@@ -1,43 +1,43 @@
 <div class="container invoice-summ-acc">
-    <div class="row summary-accordion">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Invoice Summary
-                    </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div class="invoice-container">
-                            <div class="details">
-                                <label>Invoice No</label>
-                                {{data.invoiceNo}}
-                            </div>
-                            <div class="details">
-                                <label>Invoice Date</label>
-                                {{data.date}}
-                            </div>
-                            <div class="details">
-                                <label>Total Amount</label>
-                                
-                                <span class="amount">{{ data.totalamount !== 0 ? data.totalamount : data.subtotalofamount}}</span>
-                            </div>
-                            <div class="details">
-                                <label>Billed To</label>
-                                {{data.client.name}}
-                            </div>
+    <cdk-accordion class="example-accordion invoice-summ-acc">
+        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button" tabindex="0"
+            [attr.id]="'accordion-header-'" [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' ">
+            <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                Invoice Summary
+                <span class="example-accordion-item-description">
+                    Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+                </span>
+            </div>
+            <div class="example-accordion-item-body" role="region"
+                [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-'"
+                [attr.aria-labelledby]="'accordion-header-' ">
+                <div class="invoice-container">
+                    <div class="details">
+                        <label>Invoice No</label>
+                        {{data.invoiceNo}}
+                    </div>
+                    <div class="details">
+                        <label>Invoice Date</label>
+                        {{data.date}}
+                    </div>
+                    <div class="details">
+                        <label>Total Amount</label>
 
-                            <div class="details">
-                                <label>Created by</label>
-                                MCODE-INFOSOFT
-                            </div>
-                        </div>
+                        <span class="amount">{{ data.totalamount !== 0 ? data.totalamount :
+                            data.subtotalofamount}}</span>
+                    </div>
+                    <div class="details">
+                        <label>Billed To</label>
+                        {{data.client.name}}
+                    </div>
+
+                    <div class="details">
+                        <label>Created by</label>
+                        MCODE-INFOSOFT
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </cdk-accordion-item>
+    </cdk-accordion>
 </div>
