@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IInvoice } from '../services/invoice-data-handler/invoice-data-handler.dto';
 
 @Component({
   selector: 'app-invoice-summary',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./invoice-summary.component.css']
 })
 export class InvoiceSummaryComponent {
-
+  @Input() data!: IInvoice;
 }

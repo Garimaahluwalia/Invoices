@@ -19,7 +19,21 @@ export class AddSentEmailComponent {
   public clientEmail: any;
   public cc: any
   public emailSubject: any;
-  public message: any;
+  public message: string = `Hi Namit Arora,
+
+  Please find attached invoice #A00028. Due Date is Sep 22, 2023.
+  
+  Invoice No: #A00028
+  Invoice Date: Aug 14, 2023
+  Billed To: Namit Arora
+  Due Date: Sep 22, 2023
+  Due Amount: ₹1.10
+  
+  Thank you for your business.
+  
+  Regards ,
+  Chetan Chauhan`;
+  
   constructor(public modalService: ModalService,
     public router: Router) { }
 
@@ -27,7 +41,7 @@ export class AddSentEmailComponent {
     this.modalService.recieveEvent(ModalEvents.SentInvoiceEmail).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status, } = res;
       this.data = data, status;
-      if (status || data) {
+      if (status) {
         this.openModal();
       } else {
         this.closeModal();

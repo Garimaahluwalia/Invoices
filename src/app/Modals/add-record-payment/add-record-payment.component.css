@@ -30,3 +30,7 @@
 .invoices-det {
     margin-top: 28px;
 }
+
+span#basic-addon1 {
+    max-width: 40px !important;
+}

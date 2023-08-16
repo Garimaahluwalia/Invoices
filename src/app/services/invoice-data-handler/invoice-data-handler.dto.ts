@@ -9,7 +9,7 @@ export interface IInvoiceResponse {
 }
 
 export interface IInvoice {
-   invoiceNo: IInvoiceClass;
+   invoiceNo: string;
    company: ICompany;
    products: IProducts[];
    _currency: string;
@@ -32,7 +32,7 @@ export interface IInvoice {
 
 export interface IInvoiceClass {
    invoiceNumber: string;
-   date: string
+   date: Date
 }
 
 

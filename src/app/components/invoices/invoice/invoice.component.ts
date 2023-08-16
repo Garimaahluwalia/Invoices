@@ -388,5 +388,11 @@ export class InvoiceComponent implements OnInit {
     })
   }
 
+  removePayment(details: IInvoice) {
+    this.router.navigate(["invoice", "remove-payment", details._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.RemovePayment, { status: true, data: { id: details._id } });
+    })
+  }
+
 }
 

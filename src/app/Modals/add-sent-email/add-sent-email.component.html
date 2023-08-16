@@ -18,9 +18,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="from" class="form-label mr-3 flex-shrink-0" [(ngModel)]="from" name="from"
-                                ngModel>From</label>
-                            <input type="text" id="from" class="form-control flex-grow-1">
+                            <label for="from" class="form-label mr-3 flex-shrink-0">From</label>
+                            <input type="text" id="from" class="form-control flex-grow-1" name="from" [(ngModel)]="from"
+                                ngModel>
                         </div>
                     </div>
                 </div>
@@ -29,27 +29,27 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="client-name" class="form-label mr-3 flex-shrink-0" [(ngModel)]="clientName"
-                                name="clientName" ngModel>Client's name</label>
-                            <input type="text" id="client-name" class="form-control flex-grow-1">
+                            <label for="client-name" class="form-label mr-3 flex-shrink-0">Client's name</label>
+                            <input type="text" id="client-name" class="form-control flex-grow-1"
+                                [(ngModel)]="clientName" name="clientName" ngModel>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="client-email" class="form-label mr-3 flex-shrink-0" [(ngModel)]="clientEmail"
-                                name="clientEmail" ngModel>Client's Email</label>
-                            <input type="email" id="client-email" class="form-control flex-grow-1">
+                            <label for="client-email" class="form-label mr-3 flex-shrink-0">Client's Email</label>
+                            <input type="email" id="client-email" class="form-control flex-grow-1"
+                                [(ngModel)]="clientEmail" name="clientEmail" ngModel>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="cc" class="form-label mr-3 flex-shrink-0" [(ngModel)]="cc" name="cc"
-                                ngModel>CC</label>
-                            <input type="email" id="cc" class="form-control flex-grow-1">
+                            <label for="cc" class="form-label mr-3 flex-shrink-0">CC</label>
+                            <input type="email" id="cc" class="form-control flex-grow-1" [(ngModel)]="cc" name="cc"
+                                ngModel>
                         </div>
                     </div>
                 </div>
@@ -59,28 +59,16 @@
                     <div class="col-md-12">
 
                         <div class="mb-3">
-                            <label for="email-subject" class="form-label" [(ngModel)]="emailSubject" name="emailSubject"
-                                ngModel>Email Subject</label>
-                            <input type="text" id="email-subject" class="form-control" name="email-subject">
+                            <label for="email-subject" class="form-label">Email Subject</label>
+                            <input type="text" id="email-subject" class="form-control" name="email-subject"
+                                [(ngModel)]="emailSubject" name="emailSubject" ngModel>
                         </div>
 
                         <div class="mb-3">
-                            <label for="message" class="form-label" [(ngModel)]="message" name="message"
-                                ngModel>Message</label>
-                            <textarea id="message" class="form-control" name="message" rows="10" placeholder="Hi Namit Arora,
-                        
-                        Please find attached invoice #A00016. Due Date is Sep 07, 2023.
-                        
-                        Invoice No: #A00016
-                        Invoice Date: Aug 11, 2023
-                        Billed To: Namit Arora
-                        Due Date: Sep 07, 2023
-                        Due Amount: ₹1.10
-                        
-                        Thank you for your business.
-                        
-                        Regards,
-                        Chetan Chauhan"></textarea>
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-control" name="message" rows="10"
+                                placeholder="Additional message" [(ngModel)]="message" name="message"
+                                ngModel></textarea>
                         </div>
 
                     </div>

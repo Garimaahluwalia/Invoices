@@ -18,6 +18,9 @@ export const INVOICES = {
     SENT_INVOICE_EMAIL: "invoice-email",
     RECORD_PAYMENTS: "record-payment",
     SAVE_INVOICE_PAGE: "save-invoice-page/:id",
+    REMOVE_PAYMENT: "remove-payment",
+    REMOVE_PAYMENTS: "remove-payment/:id"
+
 }
 
 export const PROFILE = {

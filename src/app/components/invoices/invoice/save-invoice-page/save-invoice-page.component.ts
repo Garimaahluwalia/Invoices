@@ -20,6 +20,7 @@ import { ModalEvents } from 'src/app/types/modal';
   styleUrls: ['./save-invoice-page.component.css']
 })
 export class SaveInvoicePageComponent implements OnInit {
+
   public invoicelist: IInvoice[] = [];
   public _id!: string;
   public data: any;
@@ -151,4 +152,8 @@ export class SaveInvoicePageComponent implements OnInit {
     });
   }
 
+
+  printPDF() {
+
+  }
 }

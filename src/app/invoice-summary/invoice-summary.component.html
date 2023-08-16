@@ -14,71 +14,25 @@
                         <div class="invoice-container">
                             <div class="details">
                                 <label>Invoice No</label>
-                                A00016
+                                {{data.invoiceNo}}
                             </div>
                             <div class="details">
                                 <label>Invoice Date</label>
-                                Aug 11, 2023
-                            </div>
-                            <div class="details">
-                                <label>Due Date</label>
-                                Sep 07, 2023
+                                {{data.date}}
                             </div>
                             <div class="details">
                                 <label>Total Amount</label>
-                                <span class="amount">₹1.10</span>
-                            </div>
-                            <div class="details">
-                                <label>Payment Options</label>
-                                Not Set
+                                
+                                <span class="amount">{{ data.totalamount !== 0 ? data.totalamount : data.subtotalofamount}}</span>
                             </div>
                             <div class="details">
                                 <label>Billed To</label>
-                                Namit Arora<br>
-                                India
+                                {{data.client.name}}
                             </div>
-                            <div class="details">
-                                <label>Share</label>
-                                Not Sent
-                            </div>
+
                             <div class="details">
                                 <label>Created by</label>
-                                Chetan Chauhan
-                            </div>
-                            <div class="details">
-                                <label>Show in Invoice</label>
-                                Chetan Invoice
-                            </div>
-                            <div class="details">
-                                <label>Tags</label>
-                                <button>Add Tags</button>
-                            </div>
-                            <div class="details">
-                                <label>Private Custom Fields</label>
-                                <button>Add Custom Fields</button>
-                            </div>
-                            <div class="details">
-                                <button>Cancel</button>
-                                <button>Save Changes</button>
-                            </div>
-                            <div class="details">
-                                <label>Namit Arora Balance</label>
-                                <span class="amount">$3.62 (Due)</span>
-                            </div>
-                            <div class="details">
-                                <label>GST Returns</label>
-                            </div>
-                            <div class="details">
-                                <label>Client Tax Type</label>
-                                Consumer
-                            </div>
-                            <div class="details">
-                                <label>Supply Type</label>
-                                -
-                            </div>
-                            <div class="details">
-                                <label>GSTR-1 Category</label>
-                                -
+                                MCODE-INFOSOFT
                             </div>
                         </div>
                     </div>

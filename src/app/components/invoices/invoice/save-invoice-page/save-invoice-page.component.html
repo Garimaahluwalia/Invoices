@@ -15,7 +15,7 @@
 
                 <div class="edit">
                     <div><i class="fa-solid fa-print"></i></div>
-                    <p class="mb-0">
+                    <p class="mb-0" (click)="printPDF()">
                         print
                     </p>
                 </div>
@@ -37,7 +37,7 @@
                 <i class="las la-plus me-1"></i>
                 Create another invoice</a></span>
     </div>
-    <app-invoice-summary></app-invoice-summary>
+    <app-invoice-summary [data]="data"></app-invoice-summary>
 
 
 

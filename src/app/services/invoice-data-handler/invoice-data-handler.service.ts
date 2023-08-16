@@ -8,14 +8,14 @@ import { Field, IField } from 'src/app/types/columnType';
   providedIn: 'root'
 })
 export class InvoiceDataHandlerService implements IInvoice {
-  public invoiceNo!: IInvoiceClass;
+  private _invoiceNo!: string;
   private _company!: ICompany;
   public _products!: IProducts[];
   public _id!: string;
   public _invoiceId?: string;
   public Email?: string;
   public client!: IClient;
-  public Date?: Date;
+  public _date!: Date;
   public Billed?: number;
   public _bankDetails!: IbankDetails;
   public _status?: string;
@@ -27,7 +27,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   public _totalamountoftax!: number;
   public _totalamount!: number;
   public _table!: Field[];
-  
+
   constructor() { }
 
 
@@ -77,11 +77,28 @@ export class InvoiceDataHandlerService implements IInvoice {
   }
 
 
+  set invoiceNo(value: string) {
+    this._invoiceNo = value;
+  }
+
+  get invoiceNo(): string {
+    return this._invoiceNo;
+  }
+
+  set date(value: Date) {
+    this._date = value;
+  }
+
+  get date(): Date {
+    return this._date;
+  }
+
+
+
   setInvoice({ invoiceNumber, date }: IInvoiceClass) {
-    this.invoiceNo = {
-      invoiceNumber: invoiceNumber,
-      date: date
-    };
+    this.invoiceNo = invoiceNumber;
+    this.date = date;
+
   }
 
   setbankDetails({ accountHolderName, accountNumber, ifscCode, swiftCode, bank }: IbankDetails) {
@@ -182,11 +199,11 @@ export class InvoiceDataHandlerService implements IInvoice {
 
   getPayload() {
     return {
-      "invoiceNo": this.invoiceNo.invoiceNumber,
+      "invoiceNo": this._invoiceNo,
       "company": this._company,
       "tax": this._tax,
       "currency": this._currency,
-      "date": this.invoiceNo.date,
+      "date": this._date,
       "client_id": this.client_id,
       "products": this._products,
       "bankDetails": this._bankDetails,
