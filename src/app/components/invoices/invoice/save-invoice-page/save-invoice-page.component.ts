@@ -154,6 +154,6 @@ export class SaveInvoicePageComponent implements OnInit {
 
 
   printPDF() {
-
+    window.print();
   }
 }

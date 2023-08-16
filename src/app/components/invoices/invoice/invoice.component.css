@@ -352,3 +352,9 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
+
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 70px;
+  -webkit-overflow-scrolling: touch;
+}

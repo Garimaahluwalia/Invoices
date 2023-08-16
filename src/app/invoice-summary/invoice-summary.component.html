@@ -14,26 +14,26 @@
                 [attr.aria-labelledby]="'accordion-header-' ">
                 <div class="invoice-container">
                     <div class="details">
-                        <label>Invoice No</label>
+                        <label>Invoice No : </label>
                         {{data.invoiceNo}}
                     </div>
                     <div class="details">
-                        <label>Invoice Date</label>
+                        <label>Invoice Date : </label>
                         {{data.date}}
                     </div>
                     <div class="details">
-                        <label>Total Amount</label>
+                        <label>Total Amount : </label>
 
                         <span class="amount">{{ data.totalamount !== 0 ? data.totalamount :
                             data.subtotalofamount}}</span>
                     </div>
                     <div class="details">
-                        <label>Billed To</label>
+                        <label>Billed To : </label>
                         {{data.client.name}}
                     </div>
 
                     <div class="details">
-                        <label>Created by</label>
+                        <label>Created by : </label>
                         MCODE-INFOSOFT
                     </div>
                 </div>

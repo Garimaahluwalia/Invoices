@@ -1,7 +1,9 @@
-.inc-summ-edits{
+.inc-summ-edits {
     max-width: 1000px;
     padding: 0px;
-}.edit {
+}
+
+.edit {
     border: 1px solid #c8c8c8;
     background: #fff;
     padding: 5px 10px;
@@ -11,7 +13,7 @@
     text-align: center;
     font-size: 12px;
     transition: background-color 0.3s;
-    margin-right: 10px; 
+    margin-right: 10px;
 
 }
 
@@ -46,4 +48,8 @@ label {
 .amount {
     font-weight: bold;
     color: green;
+}
+
+a.btn.btn-primary {
+    margin-bottom: 20px;
 }

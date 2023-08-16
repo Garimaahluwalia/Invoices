@@ -1,8 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject, Subscription, takeUntil } from 'rxjs';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents } from 'src/app/types/modal';
+import { IRecordPayment } from 'src/app/types/recordPayments';
 
 @Component({
   selector: 'app-add-record-payment',
@@ -15,7 +17,11 @@ export class AddRecordPaymentComponent {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public invoiceId: string | null = null;
-  constructor(public modalService: ModalService, public router: Router) { }
+  public recordPayment!:  IRecordPayment;
+
+  constructor(public modalService: ModalService, 
+    public router: Router ,
+    public invoiceService : InvoiceService) { }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
@@ -46,7 +52,23 @@ export class AddRecordPaymentComponent {
   }
 
   saveChanges() {
-
+    const payload: IRecordPayment = {
+      invoiceNo: '',
+      billedTo: '',
+      taxableAmount: '',
+      invoiceTotal: '',
+      amountReceived: '',
+      amountReceivedInUSD: '',
+      TDS: '',
+      TDSWithHeld: '',
+      amountToSettle: '',
+      paymentDate: '',
+      additionalNotes: ''
+    };
+  this.invoiceService.sendRecordPayment(payload).subscribe((res) => {
+      this.recordPayment  = res;
+      console.log(res, "Record payments")
+  })
   }
   ngOnDestroy() {
     this.destroyed.next(true);
