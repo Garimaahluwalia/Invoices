@@ -45,7 +45,7 @@ import { SaveInvoicePageComponent } from './components/invoices/invoice/save-inv
 import { MultiselectDropdownComponent } from './common/multiselect-dropdown/multiselect-dropdown.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
 import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary.component';
-import { RemovePaymentComponent } from './modals/remove-payment/remove-payment.component';
+import { RemovePaymentComponent } from './remove-payment/remove-payment.component';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 const customNotifierOptions: NotifierOptions = {
