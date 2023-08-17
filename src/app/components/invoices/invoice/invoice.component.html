@@ -441,6 +441,7 @@
                                                                     </li>
 
                                                                     <li class="list-inline-item"
+                                                                        *ngIf="details.status !== 'UNPAID' && details.status !== 'CANCELLED'"
                                                                         data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                                         data-bs-placement="top" style="cursor: pointer;"
                                                                         title="Remove Payment"
@@ -450,6 +451,7 @@
                                                                             <span>Remove Payment</span>
                                                                         </a>
                                                                     </li>
+
                                                                 </ul>
                                                             </div>
                                                         </li>
