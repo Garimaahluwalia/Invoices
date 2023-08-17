@@ -185,7 +185,9 @@ export class SaveInvoicePageComponent implements OnInit {
   deleteInvoice(_id: string) {
     this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
+        this.route.navigate(["invoices"]).then(() => {
         this.invoiceService.getAll();
+      });
       },
       (err) => {
         console.error(err);
