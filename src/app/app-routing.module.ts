@@ -21,6 +21,7 @@ import { AddRecordPaymentComponent } from './modals/add-record-payment/add-recor
 import { SaveInvoicePageComponent } from './components/invoices/invoice/save-invoice-page/save-invoice-page.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
 import { RemovePaymentComponent } from './remove-payment/remove-payment.component';
+import { QuotationsComponent } from './quotations/quotations.component';
 
 const routes: Routes = [
   {
@@ -174,12 +175,24 @@ const routes: Routes = [
       {
         path: INVOICES.RECORD_PAYMENTS,
         component: AddRecordPaymentComponent
-      }
+      },
+      {
+        path: INVOICES.INVOICE_ACTIONS,
+        component: invoiceactionsComponent
+      },
+      {
+        path: CLIENTS.DELETE_CLIENTS,
+        component: DeleteComponent
+      },
     ]
   },
   {
     path: INVOICES.REMOVE_PAYMENT,
     component: RemovePaymentComponent
+  },
+  {
+    path: INVOICES.QUOTATIONS,
+    component: QuotationsComponent
   }
 ];
 

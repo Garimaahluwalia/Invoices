@@ -19,7 +19,8 @@ export const INVOICES = {
     RECORD_PAYMENTS: "record-payment",
     SAVE_INVOICE_PAGE: "save-invoice-page/:id",
     REMOVE_PAYMENT: "remove-payment",
-    REMOVE_PAYMENTS: "remove-payment/:id"
+    REMOVE_PAYMENTS: "remove-payment/:id",
+    QUOTATIONS : "quotation"
 
 }
 

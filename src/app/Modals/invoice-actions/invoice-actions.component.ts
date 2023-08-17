@@ -62,7 +62,15 @@ export class invoiceactionsComponent implements OnInit {
     this.destroyed.next(true);
     this.destroyed.complete();
     this.closeDeleteModalButton.nativeElement.click();
-    this.router.navigateByUrl("/invoice")
+    // this.router.navigateByUrl("/invoice")
+
+    if (this.router.url.includes("save-invoice-page")) {
+      this.router.navigate(["save-invoice-page"]);
+    } else if (this.router.url.includes("invoice")) {
+      this.router.navigate(["invoice"]).then(() => {
+        this.modalService.sendEvent(ModalEvents.invoiceactions, { status: false })
+      });
+    }
   }
 
 

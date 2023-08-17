@@ -31,6 +31,20 @@
                         email invoice
                     </p>
                 </div>
+                <div class="edit">
+                    <div class="dropdown">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <button class="dropbtn">more</button>
+                        <div class="dropdown-content">
+                            <a routerLink="/add-invoice">Create New Invoice</a>
+                            <a (click)="emailInvoice(data)">Send Reminder By Email</a>
+                            <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
+                            <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
+                            <a (click)="deleteInvoices(data)">Delete Invoice</a>
+                            <a (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <span (click)="createAnotherInvoice()"> <a class="btn btn-primary">
@@ -396,6 +410,20 @@
                     <p class="mb-0">
                         email invoice
                     </p>
+                </div>
+                <div class="edit">
+                    <div class="dropdown">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <button class="dropbtn">more</button>
+                        <div class="dropdown-content">
+                            <a routerLink="/add-invoice">Create New Invoice</a>
+                            <a (click)="emailInvoice(data)">Send Reminder By Email</a>
+                            <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
+                            <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
+                            <a (click)="deleteInvoices(data)">Delete Invoice</a>
+                            <a (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

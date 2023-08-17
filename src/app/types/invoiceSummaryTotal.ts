@@ -1,29 +1,28 @@
 export interface IInvoiceSummary {
-    invoices: number;
-    invoiceAmount: number;
-    amountDue: number;
-    paymentRecieved: number;
-    taxAmount: number;
-    TDSAmount: number;
+    totalInvoiceCount: number;
+    totalInvoiceAmount: number;
+    totalDueAmount: number;
+    totalReceivedPayment: number;
+    totalTaxAmount: number;
+    totalTDSAmount: number;
 }
 
-export class 
-InvoiceSummary implements IInvoiceSummary {
-    invoices: number = 0;
-    invoiceAmount: number = 0;
-    amountDue: number = 0;
-    paymentRecieved: number = 0;
-    taxAmount: number = 0;
-    TDSAmount: number = 0;
+export class
+    InvoiceSummary implements IInvoiceSummary {
+    totalInvoiceCount: number = 0;
+    totalInvoiceAmount: number = 0;
+    totalDueAmount: number = 0;
+    totalReceivedPayment: number = 0;
+    totalTaxAmount: number = 0;
+    totalTDSAmount: number = 0;
 
 
-    updateData({ invoices, invoiceAmount, amountDue, paymentRecieved, taxAmount, TDSAmount }: IInvoiceSummary) {
-        this.invoices = invoices;
-        this.invoiceAmount = invoiceAmount;
-        this.amountDue = amountDue;
-        this.paymentRecieved = paymentRecieved;
-        this.taxAmount = taxAmount;
-        this.TDSAmount = TDSAmount;
+    updateData({ totalInvoiceCount, totalInvoiceAmount, totalDueAmount, totalReceivedPayment, totalTaxAmount, totalTDSAmount }: IInvoiceSummary) {
+        this.totalInvoiceCount = totalInvoiceCount;
+        this.totalInvoiceAmount = totalInvoiceAmount;
+        this.totalDueAmount = totalDueAmount;
+        this.totalReceivedPayment = totalReceivedPayment;
+        this.totalTaxAmount = totalTaxAmount;
+        this.totalTDSAmount = totalTDSAmount;
     }
 }
-

@@ -132,7 +132,7 @@ export class InvoiceComponent implements OnInit {
       }
     }
 
-    this.invoiceService._status = status;
+    this.invoiceService._status = this.selectedStatuses.join(",");
     this.loadInvoices();
   }
 
@@ -389,8 +389,8 @@ export class InvoiceComponent implements OnInit {
 
   summaryTotal() {
     this.invoiceService.getInvoiceSummary().subscribe((res: IInvoiceSummary) => {
-      console.log(res, "RESPONSE")
       this.invoiceSummary.updateData(res);
+      this.loadInvoices();
     })
   }
 

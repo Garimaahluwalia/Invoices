@@ -28,7 +28,7 @@
                                                 <div *ngIf="isDropdownOpen" class="dropdown-items">
                                                     <div *ngFor="let status of statuses"
                                                         (click)="toggleStatusSelection(status)">
-                                                        <input type="checkbox" [checked]="isSelected(status)"/>
+                                                        <input type="checkbox" [checked]="isSelected(status)" />
                                                         {{status}}
                                                     </div>
                                                 </div>
@@ -91,7 +91,7 @@
                                                         <div class="d-flex">
                                                             <h5 class="pr-1">Invoices</h5>
                                                         </div>
-                                                        <p>{{invoiceSummary.invoices}}</p>
+                                                        <p>{{invoiceSummary.totalInvoiceCount}}</p>
                                                     </div>
                                                     <div class="inc-icon">
                                                         <div class="inc-icon-img"><svg
@@ -107,7 +107,7 @@
                                                         <div class="d-flex">
                                                             <h5 class="pr-1">Invoice Amount</h5>
                                                         </div>
-                                                        <p>${{invoiceSummary.invoiceAmount}}</p>
+                                                        <p>${{invoiceSummary.totalInvoiceAmount}}</p>
 
 
                                                     </div>
@@ -137,7 +137,7 @@
                                                         <div class="d-flex">
                                                             <h5 class="pr-1">Amount Due</h5>
                                                         </div>
-                                                        <p>${{invoiceSummary.amountDue}}</p>
+                                                        <p>${{invoiceSummary.totalDueAmount}}</p>
                                                     </div>
 
                                                     <div class="inc-icon">
@@ -170,7 +170,7 @@
                                                         <div class="d-flex">
                                                             <h5 class="pr-1">Payment Received</h5>
                                                         </div>
-                                                        <p>${{invoiceSummary.paymentRecieved}}</p>
+                                                        <p>${{invoiceSummary.totalReceivedPayment}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="invoice_summ">
@@ -206,7 +206,7 @@
                                                         <div class="d-flex">
                                                             <h5 class="pr-1">Tax Amount</h5>
                                                         </div>
-                                                        <p>${{invoiceSummary.taxAmount}}</p>
+                                                        <p>${{invoiceSummary.totalTaxAmount}}</p>
                                                     </div>
 
                                                     <!-- <div class="inc-icon">
@@ -267,11 +267,10 @@
                                                         <div class="d-flex">
                                                             <h5 class="pr-1">TDS Amount</h5>
                                                         </div>
-                                                        <p>${{invoiceSummary.TDSAmount}}</p>
+                                                        <p>${{invoiceSummary.totalTDSAmount}}</p>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </cdk-accordion-item>
                                     </cdk-accordion>
 

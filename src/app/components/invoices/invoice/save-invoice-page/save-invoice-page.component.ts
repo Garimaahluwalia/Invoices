@@ -9,10 +9,13 @@ import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-han
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
+import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { CURRENCY } from 'src/app/types/currency';
+import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
+import { STATUS } from 'src/app/types/status';
 
 @Component({
   selector: 'app-save-invoice-page',
@@ -39,6 +42,8 @@ export class SaveInvoicePageComponent implements OnInit {
   public currencies = CURRENCY;
   public currencyData: any;
   public loading = false;
+  public status: typeof STATUS = STATUS;
+
   constructor(
     public invoiceService: InvoiceService,
     public route: Router,
@@ -49,7 +54,8 @@ export class SaveInvoicePageComponent implements OnInit {
     public notifierService: NotifierService,
     public loaderService: LoaderService,
     public datePipe: DatePipe,
-    public modalService: ModalService
+    public modalService: ModalService,
+    public deleteService: DeleteService
   ) { this.notifier = notifierService; }
 
   ngOnInit(): void {
@@ -67,6 +73,13 @@ export class SaveInvoicePageComponent implements OnInit {
         console.error('Profile update failed:', error);
       }
     );
+
+
+    this.deleteService.recieveDeleteEvent()?.subscribe((res) => {
+      const data = res;
+      console.log(data, "delete response");
+    })
+
   }
 
 
@@ -152,6 +165,39 @@ export class SaveInvoicePageComponent implements OnInit {
     });
   }
 
+  duplicateInvoice(data: IInvoice) {
+    this.route.navigate(["add-invoice", data._id], { queryParams: { duplicateInvoice: "duplicate" } })
+  }
+
+  updateStatus(data: IInvoice, status: string) {
+    this.route.navigate(["save-invoice-page", data._id, "invoice-actions", data._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.invoiceactions, {
+        status: true,
+        data: {
+          id: data._id,
+          event: DeleteEvents.INVOICE_ACTIONS,
+          status: status
+        }
+      });
+    });
+  }
+
+  deleteInvoice(_id: string) {
+    this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
+      (res) => {
+        this.invoiceService.getAll();
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  deleteInvoices(data: IInvoice) {
+    this.route.navigate(["save-invoice-page", data._id, "delete", data._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id } });
+    });
+  }
 
   printPDF() {
     window.print();

@@ -47,6 +47,7 @@ import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.co
 import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary.component';
 import { RemovePaymentComponent } from './remove-payment/remove-payment.component';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { QuotationsComponent } from './quotations/quotations.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -126,6 +127,7 @@ const customNotifierOptions: NotifierOptions = {
         AddSentEmailComponent,
         InvoiceSummaryComponent,
         RemovePaymentComponent,
+        QuotationsComponent,
     ],
     providers: [
         DatePipe,
