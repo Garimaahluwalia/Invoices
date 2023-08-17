@@ -1,4 +1,4 @@
-export interface IInvoiceSummaryTotal {
+export interface IInvoiceSummary {
     invoices: number;
     invoiceAmount: number;
     amountDue: number;
@@ -7,7 +7,8 @@ export interface IInvoiceSummaryTotal {
     TDSAmount: number;
 }
 
-export class InvoiceSummaryTotal implements IInvoiceSummaryTotal {
+export class 
+InvoiceSummary implements IInvoiceSummary {
     invoices: number = 0;
     invoiceAmount: number = 0;
     amountDue: number = 0;
@@ -16,7 +17,7 @@ export class InvoiceSummaryTotal implements IInvoiceSummaryTotal {
     TDSAmount: number = 0;
 
 
-    updateData({ invoices, invoiceAmount, amountDue, paymentRecieved, taxAmount, TDSAmount }: IInvoiceSummaryTotal) {
+    updateData({ invoices, invoiceAmount, amountDue, paymentRecieved, taxAmount, TDSAmount }: IInvoiceSummary) {
         this.invoices = invoices;
         this.invoiceAmount = invoiceAmount;
         this.amountDue = amountDue;

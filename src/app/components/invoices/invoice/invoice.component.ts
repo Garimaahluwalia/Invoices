@@ -17,7 +17,8 @@ import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-han
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ClientRouterModalAction } from 'src/app/types/client/client.dto';
 import { AddRecordPaymentComponent } from 'src/app/modals/add-record-payment/add-record-payment.component';
-import { IInvoiceSummaryTotal, InvoiceSummaryTotal } from 'src/app/types/invoiceSummaryTotal';
+import { IInvoiceSummary, InvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
+
 
 declare var $: any;
 @Component({
@@ -56,7 +57,8 @@ export class InvoiceComponent implements OnInit {
   public selectedStatus: any[] = [];
   public selectedStatuses: string[] = [STATUS.ALL];
   public isDropdownOpen: boolean = false;
-  public invoiceSummaryTotal: InvoiceSummaryTotal = new InvoiceSummaryTotal();
+  public invoiceSummary: InvoiceSummary = new InvoiceSummary();
+  public value: any;
 
 
   constructor(
@@ -74,6 +76,7 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.summaryTotal();
     this.itemsPerPage = this.invoiceService.limit;
     this.loadInvoices();
 
@@ -123,12 +126,14 @@ export class InvoiceComponent implements OnInit {
         this.selectedStatuses.push(status);
       }
 
-      // Always deselect "ALL" if any other status is selected or deselected
       const allIndex = this.selectedStatuses.indexOf(STATUS.ALL);
       if (allIndex !== -1) {
         this.selectedStatuses.splice(allIndex, 1);
       }
     }
+
+    this.invoiceService._status = status;
+    this.loadInvoices();
   }
 
 
@@ -365,9 +370,9 @@ export class InvoiceComponent implements OnInit {
     this.router.navigate(["/add-invoice"]);
   }
 
-  onStatusChange() {
-    console.log(this.selectedStatus, "SELECTED STATUS")
-  }
+  // onStatusChange() {
+  //   console.log(this.selectedStatus, "SELECTED STATUS")
+  // }
 
   sentEmail(details: IInvoice) {
     this.router.navigate(["invoice", "invoice-email"]).then(() => {
@@ -383,8 +388,9 @@ export class InvoiceComponent implements OnInit {
 
 
   summaryTotal() {
-    this.invoiceService.getInvoiceSummaryTotal().subscribe((res: IInvoiceSummaryTotal) => {
-      this.invoiceSummaryTotal.updateData(res);
+    this.invoiceService.getInvoiceSummary().subscribe((res: IInvoiceSummary) => {
+      console.log(res, "RESPONSE")
+      this.invoiceSummary.updateData(res);
     })
   }
 
@@ -393,6 +399,8 @@ export class InvoiceComponent implements OnInit {
       this.modalService.sendEvent(ModalEvents.RemovePayment, { status: true, data: { id: details._id } });
     })
   }
+
+
 
 }
 

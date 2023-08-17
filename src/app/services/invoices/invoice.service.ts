@@ -8,10 +8,10 @@ import { CURRENCY } from 'src/app/types/currency';
 import { IProductRows } from 'src/app/types/product';
 import endpoints from 'src/app/endpoints';
 import { LoaderService } from '../loader/loader.service';
-import { IInvoiceSummaryTotal } from 'src/app/types/invoiceSummaryTotal';
-import { IInvoiceSummary } from 'src/app/types/invoice-summary';
+
 import { IEmailInvoice } from 'src/app/types/email-invoice';
 import { IRecordPayment } from 'src/app/types/recordPayments';
+import { IInvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +63,7 @@ export class InvoiceService {
 
   set status(value: string) {
     this._status = value;
+    console.log(this._status, "Status Value")
   }
 
   get status(): string {
@@ -229,7 +230,7 @@ export class InvoiceService {
   }
 
   getAllInvoice(page: number = 1, limit: number = 10, order: string, field: string, searchQuery: string, startDate: string, endDate: string, status: string): Observable<IInvoiceResponse> {
-    return this.http.get<IInvoiceResponse>(endpoints.INVOICES_LIST.GETALL(page, limit, order, field, searchQuery, startDate, endDate));
+    return this.http.get<IInvoiceResponse>(endpoints.INVOICES_LIST.GETALL(page, limit, order, field, searchQuery, startDate, endDate, status));
   }
 
   getAll() {
@@ -244,7 +245,7 @@ export class InvoiceService {
         },
         err => {
           this.loaderService.HideLoader();
-          console.error('Error while fetching pages:', err)
+          console.error('Error while fetching pages:', err);
         }
       )
     } catch (e) {
@@ -262,10 +263,6 @@ export class InvoiceService {
 
   receiveStatus(): Observable<string> {
     return this._updateStatus.asObservable();
-  }
-
-  getInvoiceSummaryTotal(): Observable<IInvoiceSummaryTotal> {
-    return this.http.get<IInvoiceSummaryTotal>(endpoints.INVOICES_LIST.INVOICE_SUMMARY_TOTAL)
   }
 
   getInvoiceSummary(): Observable<IInvoiceSummary> {

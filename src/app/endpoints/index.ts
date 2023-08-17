@@ -12,7 +12,7 @@ const endpoints = {
 
 
   INVOICES_LIST: {
-    GETALL: (page: number, limit: number, sortOrder: string = "", sortField: string = "", searchQuery: string = "", startDate: string = "", endDate: string = "", status = "") => `${environment.BASE_URL}/invoice?page=${page}&limit=${limit}&sortOrder=${sortOrder}&sortField=${sortField}&searchQuery=${searchQuery}&startDate=${startDate}&endDate=${endDate}&statuses=${status}`,
+    GETALL: (page: number, limit: number, sortOrder: string = "", sortField: string = "", searchQuery: string = "", startDate: string = "", endDate: string = "", status: string = "") => `${environment.BASE_URL}/invoice?page=${page}&limit=${limit}&sortOrder=${sortOrder}&sortField=${sortField}&searchQuery=${searchQuery}&startDate=${startDate}&endDate=${endDate}&status=${status}`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     DELETE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
@@ -24,10 +24,10 @@ const endpoints = {
     DUPLICATE_INVOICE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     BULK_DELETE: `${environment.BASE_URL}/invoice/bulkDelete`,
     BULK_DOWNLOAD_AS_PDF: (InvoiceId: string[]) => `${environment.BASE_URL}/invoice/getPDFzip/${InvoiceId.join(",")}`,
-    INVOICE_SUMMARY_TOTAL: `${environment.BASE_URL}`,
+    INVOICE_SUMMARY: `${environment.BASE_URL}/summary`,
     RECORD_PAYMENT: `${environment.BASE_URL}`,
     EMAIL_INVOICE: `${environment.BASE_URL}`,
-    INVOICE_SUMMARY: `${environment.BASE_URL}`
+
   },
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoice`,
