@@ -23,6 +23,7 @@ export class invoiceactionsComponent implements OnInit {
   public invoiceId!: string;
   public status!: string;
   public confirmationMessage!: string;
+  public action: string = "";
 
   constructor(public modalService: ModalService,
     public router: Router,
@@ -43,6 +44,7 @@ export class invoiceactionsComponent implements OnInit {
     this.modalService.recieveEvent(ModalEvents.invoiceactions).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status } = res;
       this.data = data, status;
+      this.action = data.action;
       this.invoiceId = data?.id;
       this.status = data?.status;
       setTimeout(() => {
@@ -62,17 +64,16 @@ export class invoiceactionsComponent implements OnInit {
     this.destroyed.next(true);
     this.destroyed.complete();
     this.closeDeleteModalButton.nativeElement.click();
-    // this.router.navigateByUrl("/invoice")
 
-    if (this.router.url.includes("save-invoice-page")) {
-      this.router.navigate(["save-invoice-page"]);
-    } else if (this.router.url.includes("invoice")) {
+
+    if (this.action === "save-invoice-page") {
+      this.router.navigate(["save-invoice-page", this.invoiceId]);
+    } else if (this.action === "invoice") {
       this.router.navigate(["invoice"]).then(() => {
         this.modalService.sendEvent(ModalEvents.invoiceactions, { status: false })
       });
     }
   }
-
 
   openModal() {
     this.openDeleteModal.nativeElement.click();

@@ -44,10 +44,9 @@ import { AddRecordPaymentComponent } from './modals/add-record-payment/add-recor
 import { SaveInvoicePageComponent } from './components/invoices/invoice/save-invoice-page/save-invoice-page.component';
 import { MultiselectDropdownComponent } from './common/multiselect-dropdown/multiselect-dropdown.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
-import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary.component';
-import { RemovePaymentComponent } from './remove-payment/remove-payment.component';
+import { InvoiceSummaryComponent } from './components/invoices/invoice/invoice-summary/invoice-summary.component';
+import { RemovePaymentComponent } from './components/invoices/invoice/remove-payment/remove-payment.component';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { QuotationsComponent } from './quotations/quotations.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -91,67 +90,66 @@ const customNotifierOptions: NotifierOptions = {
 };
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        SignupComponent,
-        InvoiceComponent,
-        MainComponent,
-        HeaderComponent,
-        FooterComponent,
-        SidebarComponent,
-        ResetPasswordComponent,
-        AddInvoicesComponent,
-        EmailDirective,
-        UsernameDirective,
-        InvoicedataComponent,
-        CompanyaddressComponent,
-        ProductdetailsComponent,
-        PaymentdetailsComponent,
-        InvoiceListDetailsComponent,
-        ClientComponent,
-        AddClientComponent,
-        DeleteComponent,
-        ClientDetailsComponent,
-        PhonenumberDirective,
-        dashboardComponent,
-        ProfileComponent,
-        invoiceactionsComponent,
-        InvoiceNumberDirective,
-        SvgComponent,
-        AddFieldsComponent,
-        LoaderComponent,
-        AddRecordPaymentComponent,
-        SaveInvoicePageComponent,
-        MultiselectDropdownComponent,
-        AddSentEmailComponent,
-        InvoiceSummaryComponent,
-        RemovePaymentComponent,
-        QuotationsComponent,
-    ],
-    providers: [
-        DatePipe,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        },
-        { provide: APP_BASE_HREF, useValue: '/app/' }
-    ],
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        CommonModule,
-        ReactiveFormsModule,
-        NgxPaginationModule,
-        NotifierModule.withConfig(customNotifierOptions),
-        HttpClientModule,
-        CKEditorModule,
-        AppRoutingModule,
-        CdkAccordionModule,
-        
-    ]
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignupComponent,
+    InvoiceComponent,
+    MainComponent,
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent,
+    ResetPasswordComponent,
+    AddInvoicesComponent,
+    EmailDirective,
+    UsernameDirective,
+    InvoicedataComponent,
+    CompanyaddressComponent,
+    ProductdetailsComponent,
+    PaymentdetailsComponent,
+    InvoiceListDetailsComponent,
+    ClientComponent,
+    AddClientComponent,
+    DeleteComponent,
+    ClientDetailsComponent,
+    PhonenumberDirective,
+    dashboardComponent,
+    ProfileComponent,
+    invoiceactionsComponent,
+    InvoiceNumberDirective,
+    SvgComponent,
+    AddFieldsComponent,
+    LoaderComponent,
+    AddRecordPaymentComponent,
+    SaveInvoicePageComponent,
+    MultiselectDropdownComponent,
+    AddSentEmailComponent,
+    InvoiceSummaryComponent,
+    RemovePaymentComponent,
+  ],
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    { provide: APP_BASE_HREF, useValue: '/app/' }
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    NotifierModule.withConfig(customNotifierOptions),
+    HttpClientModule,
+    CKEditorModule,
+    AppRoutingModule,
+    CdkAccordionModule,
+
+  ]
 })
 export class AppModule { }

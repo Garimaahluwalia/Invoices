@@ -20,8 +20,7 @@ import { invoiceactionsComponent } from './modals/invoice-actions/invoice-action
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
 import { SaveInvoicePageComponent } from './components/invoices/invoice/save-invoice-page/save-invoice-page.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
-import { RemovePaymentComponent } from './remove-payment/remove-payment.component';
-import { QuotationsComponent } from './quotations/quotations.component';
+import { RemovePaymentComponent } from './components/invoices/invoice/remove-payment/remove-payment.component';
 
 const routes: Routes = [
   {
@@ -190,10 +189,7 @@ const routes: Routes = [
     path: INVOICES.REMOVE_PAYMENT,
     component: RemovePaymentComponent
   },
-  {
-    path: INVOICES.QUOTATIONS,
-    component: QuotationsComponent
-  }
+  
 ];
 
 @NgModule({

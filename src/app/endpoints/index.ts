@@ -27,8 +27,13 @@ const endpoints = {
     INVOICE_SUMMARY: `${environment.BASE_URL}/summary`,
     RECORD_PAYMENT: `${environment.BASE_URL}`,
     EMAIL_INVOICE: `${environment.BASE_URL}`,
-
   },
+
+  QUOTATIONS_LIST: {
+    ADD: `${environment.BASE_URL}/quotation`
+  },
+
+
   ADD_INVOICES: {
     ADD: `${environment.BASE_URL}/invoice`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,

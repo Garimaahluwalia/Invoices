@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IInvoice } from '../services/invoice-data-handler/invoice-data-handler.dto';
+import { IInvoice } from '../../../../services/invoice-data-handler/invoice-data-handler.dto';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 @Component({
   selector: 'app-invoice-summary',

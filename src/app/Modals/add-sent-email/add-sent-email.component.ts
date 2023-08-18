@@ -19,7 +19,9 @@ export class AddSentEmailComponent {
   public clientEmail!: string;
   public cc!: string;
   public emailSubject!: string;
+  public action: string = "";
   public message: string = `Hi Namit Arora,
+
 
   Please find attached invoice #A00028. Due Date is Sep 22, 2023.
   
@@ -40,6 +42,7 @@ export class AddSentEmailComponent {
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.SentInvoiceEmail).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status, } = res;
+      this.action = data.action;
       this.data = data, status;
       if (status) {
         this.openModal();
@@ -55,15 +58,17 @@ export class AddSentEmailComponent {
 
   closeModal() {
     this.closeModalButton.nativeElement.click();
-    if (this.router.url.includes("save-invoice-page")) {
-      this.router.navigate(["save-invoice-page"]);
-    } else if (this.router.url.includes("invoice")) {
+    if (this.action === "save-invoice-page") {
+      this.router.navigate(["save-invoice-page", this.data.id]);
+    } else if (this.action === "invoice") {
       this.router.navigate(["invoice"]).then(() => {
         this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: false })
       });
     }
 
   }
+   
+
 
   saveChanges() {
 

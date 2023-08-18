@@ -65,6 +65,11 @@ export class DeleteComponent {
     }
   }
 
+
+
+  
+
+
   yes() {
     const event = this.data["event"] as DeleteEvents;
     this.closeModal();

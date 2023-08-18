@@ -214,4 +214,8 @@ export class InvoiceDataHandlerService implements IInvoice {
       "table": this._table
     };
   }
+
+  getQuotationPayload () {
+    
+  }
 }

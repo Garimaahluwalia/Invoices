@@ -96,7 +96,7 @@ export class SaveInvoicePageComponent implements OnInit {
       .subscribe((res) => {
         this.loaderService.HideLoader();
         this.table = res.table;
-        this.data = res;  
+        this.data = res;
         this.products = res.products;
         const currency = this.currencies.find(currency => currency.code === this.data.currency);
         this.currencyData = currency?.symbol;
@@ -122,7 +122,7 @@ export class SaveInvoicePageComponent implements OnInit {
   emailInvoice(data: IInvoice) {
     console.log(data, "email invoice")
     this.route.navigate(["save-invoice-page", this._id, "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id } });
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id,  action: "save-invoice-page" },});
     });
   }
 
@@ -166,7 +166,7 @@ export class SaveInvoicePageComponent implements OnInit {
 
   recordPayment(data: IInvoice) {
     this.route.navigate(["save-invoice-page", this._id, "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id , action : "save-invoice-page" } });
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id, action: "save-invoice-page" } });
     });
   }
 
@@ -181,7 +181,8 @@ export class SaveInvoicePageComponent implements OnInit {
         data: {
           id: data._id,
           event: DeleteEvents.INVOICE_ACTIONS,
-          status: status
+          status: status,
+          action: "save-invoice-page"
         }
       });
     });
@@ -202,7 +203,7 @@ export class SaveInvoicePageComponent implements OnInit {
 
   deleteInvoices(data: IInvoice) {
     this.route.navigate(["save-invoice-page", data._id, "delete", data._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id , action: "save-invoice-page" } });
     });
   }
 

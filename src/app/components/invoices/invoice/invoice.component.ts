@@ -221,7 +221,7 @@ export class InvoiceComponent implements OnInit {
 
   deleteInvoices(details: IInvoice) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: "invoice" } });
     })
   }
 
@@ -312,7 +312,6 @@ export class InvoiceComponent implements OnInit {
       element.nativeElement.checked = checked as any;
     });
     this.selectedCount = this.getSelectedItemsCount();
-    console.log(this.selectedCount, "SELECTED COUNT")
   }
 
 
@@ -370,19 +369,16 @@ export class InvoiceComponent implements OnInit {
     this.router.navigate(["/add-invoice"]);
   }
 
-  // onStatusChange() {
-  //   console.log(this.selectedStatus, "SELECTED STATUS")
-  // }
 
   sentEmail(details: IInvoice) {
     this.router.navigate(["invoice", "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id } });
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "invoice" } });
     });
   }
 
   recordPayment(details: IInvoice) {
     this.router.navigate(["invoice", "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id , action: "invoice" } });
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id, action: "invoice" } });
     });
   }
 

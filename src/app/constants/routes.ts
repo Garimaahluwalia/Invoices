@@ -20,8 +20,11 @@ export const INVOICES = {
     SAVE_INVOICE_PAGE: "save-invoice-page/:id",
     REMOVE_PAYMENT: "remove-payment",
     REMOVE_PAYMENTS: "remove-payment/:id",
-    QUOTATIONS : "quotation"
 
+}
+
+export const QUOTATIONS = {
+    QUOTATIONS: "quotations"
 }
 
 export const PROFILE = {

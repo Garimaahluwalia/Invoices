@@ -17,7 +17,7 @@ export class AddRecordPaymentComponent {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public invoiceId: string | null = null;
-  public recordPayment!:  IRecordPayment;
+  public recordPayment!: IRecordPayment;
   public action: string = "";
 
   constructor(public modalService: ModalService,
@@ -29,6 +29,7 @@ export class AddRecordPaymentComponent {
       const { data, status } = res;
       this.invoiceId = data.id;
       this.action = data.action;
+      console.log(this.action, "ACTIONS")
       this.data = data, status;
 
       if (status) {
@@ -46,7 +47,7 @@ export class AddRecordPaymentComponent {
   closeModal() {
     this.closeRecordModal.nativeElement.click();
     if (this.action === "save-invoice-page") {
-      this.router.navigate(["save-invoice-page"]);
+      this.router.navigate(["save-invoice-page", this.invoiceId]);
     } else if (this.action === "invoice") {
       this.router.navigate(["invoice"]).then(() => {
         this.modalService.sendEvent(ModalEvents.RecordPayment, { status: false })
