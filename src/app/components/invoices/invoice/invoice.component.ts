@@ -382,7 +382,7 @@ export class InvoiceComponent implements OnInit {
 
   recordPayment(details: IInvoice) {
     this.router.navigate(["invoice", "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id } });
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id , action: "invoice" } });
     });
   }
 

@@ -166,7 +166,7 @@ export class SaveInvoicePageComponent implements OnInit {
 
   recordPayment(data: IInvoice) {
     this.route.navigate(["save-invoice-page", this._id, "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id } });
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id , action : "save-invoice-page" } });
     });
   }
 
