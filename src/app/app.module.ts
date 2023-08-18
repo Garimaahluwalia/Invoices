@@ -47,6 +47,7 @@ import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.co
 import { InvoiceSummaryComponent } from './components/invoices/invoice/invoice-summary/invoice-summary.component';
 import { RemovePaymentComponent } from './components/invoices/invoice/remove-payment/remove-payment.component';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { SaveQuotationPageComponent } from './components/quotations/save-quotation-page/save-quotation-page.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -126,6 +127,7 @@ const customNotifierOptions: NotifierOptions = {
     AddSentEmailComponent,
     InvoiceSummaryComponent,
     RemovePaymentComponent,
+    SaveQuotationPageComponent,
   ],
   providers: [
     DatePipe,

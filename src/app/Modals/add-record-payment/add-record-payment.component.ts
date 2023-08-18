@@ -19,7 +19,7 @@ export class AddRecordPaymentComponent {
   public invoiceId: string | null = null;
   public recordPayment!: IRecordPayment;
   public action: string = "";
-
+  // public 
   constructor(public modalService: ModalService,
     public router: Router,
     public invoiceService: InvoiceService) { }

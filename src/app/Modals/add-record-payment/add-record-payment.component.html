@@ -43,7 +43,8 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text amount-rec" id="basic-addon1">₹</span>
                             <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" name="amountReceived" 
+                                ngModel>
                         </div>
                     </div>
 
@@ -52,7 +53,8 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">$</span>
                             <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" name="amountReceivedInUSD"
+                              ngModel>
                         </div>
                     </div>
 
@@ -70,7 +72,7 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
                             <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" name=" TDS"  ngModel>
                         </div>
                     </div>
                     <div class="payment-detail">
@@ -78,7 +80,7 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
                             <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" name="TDSWithHeld"  ngModel>
                         </div>
                     </div>
 
@@ -87,14 +89,16 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
                             <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" name="amountToSettle"
+                                ngModel>
                         </div>
                     </div>
 
 
                     <div class="payment-detail mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Payment Date</label>
-                        <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <input type="date" class="form-control" id="exampleFormControlInput1" placeholder=""
+                            name="paymentDate"  ngModel>
                     </div>
 
 
@@ -103,7 +107,7 @@
                         <div class="input-group amount-inputs">
                             <label for="exampleFormControlInput1" class="form-label">Additional notes</label>
                             <textarea class="form-control" aria-label="With textarea"
-                                placeholder="Add any additional notes such as payment"></textarea>
+                                placeholder="Add any additional notes such as payment"  name="additionalNotes"  ngModel></textarea>
                         </div>
                     </div>
                 </div>
