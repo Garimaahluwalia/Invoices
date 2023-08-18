@@ -1,7 +1,8 @@
 <div class="card-body px-0 mb-5" ngModelGroup="invoice">
     <div clas="col-md-12">
         <div class="text-center my-4 pb-4">
-            <h1>Invoice</h1>
+            <h1 *ngIf="this.invoiceCategory !== 'Quotations'">Invoice</h1>
+            <h1 *ngIf="this.invoiceCategory === 'Quotations'">Quotations</h1>
         </div>
     </div>
     <div class="row">

@@ -46,10 +46,25 @@ export class InvoiceService {
   public totalamount!: number;
   public totalamountoftax!: number;
   public currencies = CURRENCY;
+  private _invoiceCategory: EventEmitter<string> = new EventEmitter<string>();
+
+
+
 
   constructor(private http: HttpClient,
     public addinvoiceService: AddInvoicesService,
     public loaderService: LoaderService) { }
+
+
+
+  sendInvoiceCategory(data: string) {
+    this._invoiceCategory.emit(data);
+  }
+
+  recieveInvoiceCategory(): Observable<string> {
+    return this._invoiceCategory.asObservable();
+  }
+
 
   statusUpdate(invoiceId: string, status: string) {
     const foundInvoice = this._invoices.find((invoice) => invoice._id === invoiceId);

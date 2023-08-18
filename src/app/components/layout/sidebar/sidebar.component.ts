@@ -12,4 +12,5 @@ export class SidebarComponent {
   quotations() {
     this.router.navigate(['/add-invoice'], { queryParams: { category: 'Quotations' } });
   }
+  
 }

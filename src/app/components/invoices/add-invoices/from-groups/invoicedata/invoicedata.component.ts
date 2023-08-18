@@ -22,7 +22,7 @@ export class InvoicedataComponent implements OnInit, OnChanges {
   public defaultDate!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public invoiceImage!: string;
-
+  public invoiceCategory!: string;
   constructor(
     public invoiceService: InvoiceService,
     private datePipe: DatePipe,
@@ -58,6 +58,11 @@ export class InvoicedataComponent implements OnInit, OnChanges {
       }
     );
     this.getInvoiceNumber();
+
+    this.invoiceService.recieveInvoiceCategory().subscribe((res: string) => {
+      this.invoiceCategory = res;
+      console.log(this.invoiceCategory, "INVOICE DATA CATEGORY");
+    });
   }
 
   getInvoiceNumber() {
