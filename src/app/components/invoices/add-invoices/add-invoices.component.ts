@@ -175,6 +175,7 @@ export class AddInvoicesComponent implements OnInit {
         this.addInvoice(payload);
       }
     } else {
+      this.addQuotation(payload)
 
     }
     }
@@ -184,6 +185,7 @@ export class AddInvoicesComponent implements OnInit {
   addQuotation(payload:any){
      this.quotationService.addQuotation(payload).subscribe((res:any)=> {
       this.quotations = res;
+      this.router.navigate(["/quotations"])
       console.log(this.quotations)
      })
   }
