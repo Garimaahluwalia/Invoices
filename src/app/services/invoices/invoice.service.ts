@@ -46,7 +46,9 @@ export class InvoiceService {
   public totalamount!: number;
   public totalamountoftax!: number;
   public currencies = CURRENCY;
-  private _invoiceCategory: EventEmitter<string> = new EventEmitter<string>();
+  private _invoiceCategory: BehaviorSubject<string> = new BehaviorSubject<string>('invoice');
+  public invoiceCategory!: string
+
 
 
 
@@ -57,8 +59,8 @@ export class InvoiceService {
 
 
 
-  sendInvoiceCategory(data: string) {
-    this._invoiceCategory.emit(data);
+  sendInvoiceCategory() {
+    this._invoiceCategory.next(this.invoiceCategory);
   }
 
   recieveInvoiceCategory(): Observable<string> {
