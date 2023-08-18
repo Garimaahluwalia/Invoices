@@ -43,6 +43,8 @@ export class SaveInvoicePageComponent implements OnInit {
   public currencyData: any;
   public loading = false;
   public status: typeof STATUS = STATUS;
+  public invoiceCategory!: string;
+
 
   constructor(
     public invoiceService: InvoiceService,
@@ -80,6 +82,10 @@ export class SaveInvoicePageComponent implements OnInit {
       console.log(data, "delete response");
     })
 
+
+    this.invoiceService.recieveInvoiceCategory().subscribe((res: string) => {
+      this.invoiceCategory = res;
+    });
   }
 
 

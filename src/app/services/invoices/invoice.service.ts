@@ -47,7 +47,7 @@ export class InvoiceService {
   public totalamountoftax!: number;
   public currencies = CURRENCY;
   private _invoiceCategory: BehaviorSubject<string> = new BehaviorSubject<string>('invoice');
-  public invoiceCategory!: string
+  public _Category!: string
 
 
 
@@ -60,13 +60,21 @@ export class InvoiceService {
 
 
   sendInvoiceCategory() {
-    this._invoiceCategory.next(this.invoiceCategory);
+    this._invoiceCategory.next(this._Category);
   }
 
   recieveInvoiceCategory(): Observable<string> {
     return this._invoiceCategory.asObservable();
   }
 
+
+  set invoiceCategory(value: string) {
+    this._Category = value;
+  }
+
+  get invoiceCategory(): string {
+    return this._Category;
+  }
 
   statusUpdate(invoiceId: string, status: string) {
     const foundInvoice = this._invoices.find((invoice) => invoice._id === invoiceId);
@@ -78,9 +86,11 @@ export class InvoiceService {
     }
   }
 
+
+
+
   set status(value: string) {
     this._status = value;
-    console.log(this._status, "Status Value")
   }
 
   get status(): string {

@@ -2,7 +2,7 @@
     <div clas="col-md-12">
         <div class="text-center my-4 pb-4">
             <h1 *ngIf="this.invoiceCategory !== 'Quotations'">Invoice</h1>
-            <h1 *ngIf="this.invoiceCategory === 'Quotations'">Quotations</h1>
+            <h1 *ngIf="this.invoiceCategory === 'Quotations'">Quotation</h1>
         </div>
     </div>
     <div class="row">
@@ -10,7 +10,8 @@
             <div class="row g-3">
                 <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
-                        <label for="invoicenoInput">Invoice No</label>
+                        <label for="invoicenoInput" *ngIf="this.invoiceCategory !== 'Quotations'">Invoice No</label>
+                        <label for="invoicenoInput" *ngIf="this.invoiceCategory === 'Quotations'">Quotation No</label>
                         <input name="invoiceNumber" ngModel type="text" class="form-control bg-light border-0"
                             #invoicenNumberValidation="ngModel" id="invoicenoInput" [(ngModel)]="invoiceNo"
                             [invoiceId]="invoiceNo" placeholder="Invoice No" appInvoiceNumber>
@@ -31,7 +32,8 @@
             <div class="row mt-4">
                 <div class="col-lg-8 col-sm-12">
                     <div class="d-flex align-items-center justify-content-between">
-                        <label for="date-field">Date</label>
+                        <label for="date-field" *ngIf="this.invoiceCategory !== 'Quotations'">Date</label>
+                        <label for="date-field" *ngIf="this.invoiceCategory === 'Quotations'">Quotation Date</label>
                         <input type="date" [(ngModel)]="defaultDate" style="cursor: pointer;"
                             class="form-control bg-light border-0 flatpickr-input position-relative" id="date-field"
                             data-provider="flatpickr" data-time="true" placeholder="Select Date-time" name="date">

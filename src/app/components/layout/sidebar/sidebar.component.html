@@ -51,6 +51,7 @@
                     <div class="collapse menu-dropdown" id="sidebarInvoiceManagement">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
+
                             <li class="nav-item">
 
                                 <a class="nav-link menu-link" [routerLink]="['/invoice']">
@@ -58,24 +59,27 @@
                                 </a>
                             </li>
 
-
                             <li class="nav-item">
                                 <a class="nav-link menu-link" [routerLink]="['/add-invoice']">
                                     <i class="fa-sharp fa-solid fa-circle-plus"></i> <span
                                         data-key="t-add-invoice">Add-Invoice</span>
                                 </a>
                             </li>
+
+
                             <li class="nav-item">
-                                <a class="nav-link menu-link" (click)="quotations()">
-                                    <i class="fa-solid fa-file-invoice"></i> <span
-                                        data-key="t-Quotations & Estimates">Quotations & Estimates</span>
+                                <a class="nav-link menu-link" (click)="quotations()" style="cursor: pointer;">
+                                    <i class="fa-solid fa-file-invoice"></i> <span data-key="t-invoice">Quotations &
+                                        Estimates</span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link menu-link" [routerLink]="['/clients']">
                                     <i class="fa-solid fa-users"></i> <span data-key="t-clients">Clients</span>
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </li>

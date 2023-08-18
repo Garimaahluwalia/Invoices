@@ -1,6 +1,8 @@
 <div class="col-lg-12 p-3" ngModelGroup="company">
     <div class="mb-3">
-        <span class="main-head">Billed By </span><span>(Your Details)</span>
+        <span class="main-head" *ngIf="this.invoiceCategory !== 'Quotations'">Billed By </span>
+        <span class="main-head" *ngIf="this.invoiceCategory === 'Quotations'">Quotation From </span><span>(Your
+            Details)</span>
     </div>
     <div class="company-name-bill">
         <img src="assets\images\mcode-m.png" class="img-fluid" /><span>MCODE INFOSOFT</span>

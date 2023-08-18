@@ -6,6 +6,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents } from 'src/app/types/modal';
 import { takeUntil, ReplaySubject } from "rxjs";
 import { ClientRouterModalAction, IClient } from 'src/app/types/client/client.dto';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 interface Options {
   queryParams?: {
     duplicateInvoice?: string;
@@ -25,11 +26,14 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   public clients: IClient[] = [];
   public selectedClient: IClient | null = null;
   public clientId: string | null | undefined = null;
+  public invoiceCategory!: string;
+
 
   constructor(
     public router: Router,
     public modalService: ModalService,
-    public clientService: ClientService
+    public clientService: ClientService,
+    public invoiceService : InvoiceService
   ) { }
 
   ngOnChanges({ duplicateInvoice }: SimpleChanges): void {
@@ -42,6 +46,11 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.clientService.getAll();
     this.subscriptions();
+
+
+    this.invoiceService.recieveInvoiceCategory().subscribe((res: string) => {
+      this.invoiceCategory = res;
+    });
   }
 
 

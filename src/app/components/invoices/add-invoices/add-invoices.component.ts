@@ -140,7 +140,8 @@ export class AddInvoicesComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.category = params['category'];
-     this.invoiceService.invoiceCategory = this.category;
+      this.invoiceService.invoiceCategory = this.category;
+      this.invoiceService.sendInvoiceCategory();
     });
   }
 

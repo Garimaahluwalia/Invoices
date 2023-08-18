@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ControlContainer, NgForm, } from '@angular/forms';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 
 
 @Component({
@@ -10,8 +11,15 @@ import { ControlContainer, NgForm, } from '@angular/forms';
 })
 export class CompanyaddressComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
+  public invoiceCategory!: string;
 
-  ngOnInit(): void { }
+  constructor(public invoiceService : InvoiceService ){}
+  ngOnInit(): void { 
+    
+    this.invoiceService.recieveInvoiceCategory().subscribe((res: string) => {
+      this.invoiceCategory = res;
+    });
+  }
 
   public company: { [k: string]: string } = {
     "Businessname": "M CODE INFOSOFT",

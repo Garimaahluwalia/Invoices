@@ -61,7 +61,6 @@ export class InvoicedataComponent implements OnInit, OnChanges {
 
     this.invoiceService.recieveInvoiceCategory().subscribe((res: string) => {
       this.invoiceCategory = res;
-      console.log(this.invoiceCategory, "INVOICE DATA CATEGORY");
     });
   }
 

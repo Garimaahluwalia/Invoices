@@ -1,6 +1,8 @@
 <div class="p-3">
     <div class="mb-3">
-        <span class="main-head">Billed To </span><span>(client Details)</span>
+        <span class="main-head" *ngIf="this.invoiceCategory !== 'Quotations'">Billed To </span>
+        <span class="main-head" *ngIf="this.invoiceCategory === 'Quotations'">Quotation for </span><span>(client
+            Details)</span>
     </div>
     <div class="form-group">
         <select name="client_id" [(ngModel)]="clientId" (ngModelChange)="onClientChange()"
