@@ -17,11 +17,11 @@ export class AddRecordPaymentComponent {
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public invoiceId: string | null = null;
-  public recordPayment!:  IRecordPayment;
+  public recordPayment!: IRecordPayment;
 
-  constructor(public modalService: ModalService, 
-    public router: Router ,
-    public invoiceService : InvoiceService) { }
+  constructor(public modalService: ModalService,
+    public router: Router,
+    public invoiceService: InvoiceService) { }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
@@ -65,13 +65,14 @@ export class AddRecordPaymentComponent {
       paymentDate: '',
       additionalNotes: ''
     };
-  this.invoiceService.sendRecordPayment(payload).subscribe((res) => {
-      this.recordPayment  = res;
-      console.log(res, "Record payments")
-  })
+    this.invoiceService.sendRecordPayment(payload).subscribe((res) => {
+      this.recordPayment = res;
+    })
+
+
   }
 
-  
+
   ngOnDestroy() {
     this.destroyed.next(true);
     this.destroyed.complete();

@@ -26,3 +26,9 @@ export class recordPayment implements IRecordPayment {
     paymentDate: string = "";
     additionalNotes: string = "";
 }
+
+
+export enum RECORD_PAYMENT_ROUTER_ACTIONS {
+    SAVE_INVOICE_PAGE = "save-invoice-page",
+    INVOICE = "invoice"
+}
