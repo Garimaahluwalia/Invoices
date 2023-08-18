@@ -31,6 +31,7 @@ export class AddInvoicesComponent implements OnInit {
   public status!: string;
   public currency!: string;
   public duplicateInvoice: boolean = false;
+  public category: any;
   public fields: Field[] = [
     {
       "type": FieldType.TEXT,
@@ -133,6 +134,12 @@ export class AddInvoicesComponent implements OnInit {
         }
       }
       this.InvoiceForm.form?.patchValue(formData);
+    });
+
+
+
+    this.route.queryParams.subscribe(params => {
+      this.category = params['category'];
     });
   }
 

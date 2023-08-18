@@ -9,5 +9,5 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
 })
 export class InvoiceSummaryComponent {
   @Input() data!: IInvoice;
-  items = ['Item 1'];
+
 }

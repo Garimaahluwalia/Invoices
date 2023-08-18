@@ -14,11 +14,11 @@ export class AddSentEmailComponent {
   @ViewChild("closeModalButton", { static: false }) private closeModalButton!: ElementRef;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
-  public from: any;
-  public clientName: any;
-  public clientEmail: any;
-  public cc: any
-  public emailSubject: any;
+  public from!: string;
+  public clientName!: string;
+  public clientEmail!: string;
+  public cc!: string;
+  public emailSubject!: string;
   public message: string = `Hi Namit Arora,
 
   Please find attached invoice #A00028. Due Date is Sep 22, 2023.
@@ -26,14 +26,14 @@ export class AddSentEmailComponent {
   Invoice No: #A00028
   Invoice Date: Aug 14, 2023
   Billed To: Namit Arora
-  Due Date: Sep 22, 2023
+  Due Date: Sep 1, 2023
   Due Amount: ₹1.10
   
   Thank you for your business.
   
   Regards ,
   Chetan Chauhan`;
-  
+
   constructor(public modalService: ModalService,
     public router: Router) { }
 

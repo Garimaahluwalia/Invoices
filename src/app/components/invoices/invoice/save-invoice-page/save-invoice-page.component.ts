@@ -90,8 +90,7 @@ export class SaveInvoicePageComponent implements OnInit {
       .subscribe((res) => {
         this.loaderService.HideLoader();
         this.table = res.table;
-        this.data = res;
-        console.log(this.data, "DATA")
+        this.data = res;  
         this.products = res.products;
         const currency = this.currencies.find(currency => currency.code === this.data.currency);
         this.currencyData = currency?.symbol;
@@ -186,8 +185,8 @@ export class SaveInvoicePageComponent implements OnInit {
     this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
         this.route.navigate(["invoices"]).then(() => {
-        this.invoiceService.getAll();
-      });
+          this.invoiceService.getAll();
+        });
       },
       (err) => {
         console.error(err);

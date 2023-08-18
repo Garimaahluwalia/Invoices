@@ -70,6 +70,8 @@ export class AddRecordPaymentComponent {
       console.log(res, "Record payments")
   })
   }
+
+  
   ngOnDestroy() {
     this.destroyed.next(true);
     this.destroyed.complete();

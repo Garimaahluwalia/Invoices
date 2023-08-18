@@ -1,4 +1,10 @@
-<div class="container-fluid">
+<div *ngIf="category === 'Quotations'">
+   
+</div>
+
+
+
+<div class="container-fluid" *ngIf="category !== 'Quotations'">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between p-0 m-0">
@@ -15,7 +21,8 @@
                     (ngSubmit)="submit(InvoiceForm)">
                     <div class="row">
                         <div class="col-md-12">
-                            <app-invoicedata [invoiceId]="invoiceId" [invoiceNo]="invoiceNumber" [duplicateInvoice]="duplicateInvoice"></app-invoicedata>
+                            <app-invoicedata [invoiceId]="invoiceId" [invoiceNo]="invoiceNumber"
+                                [duplicateInvoice]="duplicateInvoice"></app-invoicedata>
                         </div>
                     </div>
                     <div class="row">
@@ -26,7 +33,8 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="outer-layout w-100">
-                                <app-client-details [invoiceId]="invoiceId" [duplicateInvoice]="duplicateInvoice"></app-client-details>
+                                <app-client-details [invoiceId]="invoiceId"
+                                    [duplicateInvoice]="duplicateInvoice"></app-client-details>
                             </div>
                         </div>
                     </div>
@@ -34,8 +42,8 @@
                         <app-productdetails [fields]="fields"></app-productdetails>
                         <app-paymentdetails></app-paymentdetails>
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-                            <button type="submit" class="btn btn-info save-cstn-btn save-button"
-                               ><i class="ri-printer-line align-bottom me-1"></i>
+                            <button type="submit" class="btn btn-info save-cstn-btn save-button"><i
+                                    class="ri-printer-line align-bottom me-1"></i>
                                 Save and Continue</button>
                         </div>
                     </div>
