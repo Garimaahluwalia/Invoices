@@ -266,7 +266,7 @@ export class InvoiceService {
       this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate, this.status).subscribe(
         (res) => {
           console.log(res, "GET ALL INVOICE RESPONSE")
-          this._invoices = res.invoices;
+          this._invoices = res.items;
           this.totalNumberOfInvoices.next(res.totalCount);
           this.sendInvoices();
           // this.loaderService.HideLoader();

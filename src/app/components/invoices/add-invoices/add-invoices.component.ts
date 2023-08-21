@@ -14,6 +14,7 @@ import { IProductRows } from 'src/app/types/product';
 import { Field, FieldType } from 'src/app/types/columnType';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
 @Component({
   selector: 'app-add-invoices',
   templateUrl: './add-invoices.component.html',
@@ -23,7 +24,7 @@ export class AddInvoicesComponent implements OnInit {
   @ViewChild("InvoiceForm", { static: false }) InvoiceForm!: NgForm;
   public invoiceNumber: string | null = null;
   public invoices!: IInvoice;
-  public quotations! : IInvoice;
+  public quotations!: IInvoice;
   public taxType!: string;
   public productData!: IProductRows;
   private readonly notifier!: NotifierService;
@@ -34,6 +35,7 @@ export class AddInvoicesComponent implements OnInit {
   public currency!: string;
   public duplicateInvoice: boolean = false;
   public category: any;
+
   public fields: Field[] = [
     {
       "type": FieldType.TEXT,
@@ -95,7 +97,7 @@ export class AddInvoicesComponent implements OnInit {
     public router: Router,
     public invoiceDataHandler: InvoiceDataHandlerService,
     public loaderService: LoaderService,
-    public quotationService : QuotationsService
+    public quotationService: QuotationsService
   ) {
     this.notifier = notifierService;
   }
@@ -168,29 +170,29 @@ export class AddInvoicesComponent implements OnInit {
         this.invoiceId = null;
       }
 
-      if(this.category !== "Quotation") {
-      if (this.invoiceId) {
-        this.updateInvoice(this.invoiceId, payload);
+      if (this.category !== "Quotations") {
+        if (this.invoiceId) {
+          this.updateInvoice(this.invoiceId, payload);
+        } else {
+          this.addInvoice(payload);
+        }
       } else {
-        this.addInvoice(payload);
+        this.addQuotation(payload)
+
       }
-    } else {
-      this.addQuotation(payload)
-
-    }
     }
   }
 
 
-  addQuotation(payload:any){
-     this.quotationService.addQuotation(payload).subscribe((res:any)=> {
+  addQuotation(payload: any) {
+    this.quotationService.addQuotation(payload).subscribe((res: any) => {
       this.quotations = res;
-      this.router.navigate(["/quotations"])
-      console.log(this.quotations)
-     })
+      this.router.navigate(["/quotations"]);
+      console.log(this.quotations, "QUOTATIONS DATA")
+    })
   }
 
-  updateQuotation(){
+  updateQuotation() {
 
   }
 

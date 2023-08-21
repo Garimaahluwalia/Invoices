@@ -13,6 +13,13 @@ export class QuotationsService {
   constructor(private http: HttpClient) { }
 
 
+
+
+
+  public getQuotation(invoiceId: string): Observable<IInvoice> {
+    return this.http.get<IInvoice>(endpoints.QUOTATIONS_LIST.GET(invoiceId));
+  }
+
   public addQuotation(payload: IInvoice): Observable<any> {
     return this.http.post<any>(endpoints.QUOTATIONS_LIST.ADD, payload);
   }

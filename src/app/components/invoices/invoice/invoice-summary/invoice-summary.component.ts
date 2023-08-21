@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IInvoice } from '../../../../services/invoice-data-handler/invoice-data-handler.dto';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { CURRENCY } from 'src/app/types/currency';
 @Component({
   selector: 'app-invoice-summary',
   templateUrl: './invoice-summary.component.html',
@@ -9,5 +10,11 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
 })
 export class InvoiceSummaryComponent {
   @Input() data!: IInvoice;
+  public currencies = CURRENCY;
+  public currencyData: any;
+
+
+
+
 
 }

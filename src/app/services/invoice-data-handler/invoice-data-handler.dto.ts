@@ -3,7 +3,7 @@ import { Field, IField } from "src/app/types/columnType";
 import { TAXES } from "src/app/types/taxes";
 
 export interface IInvoiceResponse {
-   invoices: IInvoice[];
+   items: IInvoice[];
    totalCount: number;
    totalPages: number;
 }
