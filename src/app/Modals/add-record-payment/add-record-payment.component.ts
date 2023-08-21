@@ -1,8 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject, Subscription, takeUntil } from 'rxjs';
+import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { CURRENCY } from 'src/app/types/currency';
 import { ModalEvents } from 'src/app/types/modal';
 import { IRecordPayment } from 'src/app/types/recordPayments';
 
@@ -11,18 +13,38 @@ import { IRecordPayment } from 'src/app/types/recordPayments';
   templateUrl: './add-record-payment.component.html',
   styleUrls: ['./add-record-payment.component.css']
 })
-export class AddRecordPaymentComponent {
+export class AddRecordPaymentComponent implements OnInit {
   @ViewChild('openRecordModal', { static: false }) private openRecordModal!: ElementRef<HTMLButtonElement>;
   @ViewChild('closeRecordModal', { static: false }) private closeRecordModal!: ElementRef<HTMLButtonElement>;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
-  public invoiceId: string | null = null;
+  public invoiceId!: string;
   public recordPayment!: IRecordPayment;
   public action: string = "";
-  // public 
+  public invoiceNo!: string;
+  public billedTo!: string;
+  public taxableAmount!: string;
+  public invoiceTotal!: string;
+  public amountReceived!: string;
+  public amountReceivedInUSD!: string;
+  public TDS!: string;
+  public TDSWithHeld!: string;
+  public amountToSettle!: string;
+  public paymentDate!: string;
+  public additionalNotes!: string;
+  public selectedInvoice: any = null
+  public invoices: IInvoice[] = [];
+  public currencies = CURRENCY;
+  public currencyData: any;
   constructor(public modalService: ModalService,
     public router: Router,
     public invoiceService: InvoiceService) { }
+
+
+  ngOnInit(): void {
+
+  }
+
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
@@ -38,6 +60,14 @@ export class AddRecordPaymentComponent {
         this.closeModal();
       }
     }));
+
+    this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
+      this.invoices = data;
+      this.selectedInvoice = this.invoices.find(invoice => invoice._id === this.invoiceId);
+    });
+
+
+
   }
 
   openModal() {
@@ -57,23 +87,21 @@ export class AddRecordPaymentComponent {
 
   saveChanges() {
     const payload: IRecordPayment = {
-      invoiceNo: '',
-      billedTo: '',
-      taxableAmount: '',
-      invoiceTotal: '',
-      amountReceived: '',
-      amountReceivedInUSD: '',
-      TDS: '',
-      TDSWithHeld: '',
-      amountToSettle: '',
-      paymentDate: '',
-      additionalNotes: ''
+      invoiceNo: this.invoiceNo,
+      billedTo: this.billedTo,
+      taxableAmount: this.taxableAmount,
+      invoiceTotal: this.invoiceTotal,
+      amountReceived: this.amountReceived,
+      amountReceivedInUSD: this.amountReceivedInUSD,
+      TDS: this.TDS,
+      TDSWithHeld: this.TDSWithHeld,
+      amountToSettle: this.amountToSettle,
+      paymentDate: this.paymentDate,
+      additionalNotes: this.additionalNotes
     };
-    this.invoiceService.sendRecordPayment(payload).subscribe((res) => {
+    this.invoiceService.sendRecordPayment(this.invoiceId, payload).subscribe((res) => {
       this.recordPayment = res;
     })
-
-
   }
 
 

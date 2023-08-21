@@ -296,11 +296,14 @@ export class InvoiceService {
     return this.http.get<IInvoiceSummary>(endpoints.INVOICES_LIST.INVOICE_SUMMARY)
   }
 
-  sendInvoiceEmail(payload: IEmailInvoice): Observable<any> {
-    return this.http.post<any>(endpoints.INVOICES_LIST.EMAIL_INVOICE, payload);
+  // sendInvoiceEmail(payload: IEmailInvoice): Observable<any> {
+  //   return this.http.post<any>(endpoints.INVOICES_LIST.EMAIL_INVOICE, payload);
+  // }
+
+
+
+  sendRecordPayment(invoiceId: string, payload: IRecordPayment): Observable<any> {
+    return this.http.put(endpoints.INVOICES_LIST.RECORD_PAYMENT(invoiceId), { payload })
   }
 
-  sendRecordPayment(payload: IRecordPayment): Observable<any> {
-    return this.http.post<any>(endpoints.INVOICES_LIST.RECORD_PAYMENT, payload);
-  }
 }  

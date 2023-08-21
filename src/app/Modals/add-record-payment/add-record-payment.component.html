@@ -15,25 +15,28 @@
                 </button>
             </div>
             <div class="container">
-                <div class="container invoices-det">
+                <div class="container invoices-det" *ngIf="selectedInvoice">
                     <div class="invoice-detail">
                         <span>Invoice No</span>
-                        <span>A00016</span>
+                        <span>{{selectedInvoice.invoiceNo}}</span>
                     </div>
 
                     <div class="invoice-detail">
                         <span>Billed To</span>
-                        <span>Namit Arora</span>
+                        <span>{{selectedInvoice.client.name}}</span>
                     </div>
 
                     <div class="invoice-detail">
                         <span>Taxable Amount</span>
-                        <span>₹1</span>
+                        <span>{{selectedInvoice.totalamountoftax}}</span>
                     </div>
 
                     <div class="invoice-detail">
                         <span>Invoice Total</span>
-                        <span>₹1.10</span>
+                        <span>{{
+                            selectedInvoice.totalamount !== 0 ? selectedInvoice.totalamount :
+                            selectedInvoice.subtotalofamount
+                            }}</span>
                     </div>
                 </div>
 
@@ -42,8 +45,8 @@
                         <label for="amountReceived">Amount Received (A)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text amount-rec" id="basic-addon1">₹</span>
-                            <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountReceived" 
+                            <input type="number" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceived"
                                 ngModel>
                         </div>
                     </div>
@@ -52,9 +55,9 @@
                         <label for="amountReceivedUsd">Amount Received in USD</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">$</span>
-                            <input type="text" class="form-control" aria-label="Username"
+                            <input type="number" class="form-control" aria-label="Username"
                                 aria-describedby="basic-addon1" name="amountReceivedInUSD"
-                              ngModel>
+                                [(ngModel)]="amountReceivedInUSD" ngModel>
                         </div>
                     </div>
 
@@ -71,16 +74,16 @@
                         <label for="tdsWithheld">TDS %</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
-                            <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name=" TDS"  ngModel>
+                            <input type="number" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1" name="TDS" [(ngModel)]="TDS" ngModel>
                         </div>
                     </div>
                     <div class="payment-detail">
                         <label for="tdsWithheld">TDS withheld (C)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
-                            <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="TDSWithHeld"  ngModel>
+                            <input type="number" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1" name="TDSWithHeld" [(ngModel)]="TDSWithHeld" ngModel>
                         </div>
                     </div>
 
@@ -88,8 +91,8 @@
                         <label for="amountToSettle">Amount to Settle (A+B+C)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
-                            <input type="text" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountToSettle"
+                            <input type="number" class="form-control" aria-label="Username"
+                                aria-describedby="basic-addon1" name="amountToSettle" [(ngModel)]="amountToSettle"
                                 ngModel>
                         </div>
                     </div>
@@ -98,7 +101,7 @@
                     <div class="payment-detail mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Payment Date</label>
                         <input type="date" class="form-control" id="exampleFormControlInput1" placeholder=""
-                            name="paymentDate"  ngModel>
+                            name="paymentDate" [(ngModel)]="paymentDate" ngModel>
                     </div>
 
 
@@ -107,7 +110,8 @@
                         <div class="input-group amount-inputs">
                             <label for="exampleFormControlInput1" class="form-label">Additional notes</label>
                             <textarea class="form-control" aria-label="With textarea"
-                                placeholder="Add any additional notes such as payment"  name="additionalNotes"  ngModel></textarea>
+                                placeholder="Add any additional notes such as payment" name="additionalNotes"
+                                [(ngModel)]="additionalNotes" ngModel></textarea>
                         </div>
                     </div>
                 </div>

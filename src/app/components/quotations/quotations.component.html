@@ -1,1 +1,482 @@
-<p>quotations works!</p>
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="form-outline flex-item">
+                                        <input type="search" id="form1" class="form-control invoice-search"
+                                            [(ngModel)]="searchQuery" (ngModelChange)="handleSearch()"
+                                            (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
+                                            placeholder="Search for Result" (keyup)="handleSearch()" />
+                                    </div>
+                                    <div class="d-flex align-items-center ml-5 flex-item">
+                                        <label class="date-range">Select Date Range</label>
+                                        <input type="text" name="daterange" style="cursor: pointer;"
+                                            (change)="dateRangePicker(startDate , endDate)" class="datepicker"
+                                            [value]="defaultDateRange" />
+                                    </div>
+                                    <div class="form-outline flex-item ">
+                                        <div class="d-flex align-items-center ">
+                                            <label class="mb-0 mr-3">Status</label>
+                                            <div class="custom-dropdown" (click)="toggleDropdowns()">
+                                                {{getSelectedItemsText()}}
+                                                <div *ngIf="isDropdownOpen" class="dropdown-items">
+                                                    <div *ngFor="let status of statuses"
+                                                        (click)="toggleStatusSelection(status)">
+                                                        <input type="checkbox" [checked]="isSelected(status)" />
+                                                        {{status}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <ng-container *ngIf="this.checkedCount !== 1 ">
+                                    <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
+                                        *ngIf="isButtonEnabled" (click)="bulkdelete()">
+                                        Bulk Delete</button>
+
+                                    <button type="button"
+                                        class="btn btn-info save-cstn-btn bulk-invoice mr-2 mat-raised-button"
+                                        color="primary" [class.spinner]="loading" [disabled]="loading"
+                                        *ngIf="isButtonEnabled" (click)="bulkPDFDownload()">
+                                        Bulk PDF</button>
+                                </ng-container>
+
+                                <a (click)="quotations()" class="btn btn-primary-outline "><i
+                                        class="las la-plus me-1"></i>
+                                    Add Quotations</a>
+                            </div>
+
+                            <div class="container">
+                                <div class="row">
+                                    <cdk-accordion class="example-accordion">
+                                        <cdk-accordion-item #accordionItem="cdkAccordionItem"
+                                            class="example-accordion-item" role="button" tabindex="0"
+                                            [attr.id]="'accordion-header-' "
+                                            [attr.aria-expanded]="accordionItem.expanded"
+                                            [attr.aria-controls]="'accordion-body-' ">
+                                            <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                                                Quotations Summary
+                                                <span class="example-accordion-item-description">
+                                                    <i
+                                                        [ngClass]="accordionItem.expanded ? 'fa fa-angle-up' : 'fa fa-angle-down'"></i>
+                                                </span>
+                                            </div>
+                                            <div class="example-accordion-item-body" role="region"
+                                                [style.display]="accordionItem.expanded ? '' : 'none'"
+                                                [attr.id]="'accordion-body-' "
+                                                [attr.aria-labelledby]="'accordion-header-'">
+                                                <div class="invoice_summ">
+                                                    <div class="inc-icon">
+                                                        <div class="inc-icon-img"><svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 18 19.857">
+                                                                <path id="invoices" fill="#2e9eff"
+                                                                    d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
+                                                                    transform="translate(-383 -381)"></path>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invc_detail pt-1">
+                                                        <div class="d-flex">
+                                                            <h5 class="pr-1">Quotations</h5>
+                                                        </div>
+                                                        <p>{{invoiceSummary.totalInvoiceCount}}</p>
+                                                    </div>
+                                                    <div class="inc-icon">
+                                                        <div class="inc-icon-img"><svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 18 19.857">
+                                                                <path id="invoices" fill="#2e9eff"
+                                                                    d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
+                                                                    transform="translate(-383 -381)"></path>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invc_detail pt-1">
+                                                        <div class="d-flex">
+                                                            <h5 class="pr-1">Quotations
+                                                                Amount</h5>
+                                                        </div>
+                                                        <p>${{invoiceSummary.totalInvoiceAmount}}</p>
+
+
+                                                    </div>
+                                                    <div class="inc-icon">
+                                                        <div class="inc-icon-img"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 21">
+                                                                <g id="amount-due"
+                                                                    transform="translate(-707.865 -666.5)">
+                                                                    <rect id="Rectangle_920" data-name="Rectangle 920"
+                                                                        height="20" transform="translate(707.865 667)"
+                                                                        fill="#fff" opacity="0"></rect>
+                                                                    <g id="Group_1803" data-name="Group 1803"
+                                                                        transform="translate(369.72 376.666)">
+                                                                        <path id="Subtraction_9"
+                                                                            data-name="Subtraction 9"
+                                                                            d="M15,20H3a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0H15a3,3,0,0,1,3,3V17A3,3,0,0,1,15,20ZM4.39,12.848l-1.475.346a2.612,2.612,0,0,0,2.269,2.32V16.7H6.41V15.494A2.267,2.267,0,0,0,8.356,13.28a2.237,2.237,0,0,0-2-2.2l-.931-.211c-.4-.092-.627-.323-.627-.634,0-.346.28-.718.895-.718a1,1,0,0,1,1.089.921l1.484-.412a2.387,2.387,0,0,0-1.854-1.9V6.895H5.184v1.2a2.328,2.328,0,0,0-2.02,2.3A2.2,2.2,0,0,0,5.091,12.5l.959.239c.435.1.655.311.655.633,0,.419-.367.7-.914.7A1.3,1.3,0,0,1,4.39,12.848Zm9-4.173a.647.647,0,0,0-.456.183.719.719,0,0,0-.186.475.609.609,0,0,0,.05.251.732.732,0,0,0,.136.222.637.637,0,0,0,.913,0,.732.732,0,0,0,.136-.222.623.623,0,0,0,.049-.251.715.715,0,0,0-.185-.475A.644.644,0,0,0,13.387,8.675Zm0-6.242c-.019,0-.039,0-.059,0a.9.9,0,0,0-.818.969l.233,3.705a.658.658,0,0,0,.6.624l.043,0a.656.656,0,0,0,.64-.626L14.262,3.4a.872.872,0,0,0,0-.119A.893.893,0,0,0,13.389,2.433Z"
+                                                                            transform="translate(339.146 290.334)"
+                                                                            fill="#1aaa3a" stroke="rgba(0,0,0,0)"
+                                                                            stroke-miterlimit="10" stroke-width="1">
+                                                                        </path>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invc_detail pt-1">
+                                                        <div class="d-flex">
+                                                            <h5 class="pr-1">Amount Due</h5>
+                                                        </div>
+                                                        <p>${{invoiceSummary.totalDueAmount}}</p>
+                                                    </div>
+
+                                                    <div class="inc-icon">
+                                                        <div class="inc-icon-img"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                                <g id="payment-received"
+                                                                    transform="translate(-705.865 -664)">
+                                                                    <g id="payment-received-2"
+                                                                        data-name="payment-received"
+                                                                        transform="translate(705.865 664)">
+                                                                        <rect id="Rectangle_919"
+                                                                            data-name="Rectangle 919" width="19.612"
+                                                                            height="19.612"
+                                                                            transform="translate(0.097 0.097)"
+                                                                            fill="#fff" opacity="0"></rect>
+                                                                        <path id="Path_1688" data-name="Path 1688"
+                                                                            d="M530.993,256.3h0a5.039,5.039,0,0,0-5.039,5.039h0a5.039,5.039,0,0,0,5.039,5.038h0a5.039,5.039,0,0,0,5.038-5.038h0A5.039,5.039,0,0,0,530.993,256.3Zm.487,7.271v.732h-.773v-.718a1.61,1.61,0,0,1-1.423-1.4l.927-.207a.794.794,0,0,0,.879.738c.336,0,.578-.161.578-.423,0-.2-.149-.323-.416-.384l-.6-.141c-.752-.18-1.215-.637-1.215-1.276a1.425,1.425,0,0,1,1.268-1.389v-.726h.773v.746a1.458,1.458,0,0,1,1.167,1.148l-.932.249a.624.624,0,0,0-.685-.558c-.376,0-.564.222-.564.437,0,.182.134.322.4.382l.584.127c.9.2,1.255.725,1.255,1.33A1.382,1.382,0,0,1,531.48,263.567Z"
+                                                                            transform="translate(-520.466 -256.296)"
+                                                                            fill="#1aaa3a"></path>
+                                                                        <path id="Path_1689" data-name="Path 1689"
+                                                                            d="M540.809,266.717a1.036,1.036,0,0,0-1.416-.385l-4.279,2.5c-.013.025-.029.047-.044.071.015-.024.031-.046.044-.071a.98.98,0,0,0,.1-.252,1.052,1.052,0,0,0-.733-1.286l-3.269-.586a5.426,5.426,0,0,1-1.42-.545,5.785,5.785,0,0,0-5.218-.021,2.59,2.59,0,0,1-.446.177,5.964,5.964,0,0,1-1.787.26h-1.4v4.892h2.1a4.046,4.046,0,0,1,.626.048l8.424,1.3a.693.693,0,0,0,.469-.084l7.859-4.588A1.057,1.057,0,0,0,540.809,266.717Zm-6.508,2.635.019,0-.038,0h.019Zm.1-.013-.024,0h.009Zm.036-.008.019,0-.053.011Zm-.064.013-.03,0,.019,0Zm-.154.011h0Zm.237-.028.007,0a.609.609,0,0,0,.064-.018l.048-.017.018-.007a.461.461,0,0,0,.054-.024h0a1.018,1.018,0,0,0,.364-.28A1.025,1.025,0,0,1,534.456,269.327Zm.607-.415a.7.7,0,0,1-.043.058A.7.7,0,0,0,535.063,268.912Z"
+                                                                            transform="translate(-520.948 -252.832)"
+                                                                            fill="#1aaa3a"></path>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invc_detail pt-1">
+                                                        <div class="d-flex">
+                                                            <h5 class="pr-1">Payment Received</h5>
+                                                        </div>
+                                                        <p>${{invoiceSummary.totalReceivedPayment}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="invoice_summ">
+                                                    <div class="inc-icon">
+                                                        <div class="inc-icon-img"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" height="20"
+                                                                viewBox="0 0 20.725 20">
+                                                                <g id="tax" transform="translate(-707.615 -667)">
+                                                                    <g id="Group_1779" data-name="Group 1779"
+                                                                        transform="translate(213.72 411.716)">
+                                                                        <path id="Path_1693" data-name="Path 1693"
+                                                                            d="M496.187,263.395h-2.042V262h5.662v1.395h-2.044v5.763h-1.576Z"
+                                                                            transform="translate(0)" fill="#f29e00"
+                                                                            stroke="#f29e00" stroke-width="0.5"></path>
+                                                                        <path id="Path_1694" data-name="Path 1694"
+                                                                            d="M500.518,262h1.305l3.114,7.158h-1.78l-.617-1.517H499.76l-.6,1.517h-1.739Zm.606,2.082-.868,2.225H502Z"
+                                                                            transform="translate(1.715)" fill="#f29e00"
+                                                                            stroke="#f29e00" stroke-width="0.5"></path>
+                                                                        <path id="Path_1695" data-name="Path 1695"
+                                                                            d="M504.991,265.417,502.626,262h1.981l1.527,2.507L507.6,262h1.911l-2.316,3.387,2.589,3.771H507.8l-1.75-2.881-1.7,2.881h-1.87Z"
+                                                                            transform="translate(4.36)" fill="#f29e00"
+                                                                            stroke="#f29e00" stroke-width="0.5"></path>
+                                                                    </g>
+                                                                    <rect id="Rectangle_923" data-name="Rectangle 923"
+                                                                        width="20" height="20"
+                                                                        transform="translate(707.865 667)" fill="#fff"
+                                                                        opacity="0"></rect>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invc_detail pt-1">
+                                                        <div class="d-flex">
+                                                            <h5 class="pr-1">Tax Amount</h5>
+                                                        </div>
+                                                        <p>${{invoiceSummary.totalTaxAmount}}</p>
+                                                    </div>
+
+                                                    <!-- <div class="inc-icon">
+                                                        <div class="inc-icon-img"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                                <g id="transaction-charges"
+                                                                    transform="translate(-707.865 -667)">
+                                                                    <rect id="Rectangle_924" data-name="Rectangle 924"
+                                                                        width="20" height="20"
+                                                                        transform="translate(707.865 667)" fill="#fff"
+                                                                        opacity="0"></rect>
+                                                                    <g id="Group_1780" data-name="Group 1780"
+                                                                        transform="translate(494.471 226.632)">
+                                                                        <path id="Path_1696" data-name="Path 1696"
+                                                                            d="M7.29,8.069V0H2.715V8.069H0l5,5.9,5-5.9Z"
+                                                                            transform="translate(223.399 457.339) rotate(180)"
+                                                                            fill="#f29e00"></path>
+                                                                        <path id="Path_1697" data-name="Path 1697"
+                                                                            d="M10,5.9,5,0,0,5.9H2.715v8.069H7.29V5.9Z"
+                                                                            transform="translate(233.394 457.368) rotate(180)"
+                                                                            fill="#f29e00"></path>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                    </div> -->
+
+
+                                                    <div class="inc-icon">
+                                                        <div class="inc-icon-img"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" height="20"
+                                                                viewBox="0 0 20.725 20">
+                                                                <g id="tax" transform="translate(-707.615 -667)">
+                                                                    <g id="Group_1779" data-name="Group 1779"
+                                                                        transform="translate(213.72 411.716)">
+                                                                        <path id="Path_1693" data-name="Path 1693"
+                                                                            d="M496.187,263.395h-2.042V262h5.662v1.395h-2.044v5.763h-1.576Z"
+                                                                            transform="translate(0)" fill="#f29e00"
+                                                                            stroke="#f29e00" stroke-width="0.5"></path>
+                                                                        <path id="Path_1694" data-name="Path 1694"
+                                                                            d="M500.518,262h1.305l3.114,7.158h-1.78l-.617-1.517H499.76l-.6,1.517h-1.739Zm.606,2.082-.868,2.225H502Z"
+                                                                            transform="translate(1.715)" fill="#f29e00"
+                                                                            stroke="#f29e00" stroke-width="0.5"></path>
+                                                                        <path id="Path_1695" data-name="Path 1695"
+                                                                            d="M504.991,265.417,502.626,262h1.981l1.527,2.507L507.6,262h1.911l-2.316,3.387,2.589,3.771H507.8l-1.75-2.881-1.7,2.881h-1.87Z"
+                                                                            transform="translate(4.36)" fill="#f29e00"
+                                                                            stroke="#f29e00" stroke-width="0.5"></path>
+                                                                    </g>
+                                                                    <rect id="Rectangle_923" data-name="Rectangle 923"
+                                                                        width="20" height="20"
+                                                                        transform="translate(707.865 667)" fill="#fff"
+                                                                        opacity="0"></rect>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invc_detail pt-1">
+                                                        <div class="d-flex">
+                                                            <h5 class="pr-1">TDS Amount</h5>
+                                                        </div>
+                                                        <p>${{invoiceSummary.totalTDSAmount}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </cdk-accordion-item>
+                                    </cdk-accordion>
+
+                                </div>
+
+                            </div>
+                            <div class="table-responsive table-card">
+                                <table class="table table-hover table-nowrap invoice-table align-middle mb-0">
+                                    <thead>
+                                        <tr class="text-muted text-uppercase">
+                                            <th>
+                                                <!-- Select-unselect-all-items -->
+                                                <input type="checkbox" #selectUnselectSingle
+                                                    (change)="selectUnselectAllItems($event)" style="cursor: pointer;">
+                                            </th>
+                                            <th scope="col">Date
+                                                <span class="sort-icon">
+                                                    <i class="fa-sharp fa-solid fa-arrow-up" style="cursor: pointer;"
+                                                        (click)="sortingOrder('date', ORDER.DESC)"></i>
+                                                    <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                        (click)="sortingOrder('date', ORDER.ASC)"></i>
+                                                </span>
+
+
+                                            </th>
+                                            <th scope="col">Quotation
+                                                <span class="sort-icon"><i class="fa-sharp fa-solid fa-arrow-up"
+                                                        style="cursor: pointer;"
+                                                        (click)="sortingOrder('invoice' , ORDER.DESC)"></i>
+                                                    <i class="fa-solid fa-arrow-down" style="cursor: pointer;"
+                                                        (click)="sortingOrder('invoice' , ORDER.ASC)"></i></span>
+                                            </th>
+                                            <th scope="col">CLIENTS
+                                                <span class="sort-icon">
+                                                </span>
+                                            </th>
+                                            <th scope="col" style="width: 20%;">Email
+                                                <span class="sort-icon"></span>
+                                            </th>
+                                            <th scope="col">Amount
+                                                <span class="sort-icon"></span>
+                                            </th>
+                                            <th scope="col" style="width: 16%;">Status
+                                                <span class="sort-icon">
+
+                                                </span>
+                                            </th>
+                                            <th scope="col" style="width: 12%;">Actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <ng-container *ngIf="invoices.length > 0; else NoResultFound">
+                                            <tr
+                                                *ngFor="let details of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'invoice', totalItems: totalItems  } let i = index">
+                                                <td>
+                                                    <input type="checkbox" #selectUnselectItems
+                                                        (change)="checkItem($event, details._id)"
+                                                        [checked]="checkedItems[details._id]" [value]="details._id"
+                                                        style="cursor: pointer;">
+                                                </td>
+                                                <td data-label="Date"> {{details?.date| date: 'dd-MM-yyyy'}}</td>
+                                                <td data-label="Invoice ID">
+                                                    <p class="fw-medium mb-0">{{details.invoiceNo}}</p>
+                                                </td>
+                                                <td data-label="Client">
+                                                    <a
+                                                        class="text-body align-middle fw-medium">{{details?.client?.name}}</a>
+                                                </td>
+                                                <td data-label="Email">
+                                                    {{details?.client?.email}}
+                                                </td>
+                                                <td data-label="Billed">
+                                                    {{ details?.totalamount !== 0 ? details?.totalamount :
+                                                    details?.subtotalofamount }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-pill badge-primary status" [ngClass]="{
+                                                    'badge-warning': details?.status === 'UNPAID',
+                                                    'badge-success': details?.status === 'PAID',
+                                                    'badge-danger': details?.status === 'CANCELLED'
+                                                  }">
+                                                        {{details?.status}}
+                                                    </span>
+                                                </td>
+
+                                                <td data-label="Action" class="action-items">
+                                                    <ul class="list-inline hstack  mb-0">
+                                                        <li>
+                                                            <!-- <svg class="paid-icon"
+                                                                [ngClass]="{ 'disabled': details.status === 'PAID' || details.status === 'CANCELLED'  }"
+                                                                (click)="recordPayment(details)" width="24" height="24"
+                                                                viewBox="0 0 20 20" fill="none" style="cursor: pointer;"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M8.125 1.25C6.30164 1.25 4.55295 1.97433 3.26364 3.26364C1.97433 4.55295 1.25 6.30164 1.25 8.125C1.25 9.94836 1.97433 11.697 3.26364 12.9864C4.55295 14.2757 6.30164 15 8.125 15C8.75934 15.0026 9.39077 14.9142 10 14.7375V14.6875C10 13.4443 10.4939 12.252 11.3729 11.3729C12.252 10.4939 13.4443 10 14.6875 10H14.7375C14.9142 9.39077 15.0026 8.75934 15 8.125C14.9988 6.30199 14.2741 4.55398 12.9851 3.26492C11.696 1.97586 9.94801 1.25116 8.125 1.25ZM8.125 7.5C8.56677 7.49916 8.99457 7.6547 9.33265 7.93906C9.67073 8.22342 9.89726 8.61826 9.97212 9.05364C10.047 9.48902 9.96533 9.93684 9.74165 10.3178C9.51797 10.6987 9.16668 10.9882 8.75 11.135V11.4581C8.75 11.6239 8.68415 11.7829 8.56694 11.9001C8.44973 12.0173 8.29076 12.0831 8.125 12.0831C7.95924 12.0831 7.80027 12.0173 7.68306 11.9001C7.56585 11.7829 7.5 11.6239 7.5 11.4581V11.135C7.13568 11.0062 6.82006 10.768 6.5963 10.4529C6.37255 10.1379 6.2516 9.76141 6.25 9.375C6.25 9.20924 6.31585 9.05027 6.43306 8.93306C6.55027 8.81585 6.70924 8.75 6.875 8.75C7.04076 8.75 7.19973 8.81585 7.31694 8.93306C7.43415 9.05027 7.5 9.20924 7.5 9.375C7.5 9.49861 7.53666 9.61945 7.60533 9.72223C7.67401 9.82501 7.77162 9.90512 7.88582 9.95242C8.00003 9.99973 8.12569 10.0121 8.24693 9.98799C8.36817 9.96388 8.47953 9.90435 8.56694 9.81694C8.65435 9.72953 8.71388 9.61817 8.73799 9.49693C8.76211 9.37569 8.74973 9.25003 8.70242 9.13582C8.65512 9.02162 8.57501 8.92401 8.47223 8.85533C8.36945 8.78666 8.24861 8.75 8.125 8.75C7.68323 8.75084 7.25543 8.5953 6.91735 8.31094C6.57927 8.02658 6.35274 7.63174 6.27788 7.19636C6.20302 6.76098 6.28467 6.31316 6.50835 5.93221C6.73203 5.55126 7.08332 5.26176 7.5 5.115V4.79187C7.5 4.62611 7.56585 4.46714 7.68306 4.34993C7.80027 4.23272 7.95924 4.16687 8.125 4.16687C8.29076 4.16687 8.44973 4.23272 8.56694 4.34993C8.68415 4.46714 8.75 4.62611 8.75 4.79187V5.115C9.11432 5.2438 9.42994 5.48202 9.6537 5.79706C9.87745 6.11211 9.9984 6.48859 10 6.875C10 7.04076 9.93415 7.19973 9.81694 7.31694C9.69973 7.43415 9.54076 7.5 9.375 7.5C9.20924 7.5 9.05027 7.43415 8.93306 7.31694C8.81585 7.19973 8.75 7.04076 8.75 6.875C8.75 6.75139 8.71334 6.63055 8.64467 6.52777C8.57599 6.42499 8.47838 6.34488 8.36418 6.29758C8.24997 6.25027 8.12431 6.23789 8.00307 6.26201C7.88183 6.28612 7.77047 6.34565 7.68306 6.43306C7.59565 6.52047 7.53612 6.63183 7.51201 6.75307C7.48789 6.87431 7.50027 6.99997 7.54758 7.11418C7.59488 7.22838 7.67499 7.32599 7.77777 7.39467C7.88055 7.46334 8.00139 7.5 8.125 7.5Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M14.6875 10.625C13.884 10.625 13.0986 10.8633 12.4305 11.3097C11.7624 11.756 11.2417 12.3905 10.9342 13.1328C10.6268 13.8752 10.5463 14.692 10.7031 15.4801C10.8598 16.2681 11.2467 16.992 11.8149 17.5601C12.383 18.1283 13.1069 18.5152 13.8949 18.6719C14.683 18.8287 15.4998 18.7482 16.2422 18.4408C16.9845 18.1333 17.619 17.6126 18.0653 16.9445C18.5117 16.2764 18.75 15.491 18.75 14.6875C18.7487 13.6105 18.3202 12.5779 17.5587 11.8163C16.7971 11.0548 15.7645 10.6263 14.6875 10.625ZM16.3794 14.2963L14.7125 15.9631C14.5953 16.0803 14.4364 16.1461 14.2706 16.1461C14.1049 16.1461 13.946 16.0803 13.8288 15.9631L12.9956 15.1294C12.8818 15.0115 12.8188 14.8536 12.8202 14.6897C12.8216 14.5259 12.8874 14.3691 13.0032 14.2532C13.1191 14.1374 13.2759 14.0716 13.4398 14.0702C13.6036 14.0688 13.7615 14.1318 13.8794 14.2456L14.2706 14.6369L15.4956 13.4119C15.5537 13.3538 15.6226 13.3078 15.6985 13.2764C15.7743 13.245 15.8556 13.2289 15.9377 13.2289C16.0198 13.229 16.1011 13.2452 16.1769 13.2766C16.2528 13.308 16.3217 13.3541 16.3797 13.4122C16.4377 13.4703 16.4837 13.5392 16.5151 13.615C16.5465 13.6909 16.5627 13.7722 16.5626 13.8543C16.5626 13.9364 16.5464 14.0177 16.515 14.0935C16.4835 14.1693 16.4374 14.2382 16.3794 14.2963Z"
+                                                                    fill="black" />
+                                                            </svg> -->
+
+                                                        <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                            data-bs-trigger="hover" data-bs-placement="top"
+                                                            title="Duplicate" (click)="duplicateInvoice(details)">
+                                                            <a class="btn btn-soft-info btn-sm d-inline-block">
+                                                                <i class="fa-solid fa-copy"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-inline-item edit pl-2" data-bs-toggle="tooltip"
+                                                            data-bs-trigger="hover" data-bs-placement="top" title="Edit"
+                                                            [ngClass]="{ 'disabled': details.status === 'CANCELLED'  }"
+                                                            (click)="updateInvoice(details)">
+                                                            <a class="btn btn-soft-info btn-sm d-inline-block"
+                                                                [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-inline-item mr-0" data-bs-toggle="tooltip"
+                                                            data-bs-trigger="hover" data-bs-placement="top"
+                                                            title="View">
+                                                            <a class="btn btn-soft-info btn-sm d-inline-block"
+                                                                [routerLink]="['/view-invoice-list', details._id]">
+                                                                <i class="fa-solid fa-eye"></i>
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="list-menu">
+                                                                <button type="button" id="dropdownMenuLink1"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                                                    class="btn btn-soft-info btn-icon fs-14"><i
+                                                                        class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                                <ul class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuLink1">
+                                                                    <!-- <li class="list-inline-item "
+                                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                        data-bs-placement="top" title="Cancel"
+                                                                        style="cursor: pointer;"
+                                                                        (click)="updateStatus(details, status.CANCELLED)">
+                                                                        <a href="javascript:void(0)"
+                                                                            class="btn btn-soft-danger btn-sm d-inline-block"
+                                                                            [ngClass]="{ 'disabled': details.status === 'CANCELLED'  }">
+                                                                            <span>Cancel</span>
+                                                                        </a>
+                                                                    </li> -->
+                                                                    <li class="list-inline-item"
+                                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                        data-bs-placement="top" style="cursor: pointer;"
+                                                                        title="Remove"
+                                                                        (click)="deleteInvoices(details)">
+                                                                        <a href="javascript:void(0)"
+                                                                            class="btn btn-soft-danger btn-sm d-inline-block">
+                                                                            <span>Delete</span>
+                                                                        </a>
+                                                                    </li>
+
+                                                                    <li class="list-inline-item"
+                                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                        data-bs-placement="top" style="cursor: pointer;"
+                                                                        title="Sent Email" (click)="sentEmail(details)">
+                                                                        <a href="javascript:void(0)"
+                                                                            class="btn btn-soft-danger btn-sm d-inline-block">
+                                                                            <span>email invoice</span>
+                                                                        </a>
+                                                                    </li>
+
+                                                                    <!-- <li class="list-inline-item"
+                                                                        *ngIf="details.status !== 'UNPAID' && details.status !== 'CANCELLED'"
+                                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                        data-bs-placement="top" style="cursor: pointer;"
+                                                                        title="Remove Payment"
+                                                                        (click)="removePayment(details)">
+                                                                        <a href="javascript:void(0)"
+                                                                            class="btn btn-soft-danger btn-sm d-inline-block">
+                                                                            <span>Remove Payment</span>
+                                                                        </a>
+                                                                    </li> -->
+
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+
+
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        <ng-template #NoResultFound>
+                                            <tr>
+                                                <td colspan="7"
+                                                    style="text-align: center; font-weight: 500; font-size: 20px;">No
+                                                    Result
+                                                    Found</td>
+                                            </tr>
+                                        </ng-template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <router-outlet></router-outlet>
+        <pagination-controls (pageChange)="onPageChange($event)" id="invoice"> </pagination-controls>

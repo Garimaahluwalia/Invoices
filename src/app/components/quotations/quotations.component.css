@@ -1,0 +1,360 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+span.badge.badge-soft-success.p-2 {
+  color: #934fb0;
+  background-color: rgba(147, 79, 176, .1);
+}
+
+button.btn.btn-primary {
+  margin-right: 12px;
+}
+
+i.fa-sharp.fa-solid.fa-xmark.cancel {
+  font-size: 21px;
+  margin-top: 10px;
+}
+
+.status {
+
+  padding: 9px;
+  font-size: 11px;
+  width: 85px;
+}
+
+tr.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.hstack i {
+  font-size: 18px;
+  padding: 6px;
+}
+
+.list-menu button {
+  padding: 0px;
+  width: 18px;
+  height: 30px;
+}
+
+.list-menu button:hover,
+.list-menu .btn.show {
+  background-color: #ffdad5 !important;
+}
+
+.hstack .btn:hover {
+  background-color: #ffdad5 !important;
+}
+
+.list-menu i {
+  margin-top: 0px;
+}
+
+.list-menu ul {
+  min-width: 70px;
+  padding: 0px
+}
+
+.list-menu ul li {
+  display: block;
+  text-align: center;
+  padding: 7px 0px;
+  padding-bottom: 10px;
+}
+
+.list-menu ul li:nth-child(1) {
+  border-bottom: 1px solid gray;
+  margin-right: 0px;
+
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.list-menu span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.list-menu li:hover {
+  background-color: #ffdad5 !important;
+}
+
+@media only screen and (width:1440px) {
+  .list-menu .dropdown-menu.show {
+    transform: translate3d(1024px, 185px, 0px) !important;
+  }
+}
+
+.bulk-delete {
+  margin-bottom: 20px;
+  background-color: var(--highlight-color) !important;
+  border-color: var(--highlight-color) !important;
+}
+
+/* input#searchMemberList {
+  width: 100px;
+  margin-left: 80%;
+} */
+
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+button.btn.btn-secondary.dropdown-toggle.show {
+  background-color: var(--highlight-color) !important;
+  border-color: var(--highlight-color) !important;
+  margin-bottom: 60px;
+}
+
+button.btn.btn-secondary {
+  background-color: var(--highlight-color) !important;
+  border-color: var(--highlight-color) !important;
+}
+
+i.fa-sharp.fa-solid.fa-arrow-up {
+  margin-right: 4px;
+}
+
+.bulk-invoice[_ngcontent-vxu-c11] {
+  background-color: #E31E24 !important;
+  border-color: #E31E24 !important;
+  color: #fff;
+  padding: 6px 17px;
+  font-size: 18px;
+}
+
+button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
+  background-color: #E31E24 !important;
+  border: #E31E24 !important;
+}
+
+input.datepicker {
+  display: block;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.37rem 0.7rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  margin-left: 20px;
+  margin-bottom: 4px;
+}
+
+button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
+  background-color: #E31E24 !important;
+  border: #E31E24 !important;
+  color: white !important;
+}
+
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner .8s linear infinite;
+}
+
+.paid-icon:hover {
+  background-color: #ffdad5 !important;
+  padding: 1px;
+  border-radius: 2px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.flex-item {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+  .input-group {
+    flex-direction: row;
+  }
+
+  .flex-item {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+/* For screens larger than 1500px */
+@media (min-width: 1500px) {
+  .flex-item {
+    max-width: 600px;
+    /* Adjust this as per your requirement */
+  }
+
+  .input-group {
+    justify-content: space-around;
+  }
+}
+
+.selectStatus {
+  display: block;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.37rem 0.7rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  margin-left: 20px;
+  margin-bottom: 4px;
+}
+
+.custom-dropdown {
+  position: relative;
+  width: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-items {
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  top: 100%;
+  z-index: 1;
+  background-color: white;
+}
+
+.dropdown-items div {
+  padding: 5px;
+}
+
+.dropdown-items div:hover {
+  background-color: #f6f6f6;
+}
+
+.invc-summ a {
+  font-size: 18px;
+  color: #000;
+  padding: 10px;
+}
+
+.invc-summ .accordion-item {
+  border: 0;
+}
+
+.invc-summ .accordion-item h2 {
+  margin-bottom: 15px;
+}
+
+/*----invoice summary----*/
+.invoice_summ {
+  display: flex;
+  gap: 75px;
+}
+
+.invoice_summ .inc-icon svg {
+  height: 30px;
+  width: 30px;
+  margin-right: 0px;
+}
+
+.invc_detail h5 {
+  margin-bottom: 0px;
+  font-size: 16px;
+}
+
+.invc_detail p {
+  font-size: 19px;
+  color: #000;
+}
+
+.inc-icon-img {
+  background-color: rgba(46, 158, 255, 0.1);
+  border-radius: 80px;
+  padding: 10px;
+}
+
+.row.second.invoice-row {
+  margin-top: 45px;
+}
+
+.example-accordion {
+  display: block;
+  /* max-width: 500px; */
+}
+
+.example-accordion-item {
+  display: block;
+  border: solid 1px #ccc;
+}
+
+.example-accordion-item+.example-accordion-item {
+  border-top: none;
+}
+
+.example-accordion-item-header {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.example-accordion-item-description {
+  font-size: 0.85em;
+  color: #999;
+}
+
+.example-accordion-item-header,
+.example-accordion-item-body {
+  padding: 16px;
+}
+
+.example-accordion-item-header:hover {
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.example-accordion-item:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.example-accordion-item:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 70px;
+  -webkit-overflow-scrolling: touch;
+}

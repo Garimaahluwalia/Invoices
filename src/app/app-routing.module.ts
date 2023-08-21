@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LoginGuard } from './guards/login.guard';
-import { CLIENTS, INVOICES, PROFILE, ROUTELINKS } from './constants/routes';
+import { CLIENTS, INVOICES, PROFILE, QUOTATIONS, ROUTELINKS } from './constants/routes';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { MainComponent } from './components/layout/main/main.component';
 import { AuthService } from './services/auth/auth.service';
@@ -21,6 +21,7 @@ import { AddRecordPaymentComponent } from './modals/add-record-payment/add-recor
 import { SaveInvoicePageComponent } from './components/invoices/invoice/save-invoice-page/save-invoice-page.component';
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
 import { RemovePaymentComponent } from './components/invoices/invoice/remove-payment/remove-payment.component';
+import { QuotationsComponent } from './components/quotations/quotations.component';
 
 const routes: Routes = [
   {
@@ -188,6 +189,10 @@ const routes: Routes = [
   {
     path: INVOICES.REMOVE_PAYMENT,
     component: RemovePaymentComponent
+  },
+  {
+    path: QUOTATIONS.QUOTATIONS,
+    component: QuotationsComponent
   },
   
 ];

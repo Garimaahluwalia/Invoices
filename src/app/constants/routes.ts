@@ -24,7 +24,8 @@ export const INVOICES = {
 }
 
 export const QUOTATIONS = {
-    QUOTATIONS: "quotations"
+    QUOTATIONS: "quotations",
+    ADD_QUOTATIONS : "add-quotations"
 }
 
 export const PROFILE = {
