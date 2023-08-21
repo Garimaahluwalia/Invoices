@@ -18,7 +18,6 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ClientRouterModalAction } from 'src/app/types/client/client.dto';
 import { AddRecordPaymentComponent } from 'src/app/modals/add-record-payment/add-record-payment.component';
 import { IInvoiceSummary, InvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
-import { CURRENCY } from 'src/app/types/currency';
 
 
 declare var $: any;

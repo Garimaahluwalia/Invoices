@@ -261,17 +261,18 @@ export class InvoiceService {
   }
 
   getAll() {
-    this.loaderService.ShowLoader();
+    // this.loaderService.ShowLoader();
     try {
       this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate, this.status).subscribe(
         (res) => {
+          console.log(res, "GET ALL INVOICE RESPONSE")
           this._invoices = res.invoices;
           this.totalNumberOfInvoices.next(res.totalCount);
           this.sendInvoices();
-          this.loaderService.HideLoader();
+          // this.loaderService.HideLoader();
         },
         err => {
-          this.loaderService.HideLoader();
+          // this.loaderService.HideLoader();
           console.error('Error while fetching pages:', err);
         }
       )
@@ -279,8 +280,7 @@ export class InvoiceService {
       console.error(e);
       this._invoices = [];
       this.sendInvoices();
-      this.loaderService.HideLoader();
-
+      // this.loaderService.HideLoader();
     }
   }
 
@@ -303,7 +303,7 @@ export class InvoiceService {
 
 
   sendRecordPayment(invoiceId: string, payload: IRecordPayment): Observable<any> {
-    return this.http.put(endpoints.INVOICES_LIST.RECORD_PAYMENT(invoiceId), { payload })
+    return this.http.put(endpoints.INVOICES_LIST.RECORD_PAYMENT(invoiceId), payload)
   }
 
 }  

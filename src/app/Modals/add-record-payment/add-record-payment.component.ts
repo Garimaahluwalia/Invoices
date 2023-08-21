@@ -21,10 +21,6 @@ export class AddRecordPaymentComponent implements OnInit {
   public invoiceId!: string;
   public recordPayment!: IRecordPayment;
   public action: string = "";
-  public invoiceNo!: string;
-  public billedTo!: string;
-  public taxableAmount!: string;
-  public invoiceTotal!: string;
   public amountReceived!: string;
   public amountReceivedInUSD!: string;
   public TDS!: string;
@@ -87,10 +83,6 @@ export class AddRecordPaymentComponent implements OnInit {
 
   saveChanges() {
     const payload: IRecordPayment = {
-      invoiceNo: this.invoiceNo,
-      billedTo: this.billedTo,
-      taxableAmount: this.taxableAmount,
-      invoiceTotal: this.invoiceTotal,
       amountReceived: this.amountReceived,
       amountReceivedInUSD: this.amountReceivedInUSD,
       TDS: this.TDS,
