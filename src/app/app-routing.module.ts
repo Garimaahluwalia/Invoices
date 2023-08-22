@@ -22,6 +22,7 @@ import { SaveInvoicePageComponent } from './components/invoices/invoice/save-inv
 import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.component';
 import { RemovePaymentComponent } from './components/invoices/invoice/remove-payment/remove-payment.component';
 import { QuotationsComponent } from './components/quotations/quotations.component';
+import { QuotationListDetailsComponent } from './components/quotations/quotation-list-details/quotation-list-details.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: INVOICES.DASHBOARD,
         component: dashboardComponent
+      },
+      {
+        path: QUOTATIONS.QUOTATIONS,
+        component: QuotationsComponent
       },
       {
         path: INVOICES.INVOICE,
@@ -191,10 +196,11 @@ const routes: Routes = [
     component: RemovePaymentComponent
   },
   {
-    path: QUOTATIONS.QUOTATIONS,
-    component: QuotationsComponent
-  },
-  
+    path : QUOTATIONS.VIEW_QUOTATIONS_LIST,
+    component : QuotationListDetailsComponent
+  }
+
+
 ];
 
 @NgModule({

@@ -1,0 +1,113 @@
+button.btn.btn-info.save-cstn-btn.View-invoice.button {
+    display: flex;
+    margin: auto;
+    background-color: #bb1b1f;
+    border-color: #bb1b1f;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.btn.btn-primary.print-cstn-btn.downloadInvoice {
+    height: 42px;
+    background-color: #bb1b1f !important;
+    border-color: #bb1b1f !important;
+    color: #fff;
+    margin-left: 52px;
+    font-size: 18px;
+}
+
+i.fa-solid.fa-house {
+    margin-right: 10px;
+}
+
+span.badge.badge-primary {
+    padding: 11px;
+    font-size: 15px;
+    border-radius: 21px;
+}
+
+
+td.descriptionTR {
+    margin-top: 30px !important;
+    padding-top: 40px !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Slab', serif;
+    color: inherit;
+}
+
+i.fa-solid.fa-house {
+    margin-right: 9px;
+    margin-top: 4px !important;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+}
+
+.input-icon-container {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    top: 10px;
+    left: 1px;
+}
+
+.input-field {
+    padding-left: 20px;
+}
+
+.descriptionbox {
+    width: 203%;
+}
+
+.input-percentage {
+    position: relative;
+}
+
+.percentage {
+    position: absolute;
+    left: 31px;
+    top: 10px
+}
+
+.descriptions {
+    font-size: 15px;
+    font-weight: 500;
+    color: #979393;
+    margin: 0;
+}

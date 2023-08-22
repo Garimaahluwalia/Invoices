@@ -25,7 +25,7 @@ const endpoints = {
     BULK_DELETE: `${environment.BASE_URL}/invoice/bulkDelete`,
     BULK_DOWNLOAD_AS_PDF: (InvoiceId: string[]) => `${environment.BASE_URL}/invoice/getPDFzip/${InvoiceId.join(",")}`,
     INVOICE_SUMMARY: `${environment.BASE_URL}/summary`,
-    RECORD_PAYMENT: (InvoiceId: string) => `${environment.BASE_URL}/markaspaid/${InvoiceId}`,
+    RECORD_PAYMENT: (InvoiceId: string) => `${environment.BASE_URL}/invoice/markaspaid/${InvoiceId}`,
     EMAIL_INVOICE: (InvoiceId: string) => `${environment.BASE_URL}`,
     REMOVE_PAYMENT: (InvoiceId: string) => `${environment.BASE_URL}/removepayment/${InvoiceId}`,
   },

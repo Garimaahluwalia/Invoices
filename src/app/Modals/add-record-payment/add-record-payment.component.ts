@@ -21,13 +21,13 @@ export class AddRecordPaymentComponent implements OnInit {
   public invoiceId!: string;
   public recordPayment!: IRecordPayment;
   public action: string = "";
-  public amountReceived: any;
-  public amountReceivedInUSD: any;
-  public TDS: any;
-  public TDSWithHeld: any;
-  public amountToSettle: any;
-  public paymentDate!: string;
-  public additionalNotes!: string;
+  public amountReceived!: number;
+  public amountReceivedInUSD!: number;
+  public TDS!: number;
+  public TDSWithHeld!: number;
+  public amountToSettle!: number;
+  public paymentDate!: number;
+  public additionalNotes!: number;
   public selectedInvoice: any = null
   public invoices: IInvoice[] = [];
   public currencies = CURRENCY;
@@ -90,9 +90,11 @@ export class AddRecordPaymentComponent implements OnInit {
     if (this.TDS && this.amountReceived) {
       this.TDSWithHeld = (this.TDS / 100) * this.amountReceived;
       this.amountToSettle = this.amountReceived - this.TDSWithHeld;
-      this.computeAmountInUSD(); // If TDS affects USD amount, you might want to call this again
+      this.computeAmountInUSD();
     }
   }
+
+
   closeModal() {
     this.closeRecordModal.nativeElement.click();
     if (this.action === "save-invoice-page") {
@@ -116,7 +118,8 @@ export class AddRecordPaymentComponent implements OnInit {
     };
     this.invoiceService.sendRecordPayment(this.invoiceId, payload).subscribe((res) => {
       this.recordPayment = res;
-      console.log(this.recordPayment, "REcord Payment")
+      this.invoiceService.getAll();
+      this.closeModal();
     })
   }
 

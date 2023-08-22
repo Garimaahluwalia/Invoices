@@ -32,8 +32,8 @@ export class QuotationsComponent {
   public currentPage = 1;
   public itemsPerPage = 10;
   public totalItems = 15;
-  public invoices: IInvoice[] = [];
-  public invoiceId: string | undefined
+  public quotation: any[] = [];
+  public quotationId: string | undefined
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public status: typeof STATUS = STATUS;
@@ -99,7 +99,8 @@ export class QuotationsComponent {
     });
 
     this.quotationService.recieveQuotations().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
-      this.invoices = data;
+      this.quotation = data;
+      console.log(this.quotation, "QUOTATIONS DATA")
     });
   }
 
@@ -164,7 +165,7 @@ export class QuotationsComponent {
   deletebulkInvoices(ids: string[]) {
     this.quotationService.bulkDelete(ids).subscribe(
       () => {
-        this.invoices = this.invoices.filter(item => !ids.includes(item._id as string));
+        this.quotation = this.quotation.filter(item => !ids.includes(item._id as string));
         this.checkedItems = {};
         this.isButtonEnabled = false;
         this.loadInvoices();
@@ -271,7 +272,7 @@ export class QuotationsComponent {
     const isAnyChecked = ObjectValues.some(v => v === true);
     this.checkedCount = ObjectValues.filter(v => v === true).length;
 
-    if (this.invoices.length === ObjectValues.length) {
+    if (this.quotation.length === ObjectValues.length) {
       const isAllchecked = ObjectValues.every(v => v === true);
       this.selectUnselectSingle.nativeElement.checked = isAllchecked as any;
     }
