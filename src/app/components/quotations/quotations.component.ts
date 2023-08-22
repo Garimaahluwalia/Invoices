@@ -15,6 +15,7 @@ import { ModalEvents } from 'src/app/types/modal';
 import { ORDER } from 'src/app/types/order';
 import { STATUS } from 'src/app/types/status';
 import { NotifierService } from 'angular-notifier';
+import { QuotationsService } from 'src/app/services/quotations/quotations.service';
 
 @Component({
   selector: 'app-quotations',
@@ -58,7 +59,6 @@ export class QuotationsComponent {
 
   constructor(
     private datePipe: DatePipe,
-    public invoiceService: InvoiceService,
     public router: Router,
     public route: ActivatedRoute,
     public deleteService: DeleteService,
@@ -66,14 +66,14 @@ export class QuotationsComponent {
     public clientService: ClientService,
     public sidebarService: SidebarService,
     public notifierService: NotifierService,
-    public loadService: LoaderService) {
+    public loadService: LoaderService,
+    public quotationService: QuotationsService) {
     this.notifier = notifierService;
   }
 
 
   ngOnInit(): void {
-    this.summaryTotal();
-    this.itemsPerPage = this.invoiceService.limit;
+    this.itemsPerPage = this.quotationService.limit;
     this.loadInvoices();
 
     this.deleteService.recieveDeleteEvent()?.subscribe(res => {
@@ -94,11 +94,11 @@ export class QuotationsComponent {
     });
 
 
-    this.invoiceService.totalNumberOfInvoices.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
+    this.quotationService.totalNumberOfQuotations.pipe(takeUntil(this.destroyed)).subscribe((data: number) => {
       this.totalItems = data;
     });
 
-    this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
+    this.quotationService.recieveQuotations().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
     });
   }
@@ -128,7 +128,7 @@ export class QuotationsComponent {
       }
     }
 
-    this.invoiceService._status = this.selectedStatuses.join(",");
+    this.quotationService._status = this.selectedStatuses.join(",");
     this.loadInvoices();
   }
 
@@ -155,14 +155,14 @@ export class QuotationsComponent {
   // }
 
   dateRangePicker(start: any, end: any) {
-    this.invoiceService.startDate = start._d;
-    this.invoiceService.endDate = end._d;
+    this.quotationService.startDate = start._d;
+    this.quotationService.endDate = end._d;
     this.loadInvoices();
   }
 
 
   deletebulkInvoices(ids: string[]) {
-    this.invoiceService.bulkDelete(ids).subscribe(
+    this.quotationService.bulkDelete(ids).subscribe(
       () => {
         this.invoices = this.invoices.filter(item => !ids.includes(item._id as string));
         this.checkedItems = {};
@@ -182,7 +182,7 @@ export class QuotationsComponent {
 
   loadInvoices() {
     this.checkedItems = {};
-    this.invoiceService.getAll();
+    this.quotationService.getAll();
   }
 
 
@@ -197,9 +197,9 @@ export class QuotationsComponent {
 
 
   deleteInvoice(_id: string) {
-    this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
+    this.quotationService.deleteQuotation(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
-        this.invoiceService.getAll();
+        this.quotationService.getAll();
       },
       (err) => {
         console.error(err);
@@ -209,8 +209,8 @@ export class QuotationsComponent {
 
   onPageChange(page: number) {
     this.currentPage = page;
-    this.invoiceService.page = page;
-    this.invoiceService.getAll();
+    this.quotationService.page = page;
+    this.quotationService.getAll();
     this.checkedItems = {};
     this.selectUnselectSingle.nativeElement.checked = false;
   }
@@ -280,13 +280,13 @@ export class QuotationsComponent {
 
 
   sortingOrder(sortField: any, sortOrder: ORDER) {
-    this.invoiceService.sortField = sortField;
-    this.invoiceService.sortOrder = sortOrder;
+    this.quotationService.sortField = sortField;
+    this.quotationService.sortOrder = sortOrder;
     this.loadInvoices();
   }
 
   handleSearch() {
-    this.invoiceService.searchQuery = this.searchQuery;
+    this.quotationService.searchQuery = this.searchQuery;
     this.loadInvoices();
   }
 
@@ -320,7 +320,7 @@ export class QuotationsComponent {
         bulkItems.push(key);
       }
     }
-    this.invoiceService.bulkDownloadAsPDF(bulkItems)
+    this.quotationService.bulkDownloadAsPDF(bulkItems)
       .pipe(takeUntil(this.destroyed))
       .subscribe({
         next: (response: any) => {
@@ -370,25 +370,6 @@ export class QuotationsComponent {
     });
   }
 
-  recordPayment(details: IInvoice) {
-    this.router.navigate(["invoice", "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id, action: "invoice" } });
-    });
-  }
-
-
-  summaryTotal() {
-    this.invoiceService.getInvoiceSummary().subscribe((res: IInvoiceSummary) => {
-      this.invoiceSummary.updateData(res);
-      this.loadInvoices();
-    })
-  }
-
-  removePayment(details: IInvoice) {
-    this.router.navigate(["invoice", "remove-payment", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RemovePayment, { status: true, data: { id: details._id } });
-    })
-  }
 
 
 

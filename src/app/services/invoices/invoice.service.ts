@@ -37,14 +37,14 @@ export class InvoiceService {
   public _updateStatus: EventEmitter<string> = new EventEmitter<string>()
   public productRows: IProducts[] = [];
   public currency!: number;
-  public amount!: number;
-  public tax!: number;
-  public rate!: number;
-  public total!: number;
-  public taxamount!: number;
-  public subtotalofamount!: number;
-  public totalamount!: number;
-  public totalamountoftax!: number;
+  // public amount!: number;
+  // public tax!: number;
+  // public rate!: number;
+  // public total!: number;
+  // public taxamount!: number;
+  // public subtotalofamount!: number;
+  // public totalamount!: number;
+  // public totalamountoftax!: number;
   public currencies = CURRENCY;
   private _invoiceCategory: BehaviorSubject<string> = new BehaviorSubject<string>('invoice');
   public _Category!: string
@@ -261,7 +261,7 @@ export class InvoiceService {
   }
 
   getAll() {
-    // this.loaderService.ShowLoader();
+    this.loaderService.ShowLoader();
     try {
       this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate, this.status).subscribe(
         (res) => {
@@ -269,10 +269,10 @@ export class InvoiceService {
           this._invoices = res.items;
           this.totalNumberOfInvoices.next(res.totalCount);
           this.sendInvoices();
-          // this.loaderService.HideLoader();
+          this.loaderService.HideLoader();
         },
         err => {
-          // this.loaderService.HideLoader();
+          this.loaderService.HideLoader();
           console.error('Error while fetching pages:', err);
         }
       )
@@ -280,7 +280,7 @@ export class InvoiceService {
       console.error(e);
       this._invoices = [];
       this.sendInvoices();
-      // this.loaderService.HideLoader();
+      this.loaderService.HideLoader();
     }
   }
 

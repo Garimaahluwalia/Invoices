@@ -33,6 +33,13 @@ const endpoints = {
   QUOTATIONS_LIST: {
     ADD: `${environment.BASE_URL}/quotation`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/quotation/${InvoiceId}`,
+    UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/quotation/${InvoiceId}`,
+    DELETE: (InvoiceId: string) => `${environment.BASE_URL}/quotation/${InvoiceId}`,
+    GETALL: (page: number, limit: number, sortOrder: string = "", sortField: string = "", searchQuery: string = "", startDate: string = "", endDate: string = "", status: string = "") => `${environment.BASE_URL}/quotation?page=${page}&limit=${limit}&sortOrder=${sortOrder}&sortField=${sortField}&searchQuery=${searchQuery}&startDate=${startDate}&endDate=${endDate}&status=${status}`,
+    GET_QUOTATION_NUMBER: `${environment.BASE_URL}/quotation-number`,
+    BULK_DELETE: `${environment.BASE_URL}/invoice/bulkDelete`,
+    BULK_DOWNLOAD_AS_PDF: (InvoiceId: string[]) => `${environment.BASE_URL}/invoice/getPDFzip/${InvoiceId.join(",")}`,
+
   },
 
 
@@ -40,6 +47,7 @@ const endpoints = {
     ADD: `${environment.BASE_URL}/invoice`,
     GET: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
     UPDATE: (InvoiceId: string) => `${environment.BASE_URL}/invoice/${InvoiceId}`,
+
   },
   CLIENTS: {
     CHECKPHONENUMBER: `${environment.BASE_URL}/check`,

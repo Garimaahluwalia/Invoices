@@ -28,12 +28,12 @@
 
                     <div class="invoice-detail">
                         <span>Taxable Amount</span>
-                        <span>{{selectedInvoice.totalamountoftax}}</span>
+                        <span>{{this.currencyData}}{{selectedInvoice.totalamountoftax}}</span>
                     </div>
 
                     <div class="invoice-detail">
                         <span>Invoice Total</span>
-                        <span>{{
+                        <span>{{this.currencyData}}{{
                             selectedInvoice.totalamount !== 0 ? selectedInvoice.totalamount :
                             selectedInvoice.subtotalofamount
                             }}</span>
@@ -44,10 +44,12 @@
                     <div class="payment-detail">
                         <label for="amountReceived">Amount Received (A)</label>
                         <div class="input-group amount-inputs mb-3">
-                            <span class="input-group-text amount-rec" id="basic-addon1">₹</span>
+                            <span class="input-group-text amount-rec" id="basic-addon1"
+                                *ngIf="selectedInvoice">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
                                 aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceived"
-                                ngModel>
+                                (ngModelChange)="computeAmountInUSD()" readonly>
+
                         </div>
                     </div>
 
@@ -56,44 +58,52 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">$</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountReceivedInUSD"
-                                [(ngModel)]="amountReceivedInUSD" ngModel>
+                                aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceivedInUSD">
                         </div>
                     </div>
 
                     <div class="payment-detail">
+
                         <label>Exchange Rate</label>
-                        <span>1 USD = 82.644628 INR</span>
-                        <div>
+                        <span *ngIf="!isEditing">1 USD = {{ exchangeRate }} {{this.currencyData}}</span>
+                        <input *ngIf="isEditing" [(ngModel)]="exchangeRate" type="text"
+                            (ngModelChange)="computeAmountInUSD()">
+
+                        <div (click)="toggleEdit()">
                             <i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i>
-                            <span>edit</span>
+                            <span style="cursor: pointer;">edit</span>
                         </div>
                     </div>
+
 
                     <div class="payment-detail">
                         <label for="tdsWithheld">TDS %</label>
                         <div class="input-group amount-inputs mb-3">
-                            <span class="input-group-text" id="basic-addon1">₹</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="TDS" [(ngModel)]="TDS" ngModel>
+                                title="Tax deducted at source by the Client (% of total invoice value)"
+                                aria-describedby="basic-addon1" name="TDS" [(ngModel)]="TDS"
+                                (ngModelChange)="computeTDSAmount()">
                         </div>
                     </div>
                     <div class="payment-detail">
-                        <label for="tdsWithheld">TDS withheld (C)</label>
+                        <label for="tdsWithheld">TDS withheld (B)</label>
                         <div class="input-group amount-inputs mb-3">
-                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <span class="input-group-text" id="basic-addon1"
+                                *ngIf="selectedInvoice">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="TDSWithHeld" [(ngModel)]="TDSWithHeld" ngModel>
+                                aria-describedby="basic-addon1" name="TDSWithHeld" [(ngModel)]="TDSWithHeld" ngModel
+                                (ngModelChange)="computeTDSAmount()">
                         </div>
                     </div>
 
                     <div class="payment-detail">
-                        <label for="amountToSettle">Amount to Settle (A+B+C)</label>
+                        <label for="amountToSettle">Amount to Settle (A+B)</label>
                         <div class="input-group amount-inputs mb-3">
-                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <span class="input-group-text" id="basic-addon1"
+                                *ngIf="selectedInvoice">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
                                 aria-describedby="basic-addon1" name="amountToSettle" [(ngModel)]="amountToSettle"
-                                ngModel>
+                                ngModel readonly>
                         </div>
                     </div>
 

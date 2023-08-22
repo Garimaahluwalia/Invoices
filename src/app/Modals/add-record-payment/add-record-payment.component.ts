@@ -21,17 +21,21 @@ export class AddRecordPaymentComponent implements OnInit {
   public invoiceId!: string;
   public recordPayment!: IRecordPayment;
   public action: string = "";
-  public amountReceived!: string;
-  public amountReceivedInUSD!: string;
-  public TDS!: string;
-  public TDSWithHeld!: string;
-  public amountToSettle!: string;
+  public amountReceived: any;
+  public amountReceivedInUSD: any;
+  public TDS: any;
+  public TDSWithHeld: any;
+  public amountToSettle: any;
   public paymentDate!: string;
   public additionalNotes!: string;
   public selectedInvoice: any = null
   public invoices: IInvoice[] = [];
   public currencies = CURRENCY;
   public currencyData: any;
+  public isEditing = false;
+  public exchangeRate = '83.333333';
+
+
   constructor(public modalService: ModalService,
     public router: Router,
     public invoiceService: InvoiceService) { }
@@ -41,13 +45,15 @@ export class AddRecordPaymentComponent implements OnInit {
 
   }
 
+  toggleEdit(): void {
+    this.isEditing = !this.isEditing;
+  }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status } = res;
       this.invoiceId = data.id;
       this.action = data.action;
-      console.log(this.action, "ACTIONS")
       this.data = data, status;
 
       if (status) {
@@ -60,9 +66,12 @@ export class AddRecordPaymentComponent implements OnInit {
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
       this.selectedInvoice = this.invoices.find(invoice => invoice._id === this.invoiceId);
+      const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
+      this.currencyData = currency?.symbol;
+      this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :
+        this.selectedInvoice.subtotalofamount;
+      this.computeAmountInUSD();
     });
-
-
 
   }
 
@@ -70,6 +79,20 @@ export class AddRecordPaymentComponent implements OnInit {
     this.openRecordModal?.nativeElement?.click();
   }
 
+
+  computeAmountInUSD() {
+    if (this.amountReceived && this.exchangeRate) {
+      this.amountReceivedInUSD = this.amountReceived / parseFloat(this.exchangeRate);
+    }
+  }
+
+  computeTDSAmount() {
+    if (this.TDS && this.amountReceived) {
+      this.TDSWithHeld = (this.TDS / 100) * this.amountReceived;
+      this.amountToSettle = this.amountReceived - this.TDSWithHeld;
+      this.computeAmountInUSD(); // If TDS affects USD amount, you might want to call this again
+    }
+  }
   closeModal() {
     this.closeRecordModal.nativeElement.click();
     if (this.action === "save-invoice-page") {
@@ -93,10 +116,13 @@ export class AddRecordPaymentComponent implements OnInit {
     };
     this.invoiceService.sendRecordPayment(this.invoiceId, payload).subscribe((res) => {
       this.recordPayment = res;
+      console.log(this.recordPayment, "REcord Payment")
     })
   }
 
+  calculateTDS() {
 
+  }
   ngOnDestroy() {
     this.destroyed.next(true);
     this.destroyed.complete();
