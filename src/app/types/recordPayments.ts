@@ -1,6 +1,6 @@
 export interface IRecordPayment {
     amountReceived: number;
-    amountReceivedInUSD: number;
+    amountReceivedInINR: number;
     TDS: number;
     TDSWithHeld: number;
     amountToSettle: number;
@@ -11,7 +11,7 @@ export interface IRecordPayment {
 
 export class recordPayment implements IRecordPayment {
     amountReceived: number = 0;
-    amountReceivedInUSD: number = 0;
+    amountReceivedInINR: number = 0;
     TDS: number = 0;
     TDSWithHeld: number = 0;
     amountToSettle: number = 0;

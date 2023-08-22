@@ -1,7 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
+import { IEmailInvoice } from 'src/app/types/email-invoice';
 import { ModalEvents } from 'src/app/types/modal';
 
 @Component({
@@ -9,10 +11,11 @@ import { ModalEvents } from 'src/app/types/modal';
   templateUrl: './add-sent-email.component.html',
   styleUrls: ['./add-sent-email.component.css']
 })
-export class AddSentEmailComponent {
+export class AddSentEmailComponent implements OnInit {
   @ViewChild("openModalButton", { static: false }) private openModalButton!: ElementRef;
   @ViewChild("closeModalButton", { static: false }) private closeModalButton!: ElementRef;
-  public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
+
+  public destroyed: ReplaySubject<boolean> = new ReplaySubject(1);
   public data: any;
   public from!: string;
   public clientName!: string;
@@ -20,40 +23,35 @@ export class AddSentEmailComponent {
   public cc!: string;
   public emailSubject!: string;
   public action: string = "";
-  public message: string = `Hi Namit Arora,
+  public message: string = `...`
+  public emailInvoice!: IEmailInvoice;
 
+  constructor(
+    public modalService: ModalService,
+    public router: Router,
+    public invoiceService: InvoiceService
+  ) { }
 
-  Please find attached invoice #A00028. Due Date is Sep 22, 2023.
-  
-  Invoice No: #A00028
-  Invoice Date: Aug 14, 2023
-  Billed To: Namit Arora
-  Due Date: Sep 1, 2023
-  Due Amount: ₹1.10
-  
-  Thank you for your business.
-  
-  Regards ,
-  Chetan Chauhan`;
-
-  constructor(public modalService: ModalService,
-    public router: Router) { }
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.modalService.recieveEvent(ModalEvents.SentInvoiceEmail).pipe(takeUntil(this.destroyed)).subscribe((res => {
-      const { data, status, } = res;
-      this.action = data.action;
-      this.data = data, status;
-      if (status) {
-        this.openModal();
-      } else {
-        this.closeModal();
-      }
-    }));
+    this.modalService.recieveEvent(ModalEvents.SentInvoiceEmail)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe(res => {
+        const { data, status } = res;
+        this.action = data.action;
+        this.data = data;
+
+        if (status) {
+          this.openModal();
+        } else {
+          this.closeModal();
+        }
+      });
   }
 
-  openModal() {
-    this.openModalButton?.nativeElement?.click();
+  openModal(): void {
+    this.openModalButton.nativeElement.click();
   }
 
   closeModal() {
@@ -62,21 +60,29 @@ export class AddSentEmailComponent {
       this.router.navigate(["save-invoice-page", this.data.id]);
     } else if (this.action === "invoice") {
       this.router.navigate(["invoice"]).then(() => {
-        this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: false })
+        this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: false });
       });
     }
-
   }
-   
 
+  saveChanges(): void {
+    const payload: IEmailInvoice = {
+      from: this.from,
+      clientName: this.clientName,
+      clientEmail: this.clientEmail,
+      cc: this.cc,
+      emailSubject: this.emailSubject,
+      message: this.message,
+    };
 
-  saveChanges() {
-
+    this.invoiceService.sendInvoiceEmail(payload).subscribe((res) => {
+      this.emailInvoice = res;
+    });
+    this.closeModal();
   }
 
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
   }
-
 }

@@ -26,7 +26,7 @@ const endpoints = {
     BULK_DOWNLOAD_AS_PDF: (InvoiceId: string[]) => `${environment.BASE_URL}/invoice/getPDFzip/${InvoiceId.join(",")}`,
     INVOICE_SUMMARY: `${environment.BASE_URL}/summary`,
     RECORD_PAYMENT: (InvoiceId: string) => `${environment.BASE_URL}/invoice/markaspaid/${InvoiceId}`,
-    EMAIL_INVOICE: (InvoiceId: string) => `${environment.BASE_URL}`,
+    EMAIL_INVOICE: `${environment.BASE_URL}/invoice/send-email`,
     REMOVE_PAYMENT: (InvoiceId: string) => `${environment.BASE_URL}/removepayment/${InvoiceId}`,
   },
 

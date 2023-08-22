@@ -22,7 +22,7 @@ export class AddRecordPaymentComponent implements OnInit {
   public recordPayment!: IRecordPayment;
   public action: string = "";
   public amountReceived!: number;
-  public amountReceivedInUSD!: number;
+  public amountReceivedInINR!: number;
   public TDS!: number;
   public TDSWithHeld!: number;
   public amountToSettle!: number;
@@ -70,7 +70,7 @@ export class AddRecordPaymentComponent implements OnInit {
       this.currencyData = currency?.symbol;
       this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :
         this.selectedInvoice.subtotalofamount;
-      this.computeAmountInUSD();
+      this.computeAmountInINR();
     });
 
   }
@@ -80,17 +80,18 @@ export class AddRecordPaymentComponent implements OnInit {
   }
 
 
-  computeAmountInUSD() {
+  computeAmountInINR() {
     if (this.amountReceived && this.exchangeRate) {
-      this.amountReceivedInUSD = this.amountReceived / parseFloat(this.exchangeRate);
+      this.amountReceivedInINR = this.amountReceived * parseFloat(this.exchangeRate);
     }
   }
+
 
   computeTDSAmount() {
     if (this.TDS && this.amountReceived) {
       this.TDSWithHeld = (this.TDS / 100) * this.amountReceived;
       this.amountToSettle = this.amountReceived - this.TDSWithHeld;
-      this.computeAmountInUSD();
+      this.computeAmountInINR();
     }
   }
 
@@ -109,7 +110,7 @@ export class AddRecordPaymentComponent implements OnInit {
   saveChanges() {
     const payload: IRecordPayment = {
       amountReceived: this.amountReceived,
-      amountReceivedInUSD: this.amountReceivedInUSD,
+      amountReceivedInINR: this.amountReceivedInINR,
       TDS: this.TDS,
       TDSWithHeld: this.TDSWithHeld,
       amountToSettle: this.amountToSettle,

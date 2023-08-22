@@ -48,7 +48,7 @@
                                 *ngIf="selectedInvoice">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
                                 aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceived"
-                                (ngModelChange)="computeAmountInUSD()" readonly>
+                                (ngModelChange)="computeAmountInINR()" readonly>
 
                         </div>
                     </div>
@@ -58,17 +58,15 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceivedInUSD">
+                                aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceivedInINR">
                         </div>
                     </div>
 
                     <div class="payment-detail">
-
                         <label>Exchange Rate</label>
-                        <span *ngIf="!isEditing">1 USD = {{ exchangeRate }} {{this.currencyData}}</span>
-                        <input *ngIf="isEditing" [(ngModel)]="exchangeRate" type="text"
-                            (ngModelChange)="computeAmountInUSD()">
-
+                        <span *ngIf="!isEditing">1 INR = {{ exchangeRate }} {{this.currencyData}}</span>
+                        <input *ngIf="isEditing" [(ngModel)]="exchangeRate" type="number"
+                            (ngModelChange)="computeAmountInINR()">
                         <div (click)="toggleEdit()">
                             <i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i>
                             <span style="cursor: pointer;">edit</span>

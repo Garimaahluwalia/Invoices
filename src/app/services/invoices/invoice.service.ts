@@ -265,7 +265,6 @@ export class InvoiceService {
     try {
       this.getAllInvoice(this.page, this.limit, this.sortOrder, this.sortField, this.searchQuery, this.startDate, this.endDate, this.status).subscribe(
         (res) => {
-          console.log(res, "GET ALL INVOICE RESPONSE")
           this._invoices = res.items;
           this.totalNumberOfInvoices.next(res.totalCount);
           this.sendInvoices();
@@ -296,9 +295,9 @@ export class InvoiceService {
     return this.http.get<IInvoiceSummary>(endpoints.INVOICES_LIST.INVOICE_SUMMARY)
   }
 
-  // sendInvoiceEmail(payload: IEmailInvoice): Observable<any> {
-  //   return this.http.post<any>(endpoints.INVOICES_LIST.EMAIL_INVOICE, payload);
-  // }
+  sendInvoiceEmail(payload: IEmailInvoice): Observable<any> {
+    return this.http.post<any>(endpoints.INVOICES_LIST.EMAIL_INVOICE, payload);
+  }
 
 
 
