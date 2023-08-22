@@ -223,22 +223,6 @@ export class QuotationsComponent {
   }
 
 
-  updateStatus(details: IInvoice, status: string) {
-    this.router.navigate(["invoice", "invoice-actions", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.invoiceactions, {
-        status: true,
-        data: {
-          id: details._id,
-          event: DeleteEvents.INVOICE_ACTIONS,
-          status: status
-        }
-      });
-    });
-  }
-
-
-
-
   duplicateInvoice(details: IInvoice) {
     this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate" } })
   }
@@ -362,17 +346,11 @@ export class QuotationsComponent {
     this.destroyed.complete();
   }
 
-
-
-
   sentEmail(details: IInvoice) {
     this.router.navigate(["invoice", "invoice-email"]).then(() => {
       this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "invoice" } });
     });
   }
-
-
-
 
   quotations() {
     this.router.navigate(['/add-invoice'], { queryParams: { category: 'Quotations' } });
