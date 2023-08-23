@@ -39,7 +39,6 @@ const endpoints = {
     GET_QUOTATION_NUMBER: `${environment.BASE_URL}/quotation-number`,
     BULK_DELETE: `${environment.BASE_URL}/invoice/bulkDelete`,
     BULK_DOWNLOAD_AS_PDF: (InvoiceId: string[]) => `${environment.BASE_URL}/invoice/getPDFzip/${InvoiceId.join(",")}`,
-
   },
 
 

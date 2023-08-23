@@ -8,7 +8,8 @@ import { Field, IField } from 'src/app/types/columnType';
   providedIn: 'root'
 })
 export class InvoiceDataHandlerService implements IInvoice {
-  private _invoiceNo!: string;
+  private _invoiceNo?: string;
+  private _quotationNo?: string;
   private _company!: ICompany;
   public _products!: IProducts[];
   public _id!: string;
@@ -77,12 +78,19 @@ export class InvoiceDataHandlerService implements IInvoice {
   }
 
 
-  set invoiceNo(value: string) {
+  set invoiceNo(value: string | undefined) {
     this._invoiceNo = value;
   }
 
-  get invoiceNo(): string {
+  get invoiceNo(): string | undefined{
     return this._invoiceNo;
+  }
+  set quotationNo(value: string | undefined) {
+    this._quotationNo = value;
+  }
+
+  get quotationNo(): string | undefined{
+    return this._quotationNo;
   }
 
   set date(value: Date) {
@@ -200,6 +208,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   getPayload() {
     return {
       "invoiceNo": this._invoiceNo,
+      "quotationNo": this._quotationNo,
       "company": this._company,
       "tax": this._tax,
       "currency": this._currency,

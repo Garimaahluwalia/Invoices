@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="container">
-                    <div class="payment-detail">
+                    <div class="payment-detail" >
                         <label for="amountReceived">Amount Received (A)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text amount-rec" id="basic-addon1"
@@ -53,7 +53,7 @@
                         </div>
                     </div>
 
-                    <div class="payment-detail">
+                    <div class="payment-detail" *ngIf="this.currencyData !== '₹' ">
                         <label for="amountReceivedUsd">Amount Received in INR</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
 
-                    <div class="payment-detail">
+                    <div class="payment-detail" *ngIf="this.currencyData !== '₹' ">
                         <label>Exchange Rate</label>
                         <span *ngIf="!isEditing">1 INR = {{ exchangeRate }} {{this.currencyData}}</span>
                         <input *ngIf="isEditing" [(ngModel)]="exchangeRate" type="number"

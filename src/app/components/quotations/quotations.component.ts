@@ -32,7 +32,7 @@ export class QuotationsComponent {
   public currentPage = 1;
   public itemsPerPage = 10;
   public totalItems = 15;
-  public quotation: any[] = [];
+  public quotation: IInvoice[] = [];
   public quotationId: string | undefined
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
@@ -70,7 +70,6 @@ export class QuotationsComponent {
     public quotationService: QuotationsService) {
     this.notifier = notifierService;
   }
-
 
   ngOnInit(): void {
     this.itemsPerPage = this.quotationService.limit;
@@ -193,7 +192,7 @@ export class QuotationsComponent {
   }
 
   updateInvoice(details: IInvoice) {
-    this.router.navigate(["/add-invoice", details._id]);
+    this.router.navigate(["/add-invoice", details._id] ,{ queryParams: { category: 'Quotations' } });
   }
 
 
@@ -217,8 +216,8 @@ export class QuotationsComponent {
   }
 
   deleteInvoices(details: IInvoice) {
-    this.router.navigate(["invoice", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: "invoice" } });
+    this.router.navigate(["quotations", "delete", details._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: "quotations" } });
     })
   }
 
@@ -243,7 +242,7 @@ export class QuotationsComponent {
         bulkItems.push(key);
       }
     }
-    this.router.navigate(["invoice", "delete", 'all']).then(() => {
+    this.router.navigate(["quotations", "delete", 'all']).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string } })
     })
   }
@@ -347,8 +346,8 @@ export class QuotationsComponent {
   }
 
   sentEmail(details: IInvoice) {
-    this.router.navigate(["invoice", "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "invoice" } });
+    this.router.navigate(["quotations", "invoice-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "quotations", type: "Quotations" } });
     });
   }
 

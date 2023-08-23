@@ -9,7 +9,8 @@ export interface IInvoiceResponse {
 }
 
 export interface IInvoice {
-   invoiceNo: string;
+   invoiceNo?: string;
+   quotationNo? : string;
    company: ICompany;
    products: IProducts[];
    _currency: string;

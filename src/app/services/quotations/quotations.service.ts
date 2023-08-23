@@ -90,11 +90,11 @@ export class QuotationsService {
 
 
   set quotation(value: any) {
-    this.quotation = value;
+    this._quotations = value;
   }
 
   get quotation(): any[] {
-    return this.quotation;
+    return this._quotations;
   }
 
 

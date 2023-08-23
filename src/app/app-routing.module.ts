@@ -40,7 +40,17 @@ const routes: Routes = [
       },
       {
         path: QUOTATIONS.QUOTATIONS,
-        component: QuotationsComponent
+        component: QuotationsComponent,
+        children: [
+          {
+            path: INVOICES.SENT_INVOICE_EMAIL,
+            component: AddSentEmailComponent
+          },
+          {
+            path: CLIENTS.DELETE_CLIENTS,
+            component: DeleteComponent
+          }
+        ]
       },
       {
         path: INVOICES.INVOICE,
@@ -196,8 +206,9 @@ const routes: Routes = [
     component: RemovePaymentComponent
   },
   {
-    path : QUOTATIONS.VIEW_QUOTATIONS_LIST,
-    component : QuotationListDetailsComponent
+    path: QUOTATIONS.VIEW_QUOTATIONS_LIST,
+    component: QuotationListDetailsComponent,
+
   }
 
 

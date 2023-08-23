@@ -372,7 +372,7 @@ export class InvoiceComponent implements OnInit {
 
   sentEmail(details: IInvoice) {
     this.router.navigate(["invoice", "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "invoice" } });
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "invoice", type: 'Invoice' } });
     });
   }
 

@@ -5,6 +5,9 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { IEmailInvoice } from 'src/app/types/email-invoice';
 import { ModalEvents } from 'src/app/types/modal';
+import { NotifierService } from "angular-notifier";
+import { InvoiceTypes } from 'src/app/types/invoice-types';
+import { QuotationsService } from 'src/app/services/quotations/quotations.service';
 
 @Component({
   selector: 'app-add-sent-email',
@@ -25,12 +28,18 @@ export class AddSentEmailComponent implements OnInit {
   public action: string = "";
   public message: string = `...`
   public emailInvoice!: IEmailInvoice;
+  private readonly notifier!: NotifierService;
+  public invoiceId!: string;
+  public type: InvoiceTypes = InvoiceTypes.Invoice;
 
   constructor(
     public modalService: ModalService,
     public router: Router,
-    public invoiceService: InvoiceService
-  ) { }
+    public invoiceService: InvoiceService,
+    public notifierService: NotifierService,
+    public quotationService: QuotationsService
+
+  ) { this.notifier = notifierService; }
 
   ngOnInit(): void { }
 
@@ -39,6 +48,10 @@ export class AddSentEmailComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe(res => {
         const { data, status } = res;
+        this.invoiceId = res.data.id;
+        this.type = res.data.type;
+        console.log(this.invoiceId, "InvoiceID")
+        console.log(res, "DATA")
         this.action = data.action;
         this.data = data;
 
@@ -47,23 +60,52 @@ export class AddSentEmailComponent implements OnInit {
         } else {
           this.closeModal();
         }
+        this.getInvoice();
       });
+
   }
 
   openModal(): void {
     this.openModalButton.nativeElement.click();
   }
 
+  getInvoice() {
+    let selectedInvoice: any = null;
+    if (this.type === InvoiceTypes.Invoice) {
+      selectedInvoice = this.invoiceService.invoices.find(invoice => invoice._id === this.invoiceId);
+    } else {
+      selectedInvoice = this.quotationService.quotation.find(invoice => invoice._id === this.invoiceId);
+    }
+    this.clientName = selectedInvoice.client.name;
+    this.clientEmail = selectedInvoice.client.email;
+    this.from = selectedInvoice.company.Businessname;
+    const invoiceOrQuotationNumber = this.type === InvoiceTypes.Invoice ? selectedInvoice.invoiceNo : selectedInvoice.quotationNo;
+    this.emailSubject = "[Important] Email Invoice for " + selectedInvoice.client.name + " - " + selectedInvoice.invoiceNo;
+    this.message =
+      `Hi, ${selectedInvoice.client.name}\n
+      Please find attached invoice ${invoiceOrQuotationNumber}
+      Invoice No: ${invoiceOrQuotationNumber}
+      Invoice Date: ${selectedInvoice.date}
+      Billed To: ${selectedInvoice.client.name}
+      Thank you for your business.
+      Regards,
+      ${selectedInvoice.company.Businessname}`;
+  }
+
   closeModal() {
     this.closeModalButton.nativeElement.click();
+
     if (this.action === "save-invoice-page") {
       this.router.navigate(["save-invoice-page", this.data.id]);
     } else if (this.action === "invoice") {
       this.router.navigate(["invoice"]).then(() => {
         this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: false });
       });
+    } else if (this.action === "quotations") {
+      this.router.navigate(["quotations"]);
     }
   }
+
 
   saveChanges(): void {
     const payload: IEmailInvoice = {
@@ -79,6 +121,14 @@ export class AddSentEmailComponent implements OnInit {
       this.emailInvoice = res;
     });
     this.closeModal();
+    this.notifier.show({
+      type: "success",
+      message: "mail-sent successfully",
+      id: "THAT_NOTIFICATION_ID",
+    });
+    setTimeout(() => {
+      this.notifier.hide("THAT_NOTIFICATION_ID");
+    }, 2000);
   }
 
   ngOnDestroy(): void {

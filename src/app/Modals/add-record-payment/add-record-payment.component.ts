@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, Subscription, takeUntil } from 'rxjs';
 import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -22,6 +23,7 @@ export class AddRecordPaymentComponent implements OnInit {
   public recordPayment!: IRecordPayment;
   public action: string = "";
   public amountReceived!: number;
+  public amountReceivedForSettle!: number;
   public amountReceivedInINR!: number;
   public TDS!: number;
   public TDSWithHeld!: number;
@@ -34,11 +36,15 @@ export class AddRecordPaymentComponent implements OnInit {
   public currencyData: any;
   public isEditing = false;
   public exchangeRate = '83.333333';
+  private readonly notifier!: NotifierService;
 
 
   constructor(public modalService: ModalService,
     public router: Router,
-    public invoiceService: InvoiceService) { }
+    public invoiceService: InvoiceService,
+    public notifierService: NotifierService) {
+    this.notifier = notifierService;
+  }
 
 
   ngOnInit(): void {
@@ -61,17 +67,21 @@ export class AddRecordPaymentComponent implements OnInit {
       } else {
         this.closeModal();
       }
+      this.getInvoice();
     }));
 
-    this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
-      this.invoices = data;
-      this.selectedInvoice = this.invoices.find(invoice => invoice._id === this.invoiceId);
-      const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
-      this.currencyData = currency?.symbol;
-      this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :
-        this.selectedInvoice.subtotalofamount;
-      this.computeAmountInINR();
-    });
+
+
+  }
+
+  getInvoice() {
+    this.selectedInvoice = this.invoiceService.invoices.find(invoice => invoice._id === this.invoiceId);
+    const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
+    this.currencyData = currency?.symbol;
+    this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :
+      this.selectedInvoice.subtotalofamount;
+    this.computeAmountInINR();
+    this.amountReceivedForSettle = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount;
 
   }
 
@@ -82,15 +92,16 @@ export class AddRecordPaymentComponent implements OnInit {
 
   computeAmountInINR() {
     if (this.amountReceived && this.exchangeRate) {
-      this.amountReceivedInINR = this.amountReceived * parseFloat(this.exchangeRate);
+      this.amountReceivedInINR = parseFloat((this.amountReceived * parseFloat(this.exchangeRate)).toFixed(2));
     }
   }
 
 
   computeTDSAmount() {
     if (this.TDS && this.amountReceived) {
-      this.TDSWithHeld = (this.TDS / 100) * this.amountReceived;
-      this.amountToSettle = this.amountReceived - this.TDSWithHeld;
+      this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(2));
+      this.amountReceived = this.amountReceivedForSettle - this.TDSWithHeld;
+      this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
       this.computeAmountInINR();
     }
   }
@@ -121,12 +132,18 @@ export class AddRecordPaymentComponent implements OnInit {
       this.recordPayment = res;
       this.invoiceService.getAll();
       this.closeModal();
+      this.notifier.show({
+        type: 'success',
+        message: 'status updated successfully',
+        id: 'THAT_NOTIFICATION_ID',
+      });
+      setTimeout(() => {
+        this.notifier.hide('THAT_NOTIFICATION_ID');
+      }, 2000);
     })
   }
 
-  calculateTDS() {
 
-  }
   ngOnDestroy() {
     this.destroyed.next(true);
     this.destroyed.complete();
