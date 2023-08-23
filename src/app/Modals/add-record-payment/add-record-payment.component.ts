@@ -91,8 +91,9 @@ export class AddRecordPaymentComponent implements OnInit {
 
 
   computeAmountInINR() {
-    if (this.amountReceived && this.exchangeRate) {
-      this.amountReceivedInINR = parseFloat((this.amountReceived * parseFloat(this.exchangeRate)).toFixed(2));
+    let exchangeRate = this.exchangeRate || 0;
+    if (this.amountReceived) {
+      this.amountReceivedInINR = parseFloat((this.amountReceived * parseFloat(exchangeRate as string)).toFixed(2));
     }
   }
 
@@ -102,8 +103,12 @@ export class AddRecordPaymentComponent implements OnInit {
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(2));
       this.amountReceived = this.amountReceivedForSettle - this.TDSWithHeld;
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
-      this.computeAmountInINR();
+    }else {
+      this.TDSWithHeld = 0;
+      this.amountToSettle = this.amountReceivedForSettle;
+      this.amountReceived = this.amountReceivedForSettle;
     }
+    this.computeAmountInINR();
   }
 
 

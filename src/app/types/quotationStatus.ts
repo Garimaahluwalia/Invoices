@@ -1,0 +1,4 @@
+export enum QUOTATIONSTATUS {
+    CREATED = 'CREATED',
+    DRAFT = 'DRAFT'
+}

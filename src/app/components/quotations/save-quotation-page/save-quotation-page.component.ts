@@ -15,7 +15,7 @@ import { QuotationsService } from 'src/app/services/quotations/quotations.servic
 import { CURRENCY } from 'src/app/types/currency';
 import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
-import { STATUS } from 'src/app/types/status';
+import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 
 @Component({
   selector: 'app-save-quotation-page',
@@ -41,7 +41,7 @@ export class SaveQuotationPageComponent {
   public currencies = CURRENCY;
   public currencyData: any;
   public loading = false;
-  public status: typeof STATUS = STATUS;
+  public status: typeof INVOICESTATUS = INVOICESTATUS;
   public invoiceCategory!: string;
 
 

@@ -1,4 +1,4 @@
-export enum STATUS {
+export enum INVOICESTATUS {
     ALL = 'ALL',
     CANCELLED = 'CANCELLED',
     PAID = 'PAID',

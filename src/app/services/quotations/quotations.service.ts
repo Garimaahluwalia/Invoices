@@ -99,8 +99,8 @@ export class QuotationsService {
 
 
 
-  public getInvoiceNumber(): Observable<IInvoiceClass> {
-    return this.http.get<IInvoiceClass>(endpoints.INVOICES_LIST.GET_INVOICE_NUMBER);
+  public getQuotationNumber(): Observable<IInvoiceClass> {
+    return this.http.get<IInvoiceClass>(endpoints.QUOTATIONS_LIST.GET_QUOTATION_NUMBER);
   }
 
   public getQuotation(quotationId: string): Observable<IInvoice> {

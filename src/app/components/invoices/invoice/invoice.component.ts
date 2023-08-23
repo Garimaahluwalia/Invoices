@@ -7,7 +7,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
 import { DatePipe } from '@angular/common';
-import { STATUS } from 'src/app/types/status';
+import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
@@ -40,8 +40,8 @@ export class InvoiceComponent implements OnInit {
   public invoiceId: string | undefined
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public status: typeof STATUS = STATUS;
-  public readonly statuses: string[] = Object.values(STATUS);
+  public status: typeof INVOICESTATUS = INVOICESTATUS;
+  public readonly statuses: string[] = Object.values(INVOICESTATUS);
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
   public readonly ORDER = ORDER;
@@ -55,7 +55,7 @@ export class InvoiceComponent implements OnInit {
   public checkedCount!: number;
   public selectedCount!: number;
   public selectedStatus: any[] = [];
-  public selectedStatuses: string[] = [STATUS.ALL];
+  public selectedStatuses: string[] = [INVOICESTATUS.ALL];
   public isDropdownOpen: boolean = false;
   public invoiceSummary: InvoiceSummary = new InvoiceSummary();
   public value: any;
@@ -112,11 +112,11 @@ export class InvoiceComponent implements OnInit {
   }
 
   toggleStatusSelection(status: string): void {
-    if (status === STATUS.ALL) {
-      if (this.isSelected(STATUS.ALL)) {
+    if (status === INVOICESTATUS.ALL) {
+      if (this.isSelected(INVOICESTATUS.ALL)) {
         this.selectedStatuses = [];
       } else {
-        this.selectedStatuses = [STATUS.ALL];
+        this.selectedStatuses = [INVOICESTATUS.ALL];
       }
     } else {
       if (this.isSelected(status)) {
@@ -126,7 +126,7 @@ export class InvoiceComponent implements OnInit {
         this.selectedStatuses.push(status);
       }
 
-      const allIndex = this.selectedStatuses.indexOf(STATUS.ALL);
+      const allIndex = this.selectedStatuses.indexOf(INVOICESTATUS.ALL);
       if (allIndex !== -1) {
         this.selectedStatuses.splice(allIndex, 1);
       }

@@ -15,7 +15,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { CURRENCY } from 'src/app/types/currency';
 import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
-import { STATUS } from 'src/app/types/status';
+import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 
 @Component({
   selector: 'app-save-invoice-page',
@@ -42,7 +42,7 @@ export class SaveInvoicePageComponent implements OnInit {
   public currencies = CURRENCY;
   public currencyData: any;
   public loading = false;
-  public status: typeof STATUS = STATUS;
+  public status: typeof INVOICESTATUS = INVOICESTATUS;
   public invoiceCategory!: string;
 
 
@@ -122,7 +122,7 @@ export class SaveInvoicePageComponent implements OnInit {
   emailInvoice(data: IInvoice) {
     console.log(data, "email invoice")
     this.route.navigate(["save-invoice-page", this._id, "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id,  action: "save-invoice-page" },});
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id, action: "save-invoice-page" }, });
     });
   }
 
@@ -203,7 +203,7 @@ export class SaveInvoicePageComponent implements OnInit {
 
   deleteInvoices(data: IInvoice) {
     this.route.navigate(["save-invoice-page", data._id, "delete", data._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id , action: "save-invoice-page" } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: "save-invoice-page" } });
     });
   }
 

@@ -13,9 +13,10 @@ import { DeleteEvents } from 'src/app/types/delete';
 import { IInvoiceSummary, InvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
 import { ModalEvents } from 'src/app/types/modal';
 import { ORDER } from 'src/app/types/order';
-import { STATUS } from 'src/app/types/status';
+import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { NotifierService } from 'angular-notifier';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
+import { QUOTATIONSTATUS } from 'src/app/types/quotationStatus';
 
 @Component({
   selector: 'app-quotations',
@@ -36,8 +37,8 @@ export class QuotationsComponent {
   public quotationId: string | undefined
   public showDropdown: boolean = false;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
-  public status: typeof STATUS = STATUS;
-  public readonly statuses: string[] = Object.values(STATUS);
+  public status: typeof QUOTATIONSTATUS = QUOTATIONSTATUS;
+  public readonly statuses: string[] = Object.values(QUOTATIONSTATUS);
   public isButtonEnabled: boolean = false;
   public checkedItems: { [key: string]: boolean } = {};
   public readonly ORDER = ORDER;
@@ -51,7 +52,7 @@ export class QuotationsComponent {
   public checkedCount!: number;
   public selectedCount!: number;
   public selectedStatus: any[] = [];
-  public selectedStatuses: string[] = [STATUS.ALL];
+  public selectedStatuses: string[] = [QUOTATIONSTATUS.CREATED];
   public isDropdownOpen: boolean = false;
   public invoiceSummary: InvoiceSummary = new InvoiceSummary();
   public value: any;
@@ -108,11 +109,11 @@ export class QuotationsComponent {
   }
 
   toggleStatusSelection(status: string): void {
-    if (status === STATUS.ALL) {
-      if (this.isSelected(STATUS.ALL)) {
+    if (status === INVOICESTATUS.ALL) {
+      if (this.isSelected(INVOICESTATUS.ALL)) {
         this.selectedStatuses = [];
       } else {
-        this.selectedStatuses = [STATUS.ALL];
+        this.selectedStatuses = [INVOICESTATUS.ALL];
       }
     } else {
       if (this.isSelected(status)) {
@@ -122,7 +123,7 @@ export class QuotationsComponent {
         this.selectedStatuses.push(status);
       }
 
-      const allIndex = this.selectedStatuses.indexOf(STATUS.ALL);
+      const allIndex = this.selectedStatuses.indexOf(INVOICESTATUS.ALL);
       if (allIndex !== -1) {
         this.selectedStatuses.splice(allIndex, 1);
       }

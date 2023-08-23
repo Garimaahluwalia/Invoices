@@ -1,0 +1,66 @@
+<button type="button" #openModalButtonPreview class="btn btn-primary d-none" data-bs-toggle="modal"
+    data-bs-target="#messagePreviewModal">Add</button>
+
+<div class="modal" id="messagePreviewModal" aria-labelledby="messagePreviewModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header modal-head pb-3">
+                <h1 class="modal-title fs-5" id="messagePreviewModalLabel">Email Preview</h1>
+                <button type="button" class="close" (click)="closeModal()">
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
+
+                </button>
+                <button type="button" #closeModalButtonPreview class="d-none btn-close" data-bs-dismiss="modal"
+                    aria-label="Close">
+                    <i class="fa-sharp fa-regular fa-circle-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <img class="card-img-top" src="\assets\business.png" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="card-title" *ngIf="selectedInvoice?.type === INVOICE_TYPES.Invoice; else quotation">
+                            <p class="card-font"> Hi {{selectedInvoice?.client.name}},</p>
+                            <p class="card-font m-0">Please find attached invoice {{selectedInvoice?.invoiceNo}}</p>
+                            <p class="card-font m-0">Invoice No: {{selectedInvoice?.invoiceNo}}</p>
+                            <p class="card-font m-0">Invoice Date : {{selectedInvoice?.date}}</p>
+                            <p class="card-font">Billed To : {{selectedInvoice?.client.name}}</p>
+                            <p class="card-font">Thank you for your business.</p>
+                            <p class="card-font m-0">Regards,</p>
+                            <p class="card-font">{{selectedInvoice?.company.Businessname}}</p>
+                        </div>
+                        <ng-template #quotation>
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <p class="card-font"> Hi {{selectedInvoice?.client.name}},</p>
+                                    <p class="card-font m-0">Please find attached quotation
+                                        {{selectedInvoice?.quotationNo}}</p>
+                                    <p class="card-font m-0">Quotation No: {{selectedInvoice?.quotationNo}}</p>
+                                    <p class="card-font m-0">Quotation Date : {{selectedInvoice?.date}}</p>
+                                    <p class="card-font">Billed To : {{selectedInvoice?.client.name}}</p>
+                                    <p class="card-font">Thank you for your business.</p>
+                                    <p class="card-font">Regards,</p>
+                                    <p class="card-font">{{selectedInvoice?.company.Businessname}}</p>
+                                </div>
+                            </div>
+
+                        </ng-template>
+
+                        <a href="javascript:void(0)" 
+                            class="btn btn-primary view-invoice">view-invoice</a>
+                        <footer class="message-footer">
+                            <div class="regards">
+                                <h6 class="card-font m-0">Regards,</h6>
+                                <p class="card-font m-0">{{selectedInvoice?.company.Businessname}}</p>
+                                <p class="m-0">MCODE INFOSOFT Pvt. Ltd.,</p>
+                                <p class="m-0">#60, 1st Floor, Zirakpur,
+                                    Punjab, India - 140603</p>
+                                <p>www.mcodeinfosoft.com</p>
+                            </div>
+
+
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
