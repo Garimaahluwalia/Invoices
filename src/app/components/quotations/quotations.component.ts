@@ -81,7 +81,7 @@ export class QuotationsComponent {
         switch (res?.['type'] as string) {
           case "single": {
             this.checkedItems[res['id'] as string] = false;
-            this.deleteInvoice(res['id'] as string);
+            this.deleteQuotation(res['id'] as string);
             break;
           }
           case "multi": {
@@ -100,7 +100,6 @@ export class QuotationsComponent {
 
     this.quotationService.recieveQuotations().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.quotation = data;
-      console.log(this.quotation, "QUOTATIONS DATA")
     });
   }
 
@@ -192,12 +191,12 @@ export class QuotationsComponent {
     return formattedDate || '';
   }
 
-  updateInvoice(details: IInvoice) {
-    this.router.navigate(["/add-invoice", details._id] ,{ queryParams: { category: 'Quotations' } });
+  updateQuotation(details: IInvoice) {
+    this.router.navigate(["/add-invoice", details._id], { queryParams: { category: 'Quotations' } });
   }
 
 
-  deleteInvoice(_id: string) {
+  deleteQuotation(_id: string) {
     this.quotationService.deleteQuotation(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
         this.quotationService.getAll();
@@ -216,7 +215,7 @@ export class QuotationsComponent {
     this.selectUnselectSingle.nativeElement.checked = false;
   }
 
-  deleteInvoices(details: IInvoice) {
+  deleteQuotations(details: IInvoice) {
     this.router.navigate(["quotations", "delete", details._id]).then(() => {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: "quotations" } });
     })
@@ -348,7 +347,7 @@ export class QuotationsComponent {
 
   sentEmail(details: IInvoice) {
     this.router.navigate(["quotations", "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "quotations", type: "Quotations" } });
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "quotations", type: "Quotation" } });
     });
   }
 

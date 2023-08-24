@@ -7,6 +7,9 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { ProfileService } from 'src/app/services/profile.service';
 import { IInvoiceClass } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { LoaderService } from 'src/app/services/loader/loader.service';
+import { QuotationsService } from 'src/app/services/quotations/quotations.service';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
+import { firstValueFrom, take } from 'rxjs';
 
 
 @Component({
@@ -16,37 +19,101 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class InvoicedataComponent implements OnInit, OnChanges {
-  @Input() duplicateInvoice: boolean = false;
-  @Input() invoiceId: string | null = null;
-  @Input() public invoiceNo: string | null = null;
+  @Input() duplicate: boolean = false;
+  @Input() invoiceOrQuotationId: string | null = null;
+  @Input() public invoiceOrQuotationNo: string | null = null;
   public defaultDate!: string;
   private destroyed: ReplaySubject<boolean> = new ReplaySubject<boolean>(0);
   public invoiceImage!: string;
-  public invoiceCategory!: string;
+  public invoiceType: InvoiceTypes = InvoiceTypes.Invoice;
+  public readonly INVOICE_TYPES = InvoiceTypes;
+
   constructor(
     public invoiceService: InvoiceService,
     private datePipe: DatePipe,
     public profileService: ProfileService,
     public loadService: LoaderService,
-    public __ref: ChangeDetectorRef
+    public __ref: ChangeDetectorRef,
+    public quotationService: QuotationsService
   ) { }
 
-  ngOnChanges({ duplicateInvoice, invoiceNo }: SimpleChanges): void {
-    if (!duplicateInvoice?.firstChange && duplicateInvoice?.currentValue !== undefined) {
-      this.duplicateInvoice = duplicateInvoice?.currentValue;
+  ngOnChanges({ duplicate, invoiceOrQuotationNo }: SimpleChanges): void {
+    console.log(this);
+    if (!duplicate?.firstChange && duplicate?.currentValue !== undefined) {
+      this.duplicate = duplicate?.currentValue;
     }
-    if (!invoiceNo?.firstChange && invoiceNo.currentValue) {
-      this.invoiceNo = invoiceNo?.currentValue
+    if (!invoiceOrQuotationNo?.firstChange && invoiceOrQuotationNo.currentValue) {
+      this.invoiceOrQuotationNo = invoiceOrQuotationNo?.currentValue
     }
-    this.getInvoiceNumber();
+    this.handleNumberFetching();
   }
-
-
 
   ngOnInit(): void {
     const currentDate = new Date();
     this.defaultDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd') as string;
     this.loadService.ShowLoader();
+    this.getProfile();
+    this.subscriptions()
+  }
+
+  handleNumberFetching() {
+    if (this.invoiceType === InvoiceTypes.Invoice) {
+      switch (true) {
+        case this.invoiceService.invoiceId && this.duplicate:
+          this.getInvoiceNumber();
+          break;
+        case !this.invoiceService.invoiceId:
+          this.getInvoiceNumber();
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (true) {
+        case this.invoiceService.invoiceId && this.duplicate:
+          this.getQuotationNumber();
+          break;
+        case !this.invoiceService.invoiceId:
+          this.getQuotationNumber();
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  async getQuotationNumber() {
+    this.loadService.ShowLoader();
+    try {
+      const rs = await firstValueFrom(this.quotationService.getQuotationNumber().pipe(take(1)));
+      this.invoiceOrQuotationNo = rs.quotationNumber as string;
+    } catch (e) {
+      console.log(e);
+    }
+    this.loadService.HideLoader();
+  }
+
+  async getInvoiceNumber() {
+    this.loadService.ShowLoader();
+    try {
+      const rs = await firstValueFrom(this.invoiceService.getInvoiceNumber().pipe(take(1)));
+      this.invoiceOrQuotationNo = rs.invoiceNumber as string;
+    } catch (e) {
+      console.log(e);
+    }
+    this.loadService.HideLoader();
+  }
+
+
+  subscriptions() {
+    this.invoiceService.recieveInvoiceCategory().pipe(takeUntil(this.destroyed)).subscribe((res: InvoiceTypes) => {
+      console.log(res);
+      this.invoiceType = res || InvoiceTypes.Invoice;
+      this.handleNumberFetching();
+    });
+  }
+
+  getProfile() {
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
         this.invoiceImage = response.photoUrl;
@@ -57,42 +124,10 @@ export class InvoicedataComponent implements OnInit, OnChanges {
         console.error('Profile update failed:', error);
       }
     );
-    this.getInvoiceNumber();
-
-    this.invoiceService.recieveInvoiceCategory().subscribe((res: string) => {
-      this.invoiceCategory = res;
-    });
-  }
-
-  getInvoiceNumber() {
-    switch (true) {
-      case this.invoiceService.invoiceId && this.duplicateInvoice:
-        this.getInvoiceNumberData();
-        break;
-      case !this.invoiceService.invoiceId:
-        this.getInvoiceNumberData();
-        break;
-      default:
-        break;
-    }
   }
 
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
   }
-
-  getInvoiceNumberData() {
-    this.loadService.ShowLoader();
-    this.invoiceService.getInvoiceNumber().pipe(takeUntil(this.destroyed)).subscribe((res: IInvoiceClass) => {
-      this.invoiceNo = res.invoiceNumber;
-      this.loadService.HideLoader();
-      this.__ref.detectChanges();
-    },
-      (error) => {
-        this.loadService.HideLoader();
-        console.error('failed:', error);
-      });
-  }
-
 }

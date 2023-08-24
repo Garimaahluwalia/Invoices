@@ -34,7 +34,7 @@ export class AddInvoicesComponent implements OnInit {
   public status!: string;
   public currency!: string;
   public duplicateInvoice: boolean = false;
-  public category: any;
+  public invoiceType: InvoiceTypes = InvoiceTypes.Invoice;
 
   public fields: Field[] = [
     {
@@ -87,6 +87,7 @@ export class AddInvoicesComponent implements OnInit {
     },
   ]
   invoiceIDforsave: any;
+  quotationIDforsave: any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -103,9 +104,13 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      console.log(data);
+    })
     this.getTaxes();
     this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false;
     this.invoiceId = this.route.snapshot?.params?.["id"];
+
     this.invoiceService.invoiceId = this.invoiceId;
 
     if (this.invoiceId) {
@@ -119,7 +124,6 @@ export class AddInvoicesComponent implements OnInit {
       this.productData = res.products;
       this.status = res.status;
       this.currency = res.currency;
-      console.log(this.currency, "CURRENCy")
       this.addInvoiceService.sendProductChanges(res.products);
       if (!this.duplicateInvoice) {
         this.clientService.sendClientDetails(res.client);
@@ -140,15 +144,13 @@ export class AddInvoicesComponent implements OnInit {
       }
       this.InvoiceForm.form?.patchValue(formData);
     });
-
-
-
     this.route.queryParams.subscribe(params => {
-      this.category = params['category'];
-      this.invoiceService.invoiceCategory = this.category;
+      this.invoiceType = params['category'] || InvoiceTypes.Invoice;
+      this.invoiceService.invoiceCategory = this.invoiceType;
       this.invoiceService.sendInvoiceCategory();
     });
   }
+
 
   submit(f: NgForm) {
     const client_details = f.value.client_id;
@@ -165,12 +167,13 @@ export class AddInvoicesComponent implements OnInit {
       this.invoiceDataHandler.setData(f.value);
       const clientId = f.value.client_id;
       this.invoiceDataHandler.invoiceId = this.invoiceId as string;
-      const payload = this.invoiceDataHandler.getPayload();
+      const payload = this.invoiceType !== InvoiceTypes.Quotation ? this.invoiceDataHandler.getPayload() : this.invoiceDataHandler.getQuotationPayload();
+
       if (this.duplicateInvoice) {
         this.invoiceId = null;
       }
 
-      if (this.category !== "Quotations") {
+      if (this.invoiceType !== InvoiceTypes.Quotation) {
         if (this.invoiceId) {
           this.updateInvoice(this.invoiceId, payload);
         } else {
@@ -186,9 +189,11 @@ export class AddInvoicesComponent implements OnInit {
 
   addQuotation(payload: any) {
     this.quotationService.addQuotation(payload).subscribe((res: any) => {
+      console.log(res, "quotation response")
       this.quotations = res;
-      this.router.navigate(["/quotations"]);
-      console.log(this.quotations, "QUOTATIONS DATA")
+
+      this.quotationIDforsave = res.savedQuotation._id;
+      this.router.navigate(["/save-quotations-page", this.quotationIDforsave]);
     })
   }
 
@@ -264,19 +269,17 @@ export class AddInvoicesComponent implements OnInit {
     );
   }
 
-
-
   getTaxes() {
     this.clientService.recieveTaxName().subscribe((res) => {
       this.taxType = res;
     });
   }
 
-
   ngOnDestroy(): void {
     this.destroyed.next(true);
     this.destroyed.complete();
   }
+
 }
 
 

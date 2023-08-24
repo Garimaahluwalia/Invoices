@@ -27,7 +27,7 @@ export const QUOTATIONS = {
     QUOTATIONS: "quotations",
     ADD_QUOTATIONS: "add-quotations",
     VIEW_QUOTATIONS_LIST: "view-quotations-list/:id",
-    SAVE_QUOTATIONS_PAGE: "save-quotations-page"
+    SAVE_QUOTATIONS_PAGE: "save-quotations-page/:id"
 }
 
 export const PROFILE = {

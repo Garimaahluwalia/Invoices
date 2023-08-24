@@ -8,6 +8,8 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { CURRENCY } from 'src/app/types/currency';
 import { ModalEvents } from 'src/app/types/modal';
 import { IRecordPayment } from 'src/app/types/recordPayments';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-add-record-payment',
@@ -28,7 +30,7 @@ export class AddRecordPaymentComponent implements OnInit {
   public TDS!: number;
   public TDSWithHeld!: number;
   public amountToSettle!: number;
-  public paymentDate!: number;
+  // public paymentDate!: number;
   public additionalNotes!: number;
   public selectedInvoice: any = null
   public invoices: IInvoice[] = [];
@@ -37,12 +39,15 @@ export class AddRecordPaymentComponent implements OnInit {
   public isEditing = false;
   public exchangeRate = '83.333333';
   private readonly notifier!: NotifierService;
+  public paymentDate = new Date();
 
 
   constructor(public modalService: ModalService,
     public router: Router,
     public invoiceService: InvoiceService,
-    public notifierService: NotifierService) {
+    public notifierService: NotifierService,
+    private datePipe: DatePipe) {
+    this.paymentDate = this.datePipe.transform(this.paymentDate, 'yyyy-MM-dd') as any;
     this.notifier = notifierService;
   }
 
@@ -103,7 +108,7 @@ export class AddRecordPaymentComponent implements OnInit {
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(2));
       this.amountReceived = this.amountReceivedForSettle - this.TDSWithHeld;
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
-    }else {
+    } else {
       this.TDSWithHeld = 0;
       this.amountToSettle = this.amountReceivedForSettle;
       this.amountReceived = this.amountReceivedForSettle;

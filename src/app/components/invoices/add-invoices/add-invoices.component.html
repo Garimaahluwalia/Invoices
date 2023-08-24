@@ -14,9 +14,9 @@
                 <form class="needs-validation" novalidate id="invoice_form" #InvoiceForm="ngForm"
                     (ngSubmit)="submit(InvoiceForm)">
                     <div class="row">
-                        <div class="col-md-12">
-                            <app-invoicedata [invoiceId]="invoiceId" [invoiceNo]="invoiceNumber"
-                                [duplicateInvoice]="duplicateInvoice"></app-invoicedata>
+                        <div class="col-md-12">  
+                            <app-invoicedata [invoiceOrQuotationId]="invoiceId" [invoiceOrQuotationNo]="invoiceNumber"
+                                [duplicate]="duplicateInvoice"></app-invoicedata>
                         </div>
                     </div>
                     <div class="row">

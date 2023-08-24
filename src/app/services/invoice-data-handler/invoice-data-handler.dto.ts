@@ -10,7 +10,8 @@ export interface IInvoiceResponse {
 
 export interface IInvoice {
    invoiceNo?: string;
-   quotationNo? : string;
+
+   quotationNo?: string;
    company: ICompany;
    products: IProducts[];
    _currency: string;
@@ -33,6 +34,10 @@ export interface IInvoice {
 
 export interface IInvoiceClass {
    invoiceNumber: string;
+   date: Date
+}
+export interface IQuotationClass {
+   quotationNumber: string;
    date: Date
 }
 

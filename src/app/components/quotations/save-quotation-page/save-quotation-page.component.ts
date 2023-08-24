@@ -16,6 +16,7 @@ import { CURRENCY } from 'src/app/types/currency';
 import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
 import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
 
 @Component({
   selector: 'app-save-quotation-page',
@@ -89,11 +90,12 @@ export class SaveQuotationPageComponent {
 
 
   getInvoiceById() {
-    this.loaderService.ShowLoader();
+    // this.loaderService.ShowLoader();
     this.quotationService.getQuotation(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
-        this.loaderService.HideLoader();
+        // this.loaderService.HideLoader();
+        console.log(res, "quotation response")
         this.table = res.table;
         this.data = res;
         this.products = res.products;
@@ -113,15 +115,18 @@ export class SaveQuotationPageComponent {
   }
 
   updateInvoice(details: IInvoice) {
-    this.route.navigate(["/add-invoice", details._id]);
+    this.route.navigate(["/add-invoice", details._id], { queryParams: { category: 'Quotations' } });
   }
 
+  createQuotation() {
+    this.route.navigate(["/add-invoice"], { queryParams: { category: 'Quotations' } });
 
+  }
 
   emailQuotation(data: IInvoice) {
     console.log(data, "email invoice")
-    this.route.navigate(["save-invoice-page", this._id, "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id, action: "save-invoice-page" }, });
+    this.route.navigate(["save-quotations-page", this._id, "invoice-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id, action: "save-quotations-page", type: InvoiceTypes.Quotation }, });
     });
   }
 
@@ -160,20 +165,16 @@ export class SaveQuotationPageComponent {
   }
 
   createAnotherQuotation() {
-    this.route.navigate(["add-invoice"])
+    this.route.navigate(['/add-invoice'], { queryParams: { category: 'Quotations' } });
   }
 
-  recordPayment(data: IInvoice) {
-    this.route.navigate(["save-invoice-page", this._id, "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id, action: "save-invoice-page" } });
-    });
-  }
 
-  duplicateInvoice(data: IInvoice) {
+
+  duplicateQuotation(data: IInvoice) {
     this.route.navigate(["add-invoice", data._id], { queryParams: { duplicateInvoice: "duplicate" } })
   }
 
- 
+
   deleteQuotation(_id: string) {
     this.quotationService.deleteQuotation(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {

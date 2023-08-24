@@ -18,6 +18,7 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ClientRouterModalAction } from 'src/app/types/client/client.dto';
 import { AddRecordPaymentComponent } from 'src/app/modals/add-record-payment/add-record-payment.component';
 import { IInvoiceSummary, InvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
 
 
 declare var $: any;
@@ -70,12 +71,14 @@ export class InvoiceComponent implements OnInit {
     public clientService: ClientService,
     public sidebarService: SidebarService,
     public notifierService: NotifierService,
+    public activatedRoute: ActivatedRoute,
     public loadService: LoaderService) {
     this.notifier = notifierService;
   }
 
 
   ngOnInit(): void {
+    console.log(this.activatedRoute)
     this.summaryTotal();
     this.itemsPerPage = this.invoiceService.limit;
     this.loadInvoices();
@@ -372,13 +375,13 @@ export class InvoiceComponent implements OnInit {
 
   sentEmail(details: IInvoice) {
     this.router.navigate(["invoice", "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "invoice", type: 'Invoice' } });
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: InvoiceTypes.Invoice, type: InvoiceTypes.Invoice } });
     });
   }
 
   recordPayment(details: IInvoice) {
     this.router.navigate(["invoice", "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id, action: "invoice" } });
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id, action: InvoiceTypes.Invoice } });
     });
   }
 

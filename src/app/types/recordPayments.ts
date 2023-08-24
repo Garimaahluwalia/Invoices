@@ -4,7 +4,7 @@ export interface IRecordPayment {
     TDS: number;
     TDSWithHeld: number;
     amountToSettle: number;
-    paymentDate: number;
+    paymentDate: Date;
     additionalNotes: number;
 }
 
@@ -15,7 +15,7 @@ export class recordPayment implements IRecordPayment {
     TDS: number = 0;
     TDSWithHeld: number = 0;
     amountToSettle: number = 0;
-    paymentDate: number = 0;
+    paymentDate: Date = new Date();
     additionalNotes: number = 0;
 }
 

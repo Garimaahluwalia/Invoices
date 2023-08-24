@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { IInvoice, IInvoiceClass, IInvoiceResponse } from '../invoice-data-handler/invoice-data-handler.dto';
+import { EventEmitter, Injectable } from '@angular/core';
+import { IInvoice, IInvoiceClass, IInvoiceResponse, IProducts, IQuotationClass } from '../invoice-data-handler/invoice-data-handler.dto';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import endpoints from 'src/app/endpoints';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 
 
 @Injectable({
@@ -21,7 +21,9 @@ export class QuotationsService {
   public _status!: string;
   public totalNumberOfQuotations: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private quotationSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-
+  public quotationEmitter: EventEmitter<any> = new EventEmitter<any>()
+  private _forupdatequotationdata: IInvoice | null = null;
+  public productRows: IProducts[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -98,9 +100,26 @@ export class QuotationsService {
   }
 
 
+  async getQuotationforUpdateAndEmit() {
+    try {
+      const rs = await lastValueFrom(this.getQuotation(this.quotationId as string));
+      this._forupdatequotationdata = rs;
+      this.productRows = rs.products;
+      this.quotationEmitter.emit(this._forupdatequotationdata);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
-  public getQuotationNumber(): Observable<IInvoiceClass> {
-    return this.http.get<IInvoiceClass>(endpoints.QUOTATIONS_LIST.GET_QUOTATION_NUMBER);
+
+
+  addQuotations(data: IInvoice) {
+    this._quotations.push(data);
+    this.sendQuotations();
+  }
+
+  public getQuotationNumber(): Observable<IQuotationClass> {
+    return this.http.get<IQuotationClass>(endpoints.QUOTATIONS_LIST.GET_QUOTATION_NUMBER);
   }
 
   public getQuotation(quotationId: string): Observable<IInvoice> {

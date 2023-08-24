@@ -82,14 +82,14 @@ export class InvoiceDataHandlerService implements IInvoice {
     this._invoiceNo = value;
   }
 
-  get invoiceNo(): string | undefined{
+  get invoiceNo(): string | undefined {
     return this._invoiceNo;
   }
   set quotationNo(value: string | undefined) {
     this._quotationNo = value;
   }
 
-  get quotationNo(): string | undefined{
+  get quotationNo(): string | undefined {
     return this._quotationNo;
   }
 
@@ -105,6 +105,7 @@ export class InvoiceDataHandlerService implements IInvoice {
 
   setInvoice({ invoiceNumber, date }: IInvoiceClass) {
     this.invoiceNo = invoiceNumber;
+    this.quotationNo = invoiceNumber;
     this.date = date;
 
   }
@@ -208,7 +209,6 @@ export class InvoiceDataHandlerService implements IInvoice {
   getPayload() {
     return {
       "invoiceNo": this._invoiceNo,
-      "quotationNo": this._quotationNo,
       "company": this._company,
       "tax": this._tax,
       "currency": this._currency,
@@ -224,7 +224,22 @@ export class InvoiceDataHandlerService implements IInvoice {
     };
   }
 
-  getQuotationPayload () {
-    
+  getQuotationPayload() {
+    return {
+      "quotationNo": this._quotationNo,
+      "company": this._company,
+      "tax": this._tax,
+      "currency": this._currency,
+      "date": this._date,
+      "client_id": this.client_id,
+      "products": this._products,
+      "bankDetails": this._bankDetails,
+      "subtotalofamount": this._subtotalofamount,
+      "totalamountoftax": this._totalamountoftax,
+      "totalamount": this._totalamount,
+      "status": this._status,
+      "table": this._table
+    };
+
   }
 }

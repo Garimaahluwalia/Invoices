@@ -23,6 +23,8 @@ import { AddSentEmailComponent } from './modals/add-sent-email/add-sent-email.co
 import { RemovePaymentComponent } from './components/invoices/invoice/remove-payment/remove-payment.component';
 import { QuotationsComponent } from './components/quotations/quotations.component';
 import { QuotationListDetailsComponent } from './components/quotations/quotation-list-details/quotation-list-details.component';
+import { InvoiceTypes } from './types/invoice-types';
+import { SaveQuotationPageComponent } from './components/quotations/save-quotation-page/save-quotation-page.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,9 @@ const routes: Routes = [
       {
         path: INVOICES.INVOICE,
         component: InvoiceComponent,
+        data: {
+          state: InvoiceTypes.Invoice
+        },
         children: [
           {
             path: CLIENTS.DELETE_CLIENTS,
@@ -106,6 +111,9 @@ const routes: Routes = [
   {
     path: INVOICES.ADD_INVOICE,
     component: AddInvoicesComponent,
+    data: {
+      state: InvoiceTypes.Invoice
+    },
     children: [
       {
         path: CLIENTS.ADD_CLIENTS,
@@ -208,7 +216,28 @@ const routes: Routes = [
   {
     path: QUOTATIONS.VIEW_QUOTATIONS_LIST,
     component: QuotationListDetailsComponent,
-
+  },
+  {
+    path: QUOTATIONS.SAVE_QUOTATIONS_PAGE,
+    component: SaveQuotationPageComponent,
+    children: [
+      {
+        path: INVOICES.SENT_INVOICE_EMAIL,
+        component: AddSentEmailComponent
+      },
+      {
+        path: INVOICES.RECORD_PAYMENTS,
+        component: AddRecordPaymentComponent
+      },
+      {
+        path: INVOICES.INVOICE_ACTIONS,
+        component: invoiceactionsComponent
+      },
+      {
+        path: CLIENTS.DELETE_CLIENTS,
+        component: DeleteComponent
+      },
+    ]
   }
 
 

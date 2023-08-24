@@ -12,6 +12,7 @@ import { LoaderService } from '../loader/loader.service';
 import { IEmailInvoice } from 'src/app/types/email-invoice';
 import { IRecordPayment } from 'src/app/types/recordPayments';
 import { IInvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
 
 @Injectable({
   providedIn: 'root'
@@ -37,17 +38,9 @@ export class InvoiceService {
   public _updateStatus: EventEmitter<string> = new EventEmitter<string>()
   public productRows: IProducts[] = [];
   public currency!: number;
-  // public amount!: number;
-  // public tax!: number;
-  // public rate!: number;
-  // public total!: number;
-  // public taxamount!: number;
-  // public subtotalofamount!: number;
-  // public totalamount!: number;
-  // public totalamountoftax!: number;
   public currencies = CURRENCY;
-  private _invoiceCategory: BehaviorSubject<string> = new BehaviorSubject<string>('invoice');
-  public _Category!: string
+  private _invoiceCategorySubject: BehaviorSubject<InvoiceTypes> = new BehaviorSubject<InvoiceTypes>(InvoiceTypes.Invoice);
+  public _invoiceType: InvoiceTypes = InvoiceTypes.Invoice;
 
 
 
@@ -60,20 +53,20 @@ export class InvoiceService {
 
 
   sendInvoiceCategory() {
-    this._invoiceCategory.next(this._Category);
+    this._invoiceCategorySubject.next(this._invoiceType);
   }
 
-  recieveInvoiceCategory(): Observable<string> {
-    return this._invoiceCategory.asObservable();
+  recieveInvoiceCategory(): Observable<InvoiceTypes> {
+    return this._invoiceCategorySubject.asObservable();
   }
 
 
-  set invoiceCategory(value: string) {
-    this._Category = value;
+  set invoiceCategory(value: InvoiceTypes) {
+    this._invoiceType = value;
   }
 
-  get invoiceCategory(): string {
-    return this._Category;
+  get invoiceCategory(): InvoiceTypes {
+    return this._invoiceType;
   }
 
   statusUpdate(invoiceId: string, status: string) {
@@ -303,6 +296,10 @@ export class InvoiceService {
 
   sendRecordPayment(invoiceId: string, payload: IRecordPayment): Observable<any> {
     return this.http.put(endpoints.INVOICES_LIST.RECORD_PAYMENT(invoiceId), payload)
+  }
+
+  removePayment(invoiceId: string, payload: any): Observable<any> {
+    return this.http.put(endpoints.INVOICES_LIST.REMOVE_PAYMENT(invoiceId), payload)
   }
 
 }  

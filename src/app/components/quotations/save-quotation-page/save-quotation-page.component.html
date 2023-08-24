@@ -1,7 +1,6 @@
-<p>save-quotation-page works!</p>
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
     <div class="container inc-summ-edits">
-        <span routerLink="/invoice"> <a class="btn btn-primary home-button">
+        <span routerLink="/quotations"> <a class="btn btn-primary home-button">
                 home</a></span>
         <div class=" boxes">
             <div>
@@ -9,10 +8,6 @@
                     <div (click)="updateInvoice(data)"><i class="fa-solid fa-pencil"></i></div>
                     <p class="mb-0"> Edit</p>
                 </div>
-                <!-- <div class="edit" (click)="recordPayment(data)">
-                    <div><i class="fa-solid fa-money-bill-wave"></i></div>
-                    <p class="mb-0"> Record Payment</p>
-                </div> -->
             </div>
             <div>
 
@@ -39,9 +34,9 @@
                         <i class="fa-solid fa-angle-down"></i>
                         <button class="dropbtn">more</button>
                         <div class="dropdown-content">
-                            <a routerLink="/add-invoice">Create New quotation</a>
+                            <a (click)="createQuotation()">Create New quotation</a>
                             <a (click)="emailQuotation(data)">Send Reminder By Email</a>
-                            <a (click)="duplicateInvoice(data)">Duplicate Quotation</a>
+                            <a (click)="duplicateQuotation(data)">Duplicate Quotation</a>
                             <a [routerLink]="['/view-quotations-list', data?._id]">View quotation</a>
                             <a (click)="deleteQuotation(data)">Delete Quotation</a>
                         </div>
@@ -53,7 +48,49 @@
                 <i class="las la-plus me-1"></i>
                 Create another Quotation</a></span>
     </div>
-    <app-invoice-summary [data]="data"></app-invoice-summary>
+    <div class="container invoice-summ-acc">
+        <cdk-accordion class="example-accordion invoice-summ-acc">
+            <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button"
+                tabindex="0" [attr.id]="'accordion-header-'" [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion-body-' ">
+                <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                    Quotation Summary
+                    <span class="example-accordion-item-description">
+                        <i [ngClass]="accordionItem.expanded ? 'fa fa-angle-up' : 'fa fa-angle-down'"></i>
+                    </span>
+                </div>
+                <div class="example-accordion-item-body" role="region"
+                    [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-'"
+                    [attr.aria-labelledby]="'accordion-header-' ">
+                    <div class="invoice-container">
+                        <div class="details">
+                            <label>Quotation No :{{data?.quotationNo}} </label>
+
+                        </div>
+                        <div class="details">
+                            <label>Quotation Date : {{data?.date}} </label>
+
+                        </div>
+                        <div class="details">
+                            <label>Total Amount : <span class="amount">{{ data?.totalamount !== 0 ? data?.totalamount :
+                                    data?.subtotalofamount}}</span> </label>
+
+
+                        </div>
+                        <div class="details">
+                            <label>Billed To : {{data?.client.name}} </label>
+
+                        </div>
+
+                        <div class="details">
+                            <label>Created by : {{data?.company?.Businessname}} </label>
+
+                        </div>
+                    </div>
+                </div>
+            </cdk-accordion-item>
+        </cdk-accordion>
+    </div>
 
 
     <div id="printableArea">
@@ -74,11 +111,7 @@
                                         </td>
 
                                         <td style="text-align: right; vertical-align: middle;">
-                                            <span class="badge badge-pill badge-primary status" [ngClass]="{
-                                                       'badge-warning': data?.status === 'UNPAID',
-                                                       'badge-success': data?.status === 'PAID',
-                                                       'badge-danger': data?.status === 'CANCELLED'
-                                                                          }">
+                                            <span class="badge badge-pill badge-primary status">
                                                 {{ data?.status }}
                                             </span>
 
@@ -177,7 +210,7 @@
                                                     </div>
                                                     <div style="float: left; width: 100%;">
                                                         <span
-                                                            style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Invoice
+                                                            style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Quotation
                                                             Date </span><span
                                                             style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">
                                                             {{data?.date | date: 'dd-MM-yyyy'}}</span>
@@ -390,10 +423,10 @@
                     <div><i class="fa-solid fa-pencil"></i></div>
                     <p class="mb-0"> Edit</p>
                 </div>
-                <div class="edit" (click)="recordPayment(data)">
+                <!-- <div class="edit" (click)="recordPayment(data)">
                     <div><i class="fa-solid fa-money-bill-wave"></i></div>
                     <p class="mb-0"> Record Payment</p>
-                </div>
+                </div> -->
             </div>
             <div>
 
@@ -412,7 +445,7 @@
                 <div class="edit" (click)="emailQuotation(data)">
                     <div><i class="fa-solid fa-envelope"></i></div>
                     <p class="mb-0">
-                        email invoice
+                        email quotation
                     </p>
                 </div>
                 <div class="edit">
@@ -420,9 +453,9 @@
                         <i class="fa-solid fa-angle-down"></i>
                         <button class="dropbtn">more</button>
                         <div class="dropdown-content">
-                            <a routerLink="/add-invoice">Create New Quotation</a>
+                            <a (click)="createQuotation()">Create New Quotation</a>
                             <a (click)="emailQuotation(data)">Send Reminder By Email</a>
-                            <a (click)="duplicateInvoice(data)">Duplicate Quotation</a>
+                            <a (click)="deleteQuotation(data)">Duplicate Quotation</a>
                             <a [routerLink]="['/view-quotations-list', data?._id]">View Quotation</a>
 
                         </div>

@@ -16,6 +16,7 @@ import { CURRENCY } from 'src/app/types/currency';
 import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents } from 'src/app/types/modal';
 import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
 
 @Component({
   selector: 'app-save-invoice-page',
@@ -122,7 +123,7 @@ export class SaveInvoicePageComponent implements OnInit {
   emailInvoice(data: IInvoice) {
     console.log(data, "email invoice")
     this.route.navigate(["save-invoice-page", this._id, "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id, action: "save-invoice-page" }, });
+      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id, action: "save-invoice-page", type: InvoiceTypes.Invoice  }});
     });
   }
 

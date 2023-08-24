@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReplaySubject, takeUntil } from 'rxjs';
+import { ReplaySubject, firstValueFrom, take, takeUntil } from 'rxjs';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { IEmailInvoice } from 'src/app/types/email-invoice';
@@ -72,25 +72,26 @@ export class AddSentEmailComponent implements OnInit {
     this.openModalButton.nativeElement.click();
   }
 
-  getInvoice() {
+  async getInvoice() {
     this.selectedInvoice = null;
     if (this.type === InvoiceTypes.Invoice) {
-      this.selectedInvoice = this.invoiceService.invoices.find(invoice => invoice._id === this.invoiceId);
+      this.selectedInvoice = await this.getInvoiceById();
     } else {
-      this.selectedInvoice = this.quotationService.quotation.find(invoice => invoice._id === this.invoiceId);
+      this.selectedInvoice = await this.getQuotationById();
     }
+    
 
     this.clientName = this.selectedInvoice.client.name;
     this.clientEmail = this.selectedInvoice.client.email;
     this.from = this.selectedInvoice.company.Businessname;
     const invoiceOrQuotationNumber = this.type === InvoiceTypes.Invoice ? this.selectedInvoice.invoiceNo : this.selectedInvoice.quotationNo;
     this.selectedInvoice.invoiceOrQuotationNumber = invoiceOrQuotationNumber;
-    this.emailSubject = "[Important] Email Invoice for " + this.selectedInvoice.client.name + " - " + this.selectedInvoice.invoiceNo;
+    this.emailSubject = `[Important] Email ${this.type} for ${this.selectedInvoice.client.name} - ${this.selectedInvoice.invoiceNo}`;
     this.message =
       `Hi, ${this.selectedInvoice.client.name}\n
-      Please find attached invoice ${invoiceOrQuotationNumber}
-      Invoice No: ${invoiceOrQuotationNumber}
-      Invoice Date: ${this.selectedInvoice.date}
+      Please find attached ${this.type} ${invoiceOrQuotationNumber}
+      ${this.type} No: ${invoiceOrQuotationNumber}
+      ${this.type} Date: ${this.selectedInvoice.date}
       Billed To: ${this.selectedInvoice.client.name}
       Thank you for your business.
       Regards,
@@ -115,6 +116,24 @@ export class AddSentEmailComponent implements OnInit {
       } else if (this.action === "quotations") {
         this.router.navigate(["quotations"]);
       }
+    }
+  }
+
+
+  async getInvoiceById() {
+    try {
+      const rs = await firstValueFrom(this.invoiceService.getInvoice(this.invoiceId).pipe(take(1)));
+      return rs;
+    } catch (e) {
+      throw e;
+    }
+  }
+  async getQuotationById() {
+    try {
+      const rs = await firstValueFrom(this.quotationService.getQuotation(this.invoiceId).pipe(take(1)));
+      return rs;
+    } catch (e) {
+      throw e;
     }
   }
 
@@ -149,8 +168,7 @@ export class AddSentEmailComponent implements OnInit {
   }
 
   openMessagePreview() {
-    // this.closeModalButton.nativeElement.click();
-    this.modalPreview.updateValues({...this.selectedInvoice, type: this.type});
+    this.modalPreview.updateValues({ ...this.selectedInvoice, type: this.type });
     this.modalPreview.openModal();
   }
 

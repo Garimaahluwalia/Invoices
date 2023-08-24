@@ -190,11 +190,7 @@
                                                     details?.subtotalofamount }}
                                                 </td>
                                                 <td>
-                                                    <span class="badge badge-pill badge-primary status" [ngClass]="{
-                                                    'badge-warning': details?.status === 'UNPAID',
-                                                    'badge-success': details?.status === 'PAID',
-                                                    'badge-danger': details?.status === 'CANCELLED'
-                                                  }">
+                                                    <span class="badge badge-pill badge-primary status" >
                                                         {{details?.status}}
                                                     </span>
                                                 </td>
@@ -225,7 +221,7 @@
                                                         <li class="list-inline-item edit pl-2" data-bs-toggle="tooltip"
                                                             data-bs-trigger="hover" data-bs-placement="top" title="Edit"
                                                             [ngClass]="{ 'disabled': details.status === 'CANCELLED'  }"
-                                                            (click)="updateInvoice(details)">
+                                                            (click)="updateQuotation(details)">
                                                             <a class="btn btn-soft-info btn-sm d-inline-block"
                                                                 [style.pointer-events]="details.status === 'CANCELLED' ? 'none' : 'auto'">
                                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -263,7 +259,7 @@
                                                                         data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                                         data-bs-placement="top" style="cursor: pointer;"
                                                                         title="Remove"
-                                                                        (click)="deleteInvoices(details)">
+                                                                        (click)=" deleteQuotations(details)">
                                                                         <a href="javascript:void(0)"
                                                                             class="btn btn-soft-danger btn-sm d-inline-block">
                                                                             <span>Delete</span>
