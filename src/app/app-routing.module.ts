@@ -45,7 +45,7 @@ const routes: Routes = [
         component: QuotationsComponent,
         children: [
           {
-            path: INVOICES.SENT_INVOICE_EMAIL,
+            path: INVOICES.SENT_EMAIL,
             component: AddSentEmailComponent
           },
           {
@@ -70,7 +70,7 @@ const routes: Routes = [
             component: invoiceactionsComponent
           },
           {
-            path: INVOICES.SENT_INVOICE_EMAIL,
+            path: INVOICES.SENT_EMAIL,
             component: AddSentEmailComponent
           },
           {
@@ -192,7 +192,7 @@ const routes: Routes = [
     component: SaveInvoicePageComponent,
     children: [
       {
-        path: INVOICES.SENT_INVOICE_EMAIL,
+        path: INVOICES.SENT_EMAIL,
         component: AddSentEmailComponent
       },
       {
@@ -222,7 +222,7 @@ const routes: Routes = [
     component: SaveQuotationPageComponent,
     children: [
       {
-        path: INVOICES.SENT_INVOICE_EMAIL,
+        path: INVOICES.SENT_EMAIL,
         component: AddSentEmailComponent
       },
       {

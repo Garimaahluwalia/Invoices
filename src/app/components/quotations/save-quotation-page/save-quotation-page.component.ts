@@ -14,7 +14,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
 import { CURRENCY } from 'src/app/types/currency';
 import { DeleteEvents } from 'src/app/types/delete';
-import { ModalEvents } from 'src/app/types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 
@@ -125,8 +125,8 @@ export class SaveQuotationPageComponent {
 
   emailQuotation(data: IInvoice) {
     console.log(data, "email invoice")
-    this.route.navigate(["save-quotations-page", this._id, "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id, action: "save-quotations-page", type: InvoiceTypes.Quotation }, });
+    this.route.navigate(["save-quotations-page", this._id, "sent-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE, type: InvoiceTypes.Quotation }, });
     });
   }
 
@@ -175,7 +175,7 @@ export class SaveQuotationPageComponent {
   }
 
 
-  deleteQuotation(_id: string) {
+  deleteQuotations(_id: string) {
     this.quotationService.deleteQuotation(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
         this.route.navigate(["invoices"]).then(() => {
@@ -188,9 +188,9 @@ export class SaveQuotationPageComponent {
     );
   }
 
-  deleteInvoices(data: IInvoice) {
+  deleteQuotation(data: IInvoice) {
     this.route.navigate(["save-quotation-page", data._id, "delete", data._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: "save-quotation-page" } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE } });
     });
   }
 

@@ -20,7 +20,3 @@ export class recordPayment implements IRecordPayment {
 }
 
 
-export enum RECORD_PAYMENT_ROUTER_ACTIONS {
-    SAVE_INVOICE_PAGE = "save-invoice-page",
-    INVOICE = "invoice"
-}

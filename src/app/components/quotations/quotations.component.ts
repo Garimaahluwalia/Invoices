@@ -11,7 +11,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { DeleteEvents } from 'src/app/types/delete';
 import { IInvoiceSummary, InvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
-import { ModalEvents } from 'src/app/types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { ORDER } from 'src/app/types/order';
 import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { NotifierService } from 'angular-notifier';
@@ -86,7 +86,7 @@ export class QuotationsComponent {
           }
           case "multi": {
             const bulkItems: string[] = res['bulkItems'] as string[];
-            this.deletebulkInvoices(bulkItems);
+            this.deletebulkQuotation(bulkItems);
             break;
           }
         }
@@ -108,11 +108,11 @@ export class QuotationsComponent {
   }
 
   toggleStatusSelection(status: string): void {
-    if (status === INVOICESTATUS.ALL) {
-      if (this.isSelected(INVOICESTATUS.ALL)) {
+    if (status === QUOTATIONSTATUS.ALL) {
+      if (this.isSelected(QUOTATIONSTATUS.ALL)) {
         this.selectedStatuses = [];
       } else {
-        this.selectedStatuses = [INVOICESTATUS.ALL];
+        this.selectedStatuses = [QUOTATIONSTATUS.ALL];
       }
     } else {
       if (this.isSelected(status)) {
@@ -122,7 +122,7 @@ export class QuotationsComponent {
         this.selectedStatuses.push(status);
       }
 
-      const allIndex = this.selectedStatuses.indexOf(INVOICESTATUS.ALL);
+      const allIndex = this.selectedStatuses.indexOf(QUOTATIONSTATUS.ALL);
       if (allIndex !== -1) {
         this.selectedStatuses.splice(allIndex, 1);
       }
@@ -157,10 +157,10 @@ export class QuotationsComponent {
   dateRangePicker(start: any, end: any) {
     this.quotationService.startDate = start._d;
     this.quotationService.endDate = end._d;
-    // this.loadQuotations();
+    this.loadQuotations();
   }
 
-  deletebulkInvoices(ids: string[]) {
+  deletebulkQuotation(ids: string[]) {
     this.quotationService.bulkDelete(ids).subscribe(
       () => {
         this.quotation = this.quotation.filter(item => !ids.includes(item._id as string));
@@ -216,7 +216,7 @@ export class QuotationsComponent {
 
   deleteQuotations(details: IInvoice) {
     this.router.navigate(["quotations", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: "quotations" } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: ROUTER_ACTIONS.QUOTATIONS } });
     })
   }
 
@@ -242,7 +242,7 @@ export class QuotationsComponent {
       }
     }
     this.router.navigate(["quotations", "delete", 'all']).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string } })
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string  , action : ROUTER_ACTIONS.QUOTATIONS}  })
     })
   }
 
@@ -324,7 +324,7 @@ export class QuotationsComponent {
           setTimeout(() => {
             this.notifier.show({
               type: 'success',
-              message: 'Invoices Downloaded successfully',
+              message: 'Quotations Downloaded successfully',
               id: 'THAT_NOTIFICATION_ID',
             });
           }, 3000);
@@ -345,8 +345,8 @@ export class QuotationsComponent {
   }
 
   sentEmail(details: IInvoice) {
-    this.router.navigate(["quotations", "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: "quotations", type: "Quotation" } });
+    this.router.navigate(["quotations", "sent-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: details._id, action: ROUTER_ACTIONS.QUOTATIONS, type: "Quotation" } });
     });
   }
 

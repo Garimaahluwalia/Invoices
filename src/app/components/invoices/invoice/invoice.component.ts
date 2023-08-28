@@ -5,7 +5,7 @@ import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { DeleteEvents } from 'src/app/types/delete';
-import { ModalEvents } from 'src/app/types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { DatePipe } from '@angular/common';
 import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
@@ -19,6 +19,7 @@ import { ClientRouterModalAction } from 'src/app/types/client/client.dto';
 import { AddRecordPaymentComponent } from 'src/app/modals/add-record-payment/add-record-payment.component';
 import { IInvoiceSummary, InvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
+
 
 
 declare var $: any;
@@ -224,7 +225,7 @@ export class InvoiceComponent implements OnInit {
 
   deleteInvoices(details: IInvoice) {
     this.router.navigate(["invoice", "delete", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: "invoice" } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: details._id, action: ROUTER_ACTIONS.INVOICE } });
     })
   }
 
@@ -236,7 +237,8 @@ export class InvoiceComponent implements OnInit {
         data: {
           id: details._id,
           event: DeleteEvents.INVOICE_ACTIONS,
-          status: status
+          status: status,
+          action: ROUTER_ACTIONS.INVOICE
         }
       });
     });
@@ -266,7 +268,7 @@ export class InvoiceComponent implements OnInit {
       }
     }
     this.router.navigate(["invoice", "delete", 'all']).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string } })
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string, action: ROUTER_ACTIONS.INVOICE } })
     })
   }
 
@@ -374,14 +376,14 @@ export class InvoiceComponent implements OnInit {
 
 
   sentEmail(details: IInvoice) {
-    this.router.navigate(["invoice", "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: details._id, action: InvoiceTypes.Invoice, type: InvoiceTypes.Invoice } });
+    this.router.navigate(["invoice", "sent-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: details._id, action: ROUTER_ACTIONS.INVOICE, type: InvoiceTypes.Invoice } });
     });
   }
 
   recordPayment(details: IInvoice) {
     this.router.navigate(["invoice", "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id, action: InvoiceTypes.Invoice } });
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: details._id, action: ROUTER_ACTIONS.INVOICE } });
     });
   }
 

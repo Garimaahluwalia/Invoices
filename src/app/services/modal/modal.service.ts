@@ -11,7 +11,7 @@ export class ModalService {
   private _invoiceactions: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
   private _bulkDelete: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
   private _recordPayment: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
-  private _sentInvoiceEmail: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
+  private _sentEmail: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
   private _removePayment: BehaviorSubject<IEventResponse> = new BehaviorSubject<IEventResponse>(this.defaultStatusInitWith)
   constructor() { }
 
@@ -30,8 +30,8 @@ export class ModalService {
       case ModalEvents.BulkDelete:
         this._bulkDelete.next(data || defaultStatus);
         break;
-      case ModalEvents.SentInvoiceEmail:
-        this._sentInvoiceEmail.next(data || defaultStatus);
+      case ModalEvents.SentEmail:
+        this._sentEmail.next(data || defaultStatus);
         break;
       case ModalEvents.RecordPayment:
         this._recordPayment.next(data || defaultStatus);
@@ -53,8 +53,8 @@ export class ModalService {
         return this._invoiceactions.asObservable();
       case ModalEvents.BulkDelete:
         return this._bulkDelete.asObservable();
-      case ModalEvents.SentInvoiceEmail:
-        return this._sentInvoiceEmail.asObservable();
+      case ModalEvents.SentEmail:
+        return this._sentEmail.asObservable();
       case ModalEvents.RecordPayment:
         return this._recordPayment.asObservable();
       case ModalEvents.RemovePayment:

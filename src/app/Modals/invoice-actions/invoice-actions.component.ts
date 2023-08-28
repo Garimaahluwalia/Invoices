@@ -5,7 +5,7 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { ModalEvents } from 'src/app/types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 
 @Component({
   selector: 'app-invoice-actions',
@@ -61,17 +61,19 @@ export class invoiceactionsComponent implements OnInit {
 
 
   closeModal() {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-    this.closeDeleteModalButton.nativeElement.click();
-
-
-    if (this.action === "save-invoice-page") {
-      this.router.navigate(["save-invoice-page", this.invoiceId]);
-    } else if (this.action === "invoice") {
-      this.router.navigate(["invoice"]).then(() => {
-        this.modalService.sendEvent(ModalEvents.invoiceactions, { status: false })
-      });
+    try {
+      this.closeDeleteModalButton.nativeElement.click();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      switch (this.action) {
+        case ROUTER_ACTIONS.SAVE_INVOICE_PAGE:
+          this.router.navigate(["save-invoice-page", this.invoiceId]);
+          break;
+        case ROUTER_ACTIONS.INVOICE:
+          this.router.navigate(["invoice"]);
+          break;
+      }
     }
   }
 

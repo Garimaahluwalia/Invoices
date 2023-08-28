@@ -15,3 +15,4 @@ export class emailInvoice implements IEmailInvoice {
     emailSubject: string = "";
     message: string = "";
 }
+ 

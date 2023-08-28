@@ -6,7 +6,7 @@ import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-han
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { CURRENCY } from 'src/app/types/currency';
-import { ModalEvents } from 'src/app/types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { IRecordPayment } from 'src/app/types/recordPayments';
 import { DatePipe } from '@angular/common';
 
@@ -74,9 +74,6 @@ export class AddRecordPaymentComponent implements OnInit {
       }
       this.getInvoice();
     }));
-
-
-
   }
 
   getInvoice() {
@@ -118,14 +115,23 @@ export class AddRecordPaymentComponent implements OnInit {
 
 
   closeModal() {
-    this.closeRecordModal.nativeElement.click();
-    if (this.action === "save-invoice-page") {
-      this.router.navigate(["save-invoice-page", this.invoiceId]);
-    } else if (this.action === "invoice") {
-      this.router.navigate(["invoice"]).then(() => {
-        this.modalService.sendEvent(ModalEvents.RecordPayment, { status: false })
-      });
+    try {
+      this.closeRecordModal.nativeElement.click();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      console.log(this.action);
+      switch (this.action) {
+        case ROUTER_ACTIONS.SAVE_INVOICE_PAGE:
+          this.router.navigate(["save-invoice-page", this.invoiceId]);
+          break;
+        case ROUTER_ACTIONS.INVOICE:
+          this.router.navigate(["invoice"]);
+          break;
+      }
     }
+
+
   }
 
   saveChanges() {

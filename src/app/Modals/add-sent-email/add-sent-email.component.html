@@ -84,4 +84,4 @@
     </div>
 </div>
 <router-outlet></router-outlet>
-<app-message-preview #modalPreview></app-message-preview>
+<app-message-preview #modalPreview (close)="closeMessageModal()" ></app-message-preview>

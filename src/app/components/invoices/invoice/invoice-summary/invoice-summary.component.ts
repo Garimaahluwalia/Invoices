@@ -12,9 +12,4 @@ export class InvoiceSummaryComponent {
   @Input() data!: IInvoice;
   public currencies = CURRENCY;
   public currencyData: any;
-
-
-
-
-
 }

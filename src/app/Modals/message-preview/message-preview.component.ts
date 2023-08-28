@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 
@@ -10,7 +10,7 @@ import { InvoiceTypes } from 'src/app/types/invoice-types';
 export class MessagePreviewComponent {
   @ViewChild("openModalButtonPreview", { static: false }) private openModalButton!: ElementRef;
   @ViewChild("closeModalButtonPreview", { static: false }) private closeModalButton!: ElementRef;
-
+  @Output() close: EventEmitter<boolean> = new EventEmitter();
   public readonly INVOICE_TYPES = InvoiceTypes;
   public selectedInvoice: any = null;
 
@@ -26,6 +26,8 @@ export class MessagePreviewComponent {
       this.closeModalButton.nativeElement.click();
     } catch (e) {
       console.log(e);
+    } finally {
+      this.close.emit(true);
     }
   }
 

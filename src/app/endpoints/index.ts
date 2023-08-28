@@ -38,7 +38,7 @@ const endpoints = {
     GETALL: (page: number, limit: number, sortOrder: string = "", sortField: string = "", searchQuery: string = "", startDate: string = "", endDate: string = "", status: string = "") => `${environment.BASE_URL}/quotation?page=${page}&limit=${limit}&sortOrder=${sortOrder}&sortField=${sortField}&searchQuery=${searchQuery}&startDate=${startDate}&endDate=${endDate}&status=${status}`,
     GET_QUOTATION_NUMBER: `${environment.BASE_URL}/quotation-number `,
     BULK_DELETE: `${environment.BASE_URL}/quotation/bulkdelete`,
-    BULK_DOWNLOAD_AS_PDF: (QuotationId: string[]) => `${environment.BASE_URL}/invoice/getPDFzip/${QuotationId.join(",")}`,
+    BULK_DOWNLOAD_AS_PDF: (QuotationId: string[]) => `${environment.BASE_URL}/quotation/getPDFzip/${QuotationId.join(",")}`,
     DOWNLOAD_QUOTATION: (QuotationId: string) => `${environment.BASE_URL}/quotation/getQuotationPdf/${QuotationId}`,
   },
 

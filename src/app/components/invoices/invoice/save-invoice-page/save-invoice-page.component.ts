@@ -14,7 +14,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { CURRENCY } from 'src/app/types/currency';
 import { DeleteEvents } from 'src/app/types/delete';
-import { ModalEvents } from 'src/app/types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 
@@ -122,8 +122,8 @@ export class SaveInvoicePageComponent implements OnInit {
 
   emailInvoice(data: IInvoice) {
     console.log(data, "email invoice")
-    this.route.navigate(["save-invoice-page", this._id, "invoice-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: true, data: { id: data._id, action: "save-invoice-page", type: InvoiceTypes.Invoice  }});
+    this.route.navigate(["save-invoice-page", this._id, "sent-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: data._id, action: "save-invoice-page", type: InvoiceTypes.Invoice  }});
     });
   }
 
@@ -167,7 +167,7 @@ export class SaveInvoicePageComponent implements OnInit {
 
   recordPayment(data: IInvoice) {
     this.route.navigate(["save-invoice-page", this._id, "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id, action: "save-invoice-page" } });
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_INVOICE_PAGE } });
     });
   }
 
@@ -204,7 +204,7 @@ export class SaveInvoicePageComponent implements OnInit {
 
   deleteInvoices(data: IInvoice) {
     this.route.navigate(["save-invoice-page", data._id, "delete", data._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: "save-invoice-page" } });
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_INVOICE_PAGE } });
     });
   }
 

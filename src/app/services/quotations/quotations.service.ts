@@ -113,6 +113,7 @@ export class QuotationsService {
 
 
 
+
   addQuotations(data: IInvoice) {
     this._quotations.push(data);
     this.sendQuotations();
@@ -126,7 +127,7 @@ export class QuotationsService {
     return this.http.get<IInvoice>(endpoints.QUOTATIONS_LIST.GET(quotationId));
   }
 
-  getAllQuotation(page: number = 1, limit: number = 10, order: string, field: string, searchQuery: string, startDate: string, endDate: string, status: string): Observable<IInvoiceResponse> {
+  public getAllQuotation(page: number = 1, limit: number = 10, order: string, field: string, searchQuery: string, startDate: string, endDate: string, status: string): Observable<IInvoiceResponse> {
     return this.http.get<IInvoiceResponse>(endpoints.QUOTATIONS_LIST.GETALL(page, limit, order, field, searchQuery, startDate, endDate, status));
   }
 
@@ -142,12 +143,12 @@ export class QuotationsService {
     return this.http.put(endpoints.QUOTATIONS_LIST.UPDATE(quotationId), data);
   }
 
-  bulkDelete(ids: string[]) {
-    return this.http.post(endpoints.INVOICES_LIST.BULK_DELETE, { ids });
+  public bulkDelete(ids: string[]) {
+    return this.http.post(endpoints.QUOTATIONS_LIST.BULK_DELETE, { ids });
   }
 
-  bulkDownloadAsPDF(quotationId: string[]): Observable<HttpResponse<Blob>> {
-    return this.http.get<Blob>(endpoints.INVOICES_LIST.BULK_DOWNLOAD_AS_PDF(quotationId), {
+  public bulkDownloadAsPDF(quotationId: string[]): Observable<HttpResponse<Blob>> {
+    return this.http.get<Blob>(endpoints.QUOTATIONS_LIST.BULK_DOWNLOAD_AS_PDF(quotationId), {
       observe: 'response',
       responseType: 'blob' as 'json'
     });

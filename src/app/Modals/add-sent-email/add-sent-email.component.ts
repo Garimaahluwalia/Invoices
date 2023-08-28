@@ -4,7 +4,7 @@ import { ReplaySubject, firstValueFrom, take, takeUntil } from 'rxjs';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { IEmailInvoice } from 'src/app/types/email-invoice';
-import { ModalEvents } from 'src/app/types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { NotifierService } from "angular-notifier";
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
@@ -47,14 +47,12 @@ export class AddSentEmailComponent implements OnInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.modalService.recieveEvent(ModalEvents.SentInvoiceEmail)
+    this.modalService.recieveEvent(ModalEvents.SentEmail)
       .pipe(takeUntil(this.destroyed))
       .subscribe(res => {
         const { data, status } = res;
         this.invoiceId = res.data.id;
         this.type = res.data.type;
-        console.log(this.invoiceId, "InvoiceID")
-        console.log(res, "DATA")
         this.action = data.action;
         this.data = data;
 
@@ -79,14 +77,14 @@ export class AddSentEmailComponent implements OnInit {
     } else {
       this.selectedInvoice = await this.getQuotationById();
     }
-    
+
 
     this.clientName = this.selectedInvoice.client.name;
     this.clientEmail = this.selectedInvoice.client.email;
     this.from = this.selectedInvoice.company.Businessname;
     const invoiceOrQuotationNumber = this.type === InvoiceTypes.Invoice ? this.selectedInvoice.invoiceNo : this.selectedInvoice.quotationNo;
     this.selectedInvoice.invoiceOrQuotationNumber = invoiceOrQuotationNumber;
-    this.emailSubject = `[Important] Email ${this.type} for ${this.selectedInvoice.client.name} - ${this.selectedInvoice.invoiceNo}`;
+    this.emailSubject = `[Important] Email ${this.type} for ${this.selectedInvoice.client.name} - ${invoiceOrQuotationNumber}`;
     this.message =
       `Hi, ${this.selectedInvoice.client.name}\n
       Please find attached ${this.type} ${invoiceOrQuotationNumber}
@@ -102,19 +100,20 @@ export class AddSentEmailComponent implements OnInit {
     try {
       this.closeModalButton.nativeElement.click();
     } catch (e) {
-      console.log(e)
+      console.error(e);
     } finally {
-      console.log(this.action);
-      if (this.action === "save-invoice-page") {
-        this.router.navigate(["save-invoice-page", this.data.id]);
-      } else if (this.action === "invoice") {
-
-        console.log(this.action);
-        this.router.navigate(["invoice"]).then(() => {
-          this.modalService.sendEvent(ModalEvents.SentInvoiceEmail, { status: false });
-        });
-      } else if (this.action === "quotations") {
-        this.router.navigate(["quotations"]);
+      switch (this.action) {
+        case ROUTER_ACTIONS.SAVE_INVOICE_PAGE:
+          this.router.navigate(["save-invoice-page", this.invoiceId]);
+          break;
+        case ROUTER_ACTIONS.INVOICE:
+          this.router.navigate(["invoice"]);
+          break;
+        case ROUTER_ACTIONS.QUOTATIONS:
+          this.router.navigate(["quotations"]);
+          break;
+        case ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE:
+          this.router.navigate(["save-quotations-page", this.invoiceId]);
       }
     }
   }
@@ -168,9 +167,16 @@ export class AddSentEmailComponent implements OnInit {
   }
 
   openMessagePreview() {
+    try {
+      this.closeModalButton.nativeElement.click();
+    } catch (e) {
+      console.error(e);
+    }
     this.modalPreview.updateValues({ ...this.selectedInvoice, type: this.type });
     this.modalPreview.openModal();
   }
 
-
+  closeMessageModal() {
+    this.openModalButton.nativeElement.click();
+  }
 }

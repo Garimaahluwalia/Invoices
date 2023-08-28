@@ -5,7 +5,7 @@ import { ReplaySubject, takeUntil } from "rxjs";
 import { DeleteService } from "src/app/services/modal/delete.service";
 import { ModalService } from "src/app/services/modal/modal.service";
 import { DeleteEvents } from "src/app/types/delete";
-import { ModalEvents } from "src/app/types/modal";
+import { ModalEvents, ROUTER_ACTIONS } from "src/app/types/modal";
 
 @Component({
   selector: "app-delete",
@@ -22,6 +22,7 @@ export class DeleteComponent {
   public bulkItems: string[] = [];
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   private readonly notifier!: NotifierService;
+  action: any;
 
   constructor(
     public modalService: ModalService,
@@ -38,9 +39,10 @@ export class DeleteComponent {
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
         const { data, status } = res;
+        this.action = data.action;
         (this.data = data), status;
         this.bulkItems = data?.bulkItems || null;
-        if (status || data) {
+        if (status) {
           this.openModal();
         } else {
           this.closeModal();
@@ -53,22 +55,27 @@ export class DeleteComponent {
   }
 
   closeModal() {
-    this.destroyed.next(true);
-    this.destroyed.complete();
-    this.closeDeleteModalButton.nativeElement.click();
-    if (this.router.url.includes("clients")) {
-      this.router.navigate(["/clients"]);
-    } else if (this.router.url.includes("invoice")) {
-      this.router.navigate(["invoice"]).then(() => {
-        this.modalService.sendEvent(ModalEvents.Delete, { status: false });
-      });
+    try {
+      this.closeDeleteModalButton.nativeElement.click();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      switch (this.action) {
+        case ROUTER_ACTIONS.INVOICE:
+          this.router.navigate(["invoice"]);
+          break;
+        case ROUTER_ACTIONS.QUOTATIONS:
+          this.router.navigate(["quotations"]);
+          break;
+        case ROUTER_ACTIONS.SAVE_INVOICE_PAGE:
+          this.router.navigate(["invoice"]);
+          break;
+        case ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE:
+          this.router.navigate(["quotations"]);
+          break;
+      }
     }
   }
-
-
-
-  
-
 
   yes() {
     const event = this.data["event"] as DeleteEvents;
