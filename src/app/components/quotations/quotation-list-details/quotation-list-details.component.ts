@@ -52,7 +52,7 @@ export class QuotationListDetailsComponent {
   ngOnInit(): void {
     this.router.params.subscribe(params => {
       this._id = params['id'];
-      this.getInvoiceById();
+      this.getQuotationById();
     });
 
 
@@ -67,7 +67,7 @@ export class QuotationListDetailsComponent {
   }
 
 
-  getInvoiceById() {
+  getQuotationById() {
     this.loaderService.ShowLoader();
     this.quotationService.getQuotation(this._id)
       .pipe(takeUntil(this.destroyed))
@@ -93,9 +93,9 @@ export class QuotationListDetailsComponent {
 
 
 
-  downloadInvoice() {
+  downloadQuotation() {
     this.loading = true;
-    this.quotationService.downloadInvoice(this._id)
+    this.quotationService.downloadQuotation(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe({
         next: (response: any) => {

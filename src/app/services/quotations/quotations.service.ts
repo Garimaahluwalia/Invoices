@@ -153,8 +153,8 @@ export class QuotationsService {
     });
   }
 
-  downloadInvoice(quotationId: string): Observable<HttpResponse<Blob>> {
-    return this.http.get<Blob>(endpoints.INVOICES_LIST.DOWNLOAD_INVOICE(quotationId), {
+  downloadQuotation(quotationId: string): Observable<HttpResponse<Blob>> {
+    return this.http.get<Blob>(endpoints.QUOTATIONS_LIST.DOWNLOAD_QUOTATION(quotationId), {
       observe: 'response',
       responseType: "blob" as 'json'
     })

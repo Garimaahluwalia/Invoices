@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents } from 'src/app/types/modal';
 
@@ -14,10 +15,12 @@ export class RemovePaymentComponent {
   @ViewChild("openDeleteModal", { static: false }) private openDeleteModal!: ElementRef;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
+  public invoiceId: any;
 
 
   constructor(public modalService: ModalService,
-    public router: Router) {
+    public router: Router,
+    public invoiceService: InvoiceService) {
 
   }
 
@@ -26,6 +29,8 @@ export class RemovePaymentComponent {
     this.modalService.recieveEvent(ModalEvents.RemovePayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status } = res;
       this.data = data, status;
+      this.invoiceId = data.id
+
       if (status) {
         this.openModal();
       } else {
@@ -45,7 +50,12 @@ export class RemovePaymentComponent {
   }
 
   yes() {
-
+    this.invoiceService.removePayment(this.invoiceId).subscribe(response => {
+      console.log('Payment removed:', response);
+    }, (error: any) => {
+      console.error('Error removing payment:', error);
+    });
+    this.closeModal();
   }
 
   no() {

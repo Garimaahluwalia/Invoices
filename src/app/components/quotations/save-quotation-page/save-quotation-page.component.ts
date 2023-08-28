@@ -63,7 +63,7 @@ export class SaveQuotationPageComponent {
   ngOnInit(): void {
     this.router.params.subscribe(params => {
       this._id = params['id'];
-      this.getInvoiceById();
+      this.getQuotationById();
     });
 
 
@@ -89,12 +89,12 @@ export class SaveQuotationPageComponent {
   }
 
 
-  getInvoiceById() {
-    // this.loaderService.ShowLoader();
+  getQuotationById() {
+    this.loaderService.ShowLoader();
     this.quotationService.getQuotation(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
-        // this.loaderService.HideLoader();
+        this.loaderService.HideLoader();
         console.log(res, "quotation response")
         this.table = res.table;
         this.data = res;
@@ -114,7 +114,7 @@ export class SaveQuotationPageComponent {
       });
   }
 
-  updateInvoice(details: IInvoice) {
+  updateQuotation(details: IInvoice) {
     this.route.navigate(["/add-invoice", details._id], { queryParams: { category: 'Quotations' } });
   }
 
@@ -132,7 +132,7 @@ export class SaveQuotationPageComponent {
 
   downloadQuotation() {
     this.loading = true;
-    this.quotationService.downloadInvoice(this._id)
+    this.quotationService.downloadQuotation(this._id)
       .pipe(takeUntil(this.destroyed))
       .subscribe({
         next: (response: any) => {

@@ -5,7 +5,7 @@
         <div class="view-button"> <button type="button" routerLink="/quotations"
                 class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house view"></i>
                 Home</button></div>
-        <button class="btn btn-primary print-cstn-btn downloadInvoice" (click)=" downloadInvoice()"
+        <button class="btn btn-primary print-cstn-btn downloadInvoice" (click)="downloadQuotation()"
             [class.spinner]="loading" [disabled]="loading">
             <i class="ri-download-2-line align-bottom me-1"></i> Download Quotation
         </button>
