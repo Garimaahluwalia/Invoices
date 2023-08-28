@@ -74,7 +74,7 @@ export class QuotationsComponent {
 
   ngOnInit(): void {
     this.itemsPerPage = this.quotationService.limit;
-    this.loadInvoices();
+    this.loadQuotations();
 
     this.deleteService.recieveDeleteEvent()?.subscribe(res => {
       if (res) {
@@ -129,7 +129,7 @@ export class QuotationsComponent {
     }
 
     this.quotationService._status = this.selectedStatuses.join(",");
-    this.loadInvoices();
+    this.loadQuotations();
   }
 
 
@@ -157,9 +157,8 @@ export class QuotationsComponent {
   dateRangePicker(start: any, end: any) {
     this.quotationService.startDate = start._d;
     this.quotationService.endDate = end._d;
-    this.loadInvoices();
+    // this.loadQuotations();
   }
-
 
   deletebulkInvoices(ids: string[]) {
     this.quotationService.bulkDelete(ids).subscribe(
@@ -167,7 +166,7 @@ export class QuotationsComponent {
         this.quotation = this.quotation.filter(item => !ids.includes(item._id as string));
         this.checkedItems = {};
         this.isButtonEnabled = false;
-        this.loadInvoices();
+        this.loadQuotations();
       },
       (error) => {
         console.error('Bulk delete failed:', error);
@@ -180,7 +179,7 @@ export class QuotationsComponent {
     this.showDropdown = !this.showDropdown;
   }
 
-  loadInvoices() {
+  loadQuotations() {
     this.checkedItems = {};
     this.quotationService.getAll();
   }
@@ -266,12 +265,12 @@ export class QuotationsComponent {
   sortingOrder(sortField: any, sortOrder: ORDER) {
     this.quotationService.sortField = sortField;
     this.quotationService.sortOrder = sortOrder;
-    this.loadInvoices();
+    this.loadQuotations();
   }
 
   handleSearch() {
     this.quotationService.searchQuery = this.searchQuery;
-    this.loadInvoices();
+    this.loadQuotations();
   }
 
   getSelectedItemsCount(): number {
