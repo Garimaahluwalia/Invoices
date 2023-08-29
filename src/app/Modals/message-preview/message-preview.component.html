@@ -19,33 +19,9 @@
                 <div class="card">
                     <img class="card-img-top" src="\assets\business.png" alt="Card image cap">
                     <div class="card-body">
-                        <div class="card-title" *ngIf="selectedInvoice?.type === INVOICE_TYPES.Invoice; else quotation">
-                            <p class="card-font"> Hi {{selectedInvoice?.client.name}},</p>
-                            <p class="card-font m-0">Please find attached invoice {{selectedInvoice?.invoiceNo}}</p>
-                            <p class="card-font m-0">Invoice No: {{selectedInvoice?.invoiceNo}}</p>
-                            <p class="card-font m-0">Invoice Date : {{selectedInvoice?.date}}</p>
-                            <p class="card-font">Billed To : {{selectedInvoice?.client.name}}</p>
-                            <p class="card-font">Thank you for your business.</p>
-                            <p class="card-font m-0">Regards,</p>
-                            <p class="card-font">{{selectedInvoice?.company.Businessname}}</p>
+
+                        <div class="card-font"     [innerText]="selectedInvoice?.body">
                         </div>
-                        <ng-template #quotation>
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <p class="card-font"> Hi {{selectedInvoice?.client.name}},</p>
-                                    <p class="card-font m-0">Please find attached quotation
-                                        {{selectedInvoice?.quotationNo}}</p>
-                                    <p class="card-font m-0">Quotation No: {{selectedInvoice?.quotationNo}}</p>
-                                    <p class="card-font m-0">Quotation Date : {{selectedInvoice?.date}}</p>
-                                    <p class="card-font">Quotation for : {{selectedInvoice?.client.name}}</p>
-                                    <p class="card-font">Thank you for your business.</p>
-                                    <p class="card-font">Regards,</p>
-                                    <p class="card-font">{{selectedInvoice?.company.Businessname}}</p>
-                                </div>
-                            </div>
-
-                        </ng-template>
-
                         <a href="javascript:void(0)" class="btn btn-primary view-invoice">view-invoice</a>
                         <footer class="message-footer">
                             <div class="regards">

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, Subscription, takeUntil } from 'rxjs';
@@ -46,7 +46,8 @@ export class AddRecordPaymentComponent implements OnInit {
     public router: Router,
     public invoiceService: InvoiceService,
     public notifierService: NotifierService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private cdRef: ChangeDetectorRef) {
     this.paymentDate = this.datePipe.transform(this.paymentDate, 'yyyy-MM-dd') as any;
     this.notifier = notifierService;
   }
@@ -61,6 +62,7 @@ export class AddRecordPaymentComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.cdRef.detectChanges();
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
       const { data, status } = res;
       this.invoiceId = data.id;
@@ -120,7 +122,6 @@ export class AddRecordPaymentComponent implements OnInit {
     } catch (e) {
       console.error(e);
     } finally {
-      console.log(this.action);
       switch (this.action) {
         case ROUTER_ACTIONS.SAVE_INVOICE_PAGE:
           this.router.navigate(["save-invoice-page", this.invoiceId]);

@@ -105,12 +105,11 @@ export class AddInvoicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
-      console.log(data);
     })
     this.getTaxes();
     this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false;
     this.invoiceId = this.route.snapshot?.params?.["id"];
-    this.invoiceType = this.route.snapshot.queryParams?.['category'] as InvoiceTypes  || InvoiceTypes.Invoice;
+    this.invoiceType = this.route.snapshot.queryParams?.['category'] as InvoiceTypes || InvoiceTypes.Invoice;
 
     this.invoiceService.invoiceId = this.invoiceId;
     this.quotationService.quotationId = this.invoiceId;
@@ -126,7 +125,6 @@ export class AddInvoicesComponent implements OnInit {
     }
 
     this.quotationService.quotationEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      console.log(res, "quotaion")
       if (this.invoiceType === InvoiceTypes.Quotation) {
         this.fields = res.table as Field[];
         this.invoiceNumber = res.invoiceNo;
@@ -233,9 +231,7 @@ export class AddInvoicesComponent implements OnInit {
 
   addQuotation(payload: any) {
     this.quotationService.addQuotation(payload).subscribe((res: any) => {
-      console.log(res, "quotation response")
       this.quotations = res;
-
       this.quotationIDforsave = res.savedQuotation._id;
       this.router.navigate(["/save-quotations-page", this.quotationIDforsave]);
     })

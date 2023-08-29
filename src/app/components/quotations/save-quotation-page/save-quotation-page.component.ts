@@ -79,7 +79,6 @@ export class SaveQuotationPageComponent {
 
     this.deleteService.recieveDeleteEvent()?.subscribe((res) => {
       const data = res;
-      console.log(data, "delete response");
     })
 
 
@@ -95,7 +94,6 @@ export class SaveQuotationPageComponent {
       .pipe(takeUntil(this.destroyed))
       .subscribe((res) => {
         this.loaderService.HideLoader();
-        console.log(res, "quotation response")
         this.table = res.table;
         this.data = res;
         this.products = res.products;
@@ -124,7 +122,6 @@ export class SaveQuotationPageComponent {
   }
 
   emailQuotation(data: IInvoice) {
-    console.log(data, "email invoice")
     this.route.navigate(["save-quotations-page", this._id, "sent-email"]).then(() => {
       this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE, type: InvoiceTypes.Quotation }, });
     });
@@ -193,7 +190,6 @@ export class SaveQuotationPageComponent {
       this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE } });
     });
   }
-
   printPDF() {
     window.print();
   }

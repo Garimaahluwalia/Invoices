@@ -59,7 +59,7 @@ export class QuotationsComponent {
   public isDropdownOpen: boolean = false;
   public invoiceSummary: InvoiceSummary = new InvoiceSummary();
   public value: any;
-  public quotationSummary!: IQuotationSummary;
+  public quotationSummary: IQuotationSummary = new IQuotationSummary();
 
   constructor(
     private datePipe: DatePipe,
@@ -360,8 +360,8 @@ export class QuotationsComponent {
 
   getQuotationSummary() {
     this.quotationService.getQuotationSummary().subscribe((res) => {
-      this.quotationSummary = res;
-      console.log(this.quotationSummary, "quotationSUmmary")
+      this.quotationSummary.setData(res.quotationCount, res.draftquotationCount);
+
     })
   }
 }

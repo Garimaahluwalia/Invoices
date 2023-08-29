@@ -4,7 +4,7 @@ export interface IEmailInvoice {
     clientEmail: string
     cc: string
     emailSubject: string
-    message: string
+    body: string
 }
 
 export class emailInvoice implements IEmailInvoice {
@@ -13,6 +13,6 @@ export class emailInvoice implements IEmailInvoice {
     clientEmail: string = "";
     cc: string = "";
     emailSubject: string = "";
-    message: string = "";
+    body: string = "";
 }
  

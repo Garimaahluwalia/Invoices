@@ -38,7 +38,7 @@ export class InvoicedataComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges({ duplicate, invoiceOrQuotationNo }: SimpleChanges): void {
-    console.log(this);
+ 
     if (!duplicate?.firstChange && duplicate?.currentValue !== undefined) {
       this.duplicate = duplicate?.currentValue;
     }
@@ -107,7 +107,6 @@ export class InvoicedataComponent implements OnInit, OnChanges {
 
   subscriptions() {
     this.invoiceService.recieveInvoiceCategory().pipe(takeUntil(this.destroyed)).subscribe((res: InvoiceTypes) => {
-      console.log(res);
       this.invoiceType = res || InvoiceTypes.Invoice;
       this.handleNumberFetching();
     });

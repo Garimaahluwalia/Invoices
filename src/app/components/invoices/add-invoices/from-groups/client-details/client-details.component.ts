@@ -7,9 +7,11 @@ import { ModalEvents } from 'src/app/types/modal';
 import { takeUntil, ReplaySubject } from "rxjs";
 import { ClientRouterModalAction, IClient } from 'src/app/types/client/client.dto';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
 interface Options {
   queryParams?: {
     duplicateInvoice?: string;
+    category? : string
   };
 }
 @Component({
@@ -78,7 +80,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   addClients() {
     let options: Options = {};
     if (this.duplicateInvoice) {
-      options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
+      options = { ...options, queryParams: { duplicateInvoice: "duplicate", category: InvoiceTypes.Quotation }}
     }
     let route = ["add-invoice", "add-client"]
     if (this.invoiceId) {
@@ -92,7 +94,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
   updateClient(clientId: string | null | undefined) {
     let options: Options = {};
     if (this.duplicateInvoice) {
-      options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
+      options = { ...options, queryParams: { duplicateInvoice: "duplicate" , category: InvoiceTypes.Quotation } }
     }
     let route = ["add-invoice", "add-client", clientId]
     if (this.invoiceId) {

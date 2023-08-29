@@ -9,6 +9,7 @@ import { NotifierService } from "angular-notifier";
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
 import { MessagePreviewComponent } from '../message-preview/message-preview.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-sent-email',
@@ -28,7 +29,7 @@ export class AddSentEmailComponent implements OnInit {
   public cc!: string;
   public emailSubject!: string;
   public action: string = "";
-  public message: string = `...`
+  public body: string = `...`
   public emailInvoice!: IEmailInvoice;
   private readonly notifier!: NotifierService;
   public invoiceId!: string;
@@ -40,11 +41,13 @@ export class AddSentEmailComponent implements OnInit {
     public router: Router,
     public invoiceService: InvoiceService,
     public notifierService: NotifierService,
-    public quotationService: QuotationsService
-
+    public quotationService: QuotationsService,
+    private datePipe: DatePipe,
   ) { this.notifier = notifierService; }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    
+   }
 
   ngAfterViewInit(): void {
     this.modalService.recieveEvent(ModalEvents.SentEmail)
@@ -85,11 +88,11 @@ export class AddSentEmailComponent implements OnInit {
     const invoiceOrQuotationNumber = this.type === InvoiceTypes.Invoice ? this.selectedInvoice.invoiceNo : this.selectedInvoice.quotationNo;
     this.selectedInvoice.invoiceOrQuotationNumber = invoiceOrQuotationNumber;
     this.emailSubject = `[Important] Email ${this.type} for ${this.selectedInvoice.client.name} - ${invoiceOrQuotationNumber}`;
-    this.message =
+    this.body =
       `Hi, ${this.selectedInvoice.client.name}\n
       Please find attached ${this.type} ${invoiceOrQuotationNumber}
       ${this.type} No: ${invoiceOrQuotationNumber}
-      ${this.type} Date: ${this.selectedInvoice.date}
+      ${this.type} Date: ${this.datePipe.transform(this.selectedInvoice.date, "YYYY-MM-dd")}
       Billed To: ${this.selectedInvoice.client.name}
       Thank you for your business.
       Regards,
@@ -144,7 +147,7 @@ export class AddSentEmailComponent implements OnInit {
       clientEmail: this.clientEmail,
       cc: this.cc,
       emailSubject: this.emailSubject,
-      message: this.message,
+      body: this.body,
     };
 
     this.invoiceService.sendInvoiceEmail(payload).subscribe((res) => {
@@ -172,7 +175,7 @@ export class AddSentEmailComponent implements OnInit {
     } catch (e) {
       console.error(e);
     }
-    this.modalPreview.updateValues({ ...this.selectedInvoice, type: this.type });
+    this.modalPreview.updateValues({ ...this.selectedInvoice, type: this.type , body : this.body });
     this.modalPreview.openModal();
   }
 

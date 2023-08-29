@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, OnInit, ViewChild, QueryList } from '@angular/core';
+import { Component, ElementRef, ViewChildren, OnInit, ViewChild, QueryList, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
@@ -75,13 +75,15 @@ export class InvoiceComponent implements OnInit {
     public sidebarService: SidebarService,
     public notifierService: NotifierService,
     public activatedRoute: ActivatedRoute,
-    public loadService: LoaderService) {
+    public loadService: LoaderService,
+    private cdRef: ChangeDetectorRef) {
     this.notifier = notifierService;
   }
 
 
   ngOnInit(): void {
-    console.log(this.activatedRoute)
+
+
     this.summaryTotal();
     this.itemsPerPage = this.invoiceService.limit;
     this.loadInvoices();
@@ -110,7 +112,6 @@ export class InvoiceComponent implements OnInit {
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
-      console.log(this.invoices, "Invoices");
       // const currency = this.currencies.find(currency => currency.code === this.invoices.currency);
       // this.currencyData = currency?.symbol;
     });
@@ -160,6 +161,7 @@ export class InvoiceComponent implements OnInit {
 
 
   ngAfterViewInit() {
+    this.cdRef.detectChanges();
     $('input[name="daterange"]').daterangepicker({
       opens: 'left'
     }, (start: any, end: any) => {
@@ -405,8 +407,6 @@ export class InvoiceComponent implements OnInit {
       this.modalService.sendEvent(ModalEvents.RemovePayment, { status: true, data: { id: details._id } });
     })
   }
-
-
 
 }
 

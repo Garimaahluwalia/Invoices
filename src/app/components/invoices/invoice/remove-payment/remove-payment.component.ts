@@ -51,7 +51,6 @@ export class RemovePaymentComponent {
 
   yes() {
     this.invoiceService.removePayment(this.invoiceId).subscribe(response => {
-      console.log('Payment removed:', response);
     }, (error: any) => {
       console.error('Error removing payment:', error);
     });
