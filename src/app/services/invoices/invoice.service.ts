@@ -299,4 +299,5 @@ export class InvoiceService {
   removePayment(invoiceId: string): Observable<any> {
     return this.http.put(endpoints.INVOICES_LIST.REMOVE_PAYMENT(invoiceId) , {})
   } 
+  
 }  

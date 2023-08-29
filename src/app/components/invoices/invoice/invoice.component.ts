@@ -19,6 +19,7 @@ import { ClientRouterModalAction } from 'src/app/types/client/client.dto';
 import { AddRecordPaymentComponent } from 'src/app/modals/add-record-payment/add-record-payment.component';
 import { IInvoiceSummary, InvoiceSummary } from 'src/app/types/invoiceSummaryTotal';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
+import { CURRENCY } from 'src/app/types/currency';
 
 
 
@@ -61,7 +62,8 @@ export class InvoiceComponent implements OnInit {
   public isDropdownOpen: boolean = false;
   public invoiceSummary: InvoiceSummary = new InvoiceSummary();
   public value: any;
-
+  public currencies = CURRENCY;
+  public currencyData: any;
 
   constructor(
     private datePipe: DatePipe,
@@ -108,6 +110,9 @@ export class InvoiceComponent implements OnInit {
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
+      console.log(this.invoices, "Invoices");
+      // const currency = this.currencies.find(currency => currency.code === this.invoices.currency);
+      // this.currencyData = currency?.symbol;
     });
   }
 

@@ -3,6 +3,7 @@ import { IInvoice, IInvoiceClass, IInvoiceResponse, IProducts, IQuotationClass }
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import endpoints from 'src/app/endpoints';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
+import { IQuotationSummary } from 'src/app/types/quotationSummary';
 
 
 @Injectable({
@@ -111,7 +112,9 @@ export class QuotationsService {
     }
   }
 
-
+  getQuotationSummary(): Observable<IQuotationSummary> {
+    return this.http.get<IQuotationSummary>(endpoints.QUOTATIONS_LIST.QUOTATION_SUMMARY)
+  }
 
 
   addQuotations(data: IInvoice) {

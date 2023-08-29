@@ -40,6 +40,7 @@ const endpoints = {
     BULK_DELETE: `${environment.BASE_URL}/quotation/bulkdelete`,
     BULK_DOWNLOAD_AS_PDF: (QuotationId: string[]) => `${environment.BASE_URL}/quotation/getPDFzip/${QuotationId.join(",")}`,
     DOWNLOAD_QUOTATION: (QuotationId: string) => `${environment.BASE_URL}/quotation/getQuotationPdf/${QuotationId}`,
+    QUOTATION_SUMMARY : `${environment.BASE_URL}/quotationsummary`
   },
 
 

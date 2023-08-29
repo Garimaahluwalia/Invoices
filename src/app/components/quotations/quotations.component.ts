@@ -17,7 +17,10 @@ import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { NotifierService } from 'angular-notifier';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
 import { QUOTATIONSTATUS } from 'src/app/types/quotationStatus';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
+import { IQuotationSummary } from 'src/app/types/quotationSummary';
 
+declare var $: any;
 @Component({
   selector: 'app-quotations',
   templateUrl: './quotations.component.html',
@@ -52,11 +55,11 @@ export class QuotationsComponent {
   public checkedCount!: number;
   public selectedCount!: number;
   public selectedStatus: any[] = [];
-  public selectedStatuses: string[] = [QUOTATIONSTATUS.CREATED];
+  public selectedStatuses: string[] = [QUOTATIONSTATUS.ALL];
   public isDropdownOpen: boolean = false;
   public invoiceSummary: InvoiceSummary = new InvoiceSummary();
   public value: any;
-
+  public quotationSummary!: IQuotationSummary;
 
   constructor(
     private datePipe: DatePipe,
@@ -101,6 +104,7 @@ export class QuotationsComponent {
     this.quotationService.recieveQuotations().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.quotation = data;
     });
+    this.getQuotationSummary();
   }
 
   toggleDropdowns(): void {
@@ -146,13 +150,13 @@ export class QuotationsComponent {
 
 
 
-  // ngAfterViewInit() {
-  //   $('input[name="daterange"]').daterangepicker({
-  //     opens: 'left'
-  //   }, (start: any, end: any) => {
-  //     this.dateRangePicker(start, end);
-  //   });
-  // }
+  ngAfterViewInit() {
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, (start: any, end: any) => {
+      this.dateRangePicker(start, end);
+    });
+  }
 
   dateRangePicker(start: any, end: any) {
     this.quotationService.startDate = start._d;
@@ -221,8 +225,8 @@ export class QuotationsComponent {
   }
 
 
-  duplicateInvoice(details: IInvoice) {
-    this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate" } })
+  duplicateQuotation(details: IInvoice) {
+    this.router.navigate(["add-invoice", details._id], { queryParams: { duplicateInvoice: "duplicate", category: InvoiceTypes.Quotation } })
   }
 
   toggleBodyClass() {
@@ -242,7 +246,7 @@ export class QuotationsComponent {
       }
     }
     this.router.navigate(["quotations", "delete", 'all']).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string  , action : ROUTER_ACTIONS.QUOTATIONS}  })
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { bulkItems: bulkItems as unknown as string, action: ROUTER_ACTIONS.QUOTATIONS } })
     })
   }
 
@@ -352,5 +356,12 @@ export class QuotationsComponent {
 
   quotations() {
     this.router.navigate(['/add-invoice'], { queryParams: { category: 'Quotations' } });
+  }
+
+  getQuotationSummary() {
+    this.quotationService.getQuotationSummary().subscribe((res) => {
+      this.quotationSummary = res;
+      console.log(this.quotationSummary, "quotationSUmmary")
+    })
   }
 }

@@ -110,39 +110,83 @@ export class AddInvoicesComponent implements OnInit {
     this.getTaxes();
     this.duplicateInvoice = this.route.snapshot.queryParams?.['duplicateInvoice'] ? true : false;
     this.invoiceId = this.route.snapshot?.params?.["id"];
+    this.invoiceType = this.route.snapshot.queryParams?.['category'] as InvoiceTypes  || InvoiceTypes.Invoice;
 
     this.invoiceService.invoiceId = this.invoiceId;
+    this.quotationService.quotationId = this.invoiceId;
 
     if (this.invoiceId) {
-      this.invoiceService.getInvoiceforUpdateAndEmit();
+      if (this.invoiceType === InvoiceTypes.Invoice) {
+
+        this.invoiceService.getInvoiceforUpdateAndEmit();
+      } else {
+        this.quotationService.getQuotationforUpdateAndEmit();
+      }
+
     }
 
-    this.invoiceService.invoiceEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
-      this.fields = res.table as Field[];
-      this.invoiceNumber = res.invoiceNo;
-      this.invoiceService.invoiceNumber = res.invoiceNo;
-      this.productData = res.products;
-      this.status = res.status;
-      this.currency = res.currency;
-      this.addInvoiceService.sendProductChanges(res.products);
-      if (!this.duplicateInvoice) {
-        this.clientService.sendClientDetails(res.client);
-      }
-      this.addInvoiceService.sendCurrency(this.currency);
-      this.updateInvoiceData = res;
-      let formData: { [key: string]: any } = {
-        "tax": res.tax,
-      };
+    this.quotationService.quotationEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
+      console.log(res, "quotaion")
+      if (this.invoiceType === InvoiceTypes.Quotation) {
+        this.fields = res.table as Field[];
+        this.invoiceNumber = res.invoiceNo;
+        this.invoiceService.invoiceNumber = res.invoiceNo;
+        this.productData = res.products;
+        this.status = res.status;
+        this.currency = res.currency;
+        this.addInvoiceService.sendProductChanges(res.products);
+        if (!this.duplicateInvoice) {
+          this.clientService.sendClientDetails(res.client);
+        }
+        this.addInvoiceService.sendCurrency(this.currency);
+        this.updateInvoiceData = res;
+        let formData: { [key: string]: any } = {
+          "tax": res.tax,
+        };
 
-      if (!this.duplicateInvoice) {
-        formData = {
-          ...formData,
-          "invoice": {
-            "invoiceNo": res.invoiceNo,
+        if (!this.duplicateInvoice) {
+          formData = {
+            ...formData,
+            "invoice": {
+              "invoiceNo": res.invoiceNo,
+            }
           }
         }
+        this.InvoiceForm.form?.patchValue(formData);
       }
-      this.InvoiceForm.form?.patchValue(formData);
+
+
+    });
+
+
+    this.invoiceService.invoiceEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
+      if (this.invoiceType === InvoiceTypes.Invoice) {
+        this.fields = res.table as Field[];
+        this.invoiceNumber = res.invoiceNo;
+        this.invoiceService.invoiceNumber = res.invoiceNo;
+        this.productData = res.products;
+        this.status = res.status;
+        this.currency = res.currency;
+        this.addInvoiceService.sendProductChanges(res.products);
+        if (!this.duplicateInvoice) {
+          this.clientService.sendClientDetails(res.client);
+        }
+        this.addInvoiceService.sendCurrency(this.currency);
+        this.updateInvoiceData = res;
+        let formData: { [key: string]: any } = {
+          "tax": res.tax,
+        };
+
+        if (!this.duplicateInvoice) {
+          formData = {
+            ...formData,
+            "invoice": {
+              "invoiceNo": res.invoiceNo,
+            }
+          }
+        }
+        this.InvoiceForm.form?.patchValue(formData);
+      }
     });
     this.route.queryParams.subscribe(params => {
       this.invoiceType = params['category'] || InvoiceTypes.Invoice;

@@ -90,7 +90,7 @@
                                                         <div class="d-flex">
                                                             <h5 class="pr-1">Total Quotations</h5>
                                                         </div>
-                                                        <p>{{invoiceSummary.totalInvoiceCount}}</p>
+                                                        <p>{{quotationSummary.quotationCount}}</p>
                                                     </div>
                                                     <div class="inc-icon">
                                                         <div class="inc-icon-img"><svg
@@ -107,7 +107,7 @@
                                                             <h5 class="pr-1">Total Drafts
                                                             </h5>
                                                         </div>
-                                                        <p>{{invoiceSummary.totalInvoiceAmount}}</p>
+                                                        <p>{{quotationSummary.draftquotationCount}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -198,11 +198,11 @@
                                                 <td data-label="Action" class="action-items">
                                                     <ul class="list-inline hstack  mb-0">
                                                         <li>
-                                                          
+
 
                                                         <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                             data-bs-trigger="hover" data-bs-placement="top"
-                                                            title="Duplicate" (click)="duplicateInvoice(details)">
+                                                            title="Duplicate" (click)="duplicateQuotation(details)">
                                                             <a class="btn btn-soft-info btn-sm d-inline-block">
                                                                 <i class="fa-solid fa-copy"></i>
                                                             </a>
