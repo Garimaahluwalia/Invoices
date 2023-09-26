@@ -53,6 +53,7 @@ export class RemovePaymentComponent {
     this.invoiceService.removePayment(this.invoiceId).subscribe(response => {
     }, (error: any) => {
       console.error('Error removing payment:', error);
+      this.invoiceService.getAll();
     });
     this.closeModal();
   }

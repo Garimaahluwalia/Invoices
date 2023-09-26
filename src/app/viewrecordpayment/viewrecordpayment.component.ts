@@ -29,6 +29,7 @@ export class ViewrecordpaymentComponent {
   public currencies = CURRENCY;
   public currencyData: any;
   public amountToSettle!: number;
+  public exchangeRate = '83.333333';
 
 constructor(public modalService : ModalService, 
   public invoiceService : InvoiceService){}
@@ -67,6 +68,7 @@ constructor(public modalService : ModalService,
       this.amountReceivedForSettle = this.invoicedata.amountReceivedForSettle;
       this.amountReceivedInINR = this.invoicedata.amountReceivedInINR;
       this.paymentDate = this.invoicedata.paymentDate;
+      this.amountToSettle = this.invoicedata.amountToSettle;
       this.additionalNotes = this.invoicedata.additionalNotes;
     })
   }

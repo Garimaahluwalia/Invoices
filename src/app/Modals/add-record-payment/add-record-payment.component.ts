@@ -97,7 +97,6 @@ export class AddRecordPaymentComponent implements OnInit {
     this.currencyData = currency?.symbol;
     this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :
       this.selectedInvoice.subtotalofamount;
-      console.log(this.amountReceived, "Amount received")
       this.amountReceivedForSettle = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount;
       this.computeAmountInINR();
   }

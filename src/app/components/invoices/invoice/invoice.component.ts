@@ -64,7 +64,7 @@ export class InvoiceComponent implements OnInit {
   public value: any;
   public currencies = CURRENCY;
   public currencyData: any;
-
+  public currencyobj : any;
   constructor(
     private datePipe: DatePipe,
     public invoiceService: InvoiceService,
@@ -110,19 +110,18 @@ export class InvoiceComponent implements OnInit {
       this.totalItems = data;
     });
 
-    this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
+    this.invoiceService.recieveInvoices()
+    .pipe(takeUntil(this.destroyed))
+    .subscribe((data: any) => {
       const d = [...data];
       const dt = d.map(v => {
-        const currencyobj= this.currencies.find(v => currency.code === v.currency);
+        this.currencyobj = this.currencies.find(currency => currency.code === v.currency);
         return {
           ...v,
-          currencyobj
+          ...this.currencyobj 
         }
       });
       this.invoices = dt;
-      console.log(this.invoices, "GET ALL INVOICES")
-      // const currency = this.currencies.find(currency => currency.code === this.invoices.currency);
-      // this.currencyData = currency?.symbol;
     });
   }
 
@@ -417,7 +416,7 @@ export class InvoiceComponent implements OnInit {
 
   removePayment(details: IInvoice) {
     this.router.navigate(["invoice", "remove-payment", details._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RemovePayment, { status: true, data: { id: details._id } });
+      this.modalService.sendEvent(ModalEvents.RemovePayment, { status: true, data: { id: details._id }});
     })
   }
 

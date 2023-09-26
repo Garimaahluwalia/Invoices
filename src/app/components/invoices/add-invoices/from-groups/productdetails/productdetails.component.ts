@@ -52,7 +52,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
 
   public TaxFields: Field[] = [
     {
-      "type": FieldType.NUMBER,
+      "type": FieldType.CURRENCY,
       "fieldName": "rate",
       "label": "Taxamount",
       "hidden": false,
@@ -64,7 +64,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
       "readonly": true,
     },
     {
-      "type": FieldType.NUMBER,
+      "type": FieldType.CURRENCY,
       "fieldName": "total",
       "label": "Total",
       "hidden": false,
@@ -140,7 +140,7 @@ export class ProductdetailsComponent implements OnInit, OnChanges {
     this.selectedTaxRateValue = parseFloat(this.taxAmountData?.[this.selectedTaxRate] || 0);
     this.fields = this.fields.filter(v => !v.tax);
     if (this.selectedTaxRate !== "NONE") {
-      const field: Field = new Field(FieldType.NUMBER, "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
+      const field: Field = new Field(FieldType.CURRENCY, "taxamount" as unknown as string, 2, true, false, false, this.selectedTaxRate);
       this.fields = [...this.fields, field, ...this.TaxFields];
     }
     this.invoiceDataHandlerService.table = this.fields;

@@ -83,15 +83,11 @@
                         </div>
                     </div>
 
-                    <div class="payment-detail" >
+                    <div class="payment-detail" *ngIf="this.currencyData !== '₹'" #paymentDetailDiv>
                         <label>Exchange Rate</label>
-                        <span >1 INR </span>
-                        <input >
-                        <div >
-                            <i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i>
-                            <span style="cursor: pointer;">edit</span>
-                        </div>
+                        <span >1 INR = {{ exchangeRate }} {{this.currencyData}}</span>
                     </div>
+
                     
 
 

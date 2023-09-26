@@ -93,16 +93,14 @@
                             <span style="cursor: pointer;">edit</span>
                         </div>
                     </div>
-
-
-
+                    
                     <div class="payment-detail">
                         <label for="amountToSettle">Amount to Settle (A+B)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1"
                                 *ngIf="selectedInvoice">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountToSettle" [(ngModel)]="amountToSettle"
+                                aria-describedby="basic-addon1" name="amountToSettle" [(ngModel)]="amountReceivedForSettle"
                                 ngModel readonly>
                         </div>
                     </div>
