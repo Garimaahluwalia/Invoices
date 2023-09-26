@@ -51,6 +51,7 @@ import { SaveQuotationPageComponent } from './components/quotations/save-quotati
 import { QuotationsComponent } from './components/quotations/quotations.component';
 import { QuotationListDetailsComponent } from './components/quotations/quotation-list-details/quotation-list-details.component';
 import { MessagePreviewComponent } from './modals/message-preview/message-preview.component';
+import { ViewrecordpaymentComponent } from './viewrecordpayment/viewrecordpayment.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -133,7 +134,8 @@ const customNotifierOptions: NotifierOptions = {
     SaveQuotationPageComponent,
     QuotationsComponent,
     QuotationListDetailsComponent,
-    MessagePreviewComponent
+    MessagePreviewComponent,
+    ViewrecordpaymentComponent
   ],
   providers: [
     DatePipe,

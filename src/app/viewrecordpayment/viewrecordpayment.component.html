@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header modal-head pb-3">
-                <h1 class="modal-title fs-5" id="addUpdateLabel">Record Payment</h1>
+                <h1 class="modal-title fs-5" id="addUpdateLabel">View-Record Payment</h1>
                 <button type="button" class="close" (click)="closeModal()">
                     <i class="fa-sharp fa-regular fa-circle-xmark"></i>
 
@@ -14,28 +14,28 @@
                     <i class="fa-sharp fa-regular fa-circle-xmark"></i>
                 </button>
             </div>
-            <div class="container">
-                <div class="container invoices-det" *ngIf="selectedInvoice">
+            <div class="container" *ngIf="this.invoicedata">
+                <div class="container invoices-det">
                     <div class="invoice-detail">
                         <span>Invoice No</span>
-                        <span>{{selectedInvoice.invoiceNo}}</span>
+                        <span>{{invoicedata.invoiceNo}}</span>
                     </div>
 
                     <div class="invoice-detail">
                         <span>Billed To</span>
-                        <span>{{selectedInvoice.client.name}}</span>
+                        <span>{{invoicedata.client.name}}</span>
                     </div>
 
                     <div class="invoice-detail">
                         <span>Taxable Amount</span>
-                        <span>{{this.currencyData}}{{selectedInvoice.totalamountoftax}}</span>
+                        <span>{{this.currencyData}}{{invoicedata.totalamountoftax}}</span>
                     </div>
 
                     <div class="invoice-detail">
                         <span>Invoice Total</span>
                         <span>{{this.currencyData}}{{
-                            selectedInvoice.totalamount !== 0 ? selectedInvoice.totalamount :
-                            selectedInvoice.subtotalofamount
+                            invoicedata.totalamount !== 0 ? invoicedata.totalamount :
+                            invoicedata.subtotalofamount
                             }}</span>
                     </div>
                 </div>
@@ -46,10 +46,10 @@
                         <label for="amountReceived">Amount Received (A)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text amount-rec" id="basic-addon1"
-                                *ngIf="selectedInvoice">{{this.currencyData}}</span>
+                            *ngIf="invoicedata">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceived"
-                                (ngModelChange)="computeAmountInINR()" readonly>
+                                aria-describedby="basic-addon1" name="amountReceived" 
+                                readonly [(ngModel)]="amountReceived" [readonly]="disabledInput">
                         </div>
                     </div>
 
@@ -59,51 +59,51 @@
                         <div class="input-group amount-inputs mb-3">
                             <input type="number" class="form-control" aria-label="Username"
                                 title="Tax deducted at source by the Client (% of total invoice value)"
-                                aria-describedby="basic-addon1" name="TDS" [(ngModel)]="TDS"
-                                (ngModelChange)="computeTDSAmount()">
+                                aria-describedby="basic-addon1" name="TDS"  [(ngModel)]="TDS"
+                                [readonly]="disabledInput">
                         </div>
                     </div>
 
                     <div class="payment-detail">
                         <label for="tdsWithheld">TDS withheld (B)</label>
                         <div class="input-group amount-inputs mb-3">
-                            <span class="input-group-text" id="basic-addon1" *ngIf="selectedInvoice">₹</span>
+                            <span class="input-group-text" id="basic-addon1" >₹</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="TDSWithHeld" value="" [(ngModel)]="TDSWithHeld"
-                                ngModel (ngModelChange)="computeTDSAmount()">
+                                aria-describedby="basic-addon1" name="TDSWithHeld" value=""  [(ngModel)]="TDSWithHeld" 
+                                [readonly]="disabledInput" >
                         </div>
                     </div>
 
-                    <div class="payment-detail" *ngIf="this.currencyData !== '₹' ">
+                    <div class="payment-detail">
                         <label for="amountReceivedUsd">Amount Received in INR</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceivedInINR">
+                                aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceivedInINR" [readonly]="disabledInput">
                         </div>
                     </div>
 
-                    <div class="payment-detail" *ngIf="this.currencyData !== '₹'" #paymentDetailDiv>
+                    <div class="payment-detail" >
                         <label>Exchange Rate</label>
-                        <span *ngIf="!isEditing">1 INR = {{ exchangeRate }} {{this.currencyData}}</span>
-                        <input *ngIf="isEditing" [(ngModel)]="exchangeRate" type="number"
-                            (ngModelChange)="computeAmountInINR()">
-                        <div (click)="toggleEdit()">
+                        <span >1 INR </span>
+                        <input >
+                        <div >
                             <i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i>
                             <span style="cursor: pointer;">edit</span>
                         </div>
                     </div>
-
+                    
 
 
                     <div class="payment-detail">
                         <label for="amountToSettle">Amount to Settle (A+B)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1"
-                                *ngIf="selectedInvoice">{{this.currencyData}}</span>
+                              ></span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountToSettle" [(ngModel)]="amountToSettle"
-                                ngModel readonly>
+                                aria-describedby="basic-addon1" name="amountToSettle" 
+                                [(ngModel)]="amountToSettle"
+                                ngModel readonly [readonly]="disabledInput">
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@
                     <div class="payment-detail mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Payment Date</label>
                         <input type="date" class="form-control" id="exampleFormControlInput1" placeholder=""
-                            name="paymentDate" [(ngModel)]="paymentDate" ngModel>
+                            name="paymentDate"  ngModel [(ngModel)]="paymentDate" [readonly]="disabledInput">
                     </div>
 
 
@@ -120,18 +120,13 @@
                             <label for="exampleFormControlInput1" class="form-label">Additional notes</label>
                             <textarea class="form-control" aria-label="With textarea"
                                 placeholder="Add any additional notes such as payment" name="additionalNotes"
-                                [(ngModel)]="additionalNotes" ngModel></textarea>
+                                [(ngModel)]="additionalNotes"  ngModel [readonly]="disabledInput"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
 
-
-
-
             <div class="modal-footer pt-2 pb-0">
                 <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
-                <button type="button" class="btn btn-primary add-client" (click)="saveChanges()">Save
-                    changes</button>
             </div>
         </div>

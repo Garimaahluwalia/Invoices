@@ -112,6 +112,7 @@ export class InvoiceComponent implements OnInit {
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
       this.invoices = data;
+      console.log(this.invoices, "GET ALL INVOICES")
       // const currency = this.currencies.find(currency => currency.code === this.invoices.currency);
       // this.currencyData = currency?.symbol;
     });
@@ -394,7 +395,11 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-
+  viewPayments(details: IInvoice) {
+    this.router.navigate(["invoice", "view-payment"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.ViewPayment, { status: true, data: { disabled: true, id: details._id, action: ROUTER_ACTIONS.INVOICE } });
+    });
+  }
   summaryTotal() {
     this.invoiceService.getInvoiceSummary().subscribe((res: IInvoiceSummary) => {
       this.invoiceSummary.updateData(res);
@@ -408,10 +413,6 @@ export class InvoiceComponent implements OnInit {
     })
   }
 
-  viewPayments(details: IInvoice) {
-    this.router.navigate(["invoice", "record-payment"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { disabled: true, id: details._id, action: ROUTER_ACTIONS.INVOICE } });
-    });
-  }
+
 }
 

@@ -5,7 +5,8 @@ export enum ModalEvents {
   RemovePayment = "RemovePayment",
   BulkDelete = "BulkDelete",
   SentEmail = "SentEmail",
-  RecordPayment = "RecordPayment"
+  RecordPayment = "RecordPayment",
+  ViewPayment = "ViewPayment"
 }
 
 export interface IEventResponse {
@@ -20,5 +21,4 @@ export enum ROUTER_ACTIONS {
   CLIENTS = "clients",
   QUOTATIONS = "quotations",
   SAVE_QUOTATIONS_PAGE = "save-quotations-page",
-  
 }

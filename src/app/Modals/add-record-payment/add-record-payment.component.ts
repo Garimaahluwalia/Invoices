@@ -20,7 +20,7 @@ export class AddRecordPaymentComponent implements OnInit {
   @ViewChild('openRecordModal', { static: false }) private openRecordModal!: ElementRef<HTMLButtonElement>;
   @ViewChild('closeRecordModal', { static: false }) private closeRecordModal!: ElementRef<HTMLButtonElement>;
   @ViewChild('paymentDetailDiv') paymentDetailDiv!: ElementRef;
-  public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
+    public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public invoiceId!: string;
   public recordPayment!: IRecordPayment;
@@ -28,7 +28,7 @@ export class AddRecordPaymentComponent implements OnInit {
   public amountReceived!: number;
   public amountReceivedForSettle!: number;
   public amountReceivedInINR!: number;
-  public TDS!: number;
+    public TDS!: number;
   public TDSWithHeld!: number;
   public amountToSettle!: number;
   public additionalNotes!: number;
@@ -40,7 +40,7 @@ export class AddRecordPaymentComponent implements OnInit {
   public exchangeRate = '83.333333';
   private readonly notifier!: NotifierService;
   public paymentDate = new Date();
-  public disabledInput: boolean = false;
+      public disabledInput: boolean = false;
   public invoicedata: any;
   constructor(public modalService: ModalService,
     public router: Router,
@@ -65,26 +65,11 @@ export class AddRecordPaymentComponent implements OnInit {
 @HostListener('document:click', ['$event'])
     public onDocumentClick(event: MouseEvent): void {
         const targetElement = event.target as HTMLElement;
-      
-        // Check if the clicked element is outside of the paymentDetailDiv
-        if (this.isEditing && targetElement && !this.paymentDetailDiv.nativeElement.contains(targetElement)) {
+              if (this.isEditing && targetElement && !this.paymentDetailDiv.nativeElement.contains(targetElement)) {
             this.isEditing = false;
         }
     }
 
-
-  // viewPayments() {
-  //   this.invoiceService.getInvoice(this.invoiceId).subscribe((res) => {
-  //     this.invoicedata = res;
-  //     this.TDSWithHeld = this.invoicedata.TDSWithHeld;
-  //     this.TDS = this.invoicedata.TDS;
-  //     this.amountReceived = this.invoicedata.amountReceived;
-  //     this.amountReceivedForSettle = this.invoicedata.amountReceivedForSettle;
-  //     this.amountReceivedInINR = this.invoicedata.amountReceivedInINR;
-  //     this.paymentDate = this.invoicedata.paymentDate;
-  //     this.additionalNotes = this.invoicedata.additionalNotes;
-  //   })
-  // }
 
   ngAfterViewInit(): void {
     this.cdRef.detectChanges();
@@ -103,13 +88,11 @@ export class AddRecordPaymentComponent implements OnInit {
         this.closeModal();
       }
       this.getInvoice();
-      // this.viewPayments();
     }));
   }
 
   getInvoice() {
     this.selectedInvoice = this.invoiceService.invoices.find(invoice => invoice._id === this.invoiceId);
-    console.log(this.selectedInvoice , "selectedinvoice for mark as paid")
     const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
     this.currencyData = currency?.symbol;
     this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :

@@ -336,7 +336,7 @@
                                                 <td data-label="Email">
                                                     {{details?.client?.email}}
                                                 </td>
-                                                <td data-label="Billed">
+                                                <td data-label="Billed">{{ this.currencyData}}
                                                     {{ details?.totalamount !== 0 ? details?.totalamount :
                                                     details?.subtotalofamount }}
                                                 </td>
@@ -448,7 +448,7 @@
                                                                         data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                                         data-bs-placement="top" style="cursor: pointer;"
                                                                         title="View Payment"
-                                                                        (click)="viewPayments(details)">
+                                                                        (click)="viewPayments(details)"  *ngIf="details.status == 'PAID'">
                                                                         <a href="javascript:void(0)"
                                                                             class="btn btn-soft-danger btn-sm d-inline-block">
                                                                             <span>View Payment</span>

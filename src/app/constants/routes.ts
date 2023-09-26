@@ -20,7 +20,8 @@ export const INVOICES = {
     SAVE_INVOICE_PAGE: "save-invoice-page/:id",
     REMOVE_PAYMENT: "remove-payment",
     REMOVE_PAYMENTS: "remove-payment/:id",
-
+    VIEW_PAYMENTS : "view-payment",
+   
 }
 
 export const QUOTATIONS = {

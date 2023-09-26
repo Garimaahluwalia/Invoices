@@ -25,6 +25,7 @@ import { QuotationsComponent } from './components/quotations/quotations.componen
 import { QuotationListDetailsComponent } from './components/quotations/quotation-list-details/quotation-list-details.component';
 import { InvoiceTypes } from './types/invoice-types';
 import { SaveQuotationPageComponent } from './components/quotations/save-quotation-page/save-quotation-page.component';
+import { ViewrecordpaymentComponent } from './viewrecordpayment/viewrecordpayment.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,10 @@ const routes: Routes = [
           {
             path: INVOICES.RECORD_PAYMENTS,
             component: AddRecordPaymentComponent
+          },
+          {
+            path: INVOICES.VIEW_PAYMENTS,
+            component: ViewrecordpaymentComponent
           },
           {
             path: INVOICES.REMOVE_PAYMENTS,
