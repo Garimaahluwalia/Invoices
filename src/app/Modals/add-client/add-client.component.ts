@@ -164,7 +164,8 @@ export class AddClientComponent implements OnInit, OnDestroy {
       zipcode: parseInt(this.zipcode),
       street: this.street,
     }
-    console.log(newData, "new Data")
+    console.log(JSON.stringify(newData) , "add-client new data")
+    // console.log(newData, "new Data")
 
     if (this.data?.['edit']) {
       this.updateClient(newData);
