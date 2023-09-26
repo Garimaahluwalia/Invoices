@@ -111,7 +111,15 @@ export class InvoiceComponent implements OnInit {
     });
 
     this.invoiceService.recieveInvoices().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
-      this.invoices = data;
+      const d = [...data];
+      const dt = d.map(v => {
+        const currencyobj= this.currencies.find(v => currency.code === v.currency);
+        return {
+          ...v,
+          currencyobj
+        }
+      });
+      this.invoices = dt;
       console.log(this.invoices, "GET ALL INVOICES")
       // const currency = this.currencies.find(currency => currency.code === this.invoices.currency);
       // this.currencyData = currency?.symbol;
