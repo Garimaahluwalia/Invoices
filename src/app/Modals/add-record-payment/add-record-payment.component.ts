@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, Subscription, takeUntil } from 'rxjs';
@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 export class AddRecordPaymentComponent implements OnInit {
   @ViewChild('openRecordModal', { static: false }) private openRecordModal!: ElementRef<HTMLButtonElement>;
   @ViewChild('closeRecordModal', { static: false }) private closeRecordModal!: ElementRef<HTMLButtonElement>;
+  @ViewChild('paymentDetailDiv') paymentDetailDiv!: ElementRef;
   public destroyed: ReplaySubject<boolean> = new ReplaySubject(0);
   public data: any;
   public invoiceId!: string;
@@ -57,28 +58,38 @@ export class AddRecordPaymentComponent implements OnInit {
 
   }
 
-  toggleEdit(): void {
+  toggleEdit() {
     this.isEditing = !this.isEditing;
-  }
+}
+
+@HostListener('document:click', ['$event'])
+    public onDocumentClick(event: MouseEvent): void {
+        const targetElement = event.target as HTMLElement;
+      
+        // Check if the clicked element is outside of the paymentDetailDiv
+        if (this.isEditing && targetElement && !this.paymentDetailDiv.nativeElement.contains(targetElement)) {
+            this.isEditing = false;
+        }
+    }
 
 
-  viewPayments() {
-    this.invoiceService.getInvoice(this.invoiceId).subscribe((res) => {
-      this.invoicedata = res;
-      this.TDSWithHeld = this.invoicedata.TDSWithHeld;
-      this.TDS = this.invoicedata.TDS;
-      this.amountReceived = this.invoicedata.amountReceived;
-      this.amountReceivedForSettle = this.invoicedata.amountReceivedForSettle;
-      this.amountReceivedInINR = this.invoicedata.amountReceivedInINR;
-      this.paymentDate = this.invoicedata.paymentDate;
-      this.additionalNotes = this.invoicedata.additionalNotes;
-    })
-  }
+  // viewPayments() {
+  //   this.invoiceService.getInvoice(this.invoiceId).subscribe((res) => {
+  //     this.invoicedata = res;
+  //     this.TDSWithHeld = this.invoicedata.TDSWithHeld;
+  //     this.TDS = this.invoicedata.TDS;
+  //     this.amountReceived = this.invoicedata.amountReceived;
+  //     this.amountReceivedForSettle = this.invoicedata.amountReceivedForSettle;
+  //     this.amountReceivedInINR = this.invoicedata.amountReceivedInINR;
+  //     this.paymentDate = this.invoicedata.paymentDate;
+  //     this.additionalNotes = this.invoicedata.additionalNotes;
+  //   })
+  // }
 
   ngAfterViewInit(): void {
     this.cdRef.detectChanges();
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
-      console.log(res);
+      console.log(res, "add-record payment");
       const { data, status } = res;
       this.invoiceId = data.id;
       this.action = data.action;
@@ -92,19 +103,20 @@ export class AddRecordPaymentComponent implements OnInit {
         this.closeModal();
       }
       this.getInvoice();
-      this.viewPayments();
+      // this.viewPayments();
     }));
   }
 
   getInvoice() {
     this.selectedInvoice = this.invoiceService.invoices.find(invoice => invoice._id === this.invoiceId);
+    console.log(this.selectedInvoice , "selectedinvoice for mark as paid")
     const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
     this.currencyData = currency?.symbol;
     this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :
       this.selectedInvoice.subtotalofamount;
-    this.computeAmountInINR();
-    this.amountReceivedForSettle = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount;
-
+      console.log(this.amountReceived, "Amount received")
+      this.amountReceivedForSettle = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount;
+      this.computeAmountInINR();
   }
 
   openModal() {

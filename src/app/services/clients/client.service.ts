@@ -37,6 +37,7 @@ export class ClientService {
 
   set clients(value: IClient[]) {
     this._clients = value;
+    console.log(this._clients, "clients from clients")
   }
   get clients(): IClient[] {
     return this._clients;

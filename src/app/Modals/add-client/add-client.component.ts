@@ -141,7 +141,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       this.name = this.data['name'];
       this.email = this.data['email'];
       this.phoneNumber = this.data['phoneNumber'];
-      this.address = this.data['address'];
+      // this.address = this.data['address'];
       this.gstin = this.gstin;
       this.pan = this.pan;
     }
@@ -149,12 +149,13 @@ export class AddClientComponent implements OnInit, OnDestroy {
 
 
   saveChanges() {
-    let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
+    // let address = `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`;
+    // console.log(this.address, "adresss")
     let newData: IClientPayload = {
       name: this.name,
       email: this.email,
       phoneNumber: this.phoneNumber,
-      address: address,
+      address: `${this.street}, ${this.city}, ${this.state}, ${this.country}, ${this.zipcode}`,
       gstin: this.gstin,
       pan: this.pan,
       country: this.country,
@@ -163,6 +164,7 @@ export class AddClientComponent implements OnInit, OnDestroy {
       zipcode: parseInt(this.zipcode),
       street: this.street,
     }
+    console.log(newData, "new Data")
 
     if (this.data?.['edit']) {
       this.updateClient(newData);

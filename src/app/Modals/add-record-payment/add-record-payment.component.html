@@ -48,7 +48,7 @@
                             <span class="input-group-text amount-rec" id="basic-addon1"
                                 *ngIf="selectedInvoice">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountReceived" [readOnly]="disabledInput" [(ngModel)]="amountReceived"
+                                aria-describedby="basic-addon1" name="amountReceived"  [(ngModel)]="amountReceived"
                                 (ngModelChange)="computeAmountInINR()" readonly>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="input-group amount-inputs mb-3">
                             <input type="number" class="form-control" aria-label="Username"
                                 title="Tax deducted at source by the Client (% of total invoice value)"
-                                aria-describedby="basic-addon1" name="TDS" [readOnly]="disabledInput" [(ngModel)]="TDS"
+                                aria-describedby="basic-addon1" name="TDS" [(ngModel)]="TDS"
                                 (ngModelChange)="computeTDSAmount()">
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1" *ngIf="selectedInvoice">₹</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="TDSWithHeld" value="" [readOnly]="disabledInput" [(ngModel)]="TDSWithHeld" ngModel
+                                aria-describedby="basic-addon1" name="TDSWithHeld" value=""  [(ngModel)]="TDSWithHeld" ngModel
                                 (ngModelChange)="computeTDSAmount()">
                         </div>
                     </div>
@@ -79,20 +79,21 @@
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
                             <input type="number" class="form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" name="amountReceived" [readOnly]="disabledInput" [(ngModel)]="amountReceivedInINR">
+                                aria-describedby="basic-addon1" name="amountReceived"  [(ngModel)]="amountReceivedInINR">
                         </div>
                     </div>
 
-                    <div class="payment-detail" *ngIf="this.currencyData !== '₹' ">
+                    <div class="payment-detail" *ngIf="this.currencyData !== '₹'" #paymentDetailDiv>
                         <label>Exchange Rate</label>
                         <span *ngIf="!isEditing">1 INR = {{ exchangeRate }} {{this.currencyData}}</span>
                         <input *ngIf="isEditing" [(ngModel)]="exchangeRate" type="number"
-                        [readOnly]="disabledInput"  (ngModelChange)="computeAmountInINR()">
+                               (ngModelChange)="computeAmountInINR()">
                         <div (click)="toggleEdit()">
                             <i class="fa-solid fa-pen-to-square" style="cursor: pointer;"></i>
                             <span style="cursor: pointer;">edit</span>
                         </div>
                     </div>
+                    
 
 
                     <div class="payment-detail">
@@ -110,7 +111,7 @@
                     <div class="payment-detail mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Payment Date</label>
                         <input type="date" class="form-control" id="exampleFormControlInput1" placeholder=""
-                            name="paymentDate" [readOnly]="disabledInput" [(ngModel)]="paymentDate" ngModel>
+                            name="paymentDate"  [(ngModel)]="paymentDate" ngModel>
                     </div>
 
 
@@ -119,7 +120,7 @@
                             <label for="exampleFormControlInput1" class="form-label">Additional notes</label>
                             <textarea class="form-control" aria-label="With textarea"
                                 placeholder="Add any additional notes such as payment" name="additionalNotes"
-                                [(ngModel)]="additionalNotes" [readOnly]="disabledInput" ngModel></textarea>
+                                [(ngModel)]="additionalNotes"  ngModel></textarea>
                         </div>
                     </div>
                 </div>

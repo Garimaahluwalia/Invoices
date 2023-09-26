@@ -35,6 +35,7 @@ export class ClientComponent implements OnInit {
 
     this.clientService.recieveClients().pipe(takeUntil(this.destroyed)).subscribe((data: IClient[]) => {
       this.clients = data;
+      console.log(this.clients , "clients from clients")
     });
 
     this.clientService.totalNumberOfClient.subscribe((data: number) => {
