@@ -115,10 +115,10 @@ export class InvoiceComponent implements OnInit {
     .subscribe((data: any) => {
       const d = [...data];
       const dt = d.map(v => {
-        this.currencyobj = this.currencies.find(currency => currency.code === v.currency);
+        const currencyobj = this.currencies.find(currency => currency.code === v.currency);
         return {
           ...v,
-          ...this.currencyobj 
+          currencyobj 
         }
       });
       this.invoices = dt;

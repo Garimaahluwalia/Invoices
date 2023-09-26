@@ -11,13 +11,14 @@ import { CURRENCY } from 'src/app/types/currency';
 export class InvoiceSummaryComponent implements OnInit {
 
   @Input() data!: IInvoice;
-  public currencies = CURRENCY;
-  public currencyData: any;
+  // public currencies = CURRENCY;
+  // public currencyData: any;
 
   ngOnInit(): void {
   //  console.log(this.data, "invoice summary data")
   //  const currency = this.currencies.find(currency => currency.code === this.data.currency);
   //  this.currencyData = currency?.symbol;
+
   }
 
 }

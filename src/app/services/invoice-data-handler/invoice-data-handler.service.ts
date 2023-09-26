@@ -28,6 +28,7 @@ export class InvoiceDataHandlerService implements IInvoice {
   public _totalamountoftax!: number;
   public _totalamount!: number;
   public _table!: Field[];
+  public currencyobj?:any;
 
   constructor() { }
 

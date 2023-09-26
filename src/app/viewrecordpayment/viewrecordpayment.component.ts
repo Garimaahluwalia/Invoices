@@ -1,9 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ModalService } from '../services/modal/modal.service';
-import { ModalEvents } from '../types/modal';
+import { ModalEvents, ROUTER_ACTIONS } from '../types/modal';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { InvoiceService } from '../services/invoices/invoice.service';
 import { CURRENCY } from '../types/currency';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewrecordpayment',
@@ -32,7 +33,8 @@ export class ViewrecordpaymentComponent {
   public exchangeRate = '83.333333';
 
 constructor(public modalService : ModalService, 
-  public invoiceService : InvoiceService){}
+  public invoiceService : InvoiceService,
+  public router : Router, ){}
   ngAfterViewInit(): void {
  
     this.modalService.recieveEvent(ModalEvents.ViewPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
@@ -82,7 +84,14 @@ constructor(public modalService : ModalService,
       this.closeRecordModal.nativeElement.click();
     } catch (e) {
       console.error(e);
+    } finally {
+      switch (this.action) {
+        case ROUTER_ACTIONS.INVOICE:
+          this.router.navigate(["invoice"]);
+          break;
+      }
     }
+
   }
 
   

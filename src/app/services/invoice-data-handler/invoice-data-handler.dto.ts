@@ -29,6 +29,7 @@ export interface IInvoice {
    totalamountoftax: number;
    totalamount: number;
    table?: Field[];
+   currencyobj?: any
 }
 
 export interface IInvoiceClass {

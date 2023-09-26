@@ -54,7 +54,7 @@
                     </div>
 
 
-                    <div class="payment-detail">
+                    <div class="payment-detail" *ngIf="TDS !== 0">
                         <label for="tdsWithheld">TDS %</label>
                         <div class="input-group amount-inputs mb-3">
                             <input type="number" class="form-control" aria-label="Username"
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="payment-detail">
+                    <div class="payment-detail" *ngIf="TDSWithHeld !== 0">
                         <label for="tdsWithheld">TDS withheld (B)</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1" >₹</span>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
 
-                    <div class="payment-detail">
+                    <div class="payment-detail" *ngIf="this.currencyData !== '₹'">
                         <label for="amountReceivedUsd">Amount Received in INR</label>
                         <div class="input-group amount-inputs mb-3">
                             <span class="input-group-text" id="basic-addon1">₹</span>
