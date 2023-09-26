@@ -11,7 +11,7 @@ import { InvoiceTypes } from 'src/app/types/invoice-types';
 interface Options {
   queryParams?: {
     duplicateInvoice?: string;
-    category? : string
+    category?: string
   };
 }
 @Component({
@@ -35,7 +35,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
     public router: Router,
     public modalService: ModalService,
     public clientService: ClientService,
-    public invoiceService : InvoiceService
+    public invoiceService: InvoiceService
   ) { }
 
   ngOnChanges({ duplicateInvoice }: SimpleChanges): void {
@@ -76,13 +76,17 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
     }
     return action;
   }
-  
+
   addClients() {
     let options: Options = {};
-    if (this.duplicateInvoice) {
-      options = { ...options, queryParams: { duplicateInvoice: "duplicate", category: InvoiceTypes.Quotation }}
-    }
     let route = ["add-invoice", "add-client"]
+    if (this.duplicateInvoice) {
+      options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
+    }
+    if (this.invoiceCategory === InvoiceTypes.Quotation) {
+      options.queryParams = { ...options.queryParams, category: InvoiceTypes.Quotation }
+    }
+
     if (this.invoiceId) {
       route = ["add-invoice", this.invoiceId, "add-client"]
     }
@@ -93,8 +97,12 @@ export class ClientDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
   updateClient(clientId: string | null | undefined) {
     let options: Options = {};
-    if (this.duplicateInvoice) {
-      options = { ...options, queryParams: { duplicateInvoice: "duplicate" , category: InvoiceTypes.Quotation } }
+    
+        if (this.duplicateInvoice) {
+          options = { ...options, queryParams: { duplicateInvoice: "duplicate" } }
+        }
+    if (this.invoiceCategory === InvoiceTypes.Quotation) {
+      options.queryParams = { ...options.queryParams, category: InvoiceTypes.Quotation }
     }
     let route = ["add-invoice", "add-client", clientId]
     if (this.invoiceId) {

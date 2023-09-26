@@ -62,7 +62,7 @@ export class AddInvoicesComponent implements OnInit {
       "readonly": false,
     },
     {
-      "type": FieldType.NUMBER,
+      "type": FieldType.CURRENCY,
       "fieldName": "amount",
       "label": "Amount",
       "hidden": false,

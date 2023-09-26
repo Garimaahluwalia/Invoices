@@ -40,3 +40,7 @@ select.form-control.type.form-control-sm.taxes-edit.selector-currency {
 .black-color {
     color: black;
 }
+label.form-label.column-type {
+    margin: 0px 25px 10px;
+    padding-left: 234px;
+}

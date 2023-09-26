@@ -55,6 +55,7 @@ export class AddSentEmailComponent implements OnInit {
       .subscribe(res => {
         const { data, status } = res;
         this.invoiceId = res.data.id;
+        console.log(this.invoiceId, "email Id")
         this.type = res.data.type;
         this.action = data.action;
         this.data = data;
@@ -90,7 +91,7 @@ export class AddSentEmailComponent implements OnInit {
     this.emailSubject = `[Important] Email ${this.type} for ${this.selectedInvoice.client.name} - ${invoiceOrQuotationNumber}`;
     this.body =
       `Hi, ${this.selectedInvoice.client.name}\n
-      Please find attached ${this.type} ${invoiceOrQuotationNumber}
+      Please find attached ${this.type} : ${invoiceOrQuotationNumber}
       ${this.type} No: ${invoiceOrQuotationNumber}
       ${this.type} Date: ${this.datePipe.transform(this.selectedInvoice.date, "YYYY-MM-dd")}
       Billed To: ${this.selectedInvoice.client.name}
@@ -150,8 +151,9 @@ export class AddSentEmailComponent implements OnInit {
       body: this.body,
     };
 
-    this.invoiceService.sendInvoiceEmail(payload).subscribe((res) => {
+    this.invoiceService.sendInvoiceEmail(this.invoiceId , payload).subscribe((res) => {
       this.emailInvoice = res;
+      console.log(this.emailInvoice, "email invoice")
     });
     this.closeModal();
     this.notifier.show({

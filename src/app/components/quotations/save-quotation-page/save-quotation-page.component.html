@@ -5,7 +5,7 @@
         <div class=" boxes">
             <div>
                 <div class="edit" (click)="updateQuotation(data)">
-                    <div ><i class="fa-solid fa-pencil"></i></div>
+                    <div><i class="fa-solid fa-pencil"></i></div>
                     <p class="mb-0"> Edit</p>
                 </div>
             </div>
@@ -68,7 +68,7 @@
 
                         </div>
                         <div class="details">
-                            <label>Quotation Date : {{data?.date}} </label>
+                            <label>Quotation Date : {{data?.date | date : 'yy-MM-dd'}} </label>
 
                         </div>
                         <div class="details">

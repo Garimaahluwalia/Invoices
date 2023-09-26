@@ -19,7 +19,7 @@
                     </div>
                     <div class="details">
                         <label>Invoice Date : </label>
-                        {{data.date}}
+                        {{data.date | date : 'yy-MM-dd'}} 
                     </div>
                     <div class="details">
                         <label>Total Amount : </label>

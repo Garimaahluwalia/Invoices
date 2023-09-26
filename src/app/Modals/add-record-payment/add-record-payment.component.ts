@@ -30,7 +30,6 @@ export class AddRecordPaymentComponent implements OnInit {
   public TDS!: number;
   public TDSWithHeld!: number;
   public amountToSettle!: number;
-  // public paymentDate!: number;
   public additionalNotes!: number;
   public selectedInvoice: any = null
   public invoices: IInvoice[] = [];
@@ -40,8 +39,8 @@ export class AddRecordPaymentComponent implements OnInit {
   public exchangeRate = '83.333333';
   private readonly notifier!: NotifierService;
   public paymentDate = new Date();
-
-
+  public disabledInput: boolean = false;
+  public invoicedata: any;
   constructor(public modalService: ModalService,
     public router: Router,
     public invoiceService: InvoiceService,
@@ -55,19 +54,37 @@ export class AddRecordPaymentComponent implements OnInit {
 
   ngOnInit(): void {
 
+
   }
 
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
   }
 
+
+  viewPayments() {
+    this.invoiceService.getInvoice(this.invoiceId).subscribe((res) => {
+      this.invoicedata = res;
+      this.TDSWithHeld = this.invoicedata.TDSWithHeld;
+      this.TDS = this.invoicedata.TDS;
+      this.amountReceived = this.invoicedata.amountReceived;
+      this.amountReceivedForSettle = this.invoicedata.amountReceivedForSettle;
+      this.amountReceivedInINR = this.invoicedata.amountReceivedInINR;
+      this.paymentDate = this.invoicedata.paymentDate;
+      this.additionalNotes = this.invoicedata.additionalNotes;
+    })
+  }
+
   ngAfterViewInit(): void {
     this.cdRef.detectChanges();
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
+      console.log(res);
       const { data, status } = res;
       this.invoiceId = data.id;
       this.action = data.action;
       this.data = data, status;
+      this.disabledInput = data?.disabled || false;
+
 
       if (status) {
         this.openModal();
@@ -75,6 +92,7 @@ export class AddRecordPaymentComponent implements OnInit {
         this.closeModal();
       }
       this.getInvoice();
+      this.viewPayments();
     }));
   }
 

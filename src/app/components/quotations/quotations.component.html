@@ -6,23 +6,32 @@
 
                     <div class="card-body">
                         <div class="row mb-4">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <div class="form-outline flex-item">
-                                        <input type="search" id="form1" class="form-control invoice-search"
-                                            [(ngModel)]="searchQuery" (ngModelChange)="handleSearch()"
-                                            (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
-                                            placeholder="Search for Result" (keyup)="handleSearch()" />
-                                    </div>
-                                    <div class="d-flex align-items-center ml-5 flex-item">
-                                        <label class="date-range">Select Date Range</label>
-                                        <input type="text" name="daterange" style="cursor: pointer;"
-                                            (change)="dateRangePicker(startDate , endDate)" class="datepicker"
-                                            [value]="defaultDateRange" />
-                                    </div>
-                                    <div class="form-outline flex-item ">
-                                        <div class="d-flex align-items-center ">
-                                            <label class="mb-0 mr-3">Status</label>
+                            <div class="row">
+                                <!-- Left Side: Search, Date Range, and Status (Larger column) -->
+                                <div class="col-md-8">
+                                    <div class="input-group d-flex justify-content-start">
+
+                                        <!-- Search Control -->
+                                        <div class="d-flex align-items-center mr-2">
+                                            <div class="form-outline">
+                                                <input type="search" id="form1" class="form-control invoice-search"
+                                                    [(ngModel)]="searchQuery" (ngModelChange)="handleSearch()"
+                                                    (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
+                                                    placeholder="Search for Result" (keyup)="handleSearch()" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Date Range Control -->
+                                        <div class="d-flex align-items-center mr-2">
+                                            <label class="date-range mr-1">Select Date Range</label>
+                                            <input type="text" name="daterange" style="cursor: pointer;"
+                                                (change)="dateRangePicker(startDate , endDate)" class="datepicker"
+                                                [value]="defaultDateRange" />
+                                        </div>
+
+                                        <!-- Status Control -->
+                                        <div class="d-flex align-items-center">
+                                            <label class="mb-0 mr-1">Status</label>
                                             <div class="custom-dropdown" (click)="toggleDropdowns()">
                                                 {{getSelectedItemsText()}}
                                                 <div *ngIf="isDropdownOpen" class="dropdown-items">
@@ -34,27 +43,33 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <ng-container *ngIf="this.checkedCount !== 1 ">
-                                    <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
-                                        *ngIf="isButtonEnabled" (click)="bulkdelete()">
-                                        Bulk Delete</button>
+                                <!-- Right Side: Buttons (Smaller column) -->
+                                <div class="col-md-4 text-right">
+                                    <ng-container *ngIf="this.checkedCount !== 1 ">
+                                        <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
+                                            *ngIf="isButtonEnabled" (click)="bulkdelete()">
+                                            Bulk Delete
+                                        </button>
 
-                                    <button type="button"
-                                        class="btn btn-info save-cstn-btn bulk-invoice mr-2 mat-raised-button"
-                                        color="primary" [class.spinner]="loading" [disabled]="loading"
-                                        *ngIf="isButtonEnabled" (click)="bulkPDFDownload()">
-                                        Bulk PDF</button>
-                                </ng-container>
+                                        <button type="button"
+                                            class="btn btn-info save-cstn-btn bulk-invoice mr-2 mat-raised-button"
+                                            color="primary" [class.spinner]="loading" [disabled]="loading"
+                                            *ngIf="isButtonEnabled" (click)="bulkPDFDownload()">
+                                            Bulk PDF
+                                        </button>
+                                    </ng-container>
 
-                                <a (click)="quotations()" class="btn btn-primary-outline "><i
-                                        class="las la-plus me-1"></i>
-                                    Add Quotations</a>
+                                    <a (click)="quotations()" class="btn btn-primary-outline ">
+                                        <i class="las la-plus me-1"></i>
+                                        Add Quotations
+                                    </a>
+                                </div>
                             </div>
+
 
                             <div class="container">
                                 <div class="row">

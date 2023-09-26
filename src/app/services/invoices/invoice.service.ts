@@ -288,8 +288,8 @@ export class InvoiceService {
     return this.http.get<IInvoiceSummary>(endpoints.INVOICES_LIST.INVOICE_SUMMARY)
   }
 
-  sendInvoiceEmail(payload: IEmailInvoice): Observable<any> {
-    return this.http.post<any>(endpoints.INVOICES_LIST.EMAIL_INVOICE, payload);
+  sendInvoiceEmail(invoiceId: string , payload: IEmailInvoice): Observable<any> {
+    return this.http.post<any>(endpoints.INVOICES_LIST.EMAIL_INVOICE(invoiceId), payload);
   }
 
   sendRecordPayment(invoiceId: string, payload: IRecordPayment): Observable<any> {
