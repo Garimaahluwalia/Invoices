@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
-import { ReplaySubject, Subscription, takeUntil } from 'rxjs';
+import { ReplaySubject, Subscription, firstValueFrom, take, takeUntil } from 'rxjs';
 import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -74,14 +74,11 @@ export class AddRecordPaymentComponent implements OnInit {
   ngAfterViewInit(): void {
     this.cdRef.detectChanges();
     this.modalService.recieveEvent(ModalEvents.RecordPayment).pipe(takeUntil(this.destroyed)).subscribe((res => {
-      console.log(res, "add-record payment");
       const { data, status } = res;
       this.invoiceId = data.id;
       this.action = data.action;
       this.data = data, status;
       this.disabledInput = data?.disabled || false;
-
-
       if (status) {
         this.openModal();
       } else {
@@ -91,14 +88,17 @@ export class AddRecordPaymentComponent implements OnInit {
     }));
   }
 
-  getInvoice() {
-    this.selectedInvoice = this.invoiceService.invoices.find(invoice => invoice._id === this.invoiceId);
+  async getInvoice() {
+    this.selectedInvoice = await this.getInvoiceById();
+    console.log(this.selectedInvoice);
+    if(this.selectedInvoice) {
     const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
     this.currencyData = currency?.symbol;
     this.amountReceived = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount :
       this.selectedInvoice.subtotalofamount;
       this.amountReceivedForSettle = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount;
       this.computeAmountInINR();
+    }
   }
 
   openModal() {
@@ -176,6 +176,15 @@ export class AddRecordPaymentComponent implements OnInit {
   ngOnDestroy() {
     this.destroyed.next(true);
     this.destroyed.complete();
+  }
+
+  async getInvoiceById() {
+    try {
+      const rs = await firstValueFrom(this.invoiceService.getInvoice(this.invoiceId).pipe(take(1)));
+      return rs;
+    } catch (e) {
+      throw e;
+    }
   }
 
 }

@@ -19,6 +19,7 @@ import { QuotationsService } from 'src/app/services/quotations/quotations.servic
 import { QUOTATIONSTATUS } from 'src/app/types/quotationStatus';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 import { IQuotationSummary } from 'src/app/types/quotationSummary';
+import { CURRENCY } from 'src/app/types/currency';
 
 declare var $: any;
 @Component({
@@ -60,7 +61,9 @@ export class QuotationsComponent {
   public invoiceSummary: InvoiceSummary = new InvoiceSummary();
   public value: any;
   public quotationSummary: IQuotationSummary = new IQuotationSummary();
-
+  public currencies = CURRENCY;
+  public currencyData: any;
+  public currencyobj : any;
   constructor(
     private datePipe: DatePipe,
     public router: Router,
@@ -101,9 +104,25 @@ export class QuotationsComponent {
       this.totalItems = data;
     });
 
-    this.quotationService.recieveQuotations().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
-      this.quotation = data;
+    // this.quotationService.recieveQuotations().pipe(takeUntil(this.destroyed)).subscribe((data: any) => {
+    //   this.quotation = data;
+    // });
+
+
+    this.quotationService.recieveQuotations()
+    .pipe(takeUntil(this.destroyed))
+    .subscribe((data: any) => {
+      const d = [...data];
+      const dt = d.map(v => {
+        const currencyobj = this.currencies.find(currency => currency.code === v.currency);
+        return {
+          ...v,
+          currencyobj 
+        }
+      });
+      this.quotation = dt;
     });
+
     this.getQuotationSummary();
   }
 

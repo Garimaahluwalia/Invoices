@@ -15,7 +15,7 @@
                 <div class="invoice-container">
                     <div class="details">
                         <label>Invoice No : </label>
-                        {{data.invoiceNo}}
+                        {{data?.invoiceNo || ''}}
                     </div>
                     <div class="details">
                         <label>Invoice Date : </label>
@@ -30,11 +30,11 @@
                         <label>Billed To : </label>
                         {{data.client.name}}
                     </div>
-
                     <div class="details">
-                        <label>Created by : </label>
-                        MCODE-INFOSOFT
+                        <label>Created by :</label>
+                        MCODE INFOSOFT
                     </div>
+
                 </div>
             </div>
         </cdk-accordion-item>
