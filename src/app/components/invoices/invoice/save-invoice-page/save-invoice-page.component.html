@@ -21,8 +21,8 @@
                         print
                     </p>
                 </div>
-                <div class="edit" (click)="downloadInvoice()">
-                    <div><i class="fa-solid fa-download"></i></div>
+                <div class="edit" (click)="downloadInvoice()" >
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i class="fa-solid fa-download" ></i></button>
                     <p class="mb-0">
                         Download
                     </p>
@@ -401,8 +401,8 @@
                         print
                     </p>
                 </div>
-                <div class="edit" (click)="downloadInvoice()">
-                    <div><i class="fa-solid fa-download"></i></div>
+                <div class="edit" (click)="downloadInvoice()" >
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i class="fa-solid fa-download" ></i></button>
                     <p class="mb-0">
                         Download
                     </p>

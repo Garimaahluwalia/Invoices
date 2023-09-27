@@ -17,12 +17,13 @@
                         print
                     </p>
                 </div>
-                <div class="edit" (click)="downloadQuotation()">
-                    <div><i class="fa-solid fa-download"></i></div>
+                <div class="edit" (click)="downloadQuotation()" >
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i class="fa-solid fa-download" ></i></button>
                     <p class="mb-0">
                         Download
                     </p>
                 </div>
+               
                 <div class="edit" (click)="emailQuotation(data)">
                     <div><i class="fa-solid fa-envelope"></i></div>
                     <p class="mb-0">
@@ -436,8 +437,8 @@
                         print
                     </p>
                 </div>
-                <div class="edit" (click)="downloadQuotation()">
-                    <div><i class="fa-solid fa-download"></i></div>
+                <div class="edit" (click)="downloadQuotation()" >
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i class="fa-solid fa-download" ></i></button>
                     <p class="mb-0">
                         Download
                     </p>
