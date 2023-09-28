@@ -1,21 +1,18 @@
 @media print {
     body * {
-        visibility: hidden;
+      visibility: hidden;
     }
-
-    #printableArea,
-    #printableArea * {
-        visibility: visible;
+    
+    #print-section, #print-section * {
+      visibility: visible;
     }
-
-    #printableArea {
-        position: absolute;
-        width: 100%;
-        left: 0;
-        top: 0;
+    
+    #print-section {
+      position: absolute;
+      left: 0;
+      top: 0;
     }
-}
-
+  }
 .inc-summ-edits {
     max-width: 1000px;
     padding: 0px;

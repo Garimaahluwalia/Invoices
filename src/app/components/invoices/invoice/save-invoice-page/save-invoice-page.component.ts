@@ -207,7 +207,8 @@ export class SaveInvoicePageComponent implements OnInit {
     });
   }
 
-  printPDF() {
+  printPDF(event: Event) {
+    event.preventDefault();
     window.print();
   }
 }
