@@ -88,6 +88,11 @@ export class AddRecordPaymentComponent implements OnInit {
     }));
   }
 
+  openModal() {
+    this.openRecordModal?.nativeElement?.click();
+  }
+
+
   async getInvoice() {
     this.selectedInvoice = await this.getInvoiceById();
     console.log(this.selectedInvoice);
@@ -103,9 +108,7 @@ export class AddRecordPaymentComponent implements OnInit {
     }
   }
 
-  openModal() {
-    this.openRecordModal?.nativeElement?.click();
-  }
+
 
 
   computeAmountInINR() {
@@ -119,8 +122,8 @@ export class AddRecordPaymentComponent implements OnInit {
   computeTDSAmount() {
     if (this.TDS && this.amountReceived) {
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(2));
-      this.amountReceived = this.amountReceivedForSettle - this.TDSWithHeld;
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
+      this.amountReceivedForSettle = parseFloat((this.TDSWithHeld + this.amountReceived).toFixed(2));
     } else {
       this.TDSWithHeld = 0;
       this.amountToSettle = this.amountReceivedForSettle;
