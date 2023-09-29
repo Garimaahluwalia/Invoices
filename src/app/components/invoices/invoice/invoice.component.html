@@ -401,17 +401,17 @@
                                                                 </button>
                                                                 <ul class="dropdown-menu"
                                                                     aria-labelledby="dropdownMenuLink1">
-                                                                    <li class="list-inline-item "
-                                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                                                        data-bs-placement="top" title="Cancel"
-                                                                        style="cursor: pointer;"
-                                                                        (click)="updateStatus(details, status.CANCELLED)">
-                                                                        <a href="javascript:void(0)"
-                                                                            class="btn btn-soft-danger btn-sm d-inline-block"
-                                                                            [ngClass]="{ 'disabled': details.status === 'CANCELLED'  }">
-                                                                            <span>Cancel</span>
-                                                                        </a>
-                                                                    </li>
+                                                                    <li *ngIf="details.status !== 'CANCELLED'" class="list-inline-item"
+                                                                    data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                    data-bs-placement="top" title="Cancel"
+                                                                    style="cursor: pointer;"
+                                                                    (click)="updateStatus(details, status.CANCELLED)">
+                                                                    <a href="javascript:void(0)"
+                                                                       class="btn btn-soft-danger btn-sm d-inline-block">
+                                                                       <span>Cancel</span>
+                                                                    </a>
+                                                                </li>
+                                                                
                                                                     <li class="list-inline-item"
                                                                         data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                                         data-bs-placement="top" style="cursor: pointer;"
