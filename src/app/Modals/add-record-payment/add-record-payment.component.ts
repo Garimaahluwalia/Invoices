@@ -95,7 +95,7 @@ export class AddRecordPaymentComponent implements OnInit {
 
   async getInvoice() {
     this.selectedInvoice = await this.getInvoiceById();
-    console.log(this.selectedInvoice);
+    // console.log(this.selectedInvoice);
     if (this.selectedInvoice) {
       const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
       this.currencyData = currency?.symbol;
@@ -124,7 +124,7 @@ export class AddRecordPaymentComponent implements OnInit {
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(2));
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
       this.amountReceivedForSettle = parseFloat((this.TDSWithHeld + this.amountReceived).toFixed(2));
-      console.log(this.amountReceivedForSettle, "amount received for settle")
+      // console.log(this.amountReceivedForSettle, "amount received for settle")
     } else {
       this.TDSWithHeld = 0;
       this.amountToSettle = this.amountReceivedForSettle;
