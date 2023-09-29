@@ -118,6 +118,10 @@ export class AddRecordPaymentComponent implements OnInit {
     }
   }
 
+  onAmountRecievedChange() {
+    this.amountReceivedForSettle = (parsetInt(this.amountReceived, 10) || 0) + (parseInt(this.TDSWithHeld, 10) || 0);
+  }
+
 
 
   computeTDSAmount() {

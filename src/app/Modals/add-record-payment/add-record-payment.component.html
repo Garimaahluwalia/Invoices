@@ -49,7 +49,7 @@
                                 *ngIf="selectedInvoice">{{this.currencyData}}</span>
                             <input type="number" class="form-control" aria-label="Username"
                                 aria-describedby="basic-addon1" name="amountReceived" [(ngModel)]="amountReceived"
-                                (ngModelChange)="computeAmountInINR()">
+                                (ngModelChange)="onAmountRecievedChange()">
                         </div>
                     </div>
 
