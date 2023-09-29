@@ -16,11 +16,11 @@ export class InvoiceSummaryComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes , "summary ")
+    // console.log(changes , "summary ")
   }
 
   ngOnInit(): void {
-   console.log(this.data, "invoice summary data")
+  //  console.log(this.data, "invoice summary data")
   }
 
 }
