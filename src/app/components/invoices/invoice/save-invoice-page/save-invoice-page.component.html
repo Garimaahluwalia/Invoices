@@ -4,33 +4,34 @@
                 home</a></span>
         <div class=" boxes">
             <div>
-                <div class="edit" (click)="updateInvoice(data)">
+                <button class="edit" (click)="updateInvoice(data)">
                     <div><i class="fa-solid fa-pencil"></i></div>
                     <p class="mb-0"> Edit</p>
-                </div>
-                <div class="edit" (click)="recordPayment(data)">
+                </button>
+
+                <button class="edit" (click)="recordPayment(data)">
                     <div><i class="fa-solid fa-money-bill-wave"></i></div>
                     <p class="mb-0"> Record Payment</p>
-                </div>
+                </button>
             </div>
             <div>
                 <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i><p class="mb-0">
                     print
                 </p></button> 
                
-                <div class="edit" (click)="downloadInvoice()">
+                <button class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
                     <p class="mb-0">
                         Download
                     </p>
-                </div>
-                <div class="edit" (click)="emailInvoice(data)">
+                </button>
+                <button class="edit" (click)="emailInvoice(data)">
                     <div><i class="fa-solid fa-envelope"></i></div>
                     <p class="mb-0">
                         email invoice
                     </p>
-                </div>
+                </button>
                 <div class="edit">
                     <div class="dropdown">
                         <i class="fa-solid fa-angle-down"></i>
@@ -41,7 +42,7 @@
                             <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
                             <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
                             <a (click)="deleteInvoices(data)">Delete Invoice</a>
-                            <a (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
+                            <a *ngIf="data.status !== status.CANCELLED" (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
                         </div>
                     </div>
                 </div>
@@ -382,33 +383,34 @@
     <div class="container inc-summ-edits">
         <div class=" boxes">
             <div>
-                <div class="edit" (click)="updateInvoice(data)">
+                <button class="edit" (click)="updateInvoice(data)">
                     <div><i class="fa-solid fa-pencil"></i></div>
                     <p class="mb-0"> Edit</p>
-                </div>
-                <div class="edit" (click)="recordPayment(data)">
+                </button>
+
+                <button class="edit" (click)="recordPayment(data)">
                     <div><i class="fa-solid fa-money-bill-wave"></i></div>
                     <p class="mb-0"> Record Payment</p>
-                </div>
+                </button>
             </div>
             <div>
 
                 <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i><p class="mb-0">
                     print
                 </p></button> 
-                <div class="edit" (click)="downloadInvoice()">
+                <button class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
                     <p class="mb-0">
                         Download
                     </p>
-                </div>
-                <div class="edit" (click)="emailInvoice(data)">
+                </button>
+                <button class="edit" (click)="emailInvoice(data)">
                     <div><i class="fa-solid fa-envelope"></i></div>
                     <p class="mb-0">
                         email invoice
                     </p>
-                </div>
+                </button>
                 <div class="edit">
                     <div class="dropdown">
                         <i class="fa-solid fa-angle-down"></i>
@@ -419,7 +421,7 @@
                             <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
                             <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
                             <a (click)="deleteInvoices(data)">Delete Invoice</a>
-                            <a (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
+                            <a *ngIf="data.status !== status.CANCELLED" (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
                         </div>
                     </div>
                 </div>

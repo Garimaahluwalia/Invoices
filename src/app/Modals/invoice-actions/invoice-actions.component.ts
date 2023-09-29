@@ -89,6 +89,7 @@ export class invoiceactionsComponent implements OnInit {
       console.error(error, "Error occurred while updating invoice status")
     });
     this.closeModal();
+    this.invoiceService.getAll();
   }
 
 
