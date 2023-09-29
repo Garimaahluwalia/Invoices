@@ -52,7 +52,7 @@ import { QuotationsComponent } from './components/quotations/quotations.componen
 import { QuotationListDetailsComponent } from './components/quotations/quotation-list-details/quotation-list-details.component';
 import { MessagePreviewComponent } from './modals/message-preview/message-preview.component';
 import { ViewrecordpaymentComponent } from './viewrecordpayment/viewrecordpayment.component';
-
+import {NgxPrintModule} from 'ngx-print';
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -153,6 +153,7 @@ const customNotifierOptions: NotifierOptions = {
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    NgxPrintModule,
     NgxPaginationModule,
     NotifierModule.withConfig(customNotifierOptions),
     HttpClientModule,

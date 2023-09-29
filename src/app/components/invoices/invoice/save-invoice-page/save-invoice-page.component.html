@@ -14,13 +14,10 @@
                 </div>
             </div>
             <div>
-
-                <div class="edit" (click)="printPDF($event)">
-                    <div><i class="fa-solid fa-print"></i></div>
-                    <p class="mb-0">
-                        print
-                    </p>
-                </div>
+                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i><p class="mb-0">
+                    print
+                </p></button> 
+               
                 <div class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
@@ -396,12 +393,9 @@
             </div>
             <div>
 
-                <div class="edit" (click)="printPDF($event)">
-                    <div><i class="fa-solid fa-print"></i></div>
-                    <p class="mb-0">
-                        print
-                    </p>
-                </div>
+                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i><p class="mb-0">
+                    print
+                </p></button> 
                 <div class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
