@@ -15,10 +15,12 @@
                 </button>
             </div>
             <div>
-                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i><p class="mb-0">
-                    print
-                </p></button> 
-               
+                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i>
+                    <p class="mb-0">
+                        print
+                    </p>
+                </button>
+
                 <button class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
@@ -42,7 +44,8 @@
                             <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
                             <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
                             <a (click)="deleteInvoices(data)">Delete Invoice</a>
-                            <a *ngIf="data.status !== status.CANCELLED" (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
+                            <a *ngIf="data?.status !== status.CANCELLED"
+                                (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
                         </div>
                     </div>
                 </div>
@@ -395,9 +398,11 @@
             </div>
             <div>
 
-                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i><p class="mb-0">
-                    print
-                </p></button> 
+                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i>
+                    <p class="mb-0">
+                        print
+                    </p>
+                </button>
                 <button class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
@@ -421,7 +426,8 @@
                             <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
                             <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
                             <a (click)="deleteInvoices(data)">Delete Invoice</a>
-                            <a *ngIf="data.status !== status.CANCELLED" (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
+                            <a *ngIf="data?.status !== status.CANCELLED"
+                                (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a>
                         </div>
                     </div>
                 </div>

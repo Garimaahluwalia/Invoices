@@ -119,6 +119,7 @@ export class AddRecordPaymentComponent implements OnInit {
   }
 
 
+
   computeTDSAmount() {
     if (this.TDS && this.amountReceived) {
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(2));
