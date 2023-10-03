@@ -61,16 +61,17 @@ constructor(public modalService : ModalService,
   viewPayments() {
     this.invoiceService.getInvoice(this.invoiceId).subscribe((res) => {
       this.invoicedata = res;
+      console.log(this.invoicedata, "invoicedaataa")
       const currency = this.currencies.find(currency => currency.code === this.invoicedata.currency);
       this.currencyData = currency?.symbol;
       console.log(this.invoicedata, "view mark as paid payments")
       this.TDSWithHeld = this.invoicedata.TDSWithHeld;
       this.TDS = this.invoicedata.TDS;
       this.amountReceived = this.invoicedata.amountReceived;
-      this.amountReceivedForSettle = this.invoicedata.amountReceivedForSettle;
+      this.amountReceivedForSettle = this.amountReceived + this.TDSWithHeld;
       this.amountReceivedInINR = this.invoicedata.amountReceivedInINR;
       this.paymentDate = this.invoicedata.paymentDate;
-      this.amountToSettle = this.invoicedata.amountToSettle;
+      // this.amountToSettle = this.invoicedata.amountToSettle;
       this.additionalNotes = this.invoicedata.additionalNotes;
     })
   }

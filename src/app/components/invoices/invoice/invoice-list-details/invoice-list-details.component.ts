@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
-import { ReplaySubject, takeUntil } from 'rxjs';
+import { ReplaySubject, firstValueFrom, take, takeUntil } from 'rxjs';
 import { numberToWords } from 'src/app/common/numberToWords';
 import { ClientService } from 'src/app/services/clients/client.service';
 import { IInvoice, IProducts } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
@@ -16,6 +16,7 @@ import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 import { DeleteEvents } from 'src/app/types/delete';
+import { DeleteService } from 'src/app/services/modal/delete.service';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -51,7 +52,8 @@ export class InvoiceListDetailsComponent implements OnInit {
     public notifierService: NotifierService,
     public loaderService: LoaderService,
     public datePipe: DatePipe,
-    public modalService : ModalService
+    public modalService: ModalService,
+    public deleteService: DeleteService
   ) { this.notifier = notifierService; }
 
 
@@ -60,6 +62,13 @@ export class InvoiceListDetailsComponent implements OnInit {
       this._id = params['id'];
       this.getInvoiceById();
     });
+
+
+    this.deleteService.recieveDeleteEvent()?.subscribe((res) => {
+      const data = res;
+      console.log(data, "delete invoice")
+      this.deleteInvoice(res?.['id'] as string);
+    })
 
 
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
@@ -107,7 +116,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   emailInvoice(data: IInvoice) {
     console.log(data, "email invoice")
     this.route.navigate(["save-invoice-page", this._id, "sent-email"]).then(() => {
-      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: data._id, action: "save-invoice-page", type: InvoiceTypes.Invoice  }});
+      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: data._id, action: "save-invoice-page", type: InvoiceTypes.Invoice } });
     });
   }
 
@@ -173,29 +182,25 @@ export class InvoiceListDetailsComponent implements OnInit {
     });
   }
 
-  deleteInvoice(_id: string) {
-    this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
-      (res) => {
-        this.route.navigate(["invoices"]).then(() => {
-          this.invoiceService.getAll();
-        });
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+  async deleteInvoice(_id: string) {
+    try {
+      console.log("skjfhdfkjdjfdfhkjh", _id);
+      const d = await firstValueFrom(this.invoiceService.deleteInvoice(_id).pipe(take(1)));
+      this.route.navigate(["invoice"]).then(() => {
+        this.invoiceService.getAll();
+      });
+    } catch (e) {
+      console.error(e)
+    }
+    
   }
 
   deleteInvoices(data: IInvoice) {
-    this.route.navigate(["save-invoice-page", data._id, "delete", data._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_INVOICE_PAGE } });
+    this.route.navigate(["view-invoice-list", data._id, "delete"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.VIEW_INVOICE_LIST } });
     });
   }
 
-  printPDF(event: Event) {
-    event.preventDefault();
-    window.print();
-  }
 
   ngOnDestroy(): void {
     this.destroyed.next(true);

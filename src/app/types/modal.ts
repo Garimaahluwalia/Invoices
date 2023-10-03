@@ -21,4 +21,5 @@ export enum ROUTER_ACTIONS {
   CLIENTS = "clients",
   QUOTATIONS = "quotations",
   SAVE_QUOTATIONS_PAGE = "save-quotations-page",
+  VIEW_INVOICE_LIST = "view-invoice-list"
 }

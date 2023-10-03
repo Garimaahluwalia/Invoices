@@ -38,7 +38,7 @@ export class InvoicedataComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges({ duplicate, invoiceOrQuotationNo }: SimpleChanges): void {
- 
+    console.log("invoiceOrQuotationNo", invoiceOrQuotationNo);
     if (!duplicate?.firstChange && duplicate?.currentValue !== undefined) {
       this.duplicate = duplicate?.currentValue;
     }

@@ -34,8 +34,7 @@ export class AddInvoicesComponent implements OnInit {
   public status!: string;
   public currency!: string;
   public duplicateInvoice: boolean = false;
-  public invoiceType: InvoiceTypes = InvoiceTypes.Invoice;
-
+  public invoiceType: InvoiceTypes = InvoiceTypes.Invoice
   public fields: Field[] = [
     {
       "type": FieldType.TEXT,
@@ -128,8 +127,8 @@ export class AddInvoicesComponent implements OnInit {
     this.quotationService.quotationEmitter.pipe(takeUntil(this.destroyed)).subscribe((res) => {
       if (this.invoiceType === InvoiceTypes.Quotation) {
         this.fields = res.table as Field[];
-        this.invoiceNumber = res.invoiceNo;
-        this.invoiceService.invoiceNumber = res.invoiceNo;
+        this.invoiceNumber = res.quotationNo;
+        this.invoiceService.invoiceNumber = res.quotationNo;
         this.productData = res.products;
         this.status = res.status;
         this.currency = res.currency;
@@ -230,8 +229,8 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   routeToHome() {
-  this.router.navigateByUrl("/invoice")
-}
+    this.router.navigateByUrl("/invoice")
+  }
 
   addQuotation(payload: any) {
     this.quotationService.addQuotation(payload).subscribe((res: any) => {

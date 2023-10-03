@@ -23,6 +23,7 @@ export class InvoiceNumberDirective {
   constructor(public invoiceService: InvoiceService) { }
   
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
+    console.log(this.InvoiceType);
     const value = control.value;
     if (value && String(value).trim() !== "") {
       if (this.InvoiceType === InvoiceTypes.Invoice) {

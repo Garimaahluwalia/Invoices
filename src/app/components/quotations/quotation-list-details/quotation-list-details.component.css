@@ -314,3 +314,54 @@ a.btn.btn-primary {
     border: 0px solid white;
     background-color: white;
 }
+.edit .dropdown {
+    position: relative; /* Provide positioning context for the dropdown content */
+  }
+  
+  .edit .dropdown-content {
+    display: none;      /* Hide by default */
+    position: absolute; /* Absolutely position the dropdown content */
+    bottom: 100%;       /* Position it just above the button */
+    /* You might need other styles for appearance like box-shadow, border, etc. */
+  }
+  
+  .edit .dropdown:hover .dropdown-content {
+    display: block;     /* Show dropdown content on hover */
+  }
+  
+
+  .top-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.top-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.top-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.top-dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.top-dropdown:hover .top-dropdown-content {
+    display: block;
+}
+
+.top-dropbtn {
+    color: white;
+    border: none;
+    background-color: white;
+    color: black;
+}

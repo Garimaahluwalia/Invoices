@@ -59,8 +59,9 @@
     <app-invoice-summary [data]="data"></app-invoice-summary>
   
 
-
-    <div id="pdfHolder"
+    <div id="print-section">
+      
+        <div id="pdfHolder"
         style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px; margin: auto;">
         <table>
             <thead>
@@ -376,6 +377,8 @@
         </table>
     </div>
 
+        </div>
+
     <div class="container inc-summ-edits">
         <div class=" boxes">
             <div>
@@ -428,3 +431,4 @@
         </div>
     </div>
 </div>
+<router-outlet></router-outlet>

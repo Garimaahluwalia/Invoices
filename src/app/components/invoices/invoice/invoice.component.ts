@@ -420,6 +420,10 @@ export class InvoiceComponent implements OnInit {
     })
   }
 
+  clickMe() {
+    console.log("hLJKaslkjd")
+  }
+
 
 }
 

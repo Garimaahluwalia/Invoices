@@ -182,7 +182,13 @@ const routes: Routes = [
   },
   {
     path: INVOICES.VIEW_INVOICE_LIST,
-    component: InvoiceListDetailsComponent
+    component: InvoiceListDetailsComponent,
+    children: [
+      {
+        path : CLIENTS.DELETE,
+        component: DeleteComponent
+      }
+    ]
   },
   {
     path: ROUTELINKS.SIGNUP,

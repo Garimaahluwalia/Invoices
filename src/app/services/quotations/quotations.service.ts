@@ -96,7 +96,7 @@ export class QuotationsService {
     this._quotations = value;
   }
 
-  get quotation(): any[] {
+  get quotation(): any[] {  
     return this._quotations;
   }
 
