@@ -132,8 +132,8 @@ export class AddRecordPaymentComponent implements OnInit {
       // console.log(this.amountReceivedForSettle, "amount received for settle")
     } else {
       this.TDSWithHeld = 0;
-      this.amountToSettle = this.amountReceivedForSettle;
-      this.amountReceived = this.amountReceivedForSettle;
+      // this.amountToSettle = this.amountReceivedForSettle;
+      // this.amountReceived = this.amountReceivedForSettle;
     }
     this.computeAmountInINR();
   }
