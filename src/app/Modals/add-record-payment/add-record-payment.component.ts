@@ -42,6 +42,7 @@ export class AddRecordPaymentComponent implements OnInit {
   public paymentDate = new Date();
   public disabledInput: boolean = false;
   public invoicedata: any;
+
   constructor(public modalService: ModalService,
     public router: Router,
     public invoiceService: InvoiceService,
@@ -120,19 +121,24 @@ export class AddRecordPaymentComponent implements OnInit {
 
   onAmountRecievedChange() {
     this.amountReceivedForSettle = (parseInt(String(this.amountReceived), 10) || 0) + (parseInt(String(this.TDSWithHeld), 10) || 0);
+    console.log(this.amountReceivedForSettle); 
 }
 
 
 
   computeTDSAmount() {
     if (this.TDS && this.amountReceived) {
-      this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(0));
+      const amt = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount
+      console.log("amt", amt);
+      this.TDSWithHeld = parseFloat(((this.TDS / 100) * amt).toFixed(0));
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
       this.amountReceivedForSettle = parseFloat((this.TDSWithHeld + this.amountReceived).toFixed(0));
       // console.log(this.amountReceivedForSettle, "amount received for settle")
     } else {
+      console.log("Here I am ", this.amountReceived);
       this.TDSWithHeld = 0;
-      // this.amountToSettle = this.amountReceivedForSettle;
+      this.amountToSettle = this.amountReceived;
+      this.amountReceivedForSettle = this.amountReceived;
       // this.amountReceived = this.amountReceivedForSettle;
     }
     this.computeAmountInINR();

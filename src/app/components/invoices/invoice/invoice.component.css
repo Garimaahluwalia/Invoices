@@ -419,3 +419,9 @@ ul.dropdown-menu.show {
   transform: translate(1445px, 130px);
   overflow: revert;
 }
+.dropdown-menu {
+  z-index: 2000;  /* or a higher value */
+}
+.table-container {  /* example class, adjust as necessary */
+  overflow: visible;
+}

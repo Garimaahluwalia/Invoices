@@ -88,6 +88,7 @@ export class AddInvoicesComponent implements OnInit {
   ]
   invoiceIDforsave: any;
   quotationIDforsave: any;
+  activatedRoute: any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -228,6 +229,9 @@ export class AddInvoicesComponent implements OnInit {
     }
   }
 
+  routeToHome() {
+  this.router.navigateByUrl("/invoice")
+}
 
   addQuotation(payload: any) {
     this.quotationService.addQuotation(payload).subscribe((res: any) => {

@@ -428,12 +428,10 @@
             </div>
             <div>
 
-                <button class="edit" (click)="printPDF()">
-                    <div><i class="fa-solid fa-print"></i></div>
-                    <p class="mb-0">
+                <button class="edit"  printSectionId="print-section" ngxPrint>
+                    <i class="fa-solid fa-print"></i><p class="mb-0">
                         print
-                    </p>
-                </button>
+                    </p></button>
                 <button class="edit" (click)="downloadQuotation()" >
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i class="fa-solid fa-download" ></i></button>
                     <p class="mb-0">
