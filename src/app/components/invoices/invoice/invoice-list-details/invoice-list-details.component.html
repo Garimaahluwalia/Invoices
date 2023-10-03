@@ -1,16 +1,63 @@
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
 
+    <div class="container inc-summ-edits">
+        <span routerLink="/invoice"> <a class="btn btn-primary home-button">
+                home</a></span>
+        <div class=" boxes">
+            <div>
+                <button class="edit" (click)="updateInvoice(data)">
+                    <div><i class="fa-solid fa-pencil"></i></div>
+                    <p class="mb-0"> Edit</p>
+                </button>
 
-    <div class="buttons">
-        <div class="view-button"> <button type="button" routerLink="/invoice"
-                class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house view"></i>
-                Home</button></div>
-        <button class="btn btn-primary print-cstn-btn downloadInvoice" (click)=" downloadInvoice()"
-            [class.spinner]="loading" [disabled]="loading">
-            <i class="ri-download-2-line align-bottom    me-1"></i> Download Invoice
-        </button>
+                <button class="edit" (click)="recordPayment(data)">
+                    <div><i class="fa-solid fa-money-bill-wave"></i></div>
+                    <p class="mb-0"> Record Payment</p>
+                </button>
+            </div>
+            <div>
+                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i>
+                    <p class="mb-0">
+                        print
+                    </p>
+                </button>
 
+                <button class="edit" (click)="downloadInvoice()">
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
+                            class="fa-solid fa-download"></i></button>
+                    <p class="mb-0">
+                        Download
+                    </p>
+                </button>
+                <button class="edit" (click)="emailInvoice(data)">
+                    <div><i class="fa-solid fa-envelope"></i></div>
+                    <p class="mb-0">
+                        email invoice
+                    </p>
+                </button>
+                <div class="edit">
+                    <div class="dropdown">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <button class="dropbtn">more</button>
+                        <div class="dropdown-content">
+                            <a routerLink="/add-invoice">Create New Invoice</a>
+                            <a (click)="emailInvoice(data)">Send Reminder By Email</a>
+                            <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
+                            <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
+                            <a (click)="deleteInvoices(data)">Delete Invoice</a>
+                            <!-- <a *ngIf="data?.status !== status.CANCELLED"
+                                (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span (click)="createAnotherInvoice()"> <a class="btn btn-primary">
+                <i class="las la-plus me-1"></i>
+                Create another invoice</a></span>
     </div>
+    <app-invoice-summary [data]="data"></app-invoice-summary>
+  
 
 
     <div id="pdfHolder"
@@ -327,5 +374,57 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="container inc-summ-edits">
+        <div class=" boxes">
+            <div>
+                <button class="edit" (click)="updateInvoice(data)">
+                    <div><i class="fa-solid fa-pencil"></i></div>
+                    <p class="mb-0"> Edit</p>
+                </button>
+
+                <button class="edit" (click)="recordPayment(data)">
+                    <div><i class="fa-solid fa-money-bill-wave"></i></div>
+                    <p class="mb-0"> Record Payment</p>
+                </button>
+            </div>
+            <div>
+
+                <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i>
+                    <p class="mb-0">
+                        print
+                    </p>
+                </button>
+                <button class="edit" (click)="downloadInvoice()">
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
+                            class="fa-solid fa-download"></i></button>
+                    <p class="mb-0">
+                        Download
+                    </p>
+                </button>
+                <button class="edit" (click)="emailInvoice(data)">
+                    <div><i class="fa-solid fa-envelope"></i></div>
+                    <p class="mb-0">
+                        email invoice
+                    </p>
+                </button>
+                <div class="edit">
+                    <div class="dropdown">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <button class="dropbtn">more</button>
+                        <div class="dropdown-content">
+                            <a routerLink="/add-invoice">Create New Invoice</a>
+                            <a (click)="emailInvoice(data)">Send Reminder By Email</a>
+                            <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
+                            <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
+                            <a (click)="deleteInvoices(data)">Delete Invoice</a>
+                            <!-- <a *ngIf="data?.status !== status.CANCELLED"
+                                (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

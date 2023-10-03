@@ -126,9 +126,9 @@ export class AddRecordPaymentComponent implements OnInit {
 
   computeTDSAmount() {
     if (this.TDS && this.amountReceived) {
-      this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(2));
+      this.TDSWithHeld = parseFloat(((this.TDS / 100) * this.amountReceivedForSettle).toFixed(0));
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
-      this.amountReceivedForSettle = parseFloat((this.TDSWithHeld + this.amountReceived).toFixed(2));
+      this.amountReceivedForSettle = parseFloat((this.TDSWithHeld + this.amountReceived).toFixed(0));
       // console.log(this.amountReceivedForSettle, "amount received for settle")
     } else {
       this.TDSWithHeld = 0;

@@ -12,6 +12,10 @@ import { CURRENCY } from 'src/app/types/currency';
 import { IProductRows } from 'src/app/types/product';
 import { DatePipe } from '@angular/common';
 import { LoaderService } from 'src/app/services/loader/loader.service';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
+import { DeleteEvents } from 'src/app/types/delete';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -46,7 +50,8 @@ export class InvoiceListDetailsComponent implements OnInit {
     public profileService: ProfileService,
     public notifierService: NotifierService,
     public loaderService: LoaderService,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    public modalService : ModalService
   ) { this.notifier = notifierService; }
 
 
@@ -93,6 +98,19 @@ export class InvoiceListDetailsComponent implements OnInit {
   }
 
 
+  updateInvoice(details: IInvoice) {
+    this.route.navigate(["/add-invoice", details._id]);
+  }
+
+
+
+  emailInvoice(data: IInvoice) {
+    console.log(data, "email invoice")
+    this.route.navigate(["save-invoice-page", this._id, "sent-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: data._id, action: "save-invoice-page", type: InvoiceTypes.Invoice  }});
+    });
+  }
+
   downloadInvoice() {
     this.loading = true;
     this.invoiceService.downloadInvoice(this._id)
@@ -125,6 +143,58 @@ export class InvoiceListDetailsComponent implements OnInit {
           }, 2000);
         }
       });
+  }
+
+  createAnotherInvoice() {
+    this.route.navigate(["add-invoice"])
+  }
+
+  recordPayment(data: IInvoice) {
+    this.route.navigate(["save-invoice-page", this._id, "record-payment"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.RecordPayment, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_INVOICE_PAGE } });
+    });
+  }
+
+  duplicateInvoice(data: IInvoice) {
+    this.route.navigate(["add-invoice", data._id], { queryParams: { duplicateInvoice: "duplicate" } })
+  }
+
+  updateStatus(data: IInvoice, status: string) {
+    this.route.navigate(["save-invoice-page", data._id, "invoice-actions", data._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.invoiceactions, {
+        status: true,
+        data: {
+          id: data._id,
+          event: DeleteEvents.INVOICE_ACTIONS,
+          status: status,
+          action: "save-invoice-page"
+        }
+      });
+    });
+  }
+
+  deleteInvoice(_id: string) {
+    this.invoiceService.deleteInvoice(_id).pipe(takeUntil(this.destroyed)).subscribe(
+      (res) => {
+        this.route.navigate(["invoices"]).then(() => {
+          this.invoiceService.getAll();
+        });
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  deleteInvoices(data: IInvoice) {
+    this.route.navigate(["save-invoice-page", data._id, "delete", data._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_INVOICE_PAGE } });
+    });
+  }
+
+  printPDF(event: Event) {
+    event.preventDefault();
+    window.print();
   }
 
   ngOnDestroy(): void {

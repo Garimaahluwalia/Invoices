@@ -5,12 +5,16 @@ import { NotifierService } from 'angular-notifier';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { numberToWords } from 'src/app/common/numberToWords';
 import { ClientService } from 'src/app/services/clients/client.service';
+import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-handler.dto';
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
+import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
 import { CURRENCY } from 'src/app/types/currency';
+import { InvoiceTypes } from 'src/app/types/invoice-types';
+import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 
 @Component({
   selector: 'app-quotation-list-details',
@@ -45,7 +49,8 @@ export class QuotationListDetailsComponent {
     public profileService: ProfileService,
     public notifierService: NotifierService,
     public loaderService: LoaderService,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    public modalService : ModalService
   ) { this.notifier = notifierService; }
 
 
@@ -93,6 +98,21 @@ export class QuotationListDetailsComponent {
 
 
 
+  updateQuotation(details: IInvoice) {
+    this.route.navigate(["/add-invoice", details._id], { queryParams: { category: 'Quotations' } });
+  }
+
+  createQuotation() {
+    this.route.navigate(["/add-invoice"], { queryParams: { category: 'Quotations' } });
+
+  }
+
+  emailQuotation(data: IInvoice) {
+    this.route.navigate(["save-quotations-page", this._id, "sent-email"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.SentEmail, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE, type: InvoiceTypes.Quotation }, });
+    });
+  }
+
   downloadQuotation() {
     this.loading = true;
     this.quotationService.downloadQuotation(this._id)
@@ -125,6 +145,39 @@ export class QuotationListDetailsComponent {
           }, 2000);
         }
       });
+  }
+
+  createAnotherQuotation() {
+    this.route.navigate(['/add-invoice'], { queryParams: { category: 'Quotations' } });
+  }
+
+
+
+  duplicateQuotation(data: IInvoice) {
+    this.route.navigate(["add-invoice", data._id], { queryParams: { duplicateInvoice: "duplicate" } })
+  }
+
+
+  deleteQuotations(_id: string) {
+    this.quotationService.deleteQuotation(_id).pipe(takeUntil(this.destroyed)).subscribe(
+      (res) => {
+        this.route.navigate(["invoices"]).then(() => {
+          this.quotationService.getAll();
+        });
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  deleteQuotation(data: IInvoice) {
+    this.route.navigate(["save-quotation-page", data._id, "delete", data._id]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE } });
+    });
+  }
+  printPDF() {
+    window.print();
   }
 
   ngOnDestroy(): void {

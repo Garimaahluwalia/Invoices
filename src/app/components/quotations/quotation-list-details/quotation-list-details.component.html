@@ -1,16 +1,97 @@
 <div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
 
 
-    <div class="buttons">
-        <div class="view-button"> <button type="button" routerLink="/quotations"
-                class="btn btn-info save-cstn-btn View-invoice button"><i class="fa-solid fa-house view"></i>
-                Home</button></div>
-        <button class="btn btn-primary print-cstn-btn downloadInvoice" (click)="downloadQuotation()"
-            [class.spinner]="loading" [disabled]="loading">
-            <i class="ri-download-2-line align-bottom me-1"></i> Download Quotation
-        </button>
-
+    <div class="container inc-summ-edits">
+        <span routerLink="/quotations"> <a class="btn btn-primary home-button">
+                home</a></span>
+        <div class=" boxes">
+            <div>
+                <button class="edit" (click)="updateQuotation(data)">
+                    <div><i class="fa-solid fa-pencil"></i></div>
+                    <p class="mb-0"> Edit</p>
+                </button>
+            </div>
+            <div>
+                <button class="edit"  printSectionId="print-section" ngxPrint>
+                    <i class="fa-solid fa-print"></i><p class="mb-0">
+                        print
+                    </p></button>
+                <button class="edit" (click)="downloadQuotation()" >
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i class="fa-solid fa-download" ></i></button>
+                    <p class="mb-0">
+                        Download
+                    </p>
+                </button>
+               
+                <button class="edit" (click)="emailQuotation(data)">
+                    <div><i class="fa-solid fa-envelope"></i></div>
+                    <p class="mb-0">
+                        email quotation
+                    </p>
+                </button>
+                <div class="edit">
+                    <div class="dropdown">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <button class="dropbtn">more</button>
+                        <div class="dropdown-content">
+                            <a (click)="createQuotation()">Create New quotation</a>
+                            <a (click)="emailQuotation(data)">Send Reminder By Email</a>
+                            <a (click)="duplicateQuotation(data)">Duplicate Quotation</a>
+                            <a [routerLink]="['/view-quotations-list', data?._id]">View quotation</a>
+                            <a (click)="deleteQuotation(data)">Delete Quotation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span (click)="createAnotherQuotation()"> <a class="btn btn-primary">
+                <i class="las la-plus me-1"></i>
+                Create another Quotation</a></span>
     </div>
+    <div class="container invoice-summ-acc">
+        <cdk-accordion class="example-accordion invoice-summ-acc">
+            <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button"
+                tabindex="0" [attr.id]="'accordion-header-'" [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion-body-' ">
+                <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                    Quotation Summary
+                    <span class="example-accordion-item-description">
+                        <i [ngClass]="accordionItem.expanded ? 'fa fa-angle-up' : 'fa fa-angle-down'"></i>
+                    </span>
+                </div>
+                <div class="example-accordion-item-body" role="region"
+                    [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-'"
+                    [attr.aria-labelledby]="'accordion-header-' ">
+                    <div class="invoice-container">
+                        <div class="details">
+                            <label>Quotation No :{{data?.quotationNo}} </label>
+
+                        </div>
+                        <div class="details">
+                            <label>Quotation Date : {{data?.date | date : 'yy-MM-dd'}} </label>
+
+                        </div>
+                        <div class="details">
+                            <label>Total Amount : <span class="amount">{{ data?.totalamount !== 0 ? data?.totalamount :
+                                    data?.subtotalofamount}}</span> </label>
+
+
+                        </div>
+                        <div class="details">
+                            <label>Quotation For : {{data?.client.name}} </label>
+
+                        </div>
+
+                        <div class="details">
+                            <label>Created by : {{data?.company?.Businessname}} </label>
+
+                        </div>
+                    </div>
+                </div>
+            </cdk-accordion-item>
+        </cdk-accordion>
+    </div>
+
 
 
     <div id="pdfHolder"
@@ -331,5 +412,54 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="container inc-summ-edits">
+        <div class=" boxes">
+            <div>
+                <button class="edit" (click)="updateQuotation(data)">
+                    <div><i class="fa-solid fa-pencil"></i></div>
+                    <p class="mb-0"> Edit</p>
+                </button>
+                <!-- <div class="edit" (click)="recordPayment(data)">
+                    <div><i class="fa-solid fa-money-bill-wave"></i></div>
+                    <p class="mb-0"> Record Payment</p>
+                </div> -->
+            </div>
+            <div>
+
+                <button class="edit" (click)="printPDF()">
+                    <div><i class="fa-solid fa-print"></i></div>
+                    <p class="mb-0">
+                        print
+                    </p>
+                </button>
+                <button class="edit" (click)="downloadQuotation()" >
+                    <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i class="fa-solid fa-download" ></i></button>
+                    <p class="mb-0">
+                        Download
+                    </p>
+                </button>
+                <button class="edit" (click)="emailQuotation(data)">
+                    <div><i class="fa-solid fa-envelope"></i></div>
+                    <p class="mb-0">
+                        email quotation
+                    </p>
+                </button>
+                <div class="edit">
+                    <div class="dropdown">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <button class="dropbtn">more</button>
+                        <div class="dropdown-content">
+                            <a (click)="createQuotation()">Create New Quotation</a>
+                            <a (click)="emailQuotation(data)">Send Reminder By Email</a>
+                            <a (click)="deleteQuotation(data)">Duplicate Quotation</a>
+                            <a [routerLink]="['/view-quotations-list', data?._id]">View Quotation</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
