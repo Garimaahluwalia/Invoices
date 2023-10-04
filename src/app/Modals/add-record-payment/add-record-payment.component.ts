@@ -97,7 +97,6 @@ export class AddRecordPaymentComponent implements OnInit {
 
   async getInvoice() {
     this.selectedInvoice = await this.getInvoiceById();
-    // console.log(this.selectedInvoice);
     if (this.selectedInvoice) {
       const currency = this.currencies.find(currency => currency.code === this.selectedInvoice.currency);
       this.currencyData = currency?.symbol;
@@ -123,7 +122,6 @@ export class AddRecordPaymentComponent implements OnInit {
   onAmountRecievedChange() {
     this.isRecievedAmountEdited = true;
     this.amountReceivedForSettle = (parseInt(String(this.amountReceived), 10) || 0) + (parseInt(String(this.TDSWithHeld), 10) || 0);
-    // console.log(this.amountReceivedForSettle); 
 }
 
 
@@ -131,21 +129,16 @@ export class AddRecordPaymentComponent implements OnInit {
   computeTDSAmount() {
     if (this.TDS && this.amountReceived) {
       const amt = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount
-      console.log("amt", amt);
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * amt).toFixed(0));
       if(!this.isRecievedAmountEdited) {
       this.amountReceived = amt - this.TDSWithHeld;
       }
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
       this.amountReceivedForSettle = parseFloat((this.TDSWithHeld + this.amountReceived).toFixed(0));
-  
-      console.log(this.amountReceived, "AMOUNT RECEIVED")
-    } else {
-      console.log("Here I am ", this.amountReceived);
+      } else {
       this.TDSWithHeld = 0;
       this.amountToSettle = this.amountReceived;
       this.amountReceivedForSettle = this.amountReceived;
-      console.log(this.amountReceivedForSettle, "amountreceiveforsettle")
     }
     this.computeAmountInINR();
   }

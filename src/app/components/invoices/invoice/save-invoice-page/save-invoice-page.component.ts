@@ -80,8 +80,8 @@ export class SaveInvoicePageComponent implements OnInit {
 
     this.deleteService.recieveDeleteEvent()?.subscribe((res) => {
       const data = res;
+      this.deleteInvoice(res?.['id'] as string);
     })
-
 
     this.invoiceService.recieveInvoiceCategory().subscribe((res: string) => {
       this.invoiceCategory = res;

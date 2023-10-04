@@ -227,6 +227,12 @@ const routes: Routes = [
   {
     path: QUOTATIONS.VIEW_QUOTATIONS_LIST,
     component: QuotationListDetailsComponent,
+    children: [
+      {
+        path : CLIENTS.DELETE,
+        component: DeleteComponent
+      }
+    ]
   },
   {
     path: QUOTATIONS.SAVE_QUOTATIONS_PAGE,

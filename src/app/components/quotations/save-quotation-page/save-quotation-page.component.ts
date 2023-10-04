@@ -79,6 +79,7 @@ export class SaveQuotationPageComponent {
 
     this.deleteService.recieveDeleteEvent()?.subscribe((res) => {
       const data = res;
+      this.deleteQuotations(res?.['id'] as string);
     })
 
 

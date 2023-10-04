@@ -9,6 +9,7 @@ import { IInvoice } from 'src/app/services/invoice-data-handler/invoice-data-han
 import { AddInvoicesService } from 'src/app/services/invoices/add-invoices.service';
 import { InvoiceService } from 'src/app/services/invoices/invoice.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
+import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
@@ -50,7 +51,8 @@ export class QuotationListDetailsComponent {
     public notifierService: NotifierService,
     public loaderService: LoaderService,
     public datePipe: DatePipe,
-    public modalService : ModalService
+    public modalService : ModalService,
+    public deleteService : DeleteService
   ) { this.notifier = notifierService; }
 
 
@@ -60,6 +62,11 @@ export class QuotationListDetailsComponent {
       this.getQuotationById();
     });
 
+    this.deleteService.recieveDeleteEvent()?.subscribe((res) => {
+      const data = res;
+      console.log(data, "delete quotation")
+      this.deleteQuotations(res?.['id'] as string);
+    })
 
     this.profileService.getProfile().pipe(takeUntil(this.destroyed)).subscribe(
       (response) => {
@@ -161,7 +168,7 @@ export class QuotationListDetailsComponent {
   deleteQuotations(_id: string) {
     this.quotationService.deleteQuotation(_id).pipe(takeUntil(this.destroyed)).subscribe(
       (res) => {
-        this.route.navigate(["invoices"]).then(() => {
+        this.route.navigate(["quotations"]).then(() => {
           this.quotationService.getAll();
         });
       },
@@ -172,12 +179,9 @@ export class QuotationListDetailsComponent {
   }
 
   deleteQuotation(data: IInvoice) {
-    this.route.navigate(["save-quotation-page", data._id, "delete", data._id]).then(() => {
-      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.SAVE_QUOTATIONS_PAGE } });
+    this.route.navigate(["view-quotations-list", data._id, "delete"]).then(() => {
+      this.modalService.sendEvent(ModalEvents.Delete, { status: true, data: { id: data._id, action: ROUTER_ACTIONS.VIEW_QUOTATIONS_LIST } });
     });
-  }
-  printPDF() {
-    window.print();
   }
 
   ngOnDestroy(): void {
