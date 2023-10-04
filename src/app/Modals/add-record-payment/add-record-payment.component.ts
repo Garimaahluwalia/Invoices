@@ -127,8 +127,9 @@ export class AddRecordPaymentComponent implements OnInit {
 
 
   computeTDSAmount() {
+    const amt = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount
     if (this.TDS && this.amountReceived) {
-      const amt = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount
+      console.log("amt", amt);
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * amt).toFixed(0));
       if(!this.isRecievedAmountEdited) {
       this.amountReceived = amt - this.TDSWithHeld;
@@ -139,6 +140,10 @@ export class AddRecordPaymentComponent implements OnInit {
       this.TDSWithHeld = 0;
       this.amountToSettle = this.amountReceived;
       this.amountReceivedForSettle = this.amountReceived;
+      console.log(this.amountReceivedForSettle, "amountreceiveforsettle")
+      if(!this.TDS) {
+        this.amountReceived = amt;
+      }
     }
     this.computeAmountInINR();
   }
