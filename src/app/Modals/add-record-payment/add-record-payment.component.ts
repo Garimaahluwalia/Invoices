@@ -131,8 +131,11 @@ export class AddRecordPaymentComponent implements OnInit {
       const amt = this.selectedInvoice.totalamount !== 0 ? this.selectedInvoice.totalamount : this.selectedInvoice.subtotalofamount
       console.log("amt", amt);
       this.TDSWithHeld = parseFloat(((this.TDS / 100) * amt).toFixed(0));
+      this.amountReceived = amt - this.TDSWithHeld;
       this.amountToSettle = parseFloat(this.amountReceivedForSettle.toFixed(2));
       this.amountReceivedForSettle = parseFloat((this.TDSWithHeld + this.amountReceived).toFixed(0));
+  
+      console.log(this.amountReceived, "AMOUNT RECEIVED")
     } else {
       console.log("Here I am ", this.amountReceived);
       this.TDSWithHeld = 0;
