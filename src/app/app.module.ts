@@ -31,7 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PhonenumberDirective } from './directives/phonenumber.directive';
-import { dashboardComponent } from './components/invoices/dashboard/dashboard.component';
+import { dashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { DatePipe } from '@angular/common';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
@@ -51,7 +51,7 @@ import { SaveQuotationPageComponent } from './components/quotations/save-quotati
 import { QuotationsComponent } from './components/quotations/quotations.component';
 import { QuotationListDetailsComponent } from './components/quotations/quotation-list-details/quotation-list-details.component';
 import { MessagePreviewComponent } from './modals/message-preview/message-preview.component';
-import { ViewrecordpaymentComponent } from './viewrecordpayment/viewrecordpayment.component';
+import { ViewrecordpaymentComponent } from './modals/viewrecordpayment/viewrecordpayment.component';
 import {NgxPrintModule} from 'ngx-print';
 const customNotifierOptions: NotifierOptions = {
   position: {

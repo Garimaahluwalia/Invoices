@@ -43,10 +43,9 @@
                             <a routerLink="/add-invoice">Create New Invoice</a>
                             <a (click)="emailInvoice(data)">Send Reminder By Email</a>
                             <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
-                            <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
                             <a (click)="deleteInvoices(data)">Delete Invoice</a>
-                            <!-- <a *ngIf="data?.status !== status.CANCELLED"
-                                (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a> -->
+                            <!-- <a *ngIf="data?.status !== data?.status.CANCELLED"
+                                (click)="updateStatus(data, data?.status.CANCELLED)">Cancel Invoice</a> -->
                         </div>
                     </div>
                 </div>
@@ -420,10 +419,9 @@
                             <a routerLink="/add-invoice">Create New Invoice</a>
                             <a (click)="emailInvoice(data)">Send Reminder By Email</a>
                             <a (click)="duplicateInvoice(data)">Duplicate Invoice</a>
-                            <a [routerLink]="['/view-invoice-list', data?._id]">View Invoice</a>
                             <a (click)="deleteInvoices(data)">Delete Invoice</a>
-                            <!-- <a *ngIf="data?.status !== status.CANCELLED"
-                                (click)="updateStatus(data, status.CANCELLED)">Cancel Invoice</a> -->
+                            <!-- <a *ngIf="data?.status !== data?.status.CANCELLED"
+                                (click)="updateStatus(data, data?.status.CANCELLED)">Cancel Invoice</a> -->
                         </div>
                     </div>
                 </div>

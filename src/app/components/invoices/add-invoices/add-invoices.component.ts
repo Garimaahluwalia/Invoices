@@ -85,9 +85,9 @@ export class AddInvoicesComponent implements OnInit {
       "readonly": false,
     },
   ]
-  invoiceIDforsave: any;
-  quotationIDforsave: any;
-  activatedRoute: any;
+  public invoiceIDforsave: any;
+  public quotationIDforsave: any;
+  public  activatedRoute: any;
 
   constructor(
     public addInvoiceService: AddInvoicesService,
@@ -229,9 +229,16 @@ export class AddInvoicesComponent implements OnInit {
   }
 
   routeToHome() {
-    this.router.navigateByUrl("/invoice")
+    const currentUrl = this.router.url;
+    if (currentUrl.includes('add-invoice')) {
+      if (currentUrl.includes('category=Quotations')) {
+        this.router.navigateByUrl('/quotations');
+      } else {
+        this.router.navigateByUrl('/invoice');
+      }
+    }
   }
-
+  
   addQuotation(payload: any) {
     this.quotationService.addQuotation(payload).subscribe((res: any) => {
       this.quotations = res;

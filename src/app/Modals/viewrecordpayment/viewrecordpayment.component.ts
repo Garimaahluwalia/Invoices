@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ModalService } from '../services/modal/modal.service';
-import { ModalEvents, ROUTER_ACTIONS } from '../types/modal';
+import { ModalService } from '../../services/modal/modal.service';
+import { ModalEvents, ROUTER_ACTIONS } from '../../types/modal';
 import { ReplaySubject, takeUntil } from 'rxjs';
-import { InvoiceService } from '../services/invoices/invoice.service';
-import { CURRENCY } from '../types/currency';
+import { InvoiceService } from '../../services/invoices/invoice.service';
+import { CURRENCY } from '../../types/currency';
 import { Router } from '@angular/router';
 
 @Component({

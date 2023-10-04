@@ -429,7 +429,7 @@
                                                                         title="Sent Email" (click)="sentEmail(details)">
                                                                         <a href="javascript:void(0)"
                                                                             class="btn btn-soft-danger btn-sm d-inline-block">
-                                                                            <span>email invoice</span>
+                                                                            <span>Send Email</span>
                                                                         </a>
                                                                     </li>
 
@@ -454,6 +454,17 @@
                                                                             <span>View Payment</span>
                                                                         </a>
                                                                     </li>
+                                                                    <li class="list-inline-item"
+                                                                    *ngIf="details.status === 'UNPAID'"
+                                                                    data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                    data-bs-placement="top" style="cursor: pointer;"
+                                                                    title="Mark Paid"
+                                                                    (click)="recordPayment(details)">
+                                                                    <a href="javascript:void(0)"
+                                                                        class="btn btn-soft-danger btn-sm d-inline-block">
+                                                                        <span>Mark Paid</span>
+                                                                    </a>
+                                                                </li>
 
                                                                 </ul>
                                                             </div>

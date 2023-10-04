@@ -184,7 +184,6 @@ export class InvoiceListDetailsComponent implements OnInit {
 
   async deleteInvoice(_id: string) {
     try {
-      console.log("skjfhdfkjdjfdfhkjh", _id);
       const d = await firstValueFrom(this.invoiceService.deleteInvoice(_id).pipe(take(1)));
       this.route.navigate(["invoice"]).then(() => {
         this.invoiceService.getAll();

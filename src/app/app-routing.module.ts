@@ -14,7 +14,7 @@ import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './modals/add-client/add-client.component';
 import { DeleteComponent } from './modals/delete/delete.component';
 import { ClientDetailsComponent } from './components/invoices/add-invoices/from-groups/client-details/client-details.component';
-import { dashboardComponent } from './components/invoices/dashboard/dashboard.component';
+import { dashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { ProfileComponent } from './components/layout/profile/profile.component';
 import { invoiceactionsComponent } from './modals/invoice-actions/invoice-actions.component';
 import { AddRecordPaymentComponent } from './modals/add-record-payment/add-record-payment.component';
@@ -25,7 +25,7 @@ import { QuotationsComponent } from './components/quotations/quotations.componen
 import { QuotationListDetailsComponent } from './components/quotations/quotation-list-details/quotation-list-details.component';
 import { InvoiceTypes } from './types/invoice-types';
 import { SaveQuotationPageComponent } from './components/quotations/save-quotation-page/save-quotation-page.component';
-import { ViewrecordpaymentComponent } from './viewrecordpayment/viewrecordpayment.component';
+import { ViewrecordpaymentComponent } from './modals/viewrecordpayment/viewrecordpayment.component';
 
 const routes: Routes = [
   {
