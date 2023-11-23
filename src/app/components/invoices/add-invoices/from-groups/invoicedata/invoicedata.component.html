@@ -4,7 +4,7 @@
             <h1>{{ invoiceType === INVOICE_TYPES.Quotation ? 'Quotation': 'Invoice'}}</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row align-items-center">
         <div class="col-md-6">
             <div class="row g-3">
                 <div class="col-lg-8 col-sm-12">
@@ -38,8 +38,8 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="text-end">
-                <img [src]="invoiceImage" width="150px" height="150px" class="img-fluid company-logo" />
+            <div class="text-md-end text-center mt-5 mt-md-0">
+                <img [src]="invoiceImage" width="120px" height="120px" class="img-fluid company-logo" />
             </div>
         </div>
     </div>

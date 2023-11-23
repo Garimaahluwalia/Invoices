@@ -154,6 +154,7 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
   background-color: #E31E24 !important;
   border: #E31E24 !important;
   color: white !important;
+  margin: 0 0 5px 5px !important;
 }
 
 
@@ -214,10 +215,6 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
     max-width: 600px;
     /* Adjust this as per your requirement */
   }
-
-  .input-group {
-    justify-content: space-around;
-  }
 }
 
 .selectStatus {
@@ -248,12 +245,15 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
 .dropdown-items {
   position: absolute;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid #ff00001f;
   top: 100%;
+  left: 0;
   z-index: 1;
   background-color: white;
 }
-
+.dropdown-items input {
+  accent-color: #e31e24;
+}
 .dropdown-items div {
   padding: 5px;
 }
@@ -283,19 +283,20 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
 }
 
 .invoice_summ .inc-icon svg {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   margin-right: 0px;
 }
 
 .invc_detail h5 {
   margin-bottom: 0px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .invc_detail p {
-  font-size: 19px;
+  font-size: 16px;
   color: #000;
+  margin: 0;
 }
 
 .inc-icon-img {
@@ -315,7 +316,7 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
 
 .example-accordion-item {
   display: block;
-  border: solid 1px #ccc;
+  border: solid 1px #ff00001f;
 }
 
 .example-accordion-item+.example-accordion-item {
@@ -323,11 +324,17 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
 }
 
 .example-accordion-item-header {
+  color: #fff;
   display: flex;
+  align-items: baseline;
   align-content: center;
   justify-content: space-between;
+  background-color: #e31e24;
+  border-radius: 4px;
 }
-
+.example-accordion-item-header i {
+  color: #fff;
+}
 .example-accordion-item-description {
   font-size: 0.85em;
   color: #999;
@@ -337,10 +344,15 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
 .example-accordion-item-body {
   padding: 16px;
 }
-
+.example-accordion-item-body {
+  padding: 20px 15px !important;
+}
+.example-accordion-item-header {
+  padding: 10px 15px !important;
+  border-bottom: 1px solid #ff00001f;
+}
 .example-accordion-item-header:hover {
   cursor: pointer;
-  background-color: #eee;
 }
 
 .example-accordion-item:first-child {
@@ -387,4 +399,128 @@ button.btn.btn-info.save-cstn-btn.bulk-invoice.mr-2 {
   padding: 16px;
   font-weight: 500;
   font-size: 20px;
+}
+
+/* NEW-CSS */
+.custom-dropdown {
+  border-color: #ff00001f;
+}
+.custom-dropdown:focus {
+  border-color: #e31e249e;
+  box-shadow: 0 0 0 0.25rem #e31e2452;
+  outline: 0;
+}  
+.table-card table td, .table-card table th {
+  border-top: 1px solid #ff00004d !important;
+  border-bottom: 1px solid #ff00004d !important;
+}
+.table-card table tr input {
+  accent-color: #e31e24;
+}
+input.datepicker, .custom-dropdown {
+  margin-left: 0 !important;
+}
+.add-invoice-btn {
+  margin-left: 5px;
+}
+.list-menu.dropup.drop-items ul.dropdown-menu.show {
+  transform: translate(-17px, 9px) !important;
+}
+.search-icon {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+}
+.search-icon i {
+  font-size: 15px;
+  color: #e31e24;
+}
+.form-outline.form-search input {
+  padding-left: 30px;
+}
+.form-outline input, input.datepicker, .custom-dropdown {
+  width: 192px;
+  border-color: #ff00001f;
+}
+.table-responsive.table-card table {
+  border-left: 1px solid #ff00001f !important;
+  border-right: 1px solid #ff00001f !important;
+}
+.table-card table th {
+  background-color: #e31e24 !important;
+  color: #fff !important;
+  padding-top: 13px !important;
+  padding-bottom: 13px !important;
+}
+.table-card table tr input {
+  accent-color: #c30409;
+}
+table tbody tr:nth-child(even) td {
+  background-color: #e31e2515 !important;
+}
+
+::ng-deep .ngx-pagination li {
+  border: 1px solid #e31e24 !important;
+  margin: 0 !important;
+  color: #000 !important;
+  padding: 5px 10px !important;
+  transition: .4s;
+}
+::ng-deep .ngx-pagination li:hover {
+  background-color: #e31e24 !important;
+  color: #fff !important;
+} 
+::ng-deep .ngx-pagination li a {
+  padding: unset !important;
+} 
+::ng-deep .ngx-pagination li a:hover {
+  background-color: unset !important;
+} 
+::ng-deep .ngx-pagination .current {
+  color: #fff !important;
+}
+@media (max-width:767px) {
+  ::ng-deep ul.ngx-pagination {
+      padding-right: 22px !important;
+  }
+  ::ng-deep .ngx-pagination li {
+      padding: 5px !important;
+  }
+  ::ng-deep .ngx-pagination li span, ::ng-deep .ngx-pagination li a {
+     font-size: 14px !important;
+  } 
+}
+@media (min-width: 320px) and (max-width: 767px) {
+  .example-accordion-item-header {
+    font-size: 16px;
+  }
+  .invoice_summ {
+    display: block;
+  }
+  .list-menu.dropup.drop-items ul.dropdown-menu.show {
+    transform: translate(-17px, -2px) !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .form-outline input {
+    width: 193px;
+  }
+  .example-accordion-item-header {
+    font-size: 18px;
+  }
+  .invoice_summ {
+    display: block;
+    gap: 75px;
+}
+}
+@media (min-width:992px) and (max-width:1044px) {
+  a.btn.btn-primary-outline.add-invoice-btn {
+    font-size: 12px !important;
+  }
+}
+@media (min-width: 992px) and (max-width:1407px) {
+  .form-outline input, input.datepicker, .custom-dropdown {
+    width: 170px;
+    font-size: 14px;
+  }
 }

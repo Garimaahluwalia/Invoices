@@ -1,5 +1,15 @@
 span.message-preview {
-    color: cornflowerblue;
+    color: #e31e24;
     font-weight: 500;
-    margin-left: 246px;
+    margin-left: 230px;
+}
+
+/* NEW-CSS */
+.label-title {
+    width: 120px;
+}
+@media (max-width:767px) {
+    span.message-preview {
+        margin-left: 40px;
+    }
 }

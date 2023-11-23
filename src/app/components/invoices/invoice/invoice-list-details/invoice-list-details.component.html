@@ -1,39 +1,36 @@
-<div style="background-color: #f2f2f2; font-family: 'Roboto Slab', serif;">
+<div>
 
-    <div class="container inc-summ-edits">
-        <span routerLink="/invoice"> <a class="btn btn-primary home-button">
-                home</a></span>
+    <div class="container inc-summ-edits pt-4">
+        <div class="home-btn text-center mb-4 mb-md-0">
+            <span routerLink="/invoice"> 
+                <a class="btn btn-primary home-button"><i _ngcontent-oay-c20="" class="fa-solid fa-house"></i>Home</a>
+            </span>
+        </div>
         <div class=" boxes">
-            <div>
+            <div class="mb-2 mb-md-0">
                 <button class="edit" (click)="updateInvoice(data)">
-                    <div><i class="fa-solid fa-pencil"></i></div>
-                    <p class="mb-0"> Edit</p>
+                    <i class="fa-solid fa-pencil"></i>
+                    Edit
                 </button>
 
                 <button class="edit" (click)="recordPayment(data)">
-                    <div><i class="fa-solid fa-money-bill-wave"></i></div>
-                    <p class="mb-0"> Record Payment</p>
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    Record Payment
                 </button>
             </div>
             <div>
                 <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i>
-                    <p class="mb-0">
-                        print
-                    </p>
+                    print
                 </button>
 
                 <button class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
-                    <p class="mb-0">
                         Download
-                    </p>
                 </button>
                 <button class="edit" (click)="emailInvoice(data)">
-                    <div><i class="fa-solid fa-envelope"></i></div>
-                    <p class="mb-0">
-                        email invoice
-                    </p>
+                    <i class="fa-solid fa-envelope"></i>
+                    email invoice
                 </button>
                 <div class="edit">
                     <div class="top-dropdown">
@@ -61,7 +58,8 @@
     <div id="print-section">
       
         <div id="pdfHolder"
-        style="width: 1000px; height:100%; background-color:#ffff; padding: 20px; padding-bottom: 5px; margin: auto;">
+        style="width: 1000px; height:100%; background-color:#ffff; padding: 30px; padding-bottom: 5px; margin: auto; box-shadow: 0 3px 2px #e31e249e;
+        border: 1px solid #ff00001f !important; border-radius: 0.375rem;">
         <table>
             <thead>
                 <tr>
@@ -69,9 +67,9 @@
                         <table style="width: 100%;">
 
                             <tbody>
-                                <tr>
-                                    <td style="text-align: left;"><img [src]="invoiceImage" width="150px"
-                                            height="150px" />
+                                <tr class="mobile-flex">
+                                    <td style="text-align: left;" class="table-img"><img [src]="invoiceImage" width="120px"
+                                            height="120px" style="margin-bottom: 40px;"/>
                                     </td>
                                     <td>
                                     </td>
@@ -85,7 +83,7 @@
                                             {{ data?.status }}
                                         </span>
 
-                                        <h2 style="font-size: 34px; font-weight: 400; padding-top: 15px;">Invoice</h2>
+                                        <h2 class="text-invoice" style="font-size: 34px; font-weight: 500; padding-top: 15px; padding-bottom: 40px;">Invoice</h2>
                                     </td>
                                 </tr>
                             </tbody>
@@ -96,35 +94,35 @@
             <tbody>
                 <tr>
                     <td>
-                        <table style="width: 100%; margin-top: 10px;">
+                        <table class="m-margin" style="width: 100%; margin-top: 10px;  margin-bottom: 40px;">
                             <tbody>
                                 <tr>
                                     <td style="text-align: left; width:30%; vertical-align: top;">
                                         <div>
-                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Billed By
+                                            <h4 style="font-size: 12px; margin-bottom: 18px; color: #2b2b2b; font-weight: 500;">Billed By
                                             </h4>
                                             <div>
                                                 <h2
-                                                    style="font-size: 20px; color: #2B2B2B; font-weight: bold;     margin: 14px 0px;">
+                                                    style="font-size: 14px; color: #2b2b2b; font-weight: bold;     margin: 10px 0px;">
                                                     M CODE INFOSOFT</h2>
-                                                <p
-                                                    style="font-size: 17px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0;">
+                                                <p class="mobile-margin"
+                                                    style="font-size: 12px; color: #2b2b2b; font-weight: 400; line-height: 23px; margin: 10px 0;">
                                                     #60, 1st Floor, Zirakpur,<br> Punjab, India - 140603</p>
                                                 <div>
-                                                    <div style="padding-bottom: 8px;">
+                                                    <div class="mobile-height" style="padding-bottom: 8px;">
                                                         <span
-                                                            style="font-size: 17px; font-weight: 700; color: #979393;">GSTIN:</span><span
-                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">03DQCPK3553H1Z3</span>
+                                                            style="font-size: 12px; font-weight: 500; color: #979393;">GSTIN:</span><span
+                                                            style="font-size: 12px; color: #2b2b2b; font-weight: 400; padding-left: 5px;">03DQCPK3553H1Z3</span>
                                                     </div>
-                                                    <div style="padding-bottom: 8px;">
+                                                    <div class="mobile-height" style="padding-bottom: 8px;">
                                                         <span
-                                                            style="font-size: 17px; font-weight: 700; color: #979393;">PAN:</span><span
-                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">DQCPK3553H</span>
+                                                            style="font-size: 12px; font-weight: 500; color: #979393;">PAN:</span><span
+                                                            style="font-size: 12px; color: #2b2b2b; font-weight: 400; padding-left: 5px;">DQCPK3553H</span>
                                                     </div>
-                                                    <div style="padding-bottom: 8px;">
+                                                    <div class="mobile-height" style="padding-bottom: 0px;">
                                                         <span
-                                                            style="font-size: 17px; font-weight: 700; color: #979393;">Email:</span><span
-                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">Info@mcodeinfosoft.com</span>
+                                                            style="font-size: 12px; font-weight: 500; color: #979393;">Email:</span><span
+                                                            style="font-size: 12px; color: #2b2b2b; font-weight: 400; padding-left: 5px;">Info@mcodeinfosoft.com</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,32 +130,32 @@
                                     </td>
                                     <td style="text-align: left; width:30%; vertical-align: top;">
                                         <div>
-                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Billed To
+                                            <h4 style="font-size: 12px; margin-bottom: 18px; color: #2b2b2b; font-weight: 500;">Billed To
                                             </h4>
                                             <div>
                                                 <h2
-                                                    style="font-size: 20px; color: #2B2B2B; font-weight: bold; margin: 14px 0px;">
+                                                    style="font-size: 14px; color: #2b2b2b; font-weight: bold; margin: 10px 0px;">
                                                     {{data?.client?.name}}
                                                 </h2>
-                                                <p
-                                                    style="font-size: 17px; color: #282828; font-weight: 400; line-height: 23px; margin: 10px 0; padding-right:25px;">
+                                                <p class="mobile-margin"
+                                                    style="font-size: 12px; color: #2b2b2b; font-weight: 400; line-height: 23px; margin: 10px 0; padding-right:25px;">
                                                     {{data?.client?.address}}</p>
                                                 <div>
-                                                    <div style="padding-bottom: 8px;">
+                                                    <div class="mobile-height" style="padding-bottom: 8px;">
                                                         <span
-                                                            style="font-size: 17px; font-weight: 700; color: #979393;">GSTIN:</span><span
-                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">{{data?.client?.gstin}}</span>
+                                                            style="font-size: 12px; font-weight: 500; color: #979393;">GSTIN:</span><span
+                                                            style="font-size: 12px; color: #2b2b2b; font-weight: 400; padding-left: 5px;">{{data?.client?.gstin}}</span>
                                                     </div>
-                                                    <div style="padding-bottom: 8px;">
+                                                    <div class="mobile-height" style="padding-bottom: 8px;">
                                                         <span
-                                                            style="font-size: 17px; font-weight: 700; color: #979393;">PAN:</span><span
-                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">{{data?.client?.pan}}</span>
+                                                            style="font-size: 12px; font-weight: 500; color: #979393;">PAN:</span><span
+                                                            style="font-size: 12px; color: #2b2b2b; font-weight: 400; padding-left: 5px;">{{data?.client?.pan}}</span>
                                                     </div>
 
-                                                    <div style="padding-bottom: 8px;">
+                                                    <div class="mobile-height" style="padding-bottom: 0px;">
                                                         <span
-                                                            style="font-size: 17px; font-weight: 700; color: #979393;">Email:</span><span
-                                                            style="font-size: 17px; color: #282828; font-weight: 400; padding-left: 5px;">{{data?.client?.email}}</span>
+                                                            style="font-size: 12px; font-weight: 500; color: #979393;">Email:</span><span
+                                                            style="font-size: 12px; color: #2b2b2b; font-weight: 400; padding-left: 5px;">{{data?.client?.email}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -165,21 +163,21 @@
                                     </td>
                                     <td style="text-align: left; width:30%; vertical-align: top;">
                                         <div>
-                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Invoice
+                                            <h4 class="mobile-margin" style="font-size: 12px; margin-bottom: 18px; color: #2b2b2b; font-weight: 500;">Invoice
                                                 Details
                                             </h4>
-                                            <div>
+                                            <div class="width-mobile">
                                                 <div style="padding-bottom: 10px; float: left; width: 100%;">
                                                     <span
-                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Invoice
+                                                        style="font-size: 12px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                     </span><span
-                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">{{data?.invoiceNo}}</span>
+                                                        style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: left; width: 50%;">{{data?.invoiceNo}}</span>
                                                 </div>
                                                 <div style="float: left; width: 100%;">
                                                     <span
-                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Invoice
+                                                        style="font-size: 12px; font-weight: 500; color: #979393; float: left; width: 50%;">Invoice
                                                         Date </span><span
-                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">
+                                                        style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: left; width: 50%;">
                                                         {{data?.date | date: 'dd-MM-yyyy'}}</span>
                                                 </div>
                                             </div>
@@ -190,18 +188,18 @@
                         </table>
                     </td>
                 </tr>
-                <tr>
+                <tr class="second">
                     <td>
-                        <table style="width: 100%; padding-top: 50px; padding-bottom: 50px; border-spacing: 0px;">
+                        <table style="width: 100%; padding-top: 50px; margin-bottom: 40px; border-spacing: 0px;">
                             <thead>
                                 <tr
-                                    style="text-align: center; background-color: #F8D1D1;vertical-align: top;font-size: 17px;">
+                                    style="text-align: center; background-color: #F8D1D1;vertical-align: top;font-size: 12px;">
                                     <th
-                                        style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none;font-weight: 400; padding: 5px 10px 10px 10px;">
+                                        style="width: 5%; border: 1px solid #f3a4a4; border-bottom: none;font-weight: 400; padding: 6px 8px;">
                                     </th>
                                     <ng-container *ngFor="let column of data?.table">
                                         <th *ngIf="column.fieldName !== 'description'"
-                                            [ngStyle]="{'width': column.default ? '35%' : '15%', 'text-align': 'left', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '5px 10px 10px 10px'}">
+                                            [ngStyle]="{'width': column.default ? '35%' : '15%', 'text-align': 'left', 'border': '1px solid #f3a4a4', 'border-bottom': 'none', 'border-left': 'none', 'font-weight': '400', 'padding': '6px 8px', 'color': '#000'}">
                                             {{column.label }}
                                         </th>
                                     </ng-container>
@@ -209,17 +207,17 @@
                             </thead>
 
                             <tbody>
-                                <tr style="text-align: center; font-size: 17px;"
+                                <tr class="mobile-left" style="text-align: center; font-size: 12px;"
                                     *ngFor="let product of products; let i = index">
                                     <td
-                                        style="border: 1px solid #d1d1d1; border-right: none; border-top: none; padding: 10px 10px 10px 10px;">
+                                        style="color: #2b2b2b; border-bottom: 1px solid #dfdddd !important; border-right: none; border-top: none; padding: 6px 8px;">
                                         {{ i + 1 }}.
                                     </td>
                                     <ng-container *ngFor="let details of table">
 
                                         <td class="description input-percentage"
                                             *ngIf="details.fieldName !== 'description'"
-                                            style="text-align: left; border-bottom: 1px solid #d1d1d1; padding: 10px 10px 10px 10px;">
+                                            style="color: #2b2b2b; border-bottom: 1px solid #dfdddd !important; text-align: left; border-bottom: 1px solid #f3a4a4; padding: 6px 8px;">
                                             <ng-container [ngSwitch]="true">
                                                 <ng-container *ngSwitchCase="details.type === 'DATE'">{{datePipe.transform(product[details.fieldName],'MM-dd-yyyy')}}</ng-container>
                                                 <ng-container *ngSwitchCase="details.fieldName == 'taxamount'">{{product[details.fieldName]}}%</ng-container>
@@ -242,56 +240,56 @@
                         </table>
                     </td>
                 </tr>
-                <tr> 
+                <tr class="third"> 
                     <td>
                         <table style="width: 100%; padding-bottom: 50px; border-spacing: 0px;">
                             <tbody>
                                 <tr>
 
-                                    <td style="width: 55%; vertical-align: top;">
-                                        <h4 style="font-size: 17px; font-weight: 700; color: #979393; margin: 0;">
+                                    <td class="mobile-width" style="width: 55%; vertical-align: top;">
+                                        <h4 style="font-size: 12px; font-weight: 500; color: #979393; margin: 0;">
                                             Declaration</h4>
                                         <p
-                                            style="font-size: 18px; color: #282828; font-weight: 400; line-height: 29px; margin: 10px 0; word-spacing: 2px;">
+                                            style="font-size: 12px; color: #2b2b2b; font-weight: 400; line-height: 25px; margin: 10px 80px 10px 0px; word-spacing: 2px;">
                                             We declare that this invoice shows the actual price of the goods
                                             described and that all particulars are true and correct.
                                         </p>
                                     </td>
                                     <td style="width: 40%; vertical-align: top;">
-                                        <div style="padding-bottom: 15px; float: left; width: 100%;">
+                                        <div class="mobile-width" style="float: left; width: 100%;">
                                             <span
-                                                style="font-size: 17px; font-weight: 700; color: #979393; float: left; padding-left: 10px;">Amount</span>
+                                                style="font-size: 12px; font-weight: 500; color: #979393; float: left; padding-left: 10px;">Amount</span>
 
                                             <span
-                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}
+                                                style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}
                                                 {{data?.subtotalofamount}}</span>
 
                                         </div>
-                                        <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                        <div class="mobile-width" style="padding-bottom: 10px; float: left; width: 100%;">
                                             <span *ngIf="data?.tax !== 'NONE'"
-                                                style="font-size: 17px; font-weight: 700; color: #979393; float: left; padding-left: 10px;">{{data?.tax}}</span>
+                                                style="font-size: 12px; font-weight: 700; color: #979393; float: left; padding-left: 10px;">{{data?.tax}}</span>
                                             <span *ngIf="data?.tax !== 'NONE'"
-                                                style="font-size: 17px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}
+                                                style="font-size: 12px; color: #282828; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}
                                                 {{data?.totalamountoftax}}</span>
                                         </div>
-                                        <div
+                                        <div class="mobile-width-left"
                                             style="background-color: #DC1C1C; float: left; width: 100%; padding: 10px 0px;">
                                             <span
-                                                style="font-size: 17px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total
+                                                style="font-size: 12px; font-weight: 400; color: #ffffff; float: left; padding-left: 10px;">Total
                                                 ({{data?.currency}})</span>
 
                                             <span
-                                                style="font-size: 17px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}{{
+                                                style="font-size: 12px; color: #ffffff; font-weight: 400; float: right; text-align: end; padding-right: 10px;">{{currencyData}}{{
                                                 data?.totalamount !== 0 ? data?.totalamount : data?.subtotalofamount
                                                 }}</span>
                                         </div>
                                         <div style="padding-top: 30px; float: left; width: 100%;">
                                             <p
-                                                style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px;">
+                                                style="font-size: 12px; color: #2b2b2b; font-weight: 400; line-height: 29px; margin: 5px 0; word-spacing: 2px; text-transform: capitalize;">
                                                 Total (in words) : {{totalInWords}}
                                             </p>
                                             <p
-                                                style="font-size: 15px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
+                                                style="font-size: 12px; color: #282828; font-weight: 400; line-height: 29px; margin: 0; word-spacing: 2px;">
 
                                             </p>
                                         </div>
@@ -302,54 +300,54 @@
                         </table>
                     </td>
                 </tr>
-                <tr>
+                <tr class="forth">
                     <td>
-                        <table style="width: 100%; padding-bottom: 250px; padding-top: 20px; border-spacing: 0px;">
+                        <table style="width: 100%; margin-bottom: 300px; margin-top: 40px; border-spacing: 0px;">
                             <tbody>
                                 <tr>
-                                    <td style="width: 40%; vertical-align: top;">
+                                    <td style="width: 50%; vertical-align: top;">
                                         <div style="float: left; width: 100%;">
-                                            <h4 style="font-size: 17px; color: #282828; font-weight: 400;">Bank Details
+                                            <h4 style="font-size: 12px; color: #282828; font-weight: 400; margin-bottom: 15px;">Bank Details
                                             </h4>
                                             <div style="float: left; width: 100%;">
-                                                <div style="padding-bottom: 10px; float: left; width: 100%;">
+                                                <div class="width-mobile" style="padding-bottom: 10px; float: left; width: 100%;">
                                                     <span
-                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Account
+                                                        style="font-size: 12px; font-weight: 500; color: #979393; float: left; width: 37%;">Account
                                                         Holder Name</span><span
-                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">M
+                                                        style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: left; width: 63%;">M
                                                         CODE INFOSOFT</span>
                                                 </div>
-                                                <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                <div class="width-mobile" style="float: left; width: 100%; padding-bottom: 10px;">
                                                     <span
-                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Account
+                                                        style="font-size: 12px; font-weight: 500; color: #979393; float: left; width: 37%;">Account
                                                         Number</span>
                                                     <span
-                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">004305006771</span>
+                                                        style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: left; width: 63%;">004305006771</span>
                                                 </div>
-                                                <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                <div class="width-mobile" style="float: left; width: 100%; padding-bottom: 10px;">
                                                     <span
-                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">IFSC</span>
+                                                        style="font-size: 12px; font-weight: 500; color: #979393; float: left; width: 37%;">IFSC</span>
                                                     <span
-                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">ICIC0000043</span>
+                                                        style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: left; width: 63%;">ICIC0000043</span>
                                                 </div>
-                                                <div style="float: left; width: 100%; padding-bottom: 10px;">
+                                                <div class="width-mobile" style="float: left; width: 100%; padding-bottom: 10px;">
                                                     <span
-                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">SWIFT
+                                                        style="font-size: 12px; font-weight: 500; color: #979393; float: left; width: 37%;">SWIFT
                                                         Code</span>
                                                     <span
-                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">ICICINBBCTS</span>
+                                                        style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: left; width: 63%;">ICICINBBCTS</span>
                                                 </div>
-                                                <div style="float: left; width: 100%;">
+                                                <div class="width-mobile" style="float: left; width: 100%;">
                                                     <span
-                                                        style="font-size: 17px; font-weight: 700; color: #979393; float: left; width: 50%;">Bank</span>
+                                                        style="font-size: 12px; font-weight: 500; color: #979393; float: left; width: 37%;">Bank</span>
                                                     <span
-                                                        style="font-size: 17px; color: #282828; font-weight: 400; float: left; width: 50%;">ICICI
+                                                        style="font-size: 12px; color: #2b2b2b; font-weight: 400; float: left; width: 63%;">ICICI
                                                         Bank Ltd.</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="width: 60%;">
+                                    <td style="width: 50%;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -362,8 +360,8 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 100%; text-align: center;">
-                                        <p
-                                            style="font-size: 12px; color: #282828; font-weight: 700; line-height: 29px; margin: 0; word-spacing: 2px;">
+                                        <p class="mobile-left"
+                                            style="font-size: 12px; color: #2b2b2b; font-weight: 500; line-height: 29px; margin: 0 0 5px 0; word-spacing: 2px;">
                                             This is an electronically generated document, no signature is required.
                                         </p>
                                     </td>
@@ -382,39 +380,33 @@
         <div class=" boxes">
             <div>
                 <button class="edit" (click)="updateInvoice(data)">
-                    <div><i class="fa-solid fa-pencil"></i></div>
-                    <p class="mb-0"> Edit</p>
+                    <i class="fa-solid fa-pencil"></i>
+                    Edit
                 </button>
 
                 <button class="edit" (click)="recordPayment(data)">
-                    <div><i class="fa-solid fa-money-bill-wave"></i></div>
-                    <p class="mb-0"> Record Payment</p>
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    Record Payment
                 </button>
             </div>
             <div>
 
                 <button class="edit" printSectionId="print-section" ngxPrint><i class="fa-solid fa-print"></i>
-                    <p class="mb-0">
-                        print
-                    </p>
+                    print
                 </button>
                 <button class="edit" (click)="downloadInvoice()">
                     <button [class.spinner]="loading" [disabled]="loading" class="downloadbtn"><i
                             class="fa-solid fa-download"></i></button>
-                    <p class="mb-0">
-                        Download
-                    </p>
+                    Download
                 </button>
                 <button class="edit" (click)="emailInvoice(data)">
-                    <div><i class="fa-solid fa-envelope"></i></div>
-                    <p class="mb-0">
-                        email invoice
-                    </p>
+                    <i class="fa-solid fa-envelope"></i>
+                    email invoice
                 </button>
                 <div class="edit">
                     <div class="dropdown">
                         <i class="fa-solid fa-angle-down"></i>
-                        <button class="dropbtn">more</button>
+                        <button class="dropbtn">More</button>
                         <div class="dropdown-content">
                             <a routerLink="/add-invoice">Create New Invoice</a>
                             <a (click)="emailInvoice(data)">Send Reminder By Email</a>

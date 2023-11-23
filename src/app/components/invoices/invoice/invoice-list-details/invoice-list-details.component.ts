@@ -17,6 +17,7 @@ import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 import { DeleteEvents } from 'src/app/types/delete';
 import { DeleteService } from 'src/app/services/modal/delete.service';
+import { Field } from 'src/app/types/columnType';
 
 @Component({
   selector: 'app-invoice-list-details',
@@ -37,7 +38,7 @@ export class InvoiceListDetailsComponent implements OnInit {
   public totalInWords!: string;
   public invoiceImage!: string;
   private readonly notifier!: NotifierService;
-  public table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
+  public table: Field[] | undefined;
   public inputcurrency: any;
   public currencies = CURRENCY;
   public currencyData: any;

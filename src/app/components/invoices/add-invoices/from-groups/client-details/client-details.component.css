@@ -61,12 +61,13 @@
     border-color: #e12026;
 }
 
-button.btn.btn-primary.newclients {
-    background-color: #bb1b1f !important;
-    border-color: #bb1b1f !important;
+button.btn.btn-primary.newclients, button.btn.btn-primary.newclients:focus {
+    background-color: #e31e24 !important;
+    border-color: #e31e24 !important;
     color: #fff;
     padding: 6px 20px;
     font-size: 18px;
+    box-shadow: none;
 }
 .client-edit{
     width: 30px;
@@ -74,4 +75,27 @@ button.btn.btn-primary.newclients {
     border-radius: 3px;
     margin-left: auto;
     font-size: 21px;
+}
+
+/* NEW-CSS */
+select.selector-height-35 {
+    border-color: #ff00001f;
+}
+select.selector-height-35:focus {
+    border-color: #e31e249e !important;
+    box-shadow: 0 0 0 0.25rem #e31e2452 !important;
+    outline: 0;
+}    
+
+/* NEW-CSS */
+@media (max-width:767px) {
+
+    .selector-height-35 {
+        height: 45px;
+    }
+    .company-name-bill {
+        padding: 5px 20px;
+        font-size: 18px;
+    }
+
 }

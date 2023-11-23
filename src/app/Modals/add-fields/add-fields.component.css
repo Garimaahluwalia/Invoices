@@ -9,7 +9,7 @@ input.form-control.column-name {
 }
 
 .type {
-    width: 200px;
+    width: 300px;
 }
 
 label.form-label.column-name {
@@ -43,4 +43,51 @@ select.form-control.type.form-control-sm.taxes-edit.selector-currency {
 label.form-label.column-type {
     margin: 0px 25px 10px;
     padding-left: 234px;
+}
+
+/* NEW-CSS */
+@media (min-width:320px) and (max-width:767px) {
+    label.form-label.column-name {
+        margin: 0;
+    }
+    label.form-label.column-type {
+        margin: 0;
+        padding-left: 65px;
+    }
+    input.form-control.column-name {
+        margin: 0 !important;
+        width: 120px !important;
+    }
+    select.form-control.type.form-control-sm.taxes-edit.selector-currency {
+        margin-top: 0px;
+    }
+    .type {
+        width: 120px;
+        height: 38px;
+    }
+}
+@media (min-width:320px) and (max-width:576px) {
+    button.btn.btn-primary.add-columns {
+        width: 120px;
+        margin: auto 57%;
+    }
+}
+@media (min-width:577px) and (max-width:767px) {
+    button.btn.btn-primary.add-columns {
+        width: 170px;
+        margin: auto 63%;
+    }
+}    
+@media (min-width:768px) and (max-width:991px) {
+    button.btn.btn-primary.add-columns {
+        width: 170px;
+        margin: auto 62%;
+    }
+    label.form-label.column-type {
+        margin: 0px 25px 10px;
+        padding-left: 84px;
+    }
+    .type {
+        width: 190px;
+    }
 }

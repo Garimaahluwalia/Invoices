@@ -4,6 +4,7 @@
 
 
 
+body {font-family: "DM Sans",sans-serif !important;}
 
 :root {
     --dark-bg: #030306f7;
@@ -113,7 +114,7 @@
 }
 @media only screen and (max-width:1200px) {
     .invoice-card p {
-        font-size: 22px !important;
+        font-size: 22px;
     }
 
     .invoice-card .avatar-lg {
@@ -142,11 +143,11 @@
     }
 
     .profile-inputs label {
-        width: 35% !important;
+        width: 100% !important;
     }
 
     .profile-inputs input {
-        width: 65% !important;
+        width: 100% !important;
     }
 
     .profile-data img {
@@ -167,7 +168,7 @@
 }
 
 /*----table rsponsive---*/
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:767px) {
     table {
         border: 0;
         width: 100%;
@@ -306,4 +307,44 @@
 
 .btn:focus {
     box-shadow: none;
+}
+
+/* NEW-CSS  */
+.card {
+    box-shadow: 0 3px 2px #e31e249e;
+    border-color: #ff00001f !important;
+}
+input, select, textarea {
+    border-color: #ff00001f !important;
+}
+input:focus, select:focus, textarea:focus {
+    border-color: #e31e249e !important;
+    box-shadow: 0 0 0 0.25rem #e31e2452 !important;
+    outline: 0;
+} 
+button:focus {
+    box-shadow: none !important;
+}
+::ng-deep .ngx-pagination li {
+    border: 1px solid #e31e24 !important;
+    margin: 0 !important;
+    color: #000 !important;
+    padding: 5px 10px !important;
+    transition: .4s;
+}
+::ng-deep .ngx-pagination li:hover {
+    background-color: #e31e24 !important;
+    color: #fff !important;
+} 
+::ng-deep .ngx-pagination li a {
+    padding: unset !important;
+} 
+::ng-deep .ngx-pagination li a:hover {
+    background-color: unset !important;
+} 
+::ng-deep .ngx-pagination .current {
+    color: #fff !important;
+}
+::ng-deep .ngx-pagination {
+    padding: 0;
 }

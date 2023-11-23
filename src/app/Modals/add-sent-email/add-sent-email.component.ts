@@ -8,8 +8,8 @@ import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { NotifierService } from "angular-notifier";
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
-import { MessagePreviewComponent } from '../message-preview/message-preview.component';
 import { DatePipe } from '@angular/common';
+import { MessagePreviewComponent } from '../message-preview/message-preview.component';
 
 @Component({
   selector: 'app-add-sent-email',

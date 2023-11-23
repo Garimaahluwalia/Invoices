@@ -3,11 +3,15 @@
  height: 460px;
 }
 .save-cstn-btn{
-    background-color: #bb1b1f;
-    border-color: #bb1b1f;
+    background-color: #e31e24;
+    border-color: #e31e24;
     color: #fff;
     padding: 6px 20px;
     font-size: 18px;
+}
+.save-cstn-btn:focus {
+    background-color: #e31e24 !important;
+    border-color: #e31e24;
 }
 .print-cstn-btn{
     background-color: #dedede;
@@ -29,20 +33,21 @@ button.btn.btn-info.save-cstn-btn.save-button {
     margin: 0px;
 }
 
-a.btn.btn-primary.print-cstn-btn {
+a.btn.btn-primary.print-cstn-btn, button.btn.btn-info.save-cstn-btn:focus {
     background-color: #bb1b1f;
     border-color: #bb1b1f;
     color: #fff;
     padding: 6px 20px;
     font-size: 18px;
+    box-shadow: none;
 }
 
 button.btn.btn-info.save-cstn-btn.save-button {
     color: #fff;
     padding: 6px 20px;
     font-size: 18px !important;
-    background-color: #bb1b1f !important;
-    border-color: #bb1b1f !important;
+    background-color: #e31e24 !important;
+    border-color: #e31e24 !important;
     font-weight: 500;
 }
 
@@ -52,4 +57,17 @@ a.btn.btn-primary.print-cstn-btn.downloadInvoice {
     color: #fff;
     padding: 6px 20px;
     font-size: 18px;
+}
+
+/* NEW-CSS */
+@media (max-width:767px) {
+    .outer-layout{
+        height: unset;
+    }
+    button.btn.btn-info.save-cstn-btn.save-button {
+        font-size: 16px !important;
+    }
+    .save-cstn-btn {
+        font-size: 16px;
+    }
 }

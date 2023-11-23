@@ -5,33 +5,36 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <div class="row mb-4">
+                        <div class="mb-4">
                             <div class="row">
                                 <!-- Left Side: Search, Date Range, and Status (Larger column) -->
-                                <div class="col-md-8">
-                                    <div class="input-group d-flex justify-content-start">
+                                <div class="col-lg-9">
+                                    <div class="input-group d-lg-flex d-md-block">
 
                                         <!-- Search Control -->
-                                        <div class="d-flex align-items-center mr-2">
-                                            <div class="form-outline">
+                                        <div class="d-lg-flex align-items-center mr-2 mb-0 mb-md-2">
+                                            <div class="form-outline form-search position-relative">
                                                 <input type="search" id="form1" class="form-control invoice-search"
                                                     [(ngModel)]="searchQuery" (ngModelChange)="handleSearch()"
                                                     (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
-                                                    placeholder="Search for Result" (keyup)="handleSearch()" />
+                                                    placeholder="Search" (keyup)="handleSearch()" />
+                                                <div class="search-icon">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Date Range Control -->
-                                        <div class="d-flex align-items-center mr-2">
-                                            <label class="date-range mr-1">Select Date Range</label>
+                                        <div class="d-lg-flex align-items-center mr-2">
+                                            <label class="date-range mr-1 mb-0">Select Date Range</label>
                                             <input type="text" name="daterange" style="cursor: pointer;"
                                                 (change)="dateRangePicker(startDate , endDate)" class="datepicker"
                                                 [value]="defaultDateRange" />
                                         </div>
 
                                         <!-- Status Control -->
-                                        <div class="d-flex align-items-center">
-                                            <label class="mb-0 mr-1">Status</label>
+                                        <div class="d-lg-flex align-items-center">
+                                            <label class="head-status mb-0 mr-1 mb-0">Status</label>
                                             <div class="custom-dropdown" (click)="toggleDropdowns()">
                                                 {{getSelectedItemsText()}}
                                                 <div *ngIf="isDropdownOpen" class="dropdown-items">
@@ -48,7 +51,7 @@
                                 </div>
 
                                 <!-- Right Side: Buttons (Smaller column) -->
-                                <div class="col-md-4 text-right">
+                                <div class="col-lg-3 text-right mt-lg-0 mt-3">
                                     <ng-container *ngIf="this.checkedCount !== 1 ">
                                         <button type="button" class="btn btn-info save-cstn-btn bulk-invoice mr-2"
                                             *ngIf="isButtonEnabled" (click)="bulkdelete()">
@@ -63,7 +66,7 @@
                                         </button>
                                     </ng-container>
 
-                                    <a (click)="quotations()" class="btn btn-primary-outline ">
+                                    <a (click)="quotations()" class="btn btn-primary-outline add-invoice-btn">
                                         <i class="las la-plus me-1"></i>
                                         Add Quotations
                                     </a>
@@ -71,7 +74,7 @@
                             </div>
 
 
-                            <div class="container">
+                            <div class="">
                                 <div class="row">
                                     <cdk-accordion class="example-accordion">
                                         <cdk-accordion-item #accordionItem="cdkAccordionItem"
@@ -91,38 +94,42 @@
                                                 [attr.id]="'accordion-body-' "
                                                 [attr.aria-labelledby]="'accordion-header-'">
                                                 <div class="invoice_summ">
-                                                    <div class="inc-icon">
-                                                        <div class="inc-icon-img"><svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 18 19.857">
-                                                                <path id="invoices" fill="#2e9eff"
-                                                                    d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
-                                                                    transform="translate(-383 -381)"></path>
-                                                            </svg>
+                                                    <div class="invoice-sum-main d-flex">
+                                                        <div class="inc-icon mr-2">
+                                                            <div class="inc-icon-img"><svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 18 19.857">
+                                                                    <path id="invoices" fill="#2e9eff"
+                                                                        d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
+                                                                        transform="translate(-383 -381)"></path>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="invc_detail pt-1">
+                                                            <div class="d-flex">
+                                                                <h5 class="pr-1">Total Quotations</h5>
+                                                            </div>
+                                                            <p>{{quotationSummary.quotationCount}}</p>
                                                         </div>
                                                     </div>
-                                                    <div class="invc_detail pt-1">
-                                                        <div class="d-flex">
-                                                            <h5 class="pr-1">Total Quotations</h5>
+                                                    <div class="invoice-sum-main d-flex">
+                                                        <div class="inc-icon mr-2">
+                                                            <div class="inc-icon-img"><svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 18 19.857">
+                                                                    <path id="invoices" fill="#2e9eff"
+                                                                        d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
+                                                                        transform="translate(-383 -381)"></path>
+                                                                </svg>
+                                                            </div>
                                                         </div>
-                                                        <p>{{quotationSummary.quotationCount}}</p>
-                                                    </div>
-                                                    <div class="inc-icon">
-                                                        <div class="inc-icon-img"><svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 18 19.857">
-                                                                <path id="invoices" fill="#2e9eff"
-                                                                    d="M399 381h-14a2.018 2.018 0 0 0-2 2.036V400l1.311.729a1 1 0 0 0 .973 0l.821-.458a1 1 0 0 1 .973 0l.827.46a1 1 0 0 0 .972 0l.825-.459a1 1 0 0 1 .972 0l.827.46a1 1 0 0 0 .971 0l.83-.46a1 1 0 0 1 .971 0l.828.46a1 1 0 0 0 .971 0l.832-.462a1 1 0 0 1 .97 0l.836.463a1 1 0 0 0 .969 0L401 400v-16.964a2.018 2.018 0 0 0-2-2.036zm-6.189 15.989v1.262h-1.332v-1.239a2.775 2.775 0 0 1-2.456-2.421l1.6-.359a1.37 1.37 0 0 0 1.517 1.274c.579 0 1-.277 1-.73 0-.335-.255-.555-.718-.66l-1.031-.243c-1.3-.312-2.1-1.1-2.1-2.2a2.459 2.459 0 0 1 2.189-2.4v-1.251h1.332v1.286a2.517 2.517 0 0 1 2.015 1.981l-1.61.428a1.074 1.074 0 0 0-1.181-.961c-.649 0-.973.382-.973.753 0 .312.231.555.683.66l1.008.22c1.552.347 2.165 1.251 2.165 2.293a2.384 2.384 0 0 1-2.108 2.307zM397 386h-10a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2z"
-                                                                    transform="translate(-383 -381)"></path>
-                                                            </svg>
+                                                        <div class="invc_detail pt-1">
+                                                            <div class="d-flex">
+                                                                <h5 class="pr-1">Total Drafts
+                                                                </h5>
+                                                            </div>
+                                                            <p>{{quotationSummary.draftquotationCount}}</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="invc_detail pt-1">
-                                                        <div class="d-flex">
-                                                            <h5 class="pr-1">Total Drafts
-                                                            </h5>
-                                                        </div>
-                                                        <p>{{quotationSummary.draftquotationCount}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,7 +140,7 @@
 
                             </div>
                             <div class="table-responsive table-card">
-                                <table class="table table-hover table-nowrap invoice-table align-middle mb-0">
+                                <table class="table table-hover table-nowrap invoice-table align-middle mb-0 border-0">
                                     <thead>
                                         <tr class="text-muted text-uppercase">
                                             <th>
@@ -241,7 +248,7 @@
                                                         </li>
 
                                                         <li>
-                                                            <div class="list-menu dropup">
+                                                            <div class="list-menu dropup drop-items">
                                                                 <button type="button" id="dropdownMenuLink1"
                                                                     data-bs-toggle="dropdown" aria-expanded="false"
                                                                     class="btn btn-soft-info btn-icon fs-14"><i

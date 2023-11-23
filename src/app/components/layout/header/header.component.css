@@ -1,3 +1,6 @@
+.navbar-header.top-header, nav.navbar.mob-menus {
+    background-color: #030306f7;
+}
 .mob-logo, .mob-menus button, .bar-icon{
     display: none;
 }
@@ -5,4 +8,18 @@
 padding: 15px;
 font-weight: 500;
     color: #000;
+}
+.hamburger-icon span {
+    background-color: #fff;
+}
+
+@media (max-width:767px) {
+
+    nav.navbar.mob-menus ul li a {
+        color: #fff;
+    }
+    .navbar-header.top-header button.btn.bar-icon i {
+        color: #fff;
+    }
+
 }

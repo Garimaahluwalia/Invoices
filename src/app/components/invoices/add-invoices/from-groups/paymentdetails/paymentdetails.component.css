@@ -17,7 +17,7 @@
     border-top: 1px dashed #c9c6c6;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
 }
 .total-amount span:first-child{
     font-size: 28px;
@@ -59,4 +59,24 @@ span.bank {
 }
 .amount-words h5{
     font-size: 18px;
+}
+
+@media (max-width:767px) {
+    .total-amount span:nth-child(2) {
+        font-size: 35px;
+    }
+    .bank-background-edit {
+        padding: 16px;
+    }
+    .bank-background-edit span.bank {
+        text-align: left;
+        padding-left: 0;
+        display: block;
+    }
+}
+
+/* NEW-CSS */
+.bank-background-edit {
+    box-shadow: 0 3px 2px #e31e249e;
+    border-color: #ff00001f !important;
 }

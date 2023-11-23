@@ -13,6 +13,7 @@ import { DeleteService } from 'src/app/services/modal/delete.service';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { QuotationsService } from 'src/app/services/quotations/quotations.service';
+import { Field } from 'src/app/types/columnType';
 import { CURRENCY } from 'src/app/types/currency';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
 import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
@@ -36,7 +37,7 @@ export class QuotationListDetailsComponent {
   public totalInWords!: string;
   public invoiceImage!: string;
   private readonly notifier!: NotifierService;
-  public table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
+  public table: Field[] | undefined;
   public inputcurrency: any;
   public currencies = CURRENCY;
   public currencyData: any;

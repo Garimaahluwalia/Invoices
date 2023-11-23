@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="from" class="form-label mr-3 flex-shrink-0">From</label>
+                            <label for="from" class="form-label label-title mr-3 flex-shrink-0">From</label>
                             <input type="text" id="from" class="form-control flex-grow-1" name="from" [(ngModel)]="from"
                                 ngModel>
                         </div>
@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="client-name" class="form-label mr-3 flex-shrink-0">Client's name</label>
+                            <label for="client-name" class="form-label label-title mr-3 flex-shrink-0">Client's name</label>
                             <input type="text" id="client-name" class="form-control flex-grow-1"
                                 [(ngModel)]="clientName" name="clientName" ngModel>
                         </div>
@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="client-email" class="form-label mr-3 flex-shrink-0">Client's Email</label>
+                            <label for="client-email" class="form-label label-title mr-3 flex-shrink-0">Client's Email</label>
                             <input type="email" id="client-email" class="form-control flex-grow-1"
                                 [(ngModel)]="clientEmail" name="clientEmail" ngModel>
                         </div>
@@ -47,7 +47,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3 d-flex">
-                            <label for="cc" class="form-label mr-3 flex-shrink-0">CC</label>
+                            <label for="cc" class="form-label label-title mr-3 flex-shrink-0">CC</label>
                             <input type="email" id="cc" class="form-control flex-grow-1" [(ngModel)]="cc" name="cc"
                                 ngModel>
                         </div>
@@ -66,8 +66,8 @@
 
                         <div class="mb-3">
                             <label for="message" class="form-label">Message</label>
-                            <span class="message-preview" (click)="openMessagePreview()" style="cursor: pointer;">see
-                                message preview</span>
+                            <span class="message-preview" (click)="openMessagePreview()" style="cursor: pointer;">See
+                                Message Preview</span>
                             <textarea id="message" class="form-control" name="message" rows="10"
                                 placeholder="Additional message" [(ngModel)]="body" name="message"
                                 ngModel></textarea>

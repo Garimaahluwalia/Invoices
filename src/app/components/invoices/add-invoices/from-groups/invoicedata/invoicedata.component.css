@@ -1,9 +1,14 @@
-input[type=text]{
+input[type=text], input#date-field {
     max-width: 200px;
     background-color: transparent !important;
-    border-bottom: 1px solid #DFE5ED !important;
-    border-radius: 0;
+    border: 1px solid #ff00001f  !important;
+    border-radius: 5px;
 }
+input[type=text]:focus, input#date-field:focus {
+    border-color: #e31e249e !important;
+    box-shadow: 0 0 0 0.25rem #e31e2452 !important;
+    outline: 0;
+}    
 label{
     font-size: 18px;
     margin-bottom: 0;
@@ -23,4 +28,12 @@ input#date-field {
 }
 .alreadyExist {
     margin-left: 53%;
+}
+
+/* NEW-CSS */
+@media (max-width:767px) {
+    .company-logo {
+        min-width: unset;
+        margin-right: 0px;
+    }
 }

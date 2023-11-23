@@ -5,10 +5,10 @@
     </div>
     <div class="row profile-data">
       <div class="col-lg-4">
-        <div class="card mb-4">
+        <div class="card profile-cards mb-4">
           <div class="card-body text-center">
             <img [src]="profileImage" alt="profilePhoto" class="rounded-circle img-fluid"
-              style="width: 150px; height: 150px;">
+              style="width: 120px; height: 120px;">
             <span class="p-upload" style="cursor: pointer;"> <i class="fa fa-upload"></i> <input type="file"
                 (change)="onFileSelected($event)" /></span>
             <h5 class="my-3">{{userProfile.name}}</h5>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="col-lg-8">
-        <div class="card mb-4">
+        <div class="card profile-cards mb-4">
           <div class="card-body profile-inputs">
             <div class="form-input">
               <label>Name</label>
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="card mb-4">
+        <div class="card profile-cards mb-4">
           <div class="card-body profile-inputs">
             <div class="">
               <h3 class="border-bottom">Account Details</h3>

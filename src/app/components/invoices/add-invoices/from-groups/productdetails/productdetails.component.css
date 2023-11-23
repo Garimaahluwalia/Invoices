@@ -13,7 +13,7 @@
 }
 
 .items-chart {
-    background-color: #e12026;
+    background-color: #cc1b20;
 }
 
 
@@ -46,7 +46,7 @@ table thead .table-active {
 }
 
 .invoice-table tbody tr td input {
-    border-bottom: 1px solid #b6b6b6 !important;
+    border-bottom: 1px solid #ff00001f !important;
     border-radius: 0;
     padding-left: 0;
 }
@@ -164,4 +164,77 @@ button.btn.btn-primary {
 .percentage {
     position: absolute;
     left: 20px
+}
+
+/* NEW-CSS */
+.pop-btn button {
+    color: #fff;
+    background-color: #e31e24 !important;
+    padding: 8px 10px;
+}
+.pop-btn button:focus {
+    border-color: #e31e249e !important;
+    box-shadow: none !important;
+    color: #fff;
+}
+.selector-currency {
+    padding: 10px 10px 10px 10px;
+}
+
+@media (min-width:320px) and (max-width:767px) {
+    .selector-currency {
+        padding: 6px 12px;
+        height: unset;
+    }
+    .pop-btn button {
+        font-size: 16px !important;
+        margin-top: 5px;
+        padding: 6px 12px !important;
+    }
+    table thead {
+        height: 40px !important;
+        display: block;
+    }
+    .items-chart tr th {
+        font-size: 14px;
+        padding: 10px 15px;
+        line-height: 42px !important;
+    }
+    .invoice-table tbody tr td input {
+        padding-left: 6px;
+    }
+    .input-icon {
+        position: absolute;
+        top: -11px;
+        left: -4px;
+    }
+    /* .invoice-table tbody tr td.text-start {
+        margin-top: 4px;
+    } */
+    .add-new-line {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+    td.text-start {
+        height: 100%;
+    }
+    .table tbody tr {
+        border-width: 0px !important;
+        display: flex;
+    }
+    .table tbody tr {
+        display: flex;
+        height: 100%;
+    }
+    .table tbody th, .table tbody td {
+        width: 190px !important;
+    }
+    .table tbody button.btn.cstn-description:focus {
+        box-shadow: none !important;
+    }
+}
+@media (min-width:768px) and (max-width:991px) {
+    .currency-option select {
+        width: 220px !important;
+    }
 }

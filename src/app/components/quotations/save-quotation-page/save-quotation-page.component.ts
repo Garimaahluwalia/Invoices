@@ -17,6 +17,7 @@ import { DeleteEvents } from 'src/app/types/delete';
 import { ModalEvents, ROUTER_ACTIONS } from 'src/app/types/modal';
 import { INVOICESTATUS } from 'src/app/types/invoiceStatus';
 import { InvoiceTypes } from 'src/app/types/invoice-types';
+import { Field } from 'src/app/types/columnType';
 
 @Component({
   selector: 'app-save-quotation-page',
@@ -37,7 +38,7 @@ export class SaveQuotationPageComponent {
   public totalInWords!: string;
   public invoiceImage!: string;
   private readonly notifier!: NotifierService;
-  public table: import("d:/INVOICE/invoice/my-app/src/app/types/columnType").Field[] | undefined;
+  public table: Field[] | undefined;
   public inputcurrency: any;
   public currencies = CURRENCY;
   public currencyData: any;
